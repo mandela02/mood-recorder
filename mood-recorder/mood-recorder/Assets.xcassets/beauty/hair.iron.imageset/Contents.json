@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "hair.ỉon.png",
+      "filename" : "hair.iron.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "hair.ỉon@2x.png",
+      "filename" : "hair.iron@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "hair.ỉon@3x.png",
+      "filename" : "hair.iron@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

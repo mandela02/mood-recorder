@@ -56,12 +56,11 @@
 		8424A92D26B5BE0B00BE4454 /* mood-recorder */ = {
 			isa = PBXGroup;
 			children = (
-				8424A92E26B5BE0B00BE4454 /* mood_recorderApp.swift */,
-				8424A93026B5BE0B00BE4454 /* ContentView.swift */,
+				84CBB35826B6FDF800A8E377 /* Application */,
+				84CBB35726B6FDF400A8E377 /* Domain */,
+				84CBB35626B6FDD000A8E377 /* Platform */,
 				8424A93226B5BE0F00BE4454 /* Assets.xcassets */,
-				8424A93726B5BE0F00BE4454 /* Persistence.swift */,
 				8424A93C26B5BE0F00BE4454 /* Info.plist */,
-				8424A93926B5BE0F00BE4454 /* mood_recorder.xcdatamodeld */,
 				8424A93426B5BE0F00BE4454 /* Preview Content */,
 			);
 			path = "mood-recorder";
@@ -73,6 +72,63 @@
 				8424A93526B5BE0F00BE4454 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		84CBB35626B6FDD000A8E377 /* Platform */ = {
+			isa = PBXGroup;
+			children = (
+				84CBB35926B6FE0700A8E377 /* Database */,
+			);
+			path = Platform;
+			sourceTree = "<group>";
+		};
+		84CBB35726B6FDF400A8E377 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		84CBB35826B6FDF800A8E377 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				84CBB35C26B6FE3E00A8E377 /* New Group */,
+				84CBB35B26B6FE3300A8E377 /* Scene */,
+				84CBB35A26B6FE1400A8E377 /* App */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		84CBB35926B6FE0700A8E377 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				8424A93726B5BE0F00BE4454 /* Persistence.swift */,
+				8424A93926B5BE0F00BE4454 /* mood_recorder.xcdatamodeld */,
+			);
+			path = Database;
+			sourceTree = "<group>";
+		};
+		84CBB35A26B6FE1400A8E377 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				8424A92E26B5BE0B00BE4454 /* mood_recorderApp.swift */,
+				8424A93026B5BE0B00BE4454 /* ContentView.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		84CBB35B26B6FE3300A8E377 /* Scene */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Scene;
+			sourceTree = "<group>";
+		};
+		84CBB35C26B6FE3E00A8E377 /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "New Group";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
