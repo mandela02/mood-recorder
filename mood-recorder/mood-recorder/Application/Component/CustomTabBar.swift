@@ -14,11 +14,12 @@ struct TabBarItem {
 }
 
 struct CustomTabBar: View {
+    @Binding var selectedIndex: Int
+    
     let backgroundColor: Color
     let selectedItemColor: Color
     let unselectedItemColor: Color
-
-    @State var selectedIndex = 0
+    let onBigButtonTapped: () -> ()
     
     func configuredTabBarItem(item: TabBarItem) -> some View {
         Button(action: {
@@ -35,14 +36,14 @@ struct CustomTabBar: View {
             return AnyView(VStack(alignment: .center,
                                   spacing: 0, content: {
                                     configuredImage(image: item.image)
-                                        .foregroundColor(.white)
+                                        .foregroundColor(selectedItemColor)
                                     Text(item.title)
                                         .font(.system(size: 10))
-                                        .foregroundColor(.white)
+                                        .foregroundColor(selectedItemColor)
                                   }))
         } else {
             return AnyView(configuredImage(image: item.image)
-                            .foregroundColor(.black))
+                            .foregroundColor(unselectedItemColor))
         }
     }
     
@@ -80,7 +81,7 @@ struct CustomTabBar: View {
     var body: some View {
         ZStack(content: {
             tabBarContent
-            Button(action: {}, label: {
+            Button(action: onBigButtonTapped, label: {
                 AppImage.neutral.image
                     .resizable()
                     .renderingMode(.original)
@@ -154,8 +155,10 @@ private extension Image {
 
 struct CustomTabBar_Previews: PreviewProvider {
     static var previews: some View {
-        CustomTabBar(backgroundColor: .green,
+        CustomTabBar(selectedIndex: .constant(0),
+                     backgroundColor: .green,
                      selectedItemColor: .white,
-                     unselectedItemColor: .black)
+                     unselectedItemColor: .black,
+                     onBigButtonTapped: {})
     }
 }
