@@ -13,6 +13,8 @@
 		8424A93626B5BE0F00BE4454 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8424A93526B5BE0F00BE4454 /* Preview Assets.xcassets */; };
 		8424A93826B5BE0F00BE4454 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8424A93726B5BE0F00BE4454 /* Persistence.swift */; };
 		8424A93B26B5BE0F00BE4454 /* mood_recorder.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8424A93926B5BE0F00BE4454 /* mood_recorder.xcdatamodeld */; };
+		84CBB35F26B703BF00A8E377 /* CustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CBB35E26B703BF00A8E377 /* CustomTabBar.swift */; };
+		84CBB36126B7102700A8E377 /* AppImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CBB36026B7102700A8E377 /* AppImage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,8 @@
 		8424A93726B5BE0F00BE4454 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		8424A93A26B5BE0F00BE4454 /* mood_recorder.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = mood_recorder.xcdatamodel; sourceTree = "<group>"; };
 		8424A93C26B5BE0F00BE4454 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		84CBB35E26B703BF00A8E377 /* CustomTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBar.swift; sourceTree = "<group>"; };
+		84CBB36026B7102700A8E377 /* AppImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppImage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +96,7 @@
 		84CBB35826B6FDF800A8E377 /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				84CBB35D26B703AB00A8E377 /* Component */,
 				84CBB35C26B6FE3E00A8E377 /* New Group */,
 				84CBB35B26B6FE3300A8E377 /* Scene */,
 				84CBB35A26B6FE1400A8E377 /* App */,
@@ -129,6 +134,15 @@
 			children = (
 			);
 			path = "New Group";
+			sourceTree = "<group>";
+		};
+		84CBB35D26B703AB00A8E377 /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				84CBB35E26B703BF00A8E377 /* CustomTabBar.swift */,
+				84CBB36026B7102700A8E377 /* AppImage.swift */,
+			);
+			path = Component;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -201,9 +215,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				8424A93826B5BE0F00BE4454 /* Persistence.swift in Sources */,
+				84CBB35F26B703BF00A8E377 /* CustomTabBar.swift in Sources */,
 				8424A93126B5BE0B00BE4454 /* ContentView.swift in Sources */,
 				8424A93B26B5BE0F00BE4454 /* mood_recorder.xcdatamodeld in Sources */,
 				8424A92F26B5BE0B00BE4454 /* mood_recorderApp.swift in Sources */,
+				84CBB36126B7102700A8E377 /* AppImage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
