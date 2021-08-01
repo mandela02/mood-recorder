@@ -82,29 +82,16 @@ struct CustomTabBar: View {
         ZStack(content: {
             tabBarContent
             Button(action: onBigButtonTapped, label: {
-                AppImage.neutral.image
-                    .resizable()
-                    .renderingMode(.original)
-                    .aspectRatio(contentMode: .fit)
-                    .padding(10)
+                RoundImageView(image: AppImage.neutral.image,
+                               backgroundColor: backgroundColor)
                     .frame(width: 70, height: 70, alignment: .center)
-                    .background(backgroundColor)
-                    .clipShape(Circle())
             })
-            .buttonStyle(BigButtonStyle())
+            .buttonStyle(ResizeAnimationButtonStyle())
             .offset(y: -45)
         })
         
     }
 }
-
-private struct BigButtonStyle: ButtonStyle {
-    func makeBody(configuration: Self.Configuration) -> some View {
-        configuration.label
-            .scaleEffect(configuration.isPressed ? 0.8 : 1.0)
-    }
-}
-
 
 private struct CurveBackgroundShape: Shape {
     func path(in rect: CGRect) -> Path {

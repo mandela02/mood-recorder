@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum AppImage {
+enum AppImage: String, CaseIterable {
     case blissful
     case happy
     case neutral

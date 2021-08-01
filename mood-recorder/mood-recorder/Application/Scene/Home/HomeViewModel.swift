@@ -12,7 +12,7 @@ class HomeViewModel: ObservableObject {
     @Published var isEmotionDialogShowing = false
     
     func onBigButtonTapped() {
-        withAnimation(.spring()) {
+        withAnimation(Animation.spring().speed(1.5)) {
             isEmotionDialogShowing.toggle()
         }
     }

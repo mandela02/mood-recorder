@@ -32,18 +32,33 @@ struct HomeView: View {
                 })
     }
     
+    @ViewBuilder
+    var emotionListDialog: some View {
+        if viewModel.isEmotionDialogShowing {
+            TalkBubble(backgroundColor: .white,
+                       buttonBackgroundColor: .green,
+                       textColor: .black,
+                       onButtonTap: { _ in })
+        } else {
+            EmptyView()
+        }
+    }
+    
     var body: some View {
         ZStack(alignment: .bottom) {
             tabView
                 .ignoresSafeArea()
             tintForeGroundColor
                 .ignoresSafeArea()
-            CustomTabBar(
-                selectedIndex: $viewModel.seletedTabBarIndex,
-                backgroundColor: .white,
-                selectedItemColor: .green,
-                unselectedItemColor: .gray,
-                onBigButtonTapped: viewModel.onBigButtonTapped)
+            VStack(spacing: 20) {
+                emotionListDialog
+                CustomTabBar(
+                    selectedIndex: $viewModel.seletedTabBarIndex,
+                    backgroundColor: .white,
+                    selectedItemColor: .green,
+                    unselectedItemColor: .gray,
+                    onBigButtonTapped: viewModel.onBigButtonTapped)
+            }
         }
     }
 }

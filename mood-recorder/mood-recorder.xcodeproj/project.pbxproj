@@ -17,6 +17,9 @@
 		84CBB36126B7102700A8E377 /* AppImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CBB36026B7102700A8E377 /* AppImage.swift */; };
 		84CBB36426B7154100A8E377 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CBB36326B7154100A8E377 /* HomeView.swift */; };
 		84CBB36626B7164E00A8E377 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CBB36526B7164E00A8E377 /* HomeViewModel.swift */; };
+		84CBB36826B71A2800A8E377 /* TalkBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CBB36726B71A2800A8E377 /* TalkBubble.swift */; };
+		84CBB36A26B71E7500A8E377 /* ResizeAnimationButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CBB36926B71E7500A8E377 /* ResizeAnimationButtonStyle.swift */; };
+		84CBB36C26B71EE600A8E377 /* RoundImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CBB36B26B71EE600A8E377 /* RoundImageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +35,9 @@
 		84CBB36026B7102700A8E377 /* AppImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppImage.swift; sourceTree = "<group>"; };
 		84CBB36326B7154100A8E377 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		84CBB36526B7164E00A8E377 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		84CBB36726B71A2800A8E377 /* TalkBubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkBubble.swift; sourceTree = "<group>"; };
+		84CBB36926B71E7500A8E377 /* ResizeAnimationButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResizeAnimationButtonStyle.swift; sourceTree = "<group>"; };
+		84CBB36B26B71EE600A8E377 /* RoundImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundImageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +144,9 @@
 			children = (
 				84CBB35E26B703BF00A8E377 /* CustomTabBar.swift */,
 				84CBB36026B7102700A8E377 /* AppImage.swift */,
+				84CBB36726B71A2800A8E377 /* TalkBubble.swift */,
+				84CBB36926B71E7500A8E377 /* ResizeAnimationButtonStyle.swift */,
+				84CBB36B26B71EE600A8E377 /* RoundImageView.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -222,12 +231,15 @@
 			files = (
 				8424A93826B5BE0F00BE4454 /* Persistence.swift in Sources */,
 				84CBB35F26B703BF00A8E377 /* CustomTabBar.swift in Sources */,
+				84CBB36C26B71EE600A8E377 /* RoundImageView.swift in Sources */,
 				8424A93126B5BE0B00BE4454 /* ContentView.swift in Sources */,
 				84CBB36626B7164E00A8E377 /* HomeViewModel.swift in Sources */,
+				84CBB36A26B71E7500A8E377 /* ResizeAnimationButtonStyle.swift in Sources */,
 				84CBB36426B7154100A8E377 /* HomeView.swift in Sources */,
 				8424A93B26B5BE0F00BE4454 /* mood_recorder.xcdatamodeld in Sources */,
 				8424A92F26B5BE0B00BE4454 /* mood_recorderApp.swift in Sources */,
 				84CBB36126B7102700A8E377 /* AppImage.swift in Sources */,
+				84CBB36826B71A2800A8E377 /* TalkBubble.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
