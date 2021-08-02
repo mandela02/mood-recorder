@@ -82,7 +82,7 @@ struct CustomTabBar: View {
         ZStack(content: {
             tabBarContent
             Button(action: onBigButtonTapped, label: {
-                RoundImageView(image: AppImage.neutral.image,
+                RoundImageView(image: CoreEmotion.neutral.image,
                                backgroundColor: backgroundColor)
                     .frame(width: 70, height: 70, alignment: .center)
             })

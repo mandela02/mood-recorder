@@ -11,7 +11,7 @@ struct TalkBubble: View {
     var backgroundColor: Color
     var buttonBackgroundColor: Color
     var textColor: Color
-    var onButtonTap: (AppImage) -> Void
+    var onButtonTap: (CoreEmotion) -> Void
     
     var body: some View {
         VStack(spacing: 0) {
@@ -23,9 +23,11 @@ struct TalkBubble: View {
                     HStack(alignment: .center,
                            spacing: 10,
                            content: {
-                            ForEach(AppImage.allCases, id: \.self) { appImage in
-                                Button(action: {}, label: {
-                                    RoundImageView(image: appImage.image,
+                            ForEach(CoreEmotion.allCases, id: \.self) { emotion in
+                                Button(action: {
+                                    onButtonTap(emotion)
+                                }, label: {
+                                    RoundImageView(image: emotion.image,
                                                    backgroundColor: buttonBackgroundColor)
                                 })
                                 .buttonStyle(ResizeAnimationButtonStyle())
@@ -51,7 +53,7 @@ private struct Triangle: Shape {
         path.move(to: CGPoint(x: rect.minX, y: rect.minY))
         path.addLine(to: CGPoint(x: rect.maxX, y: rect.minY))
         path.addLine(to: CGPoint(x: rect.midX, y: rect.maxY))
-
+        
         return path
     }
 }

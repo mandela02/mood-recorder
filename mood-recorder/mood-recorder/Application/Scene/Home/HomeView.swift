@@ -14,8 +14,9 @@ struct HomeView: View {
         UITabBar.appearance().isHidden = true
     }
 
-    var tintForeGroundColor: Color {
-        viewModel.isEmotionDialogShowing ? Color.black.opacity(0.5) : .clear
+    var tintForeGroundColor: some View {
+        (viewModel.isEmotionDialogShowing ? Color.black.opacity(0.5) : .clear)
+            .onTapGesture(perform: viewModel.onBigButtonTapped)
     }
         
     var tabView: some View {
@@ -38,7 +39,7 @@ struct HomeView: View {
             TalkBubble(backgroundColor: .white,
                        buttonBackgroundColor: .green,
                        textColor: .black,
-                       onButtonTap: { _ in })
+                       onButtonTap: viewModel.onEmotionSelected)
         } else {
             EmptyView()
         }

@@ -25,7 +25,7 @@ struct RoundImageView: View {
 
 struct RoundImageView_Previews: PreviewProvider {
     static var previews: some View {
-        RoundImageView(image: AppImage.blissful.image,
+        RoundImageView(image: CoreEmotion.blissful.image,
                        backgroundColor: .pink)
     }
 }

@@ -16,4 +16,8 @@ class HomeViewModel: ObservableObject {
             isEmotionDialogShowing.toggle()
         }
     }
+    
+    func onEmotionSelected(emotion: CoreEmotion) {
+        onBigButtonTapped()
+    }
 }

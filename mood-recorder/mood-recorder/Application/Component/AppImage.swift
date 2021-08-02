@@ -7,29 +7,10 @@
 
 import SwiftUI
 
-enum AppImage: String, CaseIterable {
-    case blissful
-    case happy
-    case neutral
-    case sad
-    case terrible
-    
-    private var imageName: String {
-        switch self {
-        case .blissful:
-            return "laughing"
-        case .happy:
-            return "happy"
-        case .neutral:
-            return "thinking"
-        case .sad:
-            return "sad"
-        case .terrible:
-            return "crying"
-        }
-    }
-    
-    var image: Image {
-        Image(imageName)
-    }
+class AppImage {
+    static let laughing = "laughing"
+    static let happy = "happy"
+    static let thinking = "thinking"
+    static let sad = "sad"
+    static let crying = "crying"
 }
