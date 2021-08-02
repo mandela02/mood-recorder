@@ -13,6 +13,14 @@
 		8424A93626B5BE0F00BE4454 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8424A93526B5BE0F00BE4454 /* Preview Assets.xcassets */; };
 		8424A93826B5BE0F00BE4454 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8424A93726B5BE0F00BE4454 /* Persistence.swift */; };
 		8424A93B26B5BE0F00BE4454 /* mood_recorder.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8424A93926B5BE0F00BE4454 /* mood_recorder.xcdatamodeld */; };
+		84CBB35F26B703BF00A8E377 /* CustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CBB35E26B703BF00A8E377 /* CustomTabBar.swift */; };
+		84CBB36126B7102700A8E377 /* AppImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CBB36026B7102700A8E377 /* AppImage.swift */; };
+		84CBB36426B7154100A8E377 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CBB36326B7154100A8E377 /* HomeView.swift */; };
+		84CBB36626B7164E00A8E377 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CBB36526B7164E00A8E377 /* HomeViewModel.swift */; };
+		84CBB36826B71A2800A8E377 /* TalkBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CBB36726B71A2800A8E377 /* TalkBubble.swift */; };
+		84CBB36A26B71E7500A8E377 /* ResizeAnimationButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CBB36926B71E7500A8E377 /* ResizeAnimationButtonStyle.swift */; };
+		84CBB36C26B71EE600A8E377 /* RoundImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CBB36B26B71EE600A8E377 /* RoundImageView.swift */; };
+		84EF6B7226B7A4BA00C0551F /* CoreEmotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EF6B7126B7A4BA00C0551F /* CoreEmotion.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +32,14 @@
 		8424A93726B5BE0F00BE4454 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		8424A93A26B5BE0F00BE4454 /* mood_recorder.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = mood_recorder.xcdatamodel; sourceTree = "<group>"; };
 		8424A93C26B5BE0F00BE4454 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		84CBB35E26B703BF00A8E377 /* CustomTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBar.swift; sourceTree = "<group>"; };
+		84CBB36026B7102700A8E377 /* AppImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppImage.swift; sourceTree = "<group>"; };
+		84CBB36326B7154100A8E377 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		84CBB36526B7164E00A8E377 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		84CBB36726B71A2800A8E377 /* TalkBubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkBubble.swift; sourceTree = "<group>"; };
+		84CBB36926B71E7500A8E377 /* ResizeAnimationButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResizeAnimationButtonStyle.swift; sourceTree = "<group>"; };
+		84CBB36B26B71EE600A8E377 /* RoundImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundImageView.swift; sourceTree = "<group>"; };
+		84EF6B7126B7A4BA00C0551F /* CoreEmotion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreEmotion.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +101,7 @@
 		84CBB35726B6FDF400A8E377 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				84CBB36D26B725C600A8E377 /* Model */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -92,7 +109,7 @@
 		84CBB35826B6FDF800A8E377 /* Application */ = {
 			isa = PBXGroup;
 			children = (
-				84CBB35C26B6FE3E00A8E377 /* New Group */,
+				84CBB35D26B703AB00A8E377 /* Component */,
 				84CBB35B26B6FE3300A8E377 /* Scene */,
 				84CBB35A26B6FE1400A8E377 /* App */,
 			);
@@ -120,15 +137,38 @@
 		84CBB35B26B6FE3300A8E377 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				84CBB36226B7152C00A8E377 /* Home */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
 		};
-		84CBB35C26B6FE3E00A8E377 /* New Group */ = {
+		84CBB35D26B703AB00A8E377 /* Component */ = {
 			isa = PBXGroup;
 			children = (
+				84CBB35E26B703BF00A8E377 /* CustomTabBar.swift */,
+				84CBB36026B7102700A8E377 /* AppImage.swift */,
+				84CBB36726B71A2800A8E377 /* TalkBubble.swift */,
+				84CBB36926B71E7500A8E377 /* ResizeAnimationButtonStyle.swift */,
+				84CBB36B26B71EE600A8E377 /* RoundImageView.swift */,
 			);
-			path = "New Group";
+			path = Component;
+			sourceTree = "<group>";
+		};
+		84CBB36226B7152C00A8E377 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				84CBB36326B7154100A8E377 /* HomeView.swift */,
+				84CBB36526B7164E00A8E377 /* HomeViewModel.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		84CBB36D26B725C600A8E377 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				84EF6B7126B7A4BA00C0551F /* CoreEmotion.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -201,9 +241,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				8424A93826B5BE0F00BE4454 /* Persistence.swift in Sources */,
+				84CBB35F26B703BF00A8E377 /* CustomTabBar.swift in Sources */,
+				84CBB36C26B71EE600A8E377 /* RoundImageView.swift in Sources */,
 				8424A93126B5BE0B00BE4454 /* ContentView.swift in Sources */,
+				84CBB36626B7164E00A8E377 /* HomeViewModel.swift in Sources */,
+				84CBB36A26B71E7500A8E377 /* ResizeAnimationButtonStyle.swift in Sources */,
+				84CBB36426B7154100A8E377 /* HomeView.swift in Sources */,
 				8424A93B26B5BE0F00BE4454 /* mood_recorder.xcdatamodeld in Sources */,
+				84EF6B7226B7A4BA00C0551F /* CoreEmotion.swift in Sources */,
 				8424A92F26B5BE0B00BE4454 /* mood_recorderApp.swift in Sources */,
+				84CBB36126B7102700A8E377 /* AppImage.swift in Sources */,
+				84CBB36826B71A2800A8E377 /* TalkBubble.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
