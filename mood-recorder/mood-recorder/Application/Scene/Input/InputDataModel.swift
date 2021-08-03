@@ -72,48 +72,69 @@ enum Section: CaseIterable {
     }
 }
 
-enum CellType {
-    case option(models: [OptionModel])
-    case write(content: String?)
-    case photo(image: Data?)
-    case sleep(model: SleepSchelduleModel?)
-}
-
 struct ImageAndTitleModel {
     let image: String
     let title: String
 }
 
-struct SleepSchelduleModel {
-    let startTime: Int?
-    let endTime: Int?
+class SleepSchelduleModel {
+    init(startTime: Int? = nil, endTime: Int? = nil) {
+        self.startTime = startTime
+        self.endTime = endTime
+    }
+    
+    var startTime: Int?
+    var endTime: Int?
 }
 
-struct OptionModel {
+
+class OptionModel: Equatable {
+    static func == (lhs: OptionModel, rhs: OptionModel) -> Bool {
+        lhs.content.image == rhs.content.image
+    }
+    
+    init(content: ImageAndTitleModel) {
+        self.content = content
+    }
+    
+    let id = UUID()
+    
     let content: ImageAndTitleModel
+    
     var isVisible: Bool = true
     var isSelected: Bool = false
 }
 
-struct SectionModel {
+class SectionModel {
+    init(section: Section, title: String, cell: Any?, isEditable: Bool = true) {
+        self.section = section
+        self.title = title
+        self.cell = cell
+        self.isEditable = isEditable
+    }
+    
     let section: Section
     let title: String
     
-    var cell: CellType
+    var cell: Any?
     
-    var isSelected: Bool = true
+    var isVisible: Bool = true
     var isEditable: Bool = true
 }
 
-struct InputDataModel {
+class InputDataModel {
+    init(sections: [SectionModel]) {
+        self.sections = sections
+    }
+    
     var sections: [SectionModel]
     
     var visibleSections: [SectionModel] {
-        return sections.filter { $0.isSelected }
+        return sections.filter { $0.isVisible }
     }
     
     var hiddenSections: [SectionModel] {
-        return sections.filter { !$0.isSelected }
+        return sections.filter { !$0.isVisible }
     }
     
     static func initData() -> InputDataModel {
@@ -124,17 +145,17 @@ struct InputDataModel {
                 
                 return SectionModel(section: section,
                                     title: "How was your day?",
-                                    cell: .option(models: models),
+                                    cell: models,
                                     isEditable: false)
                 
             case .activity:
-                let contentModels = Activities.defaultOptions
+                let models = Activities.defaultOptions
                     .map { $0.option }
                     .map { OptionModel(content: $0) }
 
                 return SectionModel(section: section,
                                     title: "Tell something about your day!!",
-                                    cell: .option(models: contentModels))
+                                    cell: models)
             case .weather:
                 let contentModels = Weather.defaultOptions
                     .map { $0.option }
@@ -142,67 +163,67 @@ struct InputDataModel {
                 
                 return SectionModel(section: section,
                                     title: "What are you thinking?",
-                                    cell: .option(models: contentModels))
+                                    cell: contentModels)
             case .social:
                 return SectionModel(section: section,
                                     title: "What are you thinking?",
-                                    cell: .option(models: []))
+                                    cell: [])
             case .school:
                 return SectionModel(section: section,
                                     title: "What did you do in school?",
-                                    cell: .option(models: []))
+                                    cell: [])
             case .romance:
                 return SectionModel(section: section,
                                     title: "Is love in the air tonight?",
-                                    cell: .option(models: []))
+                                    cell: [])
             case .food:
                 return SectionModel(section: section,
                                     title: "Do you enjoy your meal?",
-                                    cell: .option(models: []))
+                                    cell: [])
             case .snack:
                 return SectionModel(section: section,
                                     title: "Having a little snack?",
-                                    cell: .option(models: []))
+                                    cell: [])
             case .health:
                 return SectionModel(section: section,
                                     title: "Is there anything wrong? Are you ok?",
-                                    cell: .option(models: []))
+                                    cell: [])
             case .chores:
                 return SectionModel(section: section,
                                     title: "Did you clean your house today?",
-                                    cell: .option(models: []))
+                                    cell: [])
             case .beauty:
                 return SectionModel(section: section,
                                     title: "Remember take care of yourself!",
-                                    cell: .option(models: []))
+                                    cell: [])
             case .work:
                 return SectionModel(section: section,
                                     title: "Was your boss annoy you today?",
-                                    cell: .option(models: []))
+                                    cell: [])
             case .bobby:
                 return SectionModel(section: section,
                                     title: "Did you enjoy yourself?",
-                                    cell: .option(models: []))
+                                    cell: [])
             case .event:
                 return SectionModel(section: section,
                                     title: "Which events did you attend?",
-                                    cell: .option(models: []))
+                                    cell: [])
             case .sleep:
                 return SectionModel(section: section,
                                     title: "How was your sleep?",
-                                    cell: .sleep(model: nil))
+                                    cell: SleepSchelduleModel())
             case .note:
                 return SectionModel(section: section,
                                     title: "What are you thinking?",
-                                    cell: .write(content: nil))
+                                    cell: nil)
             case .photo:
                 return SectionModel(section: section,
                                     title: "Picture of the day",
-                                    cell: .photo(image: nil))
+                                    cell: nil)
             case .custom:
                 return SectionModel(section: section,
                                     title: "Your own block",
-                                    cell: .option(models: []))
+                                    cell: [])
             }
         }
         
