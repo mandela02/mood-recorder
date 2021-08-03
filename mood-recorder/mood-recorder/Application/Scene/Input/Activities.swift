@@ -118,6 +118,6 @@ enum Activities: CaseIterable {
     }
     
     static var defaultOptions: [Activities] {
-        return [.angel, .angry, .confuse, .confuse, .sing]
+        return [.angel, .devil, .angry, .confuse, .sick, .sing, .birthday, .chill, .cool, .dancing]
     }
 }

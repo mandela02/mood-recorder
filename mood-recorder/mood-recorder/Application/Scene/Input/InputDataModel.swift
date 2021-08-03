@@ -88,9 +88,9 @@ class SleepSchelduleModel {
 }
 
 
-class OptionModel: Equatable {
+class OptionModel: Equatable, Identifiable {
     static func == (lhs: OptionModel, rhs: OptionModel) -> Bool {
-        lhs.content.image == rhs.content.image
+        lhs.id == rhs.id
     }
     
     init(content: ImageAndTitleModel) {
@@ -105,13 +105,15 @@ class OptionModel: Equatable {
     var isSelected: Bool = false
 }
 
-class SectionModel {
+class SectionModel: Identifiable {
     init(section: Section, title: String, cell: Any?, isEditable: Bool = true) {
         self.section = section
         self.title = title
         self.cell = cell
         self.isEditable = isEditable
     }
+    
+    let id = UUID()
     
     let section: Section
     let title: String

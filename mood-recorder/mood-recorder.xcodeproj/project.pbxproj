@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8404938026B977A5006523D9 /* Activities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8404937F26B977A5006523D9 /* Activities.swift */; };
 		8404938226B9A928006523D9 /* InputViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8404938126B9A928006523D9 /* InputViewModel.swift */; };
+		8404938626B9BFCE006523D9 /* InputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8404938526B9BFCE006523D9 /* InputView.swift */; };
 		8424A92F26B5BE0B00BE4454 /* mood_recorderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8424A92E26B5BE0B00BE4454 /* mood_recorderApp.swift */; };
 		8424A93126B5BE0B00BE4454 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8424A93026B5BE0B00BE4454 /* ContentView.swift */; };
 		8424A93326B5BE0F00BE4454 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8424A93226B5BE0F00BE4454 /* Assets.xcassets */; };
@@ -31,6 +32,7 @@
 /* Begin PBXFileReference section */
 		8404937F26B977A5006523D9 /* Activities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activities.swift; sourceTree = "<group>"; };
 		8404938126B9A928006523D9 /* InputViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputViewModel.swift; sourceTree = "<group>"; };
+		8404938526B9BFCE006523D9 /* InputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputView.swift; sourceTree = "<group>"; };
 		8424A92B26B5BE0B00BE4454 /* mood-recorder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "mood-recorder.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8424A92E26B5BE0B00BE4454 /* mood_recorderApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mood_recorderApp.swift; sourceTree = "<group>"; };
 		8424A93026B5BE0B00BE4454 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 		8476F1A526B85B7900F62854 /* Input */ = {
 			isa = PBXGroup;
 			children = (
+				8404938526B9BFCE006523D9 /* InputView.swift */,
 				8476F1A626B85B9000F62854 /* InputDataModel.swift */,
 				8476F1A826B861EC00F62854 /* Weather.swift */,
 				8404937F26B977A5006523D9 /* Activities.swift */,
@@ -294,6 +297,7 @@
 				8404938226B9A928006523D9 /* InputViewModel.swift in Sources */,
 				84CBB36126B7102700A8E377 /* AppImage.swift in Sources */,
 				8476F1A726B85B9000F62854 /* InputDataModel.swift in Sources */,
+				8404938626B9BFCE006523D9 /* InputView.swift in Sources */,
 				8476F1AD26B8637300F62854 /* String+Extension.swift in Sources */,
 				84CBB36826B71A2800A8E377 /* TalkBubble.swift in Sources */,
 			);
