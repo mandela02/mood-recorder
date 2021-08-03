@@ -32,7 +32,7 @@ enum Section: CaseIterable {
         case .emotion:
             return CoreEmotion
                 .allCases
-                .map { ImageAndTitleModel(image: $0.image,
+                .map { ImageAndTitleModel(image: $0.imageName,
                                           title: "") }
         case .activity:
             return Activities.allCases.map { $0.option }
@@ -80,7 +80,7 @@ enum CellType {
 }
 
 struct ImageAndTitleModel {
-    let image: Image
+    let image: String
     let title: String
 }
 

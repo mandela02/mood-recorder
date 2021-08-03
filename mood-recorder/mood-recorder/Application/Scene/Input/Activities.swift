@@ -43,76 +43,76 @@ enum Activities: CaseIterable {
     var option: ImageAndTitleModel {
         switch self {
         case .angel:
-            return ImageAndTitleModel(image: avatar == .pineapple ? AppImage.angel.image : AppImage.angelDino.image,
+            return ImageAndTitleModel(image: avatar == .pineapple ? AppImage.angel : AppImage.angelDino,
                                       title: "Angle")
         case .devil:
-            return ImageAndTitleModel(image: avatar == .pineapple ? AppImage.devil.image : AppImage.devilDino.image,
+            return ImageAndTitleModel(image: avatar == .pineapple ? AppImage.devil : AppImage.devilDino,
                                       title: "Devil")
         case .angry:
-            return ImageAndTitleModel(image: avatar == .pineapple ? AppImage.angryPineapple.image : AppImage.angryRawr.image,
+            return ImageAndTitleModel(image: avatar == .pineapple ? AppImage.angryPineapple : AppImage.angryRawr,
                                       title: "Angry")
         case .birthday:
-            return ImageAndTitleModel(image: avatar == .pineapple ? AppImage.birthdayPineapple.image : AppImage.birthday.image,
+            return ImageAndTitleModel(image: avatar == .pineapple ? AppImage.birthdayPineapple : AppImage.birthday,
                                       title: "Angle")
         case .blusing:
-            return ImageAndTitleModel(image: avatar == .pineapple ? AppImage.blushing.image : AppImage.embarrassed.image,
+            return ImageAndTitleModel(image: avatar == .pineapple ? AppImage.blushing : AppImage.embarrassed,
                                       title: "Blusing")
         case .confuse:
-            return ImageAndTitleModel(image: avatar == .pineapple ? AppImage.confuse.image : AppImage.dizzy.image,
+            return ImageAndTitleModel(image: avatar == .pineapple ? AppImage.confuse : AppImage.dizzy,
                                       title: "confuse")
         case .cool:
-            return ImageAndTitleModel(image: avatar == .pineapple ? AppImage.cool.image : AppImage.coolDino.image,
+            return ImageAndTitleModel(image: avatar == .pineapple ? AppImage.cool : AppImage.coolDino,
                                       title: "Coool")
         case .dancing:
-            return ImageAndTitleModel(image: avatar == .pineapple ? AppImage.dancing.image : AppImage.dancingDino.image,
+            return ImageAndTitleModel(image: avatar == .pineapple ? AppImage.dancing : AppImage.dancingDino,
                                       title: "Dancer")
         case .drunk:
-            return ImageAndTitleModel(image: avatar == .pineapple ? AppImage.drunk.image : AppImage.drunkDino.image,
+            return ImageAndTitleModel(image: avatar == .pineapple ? AppImage.drunk : AppImage.drunkDino,
                                       title: "Drunk")
         case .eating:
-            return ImageAndTitleModel(image: avatar == .pineapple ? AppImage.eating.image : AppImage.eat.image,
+            return ImageAndTitleModel(image: avatar == .pineapple ? AppImage.eating : AppImage.eat,
                                       title: "Eating")
         case .exercise:
-            return ImageAndTitleModel(image: avatar == .pineapple ? AppImage.exercisePineapple.image : AppImage.exerciseDino.image,
+            return ImageAndTitleModel(image: avatar == .pineapple ? AppImage.exercisePineapple : AppImage.exerciseDino,
                                       title: "exercise")
         case .facial:
-            return ImageAndTitleModel(image: avatar == .pineapple ? AppImage.beauty.image : AppImage.facial_treatment.image,
+            return ImageAndTitleModel(image: avatar == .pineapple ? AppImage.beauty : AppImage.facial_treatment,
                                       title: "Skin care")
         case .idea:
-            return ImageAndTitleModel(image: avatar == .pineapple ? AppImage.idea.image : AppImage.ideaDino.image,
+            return ImageAndTitleModel(image: avatar == .pineapple ? AppImage.idea : AppImage.ideaDino,
                                       title: "New Idea")
         case .working:
-            return ImageAndTitleModel(image: avatar == .pineapple ? AppImage.worker.image : AppImage.workerDino.image,
+            return ImageAndTitleModel(image: avatar == .pineapple ? AppImage.worker : AppImage.workerDino,
                                       title: "Working")
         case .chill:
-            return ImageAndTitleModel(image: avatar == .pineapple ? AppImage.listening.image : AppImage.music.image,
+            return ImageAndTitleModel(image: avatar == .pineapple ? AppImage.listening : AppImage.music,
                                       title: "Chilling")
         case .love:
-            return ImageAndTitleModel(image: avatar == .pineapple ? AppImage.love.image : AppImage.dinoInlove.image,
+            return ImageAndTitleModel(image: avatar == .pineapple ? AppImage.love : AppImage.dinoInlove,
                                       title: "In Love")
         case .scare:
-            return ImageAndTitleModel(image: avatar == .pineapple ? AppImage.scare.image : AppImage.fear.image,
+            return ImageAndTitleModel(image: avatar == .pineapple ? AppImage.scare : AppImage.fear,
                                       title: "Scary")
         case .selfie:
-            return ImageAndTitleModel(image: avatar == .pineapple ? AppImage.selfie.image : AppImage.selfieDino.image,
+            return ImageAndTitleModel(image: avatar == .pineapple ? AppImage.selfie : AppImage.selfieDino,
                                       title: "Selfie")
         case .sick:
-            return ImageAndTitleModel(image: avatar == .pineapple ? AppImage.sick.image : AppImage.sickDino.image,
+            return ImageAndTitleModel(image: avatar == .pineapple ? AppImage.sick : AppImage.sickDino,
                                       title: "Sick")
         case .sing:
-            return ImageAndTitleModel(image: avatar == .pineapple ? AppImage.singing.image : AppImage.sing.image,
+            return ImageAndTitleModel(image: avatar == .pineapple ? AppImage.singing : AppImage.sing,
                                       title: "Singing")
         case .sleep:
-            return ImageAndTitleModel(image: avatar == .pineapple ? AppImage.sleeping.image : AppImage.sleepyDino.image,
+            return ImageAndTitleModel(image: avatar == .pineapple ? AppImage.sleeping : AppImage.sleepyDino,
                                       title: "Angle")
         case .surprise:
-            return ImageAndTitleModel(image: avatar == .pineapple ? AppImage.angel.image : AppImage.angelDino.image,
+            return ImageAndTitleModel(image: avatar == .pineapple ? AppImage.angel : AppImage.angelDino,
                                       title: "Angle")
         case .thinking:
-            return ImageAndTitleModel(image: avatar == .pineapple ? AppImage.thinking.image : AppImage.think.image,
+            return ImageAndTitleModel(image: avatar == .pineapple ? AppImage.thinking : AppImage.think,
                                       title: "Thinking")
         case .science:
-            return ImageAndTitleModel(image: avatar == .pineapple ? AppImage.scientist.image : AppImage.scientist.image,
+            return ImageAndTitleModel(image: avatar == .pineapple ? AppImage.scientist : AppImage.scientist,
                                       title: "Science")
         }
     }

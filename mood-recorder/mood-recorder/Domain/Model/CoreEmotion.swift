@@ -14,7 +14,7 @@ enum CoreEmotion: String, CaseIterable {
     case sad
     case terrible
     
-    private var imageName: String {
+    var imageName: String {
         switch self {
         case .blissful:
             return AppImage.laughing
