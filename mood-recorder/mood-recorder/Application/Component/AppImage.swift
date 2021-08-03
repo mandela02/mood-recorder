@@ -73,7 +73,6 @@ class AppImage {
     static let bucket = "bucket"
     static let bucket1 = "bucket1"
     static let bucket2 = "bucket2"
-    static let ContentsJson = "Contents.json"
     static let detergent = "detergent"
     static let dishWashing1 = "dish.washing.1"
     static let houseCleaning = "house.cleaning"
