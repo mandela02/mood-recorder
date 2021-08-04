@@ -5,124 +5,7 @@
 //  Created by LanNTH on 02/08/2021.
 //
 
-import SwiftUI
-
-enum Section: CaseIterable {
-    case emotion
-    case activity
-    case weather
-    case social
-    case school
-    case romance
-    case food
-    case snack
-    case health
-    case chores
-    case beauty
-    case work
-    case bobby
-    case event
-    case sleep
-    case note
-    case photo
-    case custom
-    
-    var allOptions: [ImageAndTitleModel] {
-        switch self {
-        case .emotion:
-            return CoreEmotion
-                .allCases
-                .map { ImageAndTitleModel(image: $0.imageName,
-                                          title: "") }
-        case .activity:
-            return Activities.allCases.map { $0.option }
-        case .weather:
-            return Weather.allCases.map { $0.option }
-        case .social:
-            return []
-        case .school:
-            return []
-        case .romance:
-            return []
-        case .food:
-            return []
-        case .snack:
-            return []
-        case .health:
-            return []
-        case .chores:
-            return []
-        case .beauty:
-            return []
-        case .work:
-            return []
-        case .bobby:
-            return []
-        case .event:
-            return []
-        case .sleep:
-            return []
-        case .note:
-            return []
-        case .photo:
-            return []
-        case .custom:
-            return []
-        }
-    }
-}
-
-struct ImageAndTitleModel {
-    let image: String
-    let title: String
-}
-
-class SleepSchelduleModel {
-    init(startTime: Int? = nil, endTime: Int? = nil) {
-        self.startTime = startTime
-        self.endTime = endTime
-    }
-    
-    var startTime: Int?
-    var endTime: Int?
-}
-
-
-class OptionModel: Equatable, Identifiable {
-    static func == (lhs: OptionModel, rhs: OptionModel) -> Bool {
-        lhs.id == rhs.id
-    }
-    
-    init(content: ImageAndTitleModel) {
-        self.content = content
-    }
-    
-    let id = UUID()
-    
-    let content: ImageAndTitleModel
-    
-    var isVisible: Bool = true
-    var isSelected: Bool = false
-}
-
-class SectionModel: Identifiable {
-    init(section: Section, title: String, cell: Any?, isEditable: Bool = true) {
-        self.section = section
-        self.title = title
-        self.cell = cell
-        self.isEditable = isEditable
-    }
-    
-    let id = UUID()
-    
-    let section: Section
-    let title: String
-    
-    var cell: Any?
-    
-    var isVisible: Bool = true
-    var isEditable: Bool = true
-}
+import Foundation
 
 class InputDataModel {
     init(sections: [SectionModel]) {
@@ -168,7 +51,7 @@ class InputDataModel {
                                     cell: contentModels)
             case .social:
                 return SectionModel(section: section,
-                                    title: "What are you thinking?",
+                                    title: "How is your social life?",
                                     cell: [])
             case .school:
                 return SectionModel(section: section,
@@ -217,11 +100,11 @@ class InputDataModel {
             case .note:
                 return SectionModel(section: section,
                                     title: "What are you thinking?",
-                                    cell: nil)
+                                    cell: TextModel())
             case .photo:
                 return SectionModel(section: section,
                                     title: "Picture of the day",
-                                    cell: nil)
+                                    cell: ImageModel())
             case .custom:
                 return SectionModel(section: section,
                                     title: "Your own block",

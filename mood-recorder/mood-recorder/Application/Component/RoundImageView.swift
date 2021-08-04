@@ -18,7 +18,7 @@ struct RoundImageView: View {
             image
                 .resizable()
                 .renderingMode(.original)
-                .aspectRatio(contentMode: .fit)
+                .aspectRatio(1, contentMode: .fit)
                 .padding(15)
                 .background(Color.clear)
         }
