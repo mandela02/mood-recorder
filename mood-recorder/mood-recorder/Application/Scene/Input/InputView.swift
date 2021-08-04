@@ -18,7 +18,7 @@ struct InputView: View {
                                      count: 5),
                       content: {
                         ForEach(models) { model in
-                            VStack(spacing: 0) {
+                            VStack(spacing: 5) {
                                 Button(action: {
                                     viewModel.onOptionTap(section: section.section,
                                                           optionModel: model)
