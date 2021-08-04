@@ -14,16 +14,20 @@ class ImageModel {
     
     var data: Data?
     
-    var image: Image {
+    var image: Image? {
         guard let data = data,
               let uiImage = UIImage(data: data) else {
-            return Image(systemName: "plus")
+            return nil
         }
         
         return Image(uiImage: uiImage)
     }
     
-    var imageSize: CGSize? {
+    var isHavingData: Bool {
+        data != nil
+    }
+    
+    private var imageSize: CGSize? {
         guard let data = data else {
             return nil
         }

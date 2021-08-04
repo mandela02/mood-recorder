@@ -10,6 +10,8 @@ import SwiftUI
 class InputViewModel: ObservableObject {
     @Published var inputDataModel = InputDataModel.initData()
     @Published var isImagePickerShowing = false
+    @Published var text = ""
+    @Published var isInEditMode = false
 
     func onOptionTap(section: Section, optionModel: OptionModel) {
         let psuedoDataModel = inputDataModel
@@ -44,6 +46,23 @@ class InputViewModel: ObservableObject {
         
         withAnimation(.spring()) {
             inputDataModel = psuedoDataModel
+        }
+    }
+    
+    func onCloseButtonTapped() {
+        if isInEditMode {
+            changeMode()
+        }
+    }
+    
+    func onEditButtonTapped() {
+        changeMode()
+    }
+    
+    
+    private func changeMode() {
+        withAnimation(.spring()) {
+            isInEditMode.toggle()
         }
     }
 }

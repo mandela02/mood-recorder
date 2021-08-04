@@ -17,15 +17,15 @@ enum CoreEmotion: String, CaseIterable {
     var imageName: String {
         switch self {
         case .blissful:
-            return AppImage.laughing
+            return avatar == .pineapple ? AppImage.laughing : AppImage.laughingDino
         case .happy:
-            return AppImage.happy
+            return avatar == .pineapple ? AppImage.happy : AppImage.happyDino
         case .neutral:
-            return AppImage.thinking
+            return avatar == .pineapple ? AppImage.thinking : AppImage.think
         case .sad:
-            return AppImage.sad
+            return avatar == .pineapple ? AppImage.sad : AppImage.angry
         case .terrible:
-            return AppImage.crying
+            return avatar == .pineapple ? AppImage.crying : AppImage.dinoCrying
         }
     }
     

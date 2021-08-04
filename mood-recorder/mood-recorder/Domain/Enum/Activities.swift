@@ -12,7 +12,7 @@ enum Avatar {
     case dino
 }
 
-var avatar: Avatar = .pineapple
+var avatar: Avatar = .dino
 
 enum Activities: CaseIterable {
     case angel
@@ -37,14 +37,13 @@ enum Activities: CaseIterable {
     case sing
     case sleep
     case surprise
-    case thinking
     case science
     
     var option: ImageAndTitleModel {
         switch self {
         case .angel:
             return ImageAndTitleModel(image: avatar == .pineapple ? AppImage.angel : AppImage.angelDino,
-                                      title: "Angle")
+                                      title: "Angel")
         case .devil:
             return ImageAndTitleModel(image: avatar == .pineapple ? AppImage.devil : AppImage.devilDino,
                                       title: "Devil")
@@ -59,7 +58,7 @@ enum Activities: CaseIterable {
                                       title: "Blusing")
         case .confuse:
             return ImageAndTitleModel(image: avatar == .pineapple ? AppImage.confuse : AppImage.dizzy,
-                                      title: "confuse")
+                                      title: "Confuse")
         case .cool:
             return ImageAndTitleModel(image: avatar == .pineapple ? AppImage.cool : AppImage.coolDino,
                                       title: "Coool")
@@ -108,9 +107,6 @@ enum Activities: CaseIterable {
         case .surprise:
             return ImageAndTitleModel(image: avatar == .pineapple ? AppImage.angel : AppImage.angelDino,
                                       title: "Angle")
-        case .thinking:
-            return ImageAndTitleModel(image: avatar == .pineapple ? AppImage.thinking : AppImage.think,
-                                      title: "Thinking")
         case .science:
             return ImageAndTitleModel(image: avatar == .pineapple ? AppImage.scientist : AppImage.scientist,
                                       title: "Science")
