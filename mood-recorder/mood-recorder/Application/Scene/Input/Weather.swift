@@ -33,69 +33,69 @@ enum Weather: CaseIterable {
         switch self {
         case .bigWind:
             return ImageAndTitleModel(image: AppImage.bigWind,
-                        title: "Heavy wind")
+                                      title: "Heavy wind")
         case .cloudyDay:
             return ImageAndTitleModel(image: AppImage.cloudyDay,
-                        title: "Cloudy Day")
+                                      title: "Cloudy Day")
         case .cloudyNight:
             return ImageAndTitleModel(image: AppImage.cloudyNight,
-                        title: "Cloudy Night")
-
+                                      title: "Cloudy Night")
+            
         case .cyclone:
             return ImageAndTitleModel(image: AppImage.cyclone,
-                        title: "Cyclone")
+                                      title: "Cyclone")
         case .eclipse:
             return ImageAndTitleModel(image: AppImage.eclipse,
-                        title: "Eclipse")
+                                      title: "Eclipse")
         case .heavyRain:
             return ImageAndTitleModel(image: AppImage.heavyRain,
-                        title: "Heavy Rain")
+                                      title: "Heavy Rain")
         case .heavySnow:
             return ImageAndTitleModel(image: AppImage.heavySnow,
-                        title: "Heavy Snow")
+                                      title: "Heavy Snow")
         case .heavyStorm:
             return ImageAndTitleModel(image: AppImage.heavyStorm,
-                        title: "Heavy Storm")
+                                      title: "Heavy Storm")
         case .thunderStorm:
             return ImageAndTitleModel(image: AppImage.heavyThunder,
-                        title: "Thunder Storm")
+                                      title: "Thunder Storm")
         case .newMoon:
             return ImageAndTitleModel(image: AppImage.newMoon,
-                        title: "New Moon")
+                                      title: "New Moon")
         case .rainy:
             return ImageAndTitleModel(image: AppImage.regularRainy,
-                        title: "Rainy")
+                                      title: "Rainy")
         case .snowy:
             return ImageAndTitleModel(image: AppImage.regularSnow,
-                        title: "Snowy")
+                                      title: "Snowy")
         case .sunny:
             return ImageAndTitleModel(image: AppImage.sunny,
-                        title: "Sunny")
+                                      title: "Sunny")
         case .cold:
             return ImageAndTitleModel(image: AppImage.thermometerCold,
-                        title: "cold")
+                                      title: "cold")
         case .hot:
             return ImageAndTitleModel(image: AppImage.thermometerHot,
-                        title: "Hot")
+                                      title: "Hot")
         case .tornado:
             return ImageAndTitleModel(image: AppImage.tornado,
-                        title: "Tornado")
+                                      title: "Tornado")
         case .thunder:
             return ImageAndTitleModel(image: AppImage.thunder,
-                        title: "Thunder")
+                                      title: "Thunder")
         case .fullMoon:
             return ImageAndTitleModel(image: AppImage.fullMoon,
-                        title: "Full Moon")
+                                      title: "Full Moon")
         case .sunshower:
             return ImageAndTitleModel(image: AppImage.springRain,
-                        title: "Sunshower")
+                                      title: "Sunshower")
         case .rainbow:
             return ImageAndTitleModel(image: AppImage.rainbow,
-                        title: "Rainbow")
+                                      title: "Rainbow")
         }
     }
     
     static var defaultOptions: [Weather] {
-        return [.sunny, .cloudyDay, .rainy, .snowy, .bigWind]
+        return [.sunny, .cloudyDay, .rainy, .snowy, .bigWind, rainbow, thunderStorm, heavyRain, .hot, cold,]
     }
 }

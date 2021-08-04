@@ -9,7 +9,7 @@ import SwiftUI
 
 class InputViewModel: ObservableObject {
     @Published var inputDataModel = InputDataModel.initData()
-        
+    
     func onOptionTap(section: Section, optionModel: OptionModel) {
         let psuedoDataModel = inputDataModel
                 

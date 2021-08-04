@@ -7,29 +7,32 @@
 
 import SwiftUI
 
+
 struct InputView: View {
     @ObservedObject var viewModel = InputViewModel()
     
     @ViewBuilder
     func getContentCell(section: SectionModel) -> some View {
         if let models = section.cell as? [OptionModel] {
-            LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 5),
+            LazyVGrid(columns: Array(repeating: GridItem(.flexible(), alignment: .top),
+                                     count: 5),
                       content: {
                         ForEach(models) { model in
-                            VStack(alignment: .center,
-                                   spacing: 0, content: {
-                                    Button(action: {
-                                        viewModel.onOptionTap(section: section.section,
-                                                              optionModel: model)
-                                    }, label: {
-                                        RoundImageView(image: model.content.image.image,
-                                                       backgroundColor: model.isSelected ? .green : .gray)
-                                            .saturation(model.isSelected ? 1 : 0)
-                                    })
-                                    .buttonStyle(ResizeAnimationButtonStyle())
-                                    Text(model.content.title)
-                                        .font(.system(size: 10))
-                                   })
+                            VStack(spacing: 0) {
+                                Button(action: {
+                                    viewModel.onOptionTap(section: section.section,
+                                                          optionModel: model)
+                                }, label: {
+                                    RoundImageView(image: model.content.image.image,
+                                                   backgroundColor: model.isSelected ? .green : .gray)
+                                })
+                                .aspectRatio(1, contentMode: .fit)
+                                .saturation(model.isSelected ? 1 : 0)
+                                .buttonStyle(ResizeAnimationButtonStyle())
+                                
+                                Text(model.content.title)
+                                    .font(.system(size: 12))
+                            }
                         }
                       })
         } else {

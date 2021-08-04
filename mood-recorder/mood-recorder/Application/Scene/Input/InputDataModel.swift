@@ -164,7 +164,7 @@ class InputDataModel {
                     .map { OptionModel(content: $0) }
                 
                 return SectionModel(section: section,
-                                    title: "What are you thinking?",
+                                    title: "What the weather like today??",
                                     cell: contentModels)
             case .social:
                 return SectionModel(section: section,
