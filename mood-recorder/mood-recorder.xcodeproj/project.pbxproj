@@ -17,6 +17,7 @@
 		8404939126BA4F97006523D9 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8404939026BA4F97006523D9 /* Section.swift */; };
 		8404939326BA4FC0006523D9 /* ImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8404939226BA4FC0006523D9 /* ImageModel.swift */; };
 		8404939526BA50DF006523D9 /* TextModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8404939426BA50DF006523D9 /* TextModel.swift */; };
+		8404939826BA8471006523D9 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8404939726BA8471006523D9 /* ImagePicker.swift */; };
 		8424A92F26B5BE0B00BE4454 /* mood_recorderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8424A92E26B5BE0B00BE4454 /* mood_recorderApp.swift */; };
 		8424A93126B5BE0B00BE4454 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8424A93026B5BE0B00BE4454 /* ContentView.swift */; };
 		8424A93326B5BE0F00BE4454 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8424A93226B5BE0F00BE4454 /* Assets.xcassets */; };
@@ -47,6 +48,7 @@
 		8404939026BA4F97006523D9 /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
 		8404939226BA4FC0006523D9 /* ImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageModel.swift; sourceTree = "<group>"; };
 		8404939426BA50DF006523D9 /* TextModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextModel.swift; sourceTree = "<group>"; };
+		8404939726BA8471006523D9 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		8424A92B26B5BE0B00BE4454 /* mood-recorder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "mood-recorder.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8424A92E26B5BE0B00BE4454 /* mood_recorderApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mood_recorderApp.swift; sourceTree = "<group>"; };
 		8424A93026B5BE0B00BE4454 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -229,6 +231,7 @@
 				84CBB36726B71A2800A8E377 /* TalkBubble.swift */,
 				84CBB36926B71E7500A8E377 /* ResizeAnimationButtonStyle.swift */,
 				84CBB36B26B71EE600A8E377 /* RoundImageView.swift */,
+				8404939726BA8471006523D9 /* ImagePicker.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -332,6 +335,7 @@
 				84CBB36426B7154100A8E377 /* HomeView.swift in Sources */,
 				8424A93B26B5BE0F00BE4454 /* mood_recorder.xcdatamodeld in Sources */,
 				8404938D26BA4F6B006523D9 /* SleepScheduleModel.swift in Sources */,
+				8404939826BA8471006523D9 /* ImagePicker.swift in Sources */,
 				84EF6B7226B7A4BA00C0551F /* CoreEmotion.swift in Sources */,
 				8424A92F26B5BE0B00BE4454 /* mood_recorderApp.swift in Sources */,
 				8404938226B9A928006523D9 /* InputViewModel.swift in Sources */,

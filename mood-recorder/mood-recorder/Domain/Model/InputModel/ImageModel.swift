@@ -22,4 +22,17 @@ class ImageModel {
         
         return Image(uiImage: uiImage)
     }
+    
+    var imageSize: CGSize? {
+        guard let data = data else {
+            return nil
+        }
+        
+        return UIImage(data: data)?.size
+    }
+    
+    var aspectRatio: CGFloat {
+        guard let size = imageSize else { return 1 }
+        return size.width / size.height
+    }
 }

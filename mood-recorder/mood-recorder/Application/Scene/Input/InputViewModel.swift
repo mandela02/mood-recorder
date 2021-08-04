@@ -9,7 +9,8 @@ import SwiftUI
 
 class InputViewModel: ObservableObject {
     @Published var inputDataModel = InputDataModel.initData()
-    
+    @Published var isImagePickerShowing = false
+
     func onOptionTap(section: Section, optionModel: OptionModel) {
         let psuedoDataModel = inputDataModel
                 
@@ -22,6 +23,24 @@ class InputViewModel: ObservableObject {
         }
         
         models.first(where: {$0 == optionModel})?.isSelected.toggle()
+        
+        withAnimation(.spring()) {
+            inputDataModel = psuedoDataModel
+        }
+    }
+    
+    func showImagePicker() {
+        isImagePickerShowing.toggle()
+    }
+    
+    func onPictureSelected(section: Section, image: UIImage) {
+        let psuedoDataModel = inputDataModel
+                
+        guard let model = psuedoDataModel.visibleSections
+                .first(where: {$0.section == section})?
+                .cell as? ImageModel else { return }
+
+        model.data = image.jpegData(compressionQuality: 0.5)
         
         withAnimation(.spring()) {
             inputDataModel = psuedoDataModel

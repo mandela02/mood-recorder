@@ -19,7 +19,7 @@ struct RoundImageView: View {
                 .resizable()
                 .renderingMode(.original)
                 .aspectRatio(contentMode: .fit)
-                .padding(15)
+                .padding(10)
                 .frame(maxWidth: .infinity)
                 .background(Color.clear)
                 .clipShape(Circle())
