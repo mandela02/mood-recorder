@@ -13,18 +13,16 @@ class InputViewModel: ObservableObject {
     @Published var text = ""
     @Published var isInEditMode = false
 
-    func onOptionTap(section: Section, optionModel: OptionModel) {
+    func onOptionTap(sectionModel: SectionModel, optionModel: OptionModel) {
         let psuedoDataModel = inputDataModel
                 
-        guard let models = psuedoDataModel.visibleSections
-                .first(where: {$0.section == section})?
-                .cell as? [OptionModel] else { return }
+        guard let models = sectionModel.cell as? [OptionModel] else { return }
         
-        if section == .emotion {
+        if sectionModel.section == .emotion {
             models.forEach { $0.isSelected = false } 
         }
         
-        models.first(where: {$0 == optionModel})?.isSelected.toggle()
+        optionModel.isSelected.toggle()
         
         withAnimation(.spring()) {
             inputDataModel = psuedoDataModel
@@ -49,6 +47,14 @@ class InputViewModel: ObservableObject {
         }
     }
     
+    func onSectionDismiss(sectionModel: SectionModel) {
+        let psuedoDataModel = inputDataModel
+        sectionModel.isVisible.toggle()
+        withAnimation(.spring()) {
+            inputDataModel = psuedoDataModel
+        }
+    }
+    
     func onCloseButtonTapped() {
         if isInEditMode {
             changeMode()
@@ -58,7 +64,6 @@ class InputViewModel: ObservableObject {
     func onEditButtonTapped() {
         changeMode()
     }
-    
     
     private func changeMode() {
         withAnimation(.spring()) {

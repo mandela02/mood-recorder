@@ -11,6 +11,15 @@ import SwiftUI
 struct InputView: View {
     @ObservedObject var viewModel = InputViewModel()
     
+    init() {
+        UITextView.appearance().backgroundColor =  UIColor(Theme.current.commonColor.textBackground)
+
+    }
+    
+    func iconBackgroundColor(_ isSelected: Bool) -> Color {
+        return isSelected ? Theme.current.buttonColor.backgroundColor : Theme.current.buttonColor.disableColor
+    }
+        
     func getIconGrid(models: [OptionModel], section: SectionModel) -> some View {
         LazyVGrid(columns: Array(repeating: GridItem(.flexible(),
                                                      alignment: .top),
@@ -19,10 +28,10 @@ struct InputView: View {
                     ForEach(models) { model in
                         VStack(spacing: 5) {
                             Button(action: {
-                                viewModel.onOptionTap(section: section.section, optionModel: model)
+                                viewModel.onOptionTap(sectionModel: section, optionModel: model)
                             }, label: {
                                 RoundImageView(image: model.content.image.image,
-                                               backgroundColor: model.isSelected ? .green : .gray)
+                                               backgroundColor: iconBackgroundColor(model.isSelected))
                             })
                             .aspectRatio(1, contentMode: .fit)
                             .saturation(model.isSelected ? 1 : 0)
@@ -30,6 +39,7 @@ struct InputView: View {
                             
                             if model.content.title != "" {
                                 Text(model.content.title)
+                                    .foregroundColor(Theme.current.tableViewColor.text)
                                     .font(.system(size: 12))
                             }
                         }
@@ -40,7 +50,7 @@ struct InputView: View {
     func getImagePicker(model: ImageModel, section: SectionModel) -> some View {
         Button(action: viewModel.showImagePicker) {
             ZStack {
-                Color.green
+                Theme.current.commonColor.textBackground
                 if model.isHavingData {
                     model.image?
                         .resizable()
@@ -49,10 +59,12 @@ struct InputView: View {
                     VStack {
                         Image(systemName: "camera.fill")
                             .resizable()
-                            .renderingMode(.original)
+                            .renderingMode(.template)
+                            .foregroundColor(Theme.current.tableViewColor.text)
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 50, height: 50)
                         Text("Select a photo")
+                            .foregroundColor(Theme.current.tableViewColor.text)
                     }
                 }
                 
@@ -70,13 +82,18 @@ struct InputView: View {
     
     func getTextView() -> some View {
         ZStack {
+            Theme.current.commonColor.textBackground
             TextEditor(text: $viewModel.text)
+                .foregroundColor(Theme.current.tableViewColor.text)
                 .font(.system(size: 12))
+                .padding()
             Text(viewModel.text)
                 .opacity(0)
                 .font(.system(size: 12))
                 .padding(.all, 8)
+                .padding()
         }
+        .cornerRadius(10)
         .frame(minHeight: 200)
     }
     
@@ -87,23 +104,20 @@ struct InputView: View {
             VStack {
                 getIconGrid(models: models, section: section)
                     .padding(.horizontal, 10)
-                
-                if viewModel.isInEditMode {
+                SizedBox(height: 10)
+                if viewModel.isInEditMode && section.isEditable {
                     Button(action: {}) {
                         ZStack {
-                            Color.green
-                                .opacity(0.5)
+                            Theme.current.buttonColor.backgroundColor
                                 .frame(maxWidth: .infinity)
                                 .frame(height: 50)
                             Image(systemName: "plus")
                                 .resizable()
                                 .renderingMode(.template)
                                 .frame(width: 25, height: 25, alignment: .center)
-                                .foregroundColor(.white)
+                                .foregroundColor(Theme.current.buttonColor.iconColor)
                         }
                     }
-                } else {
-                    SizedBox(height: 10)
                 }
             }
         case let model as ImageModel:
@@ -117,12 +131,35 @@ struct InputView: View {
         }
     }
     
+    @ViewBuilder
+    func sectionDismissButton(sectionModel: SectionModel, onTap: @escaping () -> ()) -> some View {
+        if viewModel.isInEditMode && sectionModel.isEditable {
+            Button(action: onTap) {
+                Image(systemName: sectionModel.isVisible ? "xmark.circle.fill" : "plus.circle.fill")
+                    .resizable()
+                    .renderingMode(.template)
+                    .frame(width: 20, height: 20, alignment: .center)
+                    .foregroundColor(Theme.current.commonColor.textColor)
+            }
+        } else {
+            EmptyView()
+        }
+    }
+    
     func getSectionCell(section: SectionModel) -> some View {
         ZStack(alignment: .topLeading) {
-            Color.white
+            Theme.current.tableViewColor.cellBackground
             VStack(alignment: .leading) {
-                Text(section.title)
-                    .padding(.all, 10)
+                HStack {
+                    Text(section.title)
+                        .foregroundColor(Theme.current.tableViewColor.text)
+                    Spacer()
+                    sectionDismissButton(sectionModel: section) {
+                        viewModel.onSectionDismiss(sectionModel: section)
+                    }
+                }
+                .padding(.all, 10)
+
                 getContentCell(section: section)
             }
         }
@@ -134,10 +171,10 @@ struct InputView: View {
         Button(action: {}) {
             Text("Done")
                 .font(.system(size: 20))
-                .foregroundColor(.white)
+                .foregroundColor(Theme.current.buttonColor.tintColor)
                 .frame(maxWidth: .infinity)
                 .padding()
-                .background(Color.red
+                .background(Theme.current.buttonColor.backgroundColor
                                 .ignoresSafeArea(.all, edges: .bottom))
         }
     }
@@ -148,13 +185,13 @@ struct InputView: View {
                 Button(action: viewModel.onEditButtonTapped) {
                     HStack {
                         Text("Edit")
-                            .foregroundColor(.white)
+                            .foregroundColor(Theme.current.commonColor.textColor)
                             .font(.system(size: 20))
                         Image(systemName: "square.and.pencil")
                             .resizable()
                             .renderingMode(.template)
                             .frame(width: 20, height: 20, alignment: .center)
-                            .foregroundColor(.white)
+                            .foregroundColor(Theme.current.commonColor.textColor)
                     }
                 }
             }
@@ -164,14 +201,14 @@ struct InputView: View {
                     .resizable()
                     .renderingMode(.template)
                     .frame(width: 20, height: 20, alignment: .center)
-                    .foregroundColor(.white)
+                    .foregroundColor(Theme.current.commonColor.textColor)
             }
         }
     }
     
     var body: some View {
         ZStack {
-            Color.green.ignoresSafeArea()
+            Theme.current.tableViewColor.background.ignoresSafeArea()
             ScrollView(.vertical, showsIndicators: false) {
                 navigationBar
                     .padding()

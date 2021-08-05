@@ -19,6 +19,8 @@
 		8404939526BA50DF006523D9 /* TextModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8404939426BA50DF006523D9 /* TextModel.swift */; };
 		8404939826BA8471006523D9 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8404939726BA8471006523D9 /* ImagePicker.swift */; };
 		8404939A26BAA522006523D9 /* SizedBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8404939926BAA522006523D9 /* SizedBox.swift */; };
+		8404939C26BAA9E7006523D9 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8404939B26BAA9E7006523D9 /* Color+Extension.swift */; };
+		8404939F26BAAB21006523D9 /* ThemeHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8404939E26BAAB21006523D9 /* ThemeHelper.swift */; };
 		8424A92F26B5BE0B00BE4454 /* mood_recorderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8424A92E26B5BE0B00BE4454 /* mood_recorderApp.swift */; };
 		8424A93126B5BE0B00BE4454 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8424A93026B5BE0B00BE4454 /* ContentView.swift */; };
 		8424A93326B5BE0F00BE4454 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8424A93226B5BE0F00BE4454 /* Assets.xcassets */; };
@@ -51,6 +53,8 @@
 		8404939426BA50DF006523D9 /* TextModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextModel.swift; sourceTree = "<group>"; };
 		8404939726BA8471006523D9 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		8404939926BAA522006523D9 /* SizedBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizedBox.swift; sourceTree = "<group>"; };
+		8404939B26BAA9E7006523D9 /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
+		8404939E26BAAB21006523D9 /* ThemeHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeHelper.swift; sourceTree = "<group>"; };
 		8424A92B26B5BE0B00BE4454 /* mood-recorder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "mood-recorder.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8424A92E26B5BE0B00BE4454 /* mood_recorderApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mood_recorderApp.swift; sourceTree = "<group>"; };
 		8424A93026B5BE0B00BE4454 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -108,6 +112,14 @@
 			path = InputModel;
 			sourceTree = "<group>";
 		};
+		8404939D26BAAB14006523D9 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				8404939E26BAAB21006523D9 /* ThemeHelper.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
 		8424A92226B5BE0B00BE4454 = {
 			isa = PBXGroup;
 			children = (
@@ -157,6 +169,7 @@
 		8476F1AA26B8635900F62854 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				8404939D26BAAB14006523D9 /* Helper */,
 				8476F1AB26B8635F00F62854 /* Extension */,
 			);
 			path = Utilities;
@@ -166,6 +179,7 @@
 			isa = PBXGroup;
 			children = (
 				8476F1AC26B8637300F62854 /* String+Extension.swift */,
+				8404939B26BAA9E7006523D9 /* Color+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -333,6 +347,7 @@
 				84CBB36626B7164E00A8E377 /* HomeViewModel.swift in Sources */,
 				84CBB36A26B71E7500A8E377 /* ResizeAnimationButtonStyle.swift in Sources */,
 				8404939326BA4FC0006523D9 /* ImageModel.swift in Sources */,
+				8404939F26BAAB21006523D9 /* ThemeHelper.swift in Sources */,
 				8404938926BA4F2F006523D9 /* SectionModel.swift in Sources */,
 				8476F1A926B861EC00F62854 /* Weather.swift in Sources */,
 				84CBB36426B7154100A8E377 /* HomeView.swift in Sources */,
@@ -340,6 +355,7 @@
 				8404938D26BA4F6B006523D9 /* SleepScheduleModel.swift in Sources */,
 				8404939826BA8471006523D9 /* ImagePicker.swift in Sources */,
 				84EF6B7226B7A4BA00C0551F /* CoreEmotion.swift in Sources */,
+				8404939C26BAA9E7006523D9 /* Color+Extension.swift in Sources */,
 				8404939A26BAA522006523D9 /* SizedBox.swift in Sources */,
 				8424A92F26B5BE0B00BE4454 /* mood_recorderApp.swift in Sources */,
 				8404938226B9A928006523D9 /* InputViewModel.swift in Sources */,
