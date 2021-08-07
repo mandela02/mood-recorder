@@ -13,10 +13,7 @@ class InputViewModel: ObservableObject {
     @Published var text = ""
     @Published var isInEditMode = false
     
-    @Published var visibleSections: [SectionModel] = []
-    @Published var hiddenSections: [SectionModel] = []
-
-    var inputDataModel = CurrentValueSubject<InputDataModel, Never>(InputDataModel.initData())
+    @Published var inputDataModel = InputDataModel.initData()
 
     private var cancellables = Set<AnyCancellable>()
     
@@ -24,21 +21,21 @@ class InputViewModel: ObservableObject {
         cancellables.forEach({$0.cancel()})
         cancellables.removeAll()
     }
-
-    init() {
-        inputDataModel.sink { [weak self] model in
-            guard let self = self else { return }
-            self.visibleSections = model.sections.filter { $0.isVisible }
-            self.hiddenSections = model.sections.filter { !$0.isVisible }
-        }
-        .store(in: &cancellables)
-    }
     
     private func setState(_ change:() -> ()) {
-        let psuedoDataModel = inputDataModel.value
         change()
-        withAnimation(.spring()) {
-            inputDataModel.send(psuedoDataModel)
+        withAnimation(.easeInOut) {
+            let psuedoData = inputDataModel
+            
+            var visibles = psuedoData.sections.filter { $0.isVisible }
+            visibles.sort(by: { $0.section.rawValue < $1.section.rawValue })
+            
+            var hiddens = psuedoData.sections.filter { !$0.isVisible }
+            hiddens.sort(by: { $0.section.rawValue < $1.section.rawValue })
+
+            psuedoData.sections = visibles + hiddens
+            
+            inputDataModel = psuedoData
         }
     }
 

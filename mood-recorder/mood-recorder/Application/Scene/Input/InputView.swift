@@ -26,7 +26,7 @@ struct InputView: View {
                                  count: 5),
                   content: {
                     ForEach(models) { model in
-                        VStack(spacing: 5) {
+                        LazyVStack(spacing: 5) {
                             Button(action: {
                                 viewModel.onOptionTap(sectionModel: section, optionModel: model)
                             }, label: {
@@ -45,6 +45,7 @@ struct InputView: View {
                         }
                     }
                   })
+            .disabled(!section.isVisible || viewModel.isInEditMode)
     }
     
     func getImagePicker(model: ImageModel, section: SectionModel) -> some View {
@@ -117,7 +118,7 @@ struct InputView: View {
                 getIconGrid(models: models, section: section)
                     .padding(.horizontal, 10)
                 SizedBox(height: 10)
-                if viewModel.isInEditMode && section.isEditable {
+                if viewModel.isInEditMode && section.isEditable && section.isVisible {
                     Button(action: {}) {
                         ZStack {
                             Theme.current.buttonColor.backgroundColor
@@ -224,24 +225,28 @@ struct InputView: View {
     var body: some View {
         ZStack {
             Theme.current.tableViewColor.background.ignoresSafeArea()
-            ScrollView(.vertical, showsIndicators: false) {
-                navigationBar
-                    .padding()
-                VStack(spacing: 0) {
-                    ForEach(viewModel.visibleSections) { section in
-                        getSectionCell(section: section)
-                    }
-                    ForEach(viewModel.hiddenSections) { section in
-                        ZStack {
-                            Color.gray
-                            getSectionCell(section: section)
+            VStack {
+                ScrollView(.vertical, showsIndicators: false) {
+                    navigationBar
+                        .padding()
+                    LazyVStack(spacing: 0) {
+                        ForEach(viewModel.inputDataModel.sections) { section in
+                            ZStack {
+                                section.isVisible ? Color.clear : Color.gray
+                                
+                                if viewModel.isInEditMode {
+                                    getSectionCell(section: section)
+                                } else if section.isVisible {
+                                    getSectionCell(section: section)
+                                } else {
+                                    Color.clear
+                                }
+                            }
                         }
                     }
+                    
+                    SizedBox(height: 10)
                 }
-                SizedBox(height: 60)
-            }
-            VStack {
-                Spacer()
                 doneButton
             }
         }

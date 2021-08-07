@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Section: CaseIterable {
+enum Section: Int, CaseIterable {
     case emotion
     case activity
     case weather
