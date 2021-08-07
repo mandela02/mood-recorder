@@ -58,11 +58,9 @@ class InputViewModel: ObservableObject {
         isImagePickerShowing.toggle()
     }
     
-    func onPictureSelected(section: Section, image: UIImage) {
+    func onPictureSelected(sectionModel: SectionModel, image: UIImage) {
         setState {
-            guard let model = visibleSections
-                    .first(where: {$0.section == section})?
-                    .cell as? ImageModel else { return }
+            guard let model = sectionModel.cell as? ImageModel else { return }
 
             model.data = image.jpegData(compressionQuality: 0.5)
         }

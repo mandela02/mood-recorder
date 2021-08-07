@@ -75,12 +75,12 @@ struct InputView: View {
         .buttonStyle(ResizeAnimationButtonStyle())
         .sheet(isPresented: $viewModel.isImagePickerShowing) {
             ImagePicker(sourceType: .photoLibrary) { image in
-                viewModel.onPictureSelected(section: section.section, image: image)
+                viewModel.onPictureSelected(sectionModel: section, image: image)
             }
         }
     }
     
-    func getTextView() -> some View {
+    var getTextView: some View {
         ZStack {
             Theme.current.commonColor.textBackground
             TextEditor(text: $viewModel.text)
@@ -95,6 +95,18 @@ struct InputView: View {
         }
         .cornerRadius(10)
         .frame(minHeight: 200)
+    }
+    
+    func getSleepScheduleText(model: SleepSchelduleModel) -> some View {
+        ZStack {
+            Theme.current.commonColor.textBackground
+            Text(model.isHavingNilData ? "Select today sleep schedule" : model.hourString)
+                .foregroundColor(Theme.current.tableViewColor.text)
+                .font(.system(size: 12))
+                .padding()
+        }
+        .cornerRadius(10)
+        .frame(minHeight: 50)
     }
     
     @ViewBuilder
@@ -124,7 +136,10 @@ struct InputView: View {
             getImagePicker(model: model, section: section)
                 .padding()
         case _ as TextModel:
-            getTextView()
+            getTextView
+                .padding()
+        case let model as SleepSchelduleModel:
+            getSleepScheduleText(model: model)
                 .padding()
         default:
             Text("wait")
