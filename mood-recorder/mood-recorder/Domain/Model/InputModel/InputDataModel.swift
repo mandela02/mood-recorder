@@ -14,14 +14,6 @@ class InputDataModel {
     
     var sections: [SectionModel]
     
-    var visibleSections: [SectionModel] {
-        return sections.filter { $0.isVisible }
-    }
-    
-    var hiddenSections: [SectionModel] {
-        return sections.filter { !$0.isVisible }
-    }
-    
     static func initData() -> InputDataModel {
         let sections = Section.allCases.map { section -> SectionModel in
             switch section {

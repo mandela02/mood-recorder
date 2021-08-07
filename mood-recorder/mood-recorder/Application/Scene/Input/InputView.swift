@@ -164,7 +164,7 @@ struct InputView: View {
             }
         }
         .cornerRadius(10)
-        .padding(.horizontal, 10)
+        .padding(.all, 10)
     }
     
     var doneButton: some View {
@@ -212,9 +212,15 @@ struct InputView: View {
             ScrollView(.vertical, showsIndicators: false) {
                 navigationBar
                     .padding()
-                LazyVStack(spacing: 10) {
-                    ForEach(viewModel.inputDataModel.visibleSections) { section in
+                VStack(spacing: 0) {
+                    ForEach(viewModel.visibleSections) { section in
                         getSectionCell(section: section)
+                    }
+                    ForEach(viewModel.hiddenSections) { section in
+                        ZStack {
+                            Color.gray
+                            getSectionCell(section: section)
+                        }
                     }
                 }
                 SizedBox(height: 60)
