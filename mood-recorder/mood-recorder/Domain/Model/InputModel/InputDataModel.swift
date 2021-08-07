@@ -62,9 +62,13 @@ class InputDataModel {
                                     title: "Having a little snack?",
                                     cell: [])
             case .health:
+                let contentModels = Medical.defaultOptions
+                    .map { $0.option }
+                    .map { OptionModel(content: $0) }
+
                 return SectionModel(section: section,
                                     title: "Is there anything wrong? Are you ok?",
-                                    cell: [])
+                                    cell: contentModels)
             case .chores:
                 return SectionModel(section: section,
                                     title: "Did you clean your house today?",

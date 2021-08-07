@@ -509,7 +509,7 @@ class AppImage {
     static let medicalReport = "medical.report"
     static let medicalReportpaper = "medical.report.paper"
     static let medicine = "medicine"
-    static let mentalHealth = "mental health"
+    static let mentalHealth = "mental.health"
     static let microscope = "microscope"
     static let mobilePhone = "mobile.phone"
     static let monitor = "monitor"
