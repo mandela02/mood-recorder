@@ -45,7 +45,6 @@ struct InputView: View {
                         }
                     }
                   })
-            .disabled(!section.isVisible || viewModel.isInEditMode)
     }
     
     func getImagePicker(model: ImageModel, section: SectionModel) -> some View {
@@ -117,8 +116,9 @@ struct InputView: View {
             VStack {
                 getIconGrid(models: models, section: section)
                     .padding(.horizontal, 10)
+                    .disabled(!section.isVisible || viewModel.isInEditMode)
                 SizedBox(height: 10)
-                if viewModel.isInEditMode && section.isEditable && section.isVisible {
+                if section.isEditable && section.isVisible {
                     Button(action: {}) {
                         ZStack {
                             Theme.current.buttonColor.backgroundColor
@@ -135,12 +135,15 @@ struct InputView: View {
             }
         case let model as ImageModel:
             getImagePicker(model: model, section: section)
+                .disabled(!section.isVisible || viewModel.isInEditMode)
                 .padding()
         case _ as TextModel:
             getTextView
+                .disabled(!section.isVisible || viewModel.isInEditMode)
                 .padding()
         case let model as SleepSchelduleModel:
             getSleepScheduleText(model: model)
+                .disabled(!section.isVisible || viewModel.isInEditMode)
                 .padding()
         default:
             Text("wait")
@@ -187,7 +190,7 @@ struct InputView: View {
         Button(action: {}) {
             Text("Done")
                 .font(.system(size: 20))
-                .foregroundColor(Theme.current.buttonColor.tintColor)
+                .foregroundColor(Theme.current.buttonColor.textColor)
                 .frame(maxWidth: .infinity)
                 .padding()
                 .background(Theme.current.buttonColor.backgroundColor
@@ -201,13 +204,13 @@ struct InputView: View {
                 Button(action: viewModel.onEditButtonTapped) {
                     HStack {
                         Text("Edit")
-                            .foregroundColor(Theme.current.commonColor.textColor)
+                            .foregroundColor(Theme.current.buttonColor.textColor)
                             .font(.system(size: 20))
                         Image(systemName: "square.and.pencil")
                             .resizable()
                             .renderingMode(.template)
                             .frame(width: 20, height: 20, alignment: .center)
-                            .foregroundColor(Theme.current.commonColor.textColor)
+                            .foregroundColor(Theme.current.buttonColor.textColor)
                     }
                 }
             }
@@ -217,7 +220,7 @@ struct InputView: View {
                     .resizable()
                     .renderingMode(.template)
                     .frame(width: 20, height: 20, alignment: .center)
-                    .foregroundColor(Theme.current.commonColor.textColor)
+                    .foregroundColor(Theme.current.buttonColor.textColor)
             }
         }
     }
@@ -227,20 +230,20 @@ struct InputView: View {
             Theme.current.tableViewColor.background.ignoresSafeArea()
             VStack {
                 ScrollView(.vertical, showsIndicators: false) {
-                    navigationBar
-                        .padding()
+                    SizedBox(height: 80)
+                    
                     LazyVStack(spacing: 0) {
                         ForEach(viewModel.inputDataModel.sections) { section in
-                            ZStack {
-                                section.isVisible ? Color.clear : Color.gray
-                                
-                                if viewModel.isInEditMode {
+                            if viewModel.isInEditMode {
+                                ZStack {
+                                    section.isVisible ? Color.clear : Color.gray
                                     getSectionCell(section: section)
-                                } else if section.isVisible {
-                                    getSectionCell(section: section)
-                                } else {
-                                    Color.clear
                                 }
+                            } else if section.isVisible {
+                                getSectionCell(section: section)
+                            } else {
+                                Color.clear
+                                    .frame(height: 0)
                             }
                         }
                     }
@@ -248,6 +251,19 @@ struct InputView: View {
                     SizedBox(height: 10)
                 }
                 doneButton
+            }
+            VStack {
+                ZStack {
+                    LinearGradient(gradient: Gradient(colors: [Theme.current.buttonColor.backgroundColor,
+                                                               Color.clear]),
+                                               startPoint: .top,
+                                               endPoint: .bottom)
+                        .ignoresSafeArea(.all, edges: .top)
+                    navigationBar
+                        .padding(.horizontal, 20)
+                }
+                .frame(height: 80)
+                Spacer()
             }
         }
     }

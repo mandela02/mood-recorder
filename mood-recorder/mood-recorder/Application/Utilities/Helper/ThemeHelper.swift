@@ -37,7 +37,7 @@ struct ThemeColor {
     
     struct ButtonColor {
         var backgroundColor: Color
-        var tintColor: Color
+        var textColor: Color
         var iconColor: Color
         var disableColor: Color
     }
@@ -66,7 +66,7 @@ struct ThemeValue {
                                                                        cellBackground: Color(hex: "FFFFFF"),
                                                                        text: Color(hex: "767676")),
                                         buttonColor: ButtonColor(backgroundColor: Color(hex: "9AA987"),
-                                                                 tintColor: Color(hex: "FFFFFF"),
+                                                                 textColor: Color(hex: "FFFFFF"),
                                                                  iconColor: Color(hex: "FFFFFF"),
                                                                  disableColor: Color(hex: "EDEDED")),
                                         commonColor: CommonColor(textColor: Color(hex: "767676"),
