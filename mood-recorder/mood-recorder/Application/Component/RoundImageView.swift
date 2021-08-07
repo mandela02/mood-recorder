@@ -12,14 +12,18 @@ struct RoundImageView: View {
     let backgroundColor: Color
     
     var body: some View {
-        image
-            .resizable()
-            .renderingMode(.original)
-            .aspectRatio(contentMode: .fit)
-            .padding(15)
-            .frame(maxWidth: .infinity)
-            .background(backgroundColor)
-            .clipShape(Circle())
+        ZStack {
+            backgroundColor
+                .clipShape(Circle())
+            image
+                .resizable()
+                .renderingMode(.original)
+                .aspectRatio(contentMode: .fit)
+                .padding(10)
+                .frame(maxWidth: .infinity)
+                .background(Color.clear)
+                .clipShape(Circle())
+        }
     }
 }
 

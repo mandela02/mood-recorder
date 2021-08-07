@@ -7,12 +7,33 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8404938026B977A5006523D9 /* Activities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8404937F26B977A5006523D9 /* Activities.swift */; };
+		8404938226B9A928006523D9 /* InputViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8404938126B9A928006523D9 /* InputViewModel.swift */; };
+		8404938626B9BFCE006523D9 /* InputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8404938526B9BFCE006523D9 /* InputView.swift */; };
+		8404938926BA4F2F006523D9 /* SectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8404938826BA4F2F006523D9 /* SectionModel.swift */; };
+		8404938B26BA4F51006523D9 /* OptionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8404938A26BA4F51006523D9 /* OptionModel.swift */; };
+		8404938D26BA4F6B006523D9 /* SleepScheduleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8404938C26BA4F6B006523D9 /* SleepScheduleModel.swift */; };
+		8404938F26BA4F7D006523D9 /* ImageAndTitleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8404938E26BA4F7D006523D9 /* ImageAndTitleModel.swift */; };
+		8404939126BA4F97006523D9 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8404939026BA4F97006523D9 /* Section.swift */; };
+		8404939326BA4FC0006523D9 /* ImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8404939226BA4FC0006523D9 /* ImageModel.swift */; };
+		8404939526BA50DF006523D9 /* TextModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8404939426BA50DF006523D9 /* TextModel.swift */; };
+		8404939826BA8471006523D9 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8404939726BA8471006523D9 /* ImagePicker.swift */; };
+		8404939A26BAA522006523D9 /* SizedBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8404939926BAA522006523D9 /* SizedBox.swift */; };
+		8404939C26BAA9E7006523D9 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8404939B26BAA9E7006523D9 /* Color+Extension.swift */; };
+		8404939F26BAAB21006523D9 /* ThemeHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8404939E26BAAB21006523D9 /* ThemeHelper.swift */; };
+		8423C1FF26BE42E5000717D9 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8423C1FE26BE42E5000717D9 /* Date+Extension.swift */; };
+		8423C20126BE4306000717D9 /* Calendar+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8423C20026BE4306000717D9 /* Calendar+Extension.swift */; };
+		8423C20326BE4329000717D9 /* DateFormatter+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8423C20226BE4329000717D9 /* DateFormatter+Extension.swift */; };
+		8423C20526BE43BB000717D9 /* Double+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8423C20426BE43BB000717D9 /* Double+Extension.swift */; };
 		8424A92F26B5BE0B00BE4454 /* mood_recorderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8424A92E26B5BE0B00BE4454 /* mood_recorderApp.swift */; };
 		8424A93126B5BE0B00BE4454 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8424A93026B5BE0B00BE4454 /* ContentView.swift */; };
 		8424A93326B5BE0F00BE4454 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8424A93226B5BE0F00BE4454 /* Assets.xcassets */; };
 		8424A93626B5BE0F00BE4454 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8424A93526B5BE0F00BE4454 /* Preview Assets.xcassets */; };
 		8424A93826B5BE0F00BE4454 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8424A93726B5BE0F00BE4454 /* Persistence.swift */; };
 		8424A93B26B5BE0F00BE4454 /* mood_recorder.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8424A93926B5BE0F00BE4454 /* mood_recorder.xcdatamodeld */; };
+		8476F1A726B85B9000F62854 /* InputDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476F1A626B85B9000F62854 /* InputDataModel.swift */; };
+		8476F1A926B861EC00F62854 /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476F1A826B861EC00F62854 /* Weather.swift */; };
+		8476F1AD26B8637300F62854 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476F1AC26B8637300F62854 /* String+Extension.swift */; };
 		84CBB35F26B703BF00A8E377 /* CustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CBB35E26B703BF00A8E377 /* CustomTabBar.swift */; };
 		84CBB36126B7102700A8E377 /* AppImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CBB36026B7102700A8E377 /* AppImage.swift */; };
 		84CBB36426B7154100A8E377 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CBB36326B7154100A8E377 /* HomeView.swift */; };
@@ -24,6 +45,24 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8404937F26B977A5006523D9 /* Activities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activities.swift; sourceTree = "<group>"; };
+		8404938126B9A928006523D9 /* InputViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputViewModel.swift; sourceTree = "<group>"; };
+		8404938526B9BFCE006523D9 /* InputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputView.swift; sourceTree = "<group>"; };
+		8404938826BA4F2F006523D9 /* SectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionModel.swift; sourceTree = "<group>"; };
+		8404938A26BA4F51006523D9 /* OptionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionModel.swift; sourceTree = "<group>"; };
+		8404938C26BA4F6B006523D9 /* SleepScheduleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepScheduleModel.swift; sourceTree = "<group>"; };
+		8404938E26BA4F7D006523D9 /* ImageAndTitleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageAndTitleModel.swift; sourceTree = "<group>"; };
+		8404939026BA4F97006523D9 /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
+		8404939226BA4FC0006523D9 /* ImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageModel.swift; sourceTree = "<group>"; };
+		8404939426BA50DF006523D9 /* TextModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextModel.swift; sourceTree = "<group>"; };
+		8404939726BA8471006523D9 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		8404939926BAA522006523D9 /* SizedBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizedBox.swift; sourceTree = "<group>"; };
+		8404939B26BAA9E7006523D9 /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
+		8404939E26BAAB21006523D9 /* ThemeHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeHelper.swift; sourceTree = "<group>"; };
+		8423C1FE26BE42E5000717D9 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
+		8423C20026BE4306000717D9 /* Calendar+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Calendar+Extension.swift"; sourceTree = "<group>"; };
+		8423C20226BE4329000717D9 /* DateFormatter+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Extension.swift"; sourceTree = "<group>"; };
+		8423C20426BE43BB000717D9 /* Double+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extension.swift"; sourceTree = "<group>"; };
 		8424A92B26B5BE0B00BE4454 /* mood-recorder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "mood-recorder.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8424A92E26B5BE0B00BE4454 /* mood_recorderApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mood_recorderApp.swift; sourceTree = "<group>"; };
 		8424A93026B5BE0B00BE4454 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -32,6 +71,9 @@
 		8424A93726B5BE0F00BE4454 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		8424A93A26B5BE0F00BE4454 /* mood_recorder.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = mood_recorder.xcdatamodel; sourceTree = "<group>"; };
 		8424A93C26B5BE0F00BE4454 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8476F1A626B85B9000F62854 /* InputDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputDataModel.swift; sourceTree = "<group>"; };
+		8476F1A826B861EC00F62854 /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
+		8476F1AC26B8637300F62854 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		84CBB35E26B703BF00A8E377 /* CustomTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBar.swift; sourceTree = "<group>"; };
 		84CBB36026B7102700A8E377 /* AppImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppImage.swift; sourceTree = "<group>"; };
 		84CBB36326B7154100A8E377 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -53,6 +95,39 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8404938726BA4F15006523D9 /* Enum */ = {
+			isa = PBXGroup;
+			children = (
+				84EF6B7126B7A4BA00C0551F /* CoreEmotion.swift */,
+				8476F1A826B861EC00F62854 /* Weather.swift */,
+				8404937F26B977A5006523D9 /* Activities.swift */,
+				8404939026BA4F97006523D9 /* Section.swift */,
+			);
+			path = Enum;
+			sourceTree = "<group>";
+		};
+		8404939626BA5118006523D9 /* InputModel */ = {
+			isa = PBXGroup;
+			children = (
+				8476F1A626B85B9000F62854 /* InputDataModel.swift */,
+				8404938826BA4F2F006523D9 /* SectionModel.swift */,
+				8404938A26BA4F51006523D9 /* OptionModel.swift */,
+				8404938C26BA4F6B006523D9 /* SleepScheduleModel.swift */,
+				8404938E26BA4F7D006523D9 /* ImageAndTitleModel.swift */,
+				8404939226BA4FC0006523D9 /* ImageModel.swift */,
+				8404939426BA50DF006523D9 /* TextModel.swift */,
+			);
+			path = InputModel;
+			sourceTree = "<group>";
+		};
+		8404939D26BAAB14006523D9 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				8404939E26BAAB21006523D9 /* ThemeHelper.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
 		8424A92226B5BE0B00BE4454 = {
 			isa = PBXGroup;
 			children = (
@@ -90,6 +165,37 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		8476F1A526B85B7900F62854 /* Input */ = {
+			isa = PBXGroup;
+			children = (
+				8404938526B9BFCE006523D9 /* InputView.swift */,
+				8404938126B9A928006523D9 /* InputViewModel.swift */,
+			);
+			path = Input;
+			sourceTree = "<group>";
+		};
+		8476F1AA26B8635900F62854 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				8404939D26BAAB14006523D9 /* Helper */,
+				8476F1AB26B8635F00F62854 /* Extension */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		8476F1AB26B8635F00F62854 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				8476F1AC26B8637300F62854 /* String+Extension.swift */,
+				8404939B26BAA9E7006523D9 /* Color+Extension.swift */,
+				8423C1FE26BE42E5000717D9 /* Date+Extension.swift */,
+				8423C20026BE4306000717D9 /* Calendar+Extension.swift */,
+				8423C20226BE4329000717D9 /* DateFormatter+Extension.swift */,
+				8423C20426BE43BB000717D9 /* Double+Extension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		84CBB35626B6FDD000A8E377 /* Platform */ = {
 			isa = PBXGroup;
 			children = (
@@ -101,6 +207,7 @@
 		84CBB35726B6FDF400A8E377 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				8404938726BA4F15006523D9 /* Enum */,
 				84CBB36D26B725C600A8E377 /* Model */,
 			);
 			path = Domain;
@@ -109,6 +216,7 @@
 		84CBB35826B6FDF800A8E377 /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				8476F1AA26B8635900F62854 /* Utilities */,
 				84CBB35D26B703AB00A8E377 /* Component */,
 				84CBB35B26B6FE3300A8E377 /* Scene */,
 				84CBB35A26B6FE1400A8E377 /* App */,
@@ -137,6 +245,7 @@
 		84CBB35B26B6FE3300A8E377 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				8476F1A526B85B7900F62854 /* Input */,
 				84CBB36226B7152C00A8E377 /* Home */,
 			);
 			path = Scene;
@@ -150,6 +259,8 @@
 				84CBB36726B71A2800A8E377 /* TalkBubble.swift */,
 				84CBB36926B71E7500A8E377 /* ResizeAnimationButtonStyle.swift */,
 				84CBB36B26B71EE600A8E377 /* RoundImageView.swift */,
+				8404939726BA8471006523D9 /* ImagePicker.swift */,
+				8404939926BAA522006523D9 /* SizedBox.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -166,7 +277,7 @@
 		84CBB36D26B725C600A8E377 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				84EF6B7126B7A4BA00C0551F /* CoreEmotion.swift */,
+				8404939626BA5118006523D9 /* InputModel */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -240,17 +351,38 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8404938026B977A5006523D9 /* Activities.swift in Sources */,
 				8424A93826B5BE0F00BE4454 /* Persistence.swift in Sources */,
 				84CBB35F26B703BF00A8E377 /* CustomTabBar.swift in Sources */,
 				84CBB36C26B71EE600A8E377 /* RoundImageView.swift in Sources */,
 				8424A93126B5BE0B00BE4454 /* ContentView.swift in Sources */,
+				8423C1FF26BE42E5000717D9 /* Date+Extension.swift in Sources */,
 				84CBB36626B7164E00A8E377 /* HomeViewModel.swift in Sources */,
 				84CBB36A26B71E7500A8E377 /* ResizeAnimationButtonStyle.swift in Sources */,
+				8404939326BA4FC0006523D9 /* ImageModel.swift in Sources */,
+				8404939F26BAAB21006523D9 /* ThemeHelper.swift in Sources */,
+				8404938926BA4F2F006523D9 /* SectionModel.swift in Sources */,
+				8476F1A926B861EC00F62854 /* Weather.swift in Sources */,
 				84CBB36426B7154100A8E377 /* HomeView.swift in Sources */,
 				8424A93B26B5BE0F00BE4454 /* mood_recorder.xcdatamodeld in Sources */,
+				8404938D26BA4F6B006523D9 /* SleepScheduleModel.swift in Sources */,
+				8404939826BA8471006523D9 /* ImagePicker.swift in Sources */,
 				84EF6B7226B7A4BA00C0551F /* CoreEmotion.swift in Sources */,
+				8404939C26BAA9E7006523D9 /* Color+Extension.swift in Sources */,
+				8423C20326BE4329000717D9 /* DateFormatter+Extension.swift in Sources */,
+				8404939A26BAA522006523D9 /* SizedBox.swift in Sources */,
 				8424A92F26B5BE0B00BE4454 /* mood_recorderApp.swift in Sources */,
+				8404938226B9A928006523D9 /* InputViewModel.swift in Sources */,
+				8404939526BA50DF006523D9 /* TextModel.swift in Sources */,
+				8423C20126BE4306000717D9 /* Calendar+Extension.swift in Sources */,
+				8404939126BA4F97006523D9 /* Section.swift in Sources */,
+				8404938B26BA4F51006523D9 /* OptionModel.swift in Sources */,
 				84CBB36126B7102700A8E377 /* AppImage.swift in Sources */,
+				8423C20526BE43BB000717D9 /* Double+Extension.swift in Sources */,
+				8476F1A726B85B9000F62854 /* InputDataModel.swift in Sources */,
+				8404938626B9BFCE006523D9 /* InputView.swift in Sources */,
+				8476F1AD26B8637300F62854 /* String+Extension.swift in Sources */,
+				8404938F26BA4F7D006523D9 /* ImageAndTitleModel.swift in Sources */,
 				84CBB36826B71A2800A8E377 /* TalkBubble.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

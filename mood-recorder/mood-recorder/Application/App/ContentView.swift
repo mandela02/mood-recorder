@@ -8,7 +8,7 @@
 import SwiftUI
 import CoreData
 
-struct ContentView: View {
+struct ContentView: View {    
     var body: some View {
         ZStack(alignment: Alignment(horizontal: .center, vertical: .center),
                content: {
