@@ -54,7 +54,7 @@ enum Section: Int, CaseIterable {
         case .work:
             return []
         case .bobby:
-            return []
+            return Hobby.allCases.map { $0.option }
         case .event:
             return []
         case .sleep:

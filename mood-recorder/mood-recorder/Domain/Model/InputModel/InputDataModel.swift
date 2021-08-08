@@ -91,9 +91,13 @@ class InputDataModel {
                                     title: "Was your boss annoy you today?",
                                     cell: [])
             case .bobby:
+                let contentModels = Hobby.defaultOptions
+                    .map { $0.option }
+                    .map { OptionModel(content: $0) }
+
                 return SectionModel(section: section,
                                     title: "Did you enjoy yourself?",
-                                    cell: [])
+                                    cell: contentModels)
             case .event:
                 return SectionModel(section: section,
                                     title: "Which events did you attend?",
