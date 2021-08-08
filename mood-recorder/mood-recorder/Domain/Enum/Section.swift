@@ -11,11 +11,9 @@ enum Section: Int, CaseIterable {
     case emotion
     case activity
     case weather
-    case social
     case school
     case romance
     case food
-    case snack
     case health
     case chores
     case beauty
@@ -38,28 +36,24 @@ enum Section: Int, CaseIterable {
             return Activities.allCases.map { $0.option }
         case .weather:
             return Weather.allCases.map { $0.option }
-        case .social:
-            return []
         case .school:
-            return []
+            return School.allCases.map { $0.option }
         case .romance:
-            return []
+            return Love.allCases.map { $0.option }
         case .food:
-            return []
-        case .snack:
-            return []
+            return Food.allCases.map { $0.option }
         case .health:
-            return []
+            return Medical.allCases.map { $0.option }
         case .chores:
-            return []
+            return Chore.allCases.map { $0.option }
         case .beauty:
-            return []
+            return Beauty.allCases.map { $0.option }
         case .work:
-            return []
+            return Job.allCases.map { $0.option }
         case .bobby:
-            return []
+            return Hobby.allCases.map { $0.option }
         case .event:
-            return []
+            return Event.allCases.map { $0.option }
         case .sleep:
             return []
         case .note:

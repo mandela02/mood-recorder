@@ -25,6 +25,16 @@
 		8423C20126BE4306000717D9 /* Calendar+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8423C20026BE4306000717D9 /* Calendar+Extension.swift */; };
 		8423C20326BE4329000717D9 /* DateFormatter+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8423C20226BE4329000717D9 /* DateFormatter+Extension.swift */; };
 		8423C20526BE43BB000717D9 /* Double+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8423C20426BE43BB000717D9 /* Double+Extension.swift */; };
+		8423C20726BE6AD5000717D9 /* Medical.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8423C20626BE6AD5000717D9 /* Medical.swift */; };
+		8423C20926BE85CE000717D9 /* Love.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8423C20826BE85CE000717D9 /* Love.swift */; };
+		8423C20B26BFB5E7000717D9 /* UIApplication+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8423C20A26BFB5E7000717D9 /* UIApplication+Extension.swift */; };
+		8423C20D26BFBBCA000717D9 /* Food.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8423C20C26BFBBCA000717D9 /* Food.swift */; };
+		8423C20F26BFC5A0000717D9 /* Beauty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8423C20E26BFC5A0000717D9 /* Beauty.swift */; };
+		8423C21126BFD384000717D9 /* Hobby.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8423C21026BFD384000717D9 /* Hobby.swift */; };
+		8423C21326BFE2F0000717D9 /* Job.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8423C21226BFE2F0000717D9 /* Job.swift */; };
+		8423C21526BFE978000717D9 /* School.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8423C21426BFE978000717D9 /* School.swift */; };
+		8423C21826C0037C000717D9 /* Chore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8423C21726C0037C000717D9 /* Chore.swift */; };
+		8423C21A26C0098D000717D9 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8423C21926C0098D000717D9 /* Event.swift */; };
 		8424A92F26B5BE0B00BE4454 /* mood_recorderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8424A92E26B5BE0B00BE4454 /* mood_recorderApp.swift */; };
 		8424A93126B5BE0B00BE4454 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8424A93026B5BE0B00BE4454 /* ContentView.swift */; };
 		8424A93326B5BE0F00BE4454 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8424A93226B5BE0F00BE4454 /* Assets.xcassets */; };
@@ -63,6 +73,16 @@
 		8423C20026BE4306000717D9 /* Calendar+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Calendar+Extension.swift"; sourceTree = "<group>"; };
 		8423C20226BE4329000717D9 /* DateFormatter+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Extension.swift"; sourceTree = "<group>"; };
 		8423C20426BE43BB000717D9 /* Double+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extension.swift"; sourceTree = "<group>"; };
+		8423C20626BE6AD5000717D9 /* Medical.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Medical.swift; sourceTree = "<group>"; };
+		8423C20826BE85CE000717D9 /* Love.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Love.swift; sourceTree = "<group>"; };
+		8423C20A26BFB5E7000717D9 /* UIApplication+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extension.swift"; sourceTree = "<group>"; };
+		8423C20C26BFBBCA000717D9 /* Food.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Food.swift; sourceTree = "<group>"; };
+		8423C20E26BFC5A0000717D9 /* Beauty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Beauty.swift; sourceTree = "<group>"; };
+		8423C21026BFD384000717D9 /* Hobby.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hobby.swift; sourceTree = "<group>"; };
+		8423C21226BFE2F0000717D9 /* Job.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Job.swift; sourceTree = "<group>"; };
+		8423C21426BFE978000717D9 /* School.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = School.swift; sourceTree = "<group>"; };
+		8423C21726C0037C000717D9 /* Chore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chore.swift; sourceTree = "<group>"; };
+		8423C21926C0098D000717D9 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		8424A92B26B5BE0B00BE4454 /* mood-recorder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "mood-recorder.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8424A92E26B5BE0B00BE4454 /* mood_recorderApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mood_recorderApp.swift; sourceTree = "<group>"; };
 		8424A93026B5BE0B00BE4454 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -102,6 +122,15 @@
 				8476F1A826B861EC00F62854 /* Weather.swift */,
 				8404937F26B977A5006523D9 /* Activities.swift */,
 				8404939026BA4F97006523D9 /* Section.swift */,
+				8423C20626BE6AD5000717D9 /* Medical.swift */,
+				8423C20826BE85CE000717D9 /* Love.swift */,
+				8423C20C26BFBBCA000717D9 /* Food.swift */,
+				8423C20E26BFC5A0000717D9 /* Beauty.swift */,
+				8423C21026BFD384000717D9 /* Hobby.swift */,
+				8423C21226BFE2F0000717D9 /* Job.swift */,
+				8423C21426BFE978000717D9 /* School.swift */,
+				8423C21726C0037C000717D9 /* Chore.swift */,
+				8423C21926C0098D000717D9 /* Event.swift */,
 			);
 			path = Enum;
 			sourceTree = "<group>";
@@ -192,6 +221,7 @@
 				8423C20026BE4306000717D9 /* Calendar+Extension.swift */,
 				8423C20226BE4329000717D9 /* DateFormatter+Extension.swift */,
 				8423C20426BE43BB000717D9 /* Double+Extension.swift */,
+				8423C20A26BFB5E7000717D9 /* UIApplication+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -351,6 +381,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8423C20926BE85CE000717D9 /* Love.swift in Sources */,
+				8423C21A26C0098D000717D9 /* Event.swift in Sources */,
 				8404938026B977A5006523D9 /* Activities.swift in Sources */,
 				8424A93826B5BE0F00BE4454 /* Persistence.swift in Sources */,
 				84CBB35F26B703BF00A8E377 /* CustomTabBar.swift in Sources */,
@@ -362,20 +394,26 @@
 				8404939326BA4FC0006523D9 /* ImageModel.swift in Sources */,
 				8404939F26BAAB21006523D9 /* ThemeHelper.swift in Sources */,
 				8404938926BA4F2F006523D9 /* SectionModel.swift in Sources */,
+				8423C21126BFD384000717D9 /* Hobby.swift in Sources */,
 				8476F1A926B861EC00F62854 /* Weather.swift in Sources */,
 				84CBB36426B7154100A8E377 /* HomeView.swift in Sources */,
 				8424A93B26B5BE0F00BE4454 /* mood_recorder.xcdatamodeld in Sources */,
 				8404938D26BA4F6B006523D9 /* SleepScheduleModel.swift in Sources */,
+				8423C21526BFE978000717D9 /* School.swift in Sources */,
 				8404939826BA8471006523D9 /* ImagePicker.swift in Sources */,
 				84EF6B7226B7A4BA00C0551F /* CoreEmotion.swift in Sources */,
 				8404939C26BAA9E7006523D9 /* Color+Extension.swift in Sources */,
 				8423C20326BE4329000717D9 /* DateFormatter+Extension.swift in Sources */,
+				8423C20726BE6AD5000717D9 /* Medical.swift in Sources */,
+				8423C20D26BFBBCA000717D9 /* Food.swift in Sources */,
 				8404939A26BAA522006523D9 /* SizedBox.swift in Sources */,
+				8423C20B26BFB5E7000717D9 /* UIApplication+Extension.swift in Sources */,
 				8424A92F26B5BE0B00BE4454 /* mood_recorderApp.swift in Sources */,
 				8404938226B9A928006523D9 /* InputViewModel.swift in Sources */,
 				8404939526BA50DF006523D9 /* TextModel.swift in Sources */,
 				8423C20126BE4306000717D9 /* Calendar+Extension.swift in Sources */,
 				8404939126BA4F97006523D9 /* Section.swift in Sources */,
+				8423C20F26BFC5A0000717D9 /* Beauty.swift in Sources */,
 				8404938B26BA4F51006523D9 /* OptionModel.swift in Sources */,
 				84CBB36126B7102700A8E377 /* AppImage.swift in Sources */,
 				8423C20526BE43BB000717D9 /* Double+Extension.swift in Sources */,
@@ -383,7 +421,9 @@
 				8404938626B9BFCE006523D9 /* InputView.swift in Sources */,
 				8476F1AD26B8637300F62854 /* String+Extension.swift in Sources */,
 				8404938F26BA4F7D006523D9 /* ImageAndTitleModel.swift in Sources */,
+				8423C21826C0037C000717D9 /* Chore.swift in Sources */,
 				84CBB36826B71A2800A8E377 /* TalkBubble.swift in Sources */,
+				8423C21326BFE2F0000717D9 /* Job.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
