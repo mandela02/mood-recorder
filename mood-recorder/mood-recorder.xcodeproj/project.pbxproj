@@ -32,6 +32,7 @@
 		8423C20F26BFC5A0000717D9 /* Beauty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8423C20E26BFC5A0000717D9 /* Beauty.swift */; };
 		8423C21126BFD384000717D9 /* Hobby.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8423C21026BFD384000717D9 /* Hobby.swift */; };
 		8423C21326BFE2F0000717D9 /* Job.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8423C21226BFE2F0000717D9 /* Job.swift */; };
+		8423C21526BFE978000717D9 /* School.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8423C21426BFE978000717D9 /* School.swift */; };
 		8424A92F26B5BE0B00BE4454 /* mood_recorderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8424A92E26B5BE0B00BE4454 /* mood_recorderApp.swift */; };
 		8424A93126B5BE0B00BE4454 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8424A93026B5BE0B00BE4454 /* ContentView.swift */; };
 		8424A93326B5BE0F00BE4454 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8424A93226B5BE0F00BE4454 /* Assets.xcassets */; };
@@ -77,6 +78,7 @@
 		8423C20E26BFC5A0000717D9 /* Beauty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Beauty.swift; sourceTree = "<group>"; };
 		8423C21026BFD384000717D9 /* Hobby.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hobby.swift; sourceTree = "<group>"; };
 		8423C21226BFE2F0000717D9 /* Job.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Job.swift; sourceTree = "<group>"; };
+		8423C21426BFE978000717D9 /* School.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = School.swift; sourceTree = "<group>"; };
 		8424A92B26B5BE0B00BE4454 /* mood-recorder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "mood-recorder.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8424A92E26B5BE0B00BE4454 /* mood_recorderApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mood_recorderApp.swift; sourceTree = "<group>"; };
 		8424A93026B5BE0B00BE4454 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -122,6 +124,7 @@
 				8423C20E26BFC5A0000717D9 /* Beauty.swift */,
 				8423C21026BFD384000717D9 /* Hobby.swift */,
 				8423C21226BFE2F0000717D9 /* Job.swift */,
+				8423C21426BFE978000717D9 /* School.swift */,
 			);
 			path = Enum;
 			sourceTree = "<group>";
@@ -389,6 +392,7 @@
 				84CBB36426B7154100A8E377 /* HomeView.swift in Sources */,
 				8424A93B26B5BE0F00BE4454 /* mood_recorder.xcdatamodeld in Sources */,
 				8404938D26BA4F6B006523D9 /* SleepScheduleModel.swift in Sources */,
+				8423C21526BFE978000717D9 /* School.swift in Sources */,
 				8404939826BA8471006523D9 /* ImagePicker.swift in Sources */,
 				84EF6B7226B7A4BA00C0551F /* CoreEmotion.swift in Sources */,
 				8404939C26BAA9E7006523D9 /* Color+Extension.swift in Sources */,

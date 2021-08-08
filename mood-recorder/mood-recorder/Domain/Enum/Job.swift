@@ -131,6 +131,7 @@ enum Job: CaseIterable {
     }
     
     static var defaultOptions: [Job] {
-        return [.webDesign, .coding, .ads, .startup, .marketing]
+        return [.webDesign, .coding, .ads, .startup, .marketing
+                , .blogger, .budget, .consultant, .digitalNomad, .travel]
     }
 }

@@ -46,9 +46,13 @@ class InputDataModel {
                                     title: "How is your social life?",
                                     cell: [])
             case .school:
+                let contentModels = School.defaultOptions
+                    .map { $0.option }
+                    .map { OptionModel(content: $0) }
+
                 return SectionModel(section: section,
                                     title: "What did you do in school?",
-                                    cell: [])
+                                    cell: contentModels)
             case .romance:
                 let contentModels = Love.defaultOptions
                     .map { $0.option }

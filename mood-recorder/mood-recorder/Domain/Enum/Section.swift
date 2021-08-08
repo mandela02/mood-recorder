@@ -40,7 +40,7 @@ enum Section: Int, CaseIterable {
         case .social:
             return []
         case .school:
-            return []
+            return School.allCases.map { $0.option }
         case .romance:
             return Love.allCases.map { $0.option }
         case .food:
