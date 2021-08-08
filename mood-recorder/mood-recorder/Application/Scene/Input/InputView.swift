@@ -118,7 +118,7 @@ struct InputView: View {
                     .padding(.horizontal, 10)
                     .disabled(!section.isVisible || viewModel.isInEditMode)
                 SizedBox(height: 10)
-                if section.isEditable && section.isVisible {
+                if section.isEditable && section.isVisible && viewModel.isInEditMode {
                     Button(action: {}) {
                         ZStack {
                             Theme.current.buttonColor.backgroundColor
