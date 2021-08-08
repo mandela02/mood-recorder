@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-
 struct InputView: View {
     @ObservedObject var viewModel = InputViewModel()
     
@@ -198,7 +197,9 @@ struct InputView: View {
     
     // MARK: - Done Button
     var doneButton: some View {
-        Button(action: {}) {
+        Button(action: {
+            viewModel.onActionHappeded(action: .doneButtonTapped)
+        }) {
             Text("Done")
                 .font(.system(size: 20))
                 .foregroundColor(Theme.current.buttonColor.textColor)
@@ -284,7 +285,7 @@ struct InputView: View {
             }
         }
         .onTapGesture {
-            UIApplication.shared.endEditing()
+            viewModel.onActionHappeded(action: .dismissKeyboard)
         }
     }
 }

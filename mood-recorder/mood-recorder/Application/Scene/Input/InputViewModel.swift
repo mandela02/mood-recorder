@@ -44,6 +44,7 @@ extension InputViewModel {
                 switch action {
                 case .optionTap(sectionModel: let sectionModel,
                                 optionModel: let optionModel):
+                    self.onDismissKeyboardNeeded()
                     self.onOptionTap(at: sectionModel,
                                      with: optionModel)
                 case .pictureSelected(sectionModel: let sectionModel,
@@ -53,13 +54,19 @@ extension InputViewModel {
                 case .onSectionStatusChanged(sectionModel: let sectionModel):
                     self.onSectionStatusChanged(at: sectionModel)
                 case .closeButtonTapped:
+                    self.onDismissKeyboardNeeded()
                     self.onCloseButtonTapped()
                 case .editButtonTapped:
+                    self.onDismissKeyboardNeeded()
                     self.changeViewStatus()
                 case .doneButtonTapped:
+                    self.onDismissKeyboardNeeded()
                     self.onDoneButtonTapped()
                 case .imageButtonTapped:
+                    self.onDismissKeyboardNeeded()
                     self.showImagePicker()
+                case .dismissKeyboard:
+                    self.onDismissKeyboardNeeded()
                 }
             }
             .store(in: &cancellables)
@@ -141,6 +148,10 @@ extension InputViewModel {
             return
         }
     }
+    
+    private func onDismissKeyboardNeeded() {
+        UIApplication.shared.endEditing()
+    }
 }
 
 
@@ -153,4 +164,5 @@ enum InputAction {
     case editButtonTapped
     case doneButtonTapped
     case imageButtonTapped
+    case dismissKeyboard
 }
