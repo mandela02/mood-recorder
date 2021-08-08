@@ -87,9 +87,13 @@ class InputDataModel {
                                     title: "Remember take care of yourself!",
                                     cell: contentModels)
             case .work:
+                let contentModels = Job.defaultOptions
+                    .map { $0.option }
+                    .map { OptionModel(content: $0) }
+
                 return SectionModel(section: section,
                                     title: "Was your boss annoy you today?",
-                                    cell: [])
+                                    cell: contentModels)
             case .bobby:
                 let contentModels = Hobby.defaultOptions
                     .map { $0.option }

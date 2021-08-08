@@ -52,7 +52,7 @@ enum Section: Int, CaseIterable {
         case .beauty:
             return Beauty.allCases.map { $0.option }
         case .work:
-            return []
+            return Job.allCases.map { $0.option }
         case .bobby:
             return Hobby.allCases.map { $0.option }
         case .event:
