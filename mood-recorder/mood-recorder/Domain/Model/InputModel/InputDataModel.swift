@@ -41,10 +41,7 @@ class InputDataModel {
                 return SectionModel(section: section,
                                     title: "What the weather like today??",
                                     cell: contentModels)
-            case .social:
-                return SectionModel(section: section,
-                                    title: "How is your social life?",
-                                    cell: [])
+
             case .school:
                 let contentModels = School.defaultOptions
                     .map { $0.option }
@@ -111,9 +108,13 @@ class InputDataModel {
                                     title: "Did you enjoy yourself?",
                                     cell: contentModels)
             case .event:
+                let contentModels = Event.defaultOptions
+                    .map { $0.option }
+                    .map { OptionModel(content: $0) }
+
                 return SectionModel(section: section,
                                     title: "Which events did you attend?",
-                                    cell: [])
+                                    cell: contentModels)
             case .sleep:
                 return SectionModel(section: section,
                                     title: "How was your sleep?",

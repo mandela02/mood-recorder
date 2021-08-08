@@ -11,7 +11,6 @@ enum Section: Int, CaseIterable {
     case emotion
     case activity
     case weather
-    case social
     case school
     case romance
     case food
@@ -37,8 +36,6 @@ enum Section: Int, CaseIterable {
             return Activities.allCases.map { $0.option }
         case .weather:
             return Weather.allCases.map { $0.option }
-        case .social:
-            return []
         case .school:
             return School.allCases.map { $0.option }
         case .romance:
@@ -56,7 +53,7 @@ enum Section: Int, CaseIterable {
         case .bobby:
             return Hobby.allCases.map { $0.option }
         case .event:
-            return []
+            return Event.allCases.map { $0.option }
         case .sleep:
             return []
         case .note:
