@@ -9,8 +9,6 @@ import SwiftUI
 
 @main
 struct MoodRecorderApp: App {
-    @Environment(\.scenePhase) var scenePhase
-
     var body: some Scene {
         WindowGroup {
             HomeView()

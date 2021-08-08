@@ -16,40 +16,41 @@ class InputViewModel: ObservableObject {
     @Published var inputDataModel = InputDataModel.initData()
     
     private let action = PassthroughSubject<InputAction, Never>()
-    
+    private let response = PassthroughSubject<DatabaseResponse, Never>()
+
     private var cancellables = Set<AnyCancellable>()
     
     private let useCase = UseCaseProvider.defaultProvider.getinputUseCase()
     
+    private var status = Status.new
+    
     deinit {
         action.send(completion: .finished)
+        response.send(completion: .finished)
         
         cancellables.forEach({$0.cancel()})
         cancellables.removeAll()
     }
     
-    init(emotion: CoreEmotion) {
+    init(emotion: CoreEmotion? = nil, at date: Date? = nil) {
         setupSubcription()
-        
-//        let response = useCase.fetch(date: Date())
-//        
-//        switch response {
-//        case .success(data: let data as InputDataModel):
-//            self.inputDataModel = data
-//        case .error(error: let error):
-//            print(error)
-//        default:
-//            self.inputDataModel = InputDataModel.initData()
-//            initData(with: emotion)
-//        }
+        initData(with: emotion, at: date)
     }
     
     func onActionHappeded(action: InputAction) {
         self.action.send(action)
     }
     
-    private func initData(with emotion: CoreEmotion) {
+    private func initData(with emotion: CoreEmotion?, at date: Date?) {
         setState {
+            guard let emotion = emotion, date == nil else {
+                status = .update(date: date!)
+                response.send(useCase.fetch(at: date!.startOfDay.timeIntervalSince1970))
+                return
+            }
+            
+            self.inputDataModel = InputDataModel.initData()
+
             guard let model = inputDataModel
                     .sections
                     .first(where: { $0.section == .emotion })?
@@ -65,6 +66,21 @@ class InputViewModel: ObservableObject {
 // MARK: - Subcription Handler
 extension InputViewModel {
     private func setupSubcription() {
+        response
+            .sink { [weak self] response in
+                guard let self = self else { return }
+                switch response {
+                case .success(data: let data):
+                    if let model = data as? InputDataModel {
+                        self.inputDataModel = model
+                    }
+                case .error(error: let error):
+                    print(error)
+                }
+
+            }
+            .store(in: &cancellables)
+
         action
             .sink { [weak self] action in
                 guard let self = self else { return }
@@ -174,19 +190,24 @@ extension InputViewModel {
             changeViewStatus()
             return
         }
-//
-//        let response = useCase.save(model: inputDataModel)
-//
-//        switch response {
-//        case .success(data: let data):
-//            print(data)
-//        case .error(error: let error):
-//            print(error)
-//        }
+
+        switch status {
+        case .new:
+            self.response.send(useCase.save(model: inputDataModel))
+        case .update(date: let date):
+            self.response.send(useCase.update(at: date.startOfDay.timeIntervalSince1970,
+                                              model: inputDataModel))
+        }
+        
     }
     
     private func onDismissKeyboardNeeded() {
         UIApplication.shared.endEditing()
+    }
+    
+    private enum Status {
+        case new
+        case update(date: Date)
     }
 }
 
