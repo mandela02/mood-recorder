@@ -13,7 +13,7 @@ struct mood_recorderApp: App {
 
     var body: some Scene {
         WindowGroup {
-            InputView()
+            HomeView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }

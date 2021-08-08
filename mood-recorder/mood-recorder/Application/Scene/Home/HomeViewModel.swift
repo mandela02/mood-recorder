@@ -10,6 +10,9 @@ import SwiftUI
 class HomeViewModel: ObservableObject {
     @Published var seletedTabBarIndex = 0
     @Published var isEmotionDialogShowing = false
+    @Published var isInputViewShow = false
+
+    var selectedCoreEmotion: CoreEmotion?
     
     func onBigButtonTapped() {
         withAnimation(Animation.spring().speed(1.5)) {
@@ -17,7 +20,13 @@ class HomeViewModel: ObservableObject {
         }
     }
     
+    func onInputViewDismiss() {
+        selectedCoreEmotion = nil
+    }
+    
     func onEmotionSelected(emotion: CoreEmotion) {
         onBigButtonTapped()
+        selectedCoreEmotion = emotion
+        isInputViewShow.toggle()
     }
 }

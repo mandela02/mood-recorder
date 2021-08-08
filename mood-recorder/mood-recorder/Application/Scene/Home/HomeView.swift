@@ -37,9 +37,11 @@ struct HomeView: View {
     var emotionListDialog: some View {
         if viewModel.isEmotionDialogShowing {
             TalkBubble(backgroundColor: .white,
-                       buttonBackgroundColor: .green,
-                       textColor: .black,
+                       buttonBackgroundColor: Theme.current.buttonColor.disableColor,
+                       textColor: Theme.current.commonColor.textColor,
                        onButtonTap: viewModel.onEmotionSelected)
+                .transition(.asymmetric(insertion: .move(edge: .bottom),
+                                        removal: .opacity))
         } else {
             EmptyView()
         }
@@ -56,9 +58,17 @@ struct HomeView: View {
                 CustomTabBar(
                     selectedIndex: $viewModel.seletedTabBarIndex,
                     backgroundColor: .white,
-                    selectedItemColor: .green,
+                    selectedItemColor: Theme.current.buttonColor.backgroundColor,
                     unselectedItemColor: .gray,
                     onBigButtonTapped: viewModel.onBigButtonTapped)
+            }
+        }
+        .fullScreenCover(isPresented: $viewModel.isInputViewShow,
+                         onDismiss: viewModel.onInputViewDismiss) {
+            if let selectedCoreEmotion = viewModel.selectedCoreEmotion {
+                InputView(emotion: selectedCoreEmotion)
+            } else {
+                Color.clear
             }
         }
     }

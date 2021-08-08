@@ -8,11 +8,22 @@
 import SwiftUI
 
 struct InputView: View {
-    @ObservedObject var viewModel = InputViewModel()
+    @Environment(\.presentationMode) var presentationMode
+
+    @ObservedObject var viewModel: InputViewModel
     
-    init() {
+    init(emotion: CoreEmotion) {
+        self.viewModel = InputViewModel(emotion: emotion)
+        
         UITextView.appearance().backgroundColor =  UIColor(Theme.current.commonColor.textBackground)
 
+    }
+    
+    // MARK: - Dismiss
+    func dismissIfNeed() {
+        if !viewModel.isInEditMode {
+            presentationMode.wrappedValue.dismiss()
+        }
     }
     
     // MARK: - Icon background color
@@ -199,6 +210,7 @@ struct InputView: View {
     var doneButton: some View {
         Button(action: {
             viewModel.onActionHappeded(action: .doneButtonTapped)
+            dismissIfNeed()
         }) {
             Text("Done")
                 .font(.system(size: 20))
@@ -232,6 +244,7 @@ struct InputView: View {
             Spacer()
             Button(action: {
                 viewModel.onActionHappeded(action: .closeButtonTapped)
+                dismissIfNeed()
             }) {
                 Image(systemName: "xmark")
                     .resizable()

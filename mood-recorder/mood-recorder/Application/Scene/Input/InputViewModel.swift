@@ -26,12 +26,24 @@ class InputViewModel: ObservableObject {
         cancellables.removeAll()
     }
     
-    init() {
+    init(emotion: CoreEmotion) {
         setupSubcription()
+        initData(with: emotion)
     }
     
     func onActionHappeded(action: InputAction) {
         self.action.send(action)
+    }
+    
+    private func initData(with emotion: CoreEmotion) {
+        guard let model = inputDataModel
+                .sections
+                .first(where: { $0.section == .emotion })?
+                .cell as? [OptionModel] else {
+            return
+        }
+        
+        model.first(where: { $0.content.image == emotion.imageName })?.isSelected.toggle()
     }
 }
 
