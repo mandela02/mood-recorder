@@ -29,6 +29,7 @@
 		8423C20926BE85CE000717D9 /* Love.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8423C20826BE85CE000717D9 /* Love.swift */; };
 		8423C20B26BFB5E7000717D9 /* UIApplication+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8423C20A26BFB5E7000717D9 /* UIApplication+Extension.swift */; };
 		8423C20D26BFBBCA000717D9 /* Food.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8423C20C26BFBBCA000717D9 /* Food.swift */; };
+		8423C20F26BFC5A0000717D9 /* Beauty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8423C20E26BFC5A0000717D9 /* Beauty.swift */; };
 		8424A92F26B5BE0B00BE4454 /* mood_recorderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8424A92E26B5BE0B00BE4454 /* mood_recorderApp.swift */; };
 		8424A93126B5BE0B00BE4454 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8424A93026B5BE0B00BE4454 /* ContentView.swift */; };
 		8424A93326B5BE0F00BE4454 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8424A93226B5BE0F00BE4454 /* Assets.xcassets */; };
@@ -71,6 +72,7 @@
 		8423C20826BE85CE000717D9 /* Love.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Love.swift; sourceTree = "<group>"; };
 		8423C20A26BFB5E7000717D9 /* UIApplication+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extension.swift"; sourceTree = "<group>"; };
 		8423C20C26BFBBCA000717D9 /* Food.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Food.swift; sourceTree = "<group>"; };
+		8423C20E26BFC5A0000717D9 /* Beauty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Beauty.swift; sourceTree = "<group>"; };
 		8424A92B26B5BE0B00BE4454 /* mood-recorder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "mood-recorder.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8424A92E26B5BE0B00BE4454 /* mood_recorderApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mood_recorderApp.swift; sourceTree = "<group>"; };
 		8424A93026B5BE0B00BE4454 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -113,6 +115,7 @@
 				8423C20626BE6AD5000717D9 /* Medical.swift */,
 				8423C20826BE85CE000717D9 /* Love.swift */,
 				8423C20C26BFBBCA000717D9 /* Food.swift */,
+				8423C20E26BFC5A0000717D9 /* Beauty.swift */,
 			);
 			path = Enum;
 			sourceTree = "<group>";
@@ -392,6 +395,7 @@
 				8404939526BA50DF006523D9 /* TextModel.swift in Sources */,
 				8423C20126BE4306000717D9 /* Calendar+Extension.swift in Sources */,
 				8404939126BA4F97006523D9 /* Section.swift in Sources */,
+				8423C20F26BFC5A0000717D9 /* Beauty.swift in Sources */,
 				8404938B26BA4F51006523D9 /* OptionModel.swift in Sources */,
 				84CBB36126B7102700A8E377 /* AppImage.swift in Sources */,
 				8423C20526BE43BB000717D9 /* Double+Extension.swift in Sources */,

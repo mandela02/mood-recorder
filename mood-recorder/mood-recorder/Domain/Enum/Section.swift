@@ -50,7 +50,7 @@ enum Section: Int, CaseIterable {
         case .chores:
             return []
         case .beauty:
-            return []
+            return Beauty.allCases.map { $0.option }
         case .work:
             return []
         case .bobby:
