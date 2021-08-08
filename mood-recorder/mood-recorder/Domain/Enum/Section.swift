@@ -15,7 +15,6 @@ enum Section: Int, CaseIterable {
     case school
     case romance
     case food
-    case snack
     case health
     case chores
     case beauty
@@ -43,13 +42,11 @@ enum Section: Int, CaseIterable {
         case .school:
             return []
         case .romance:
-            return []
+            return Love.allCases.map { $0.option }
         case .food:
-            return []
-        case .snack:
-            return []
+            return Food.allCases.map { $0.option }
         case .health:
-            return []
+            return Medical.allCases.map { $0.option }
         case .chores:
             return []
         case .beauty:

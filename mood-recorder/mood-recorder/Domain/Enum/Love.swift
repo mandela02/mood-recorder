@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Love {
+enum Love: CaseIterable {
     case brokenHeart
     case diamonRing
     case fireLove

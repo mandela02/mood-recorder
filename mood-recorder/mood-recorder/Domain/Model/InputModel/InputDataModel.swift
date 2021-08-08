@@ -59,13 +59,13 @@ class InputDataModel {
                                     title: "Is love in the air tonight?",
                                     cell: contentModels)
             case .food:
+                let contentModels = Food.defaultOptions
+                    .map { $0.option }
+                    .map { OptionModel(content: $0) }
+
                 return SectionModel(section: section,
                                     title: "Do you enjoy your meal?",
-                                    cell: [])
-            case .snack:
-                return SectionModel(section: section,
-                                    title: "Having a little snack?",
-                                    cell: [])
+                                    cell: contentModels)
             case .health:
                 let contentModels = Medical.defaultOptions
                     .map { $0.option }
