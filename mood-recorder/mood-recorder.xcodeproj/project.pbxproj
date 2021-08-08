@@ -33,6 +33,7 @@
 		8423C21126BFD384000717D9 /* Hobby.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8423C21026BFD384000717D9 /* Hobby.swift */; };
 		8423C21326BFE2F0000717D9 /* Job.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8423C21226BFE2F0000717D9 /* Job.swift */; };
 		8423C21526BFE978000717D9 /* School.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8423C21426BFE978000717D9 /* School.swift */; };
+		8423C21826C0037C000717D9 /* Chore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8423C21726C0037C000717D9 /* Chore.swift */; };
 		8424A92F26B5BE0B00BE4454 /* mood_recorderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8424A92E26B5BE0B00BE4454 /* mood_recorderApp.swift */; };
 		8424A93126B5BE0B00BE4454 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8424A93026B5BE0B00BE4454 /* ContentView.swift */; };
 		8424A93326B5BE0F00BE4454 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8424A93226B5BE0F00BE4454 /* Assets.xcassets */; };
@@ -79,6 +80,7 @@
 		8423C21026BFD384000717D9 /* Hobby.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hobby.swift; sourceTree = "<group>"; };
 		8423C21226BFE2F0000717D9 /* Job.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Job.swift; sourceTree = "<group>"; };
 		8423C21426BFE978000717D9 /* School.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = School.swift; sourceTree = "<group>"; };
+		8423C21726C0037C000717D9 /* Chore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chore.swift; sourceTree = "<group>"; };
 		8424A92B26B5BE0B00BE4454 /* mood-recorder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "mood-recorder.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8424A92E26B5BE0B00BE4454 /* mood_recorderApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mood_recorderApp.swift; sourceTree = "<group>"; };
 		8424A93026B5BE0B00BE4454 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -125,6 +127,7 @@
 				8423C21026BFD384000717D9 /* Hobby.swift */,
 				8423C21226BFE2F0000717D9 /* Job.swift */,
 				8423C21426BFE978000717D9 /* School.swift */,
+				8423C21726C0037C000717D9 /* Chore.swift */,
 			);
 			path = Enum;
 			sourceTree = "<group>";
@@ -414,6 +417,7 @@
 				8404938626B9BFCE006523D9 /* InputView.swift in Sources */,
 				8476F1AD26B8637300F62854 /* String+Extension.swift in Sources */,
 				8404938F26BA4F7D006523D9 /* ImageAndTitleModel.swift in Sources */,
+				8423C21826C0037C000717D9 /* Chore.swift in Sources */,
 				84CBB36826B71A2800A8E377 /* TalkBubble.swift in Sources */,
 				8423C21326BFE2F0000717D9 /* Job.swift in Sources */,
 			);

@@ -48,7 +48,7 @@ enum Section: Int, CaseIterable {
         case .health:
             return Medical.allCases.map { $0.option }
         case .chores:
-            return []
+            return Chore.allCases.map { $0.option }
         case .beauty:
             return Beauty.allCases.map { $0.option }
         case .work:
