@@ -14,7 +14,7 @@ enum Avatar {
 
 var avatar: Avatar = .dino
 
-enum Activities: CaseIterable {
+enum Activities: Int, CaseIterable {
     case angel
     case devil
     case angry

@@ -12,14 +12,15 @@ class OptionModel: Equatable, Identifiable {
         lhs.id == rhs.id
     }
     
-    init(content: ImageAndTitleModel) {
+    init(content: ImageAndTitleModel, optionID: Int) {
         self.content = content
+        self.optionID = optionID
     }
     
     let id = UUID()
     
+    let optionID: Int
     let content: ImageAndTitleModel
     
-    var isVisible: Bool = true
     var isSelected: Bool = false
 }

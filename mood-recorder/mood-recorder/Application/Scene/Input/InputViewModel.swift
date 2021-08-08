@@ -19,6 +19,8 @@ class InputViewModel: ObservableObject {
     
     private var cancellables = Set<AnyCancellable>()
     
+    private let useCase = UseCaseProvider.defaultProvider.getinputUseCase()
+    
     deinit {
         action.send(completion: .finished)
         
@@ -29,6 +31,15 @@ class InputViewModel: ObservableObject {
     init(emotion: CoreEmotion) {
         setupSubcription()
         initData(with: emotion)
+        
+        let response = useCase.get()
+        
+        switch response {
+        case .success(data: let data):
+            print(data)
+        case .error(error: let error):
+            print(error)
+        }
     }
     
     func onActionHappeded(action: InputAction) {
@@ -158,6 +169,15 @@ extension InputViewModel {
         if isInEditMode {
             changeViewStatus()
             return
+        }
+        
+        let response = useCase.save(model: inputDataModel)
+        
+        switch response {
+        case .success(data: let data):
+            print(data)
+        case .error(error: let error):
+            print(error)
         }
     }
     

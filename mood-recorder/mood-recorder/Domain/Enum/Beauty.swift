@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Beauty: CaseIterable {
+enum Beauty: Int, CaseIterable {
     case bodyOil
     case bra
     case corset

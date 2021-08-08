@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Job: CaseIterable {
+enum Job: Int, CaseIterable {
     case accountant
     case ads
     case assignment

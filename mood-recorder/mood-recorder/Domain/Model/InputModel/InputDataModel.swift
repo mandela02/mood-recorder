@@ -18,7 +18,13 @@ class InputDataModel {
         let sections = Section.allCases.map { section -> SectionModel in
             switch section {
             case .emotion:
-                let models = section.allOptions.map {OptionModel(content: $0)  }
+                let models = CoreEmotion
+                    .allCases
+                    .map {
+                        OptionModel(content: ImageAndTitleModel(image: $0.imageName,
+                                                                title: ""),
+                                    optionID: $0.rawValue)
+                    }
                 
                 return SectionModel(section: section,
                                     title: "How was your day?",
@@ -27,94 +33,83 @@ class InputDataModel {
                 
             case .activity:
                 let models = Activities.defaultOptions
-                    .map { $0.option }
-                    .map { OptionModel(content: $0) }
+                    .map { OptionModel(content: $0.option, optionID: $0.rawValue) }
 
                 return SectionModel(section: section,
                                     title: "Tell something about your day!!",
                                     cell: models)
             case .weather:
-                let contentModels = Weather.defaultOptions
-                    .map { $0.option }
-                    .map { OptionModel(content: $0) }
-                
+                let models = Weather.defaultOptions
+                    .map { OptionModel(content: $0.option, optionID: $0.rawValue) }
+
                 return SectionModel(section: section,
                                     title: "What the weather like today??",
-                                    cell: contentModels)
+                                    cell: models)
 
             case .school:
-                let contentModels = School.defaultOptions
-                    .map { $0.option }
-                    .map { OptionModel(content: $0) }
+                let models = School.defaultOptions
+                    .map { OptionModel(content: $0.option, optionID: $0.rawValue) }
 
                 return SectionModel(section: section,
                                     title: "What did you do in school?",
-                                    cell: contentModels)
+                                    cell: models)
             case .romance:
-                let contentModels = Love.defaultOptions
-                    .map { $0.option }
-                    .map { OptionModel(content: $0) }
+                let models = Love.defaultOptions
+                    .map { OptionModel(content: $0.option, optionID: $0.rawValue) }
 
 
                 return SectionModel(section: section,
                                     title: "Is love in the air tonight?",
-                                    cell: contentModels)
+                                    cell: models)
             case .food:
-                let contentModels = Food.defaultOptions
-                    .map { $0.option }
-                    .map { OptionModel(content: $0) }
+                let models = Food.defaultOptions
+                    .map { OptionModel(content: $0.option, optionID: $0.rawValue) }
 
                 return SectionModel(section: section,
                                     title: "Do you enjoy your meal?",
-                                    cell: contentModels)
+                                    cell: models)
             case .health:
-                let contentModels = Medical.defaultOptions
-                    .map { $0.option }
-                    .map { OptionModel(content: $0) }
+                let models = Medical.defaultOptions
+                    .map { OptionModel(content: $0.option, optionID: $0.rawValue) }
 
                 return SectionModel(section: section,
                                     title: "Is there anything wrong? Are you ok?",
-                                    cell: contentModels)
+                                    cell: models)
             case .chores:
-                let contentModels = Chore.defaultOptions
-                    .map { $0.option }
-                    .map { OptionModel(content: $0) }
+                let models = Chore.defaultOptions
+                    .map { OptionModel(content: $0.option, optionID: $0.rawValue) }
 
                 return SectionModel(section: section,
                                     title: "Did you clean your house today?",
-                                    cell: contentModels)
+                                    cell: models)
             case .beauty:
-                let contentModels = Beauty.defaultOptions
-                    .map { $0.option }
-                    .map { OptionModel(content: $0) }
+                let models = Beauty.defaultOptions
+                    .map { OptionModel(content: $0.option, optionID: $0.rawValue) }
 
                 return SectionModel(section: section,
                                     title: "Remember take care of yourself!",
-                                    cell: contentModels)
+                                    cell: models)
             case .work:
-                let contentModels = Job.defaultOptions
-                    .map { $0.option }
-                    .map { OptionModel(content: $0) }
+                let models = Job.defaultOptions
+                    .map { OptionModel(content: $0.option, optionID: $0.rawValue) }
 
                 return SectionModel(section: section,
                                     title: "Was your boss annoy you today?",
-                                    cell: contentModels)
+                                    cell: models)
             case .bobby:
-                let contentModels = Hobby.defaultOptions
-                    .map { $0.option }
-                    .map { OptionModel(content: $0) }
+                let models = Hobby.defaultOptions
+                    .map { OptionModel(content: $0.option, optionID: $0.rawValue) }
 
                 return SectionModel(section: section,
                                     title: "Did you enjoy yourself?",
-                                    cell: contentModels)
+                                    cell: models)
             case .event:
-                let contentModels = Event.defaultOptions
-                    .map { $0.option }
-                    .map { OptionModel(content: $0) }
+                let models = Event.defaultOptions
+                    .map { OptionModel(content: $0.option, optionID: $0.rawValue) }
 
                 return SectionModel(section: section,
                                     title: "Which events did you attend?",
-                                    cell: contentModels)
+                                    cell: models)
             case .sleep:
                 return SectionModel(section: section,
                                     title: "How was your sleep?",

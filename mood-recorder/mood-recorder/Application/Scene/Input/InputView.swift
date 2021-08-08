@@ -210,7 +210,6 @@ struct InputView: View {
     var doneButton: some View {
         Button(action: {
             viewModel.onActionHappeded(action: .doneButtonTapped)
-            dismissIfNeed()
         }) {
             Text("Done")
                 .font(.system(size: 20))

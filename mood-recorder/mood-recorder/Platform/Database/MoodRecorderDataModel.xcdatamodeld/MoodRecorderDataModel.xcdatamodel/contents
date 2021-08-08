@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="18154" systemVersion="21A5268h" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="CDContentModel" representedClassName="CDContentModel" syncable="YES">
+        <attribute name="endDate" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="image" optional="YES" attributeType="Binary"/>
+        <attribute name="startDate" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="text" optional="YES" attributeType="String"/>
+        <relationship name="options" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDOptionModel" inverseName="content" inverseEntity="CDOptionModel"/>
+        <relationship name="section" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDSectionModel" inverseName="content" inverseEntity="CDSectionModel"/>
+    </entity>
+    <entity name="CDInputModel" representedClassName="CDInputModel" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <relationship name="sections" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDSectionModel" inverseName="origin" inverseEntity="CDSectionModel"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="date"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+    <entity name="CDOptionModel" representedClassName="CDOptionModel" syncable="YES">
+        <attribute name="isSelected" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="optionID" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="content" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDContentModel" inverseName="options" inverseEntity="CDContentModel"/>
+    </entity>
+    <entity name="CDSectionModel" representedClassName="CDSectionModel" syncable="YES">
+        <attribute name="sectionID" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="content" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDContentModel" inverseName="section" inverseEntity="CDContentModel"/>
+        <relationship name="origin" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDInputModel" inverseName="sections" inverseEntity="CDInputModel"/>
+    </entity>
+    <configuration name="Cloud" usedWithCloudKit="YES">
+        <memberEntity name="CDContentModel"/>
+        <memberEntity name="CDInputModel"/>
+        <memberEntity name="CDOptionModel"/>
+        <memberEntity name="CDSectionModel"/>
+    </configuration>
+    <configuration name="Local">
+        <memberEntity name="CDContentModel"/>
+        <memberEntity name="CDInputModel"/>
+        <memberEntity name="CDOptionModel"/>
+        <memberEntity name="CDSectionModel"/>
+    </configuration>
+    <elements>
+        <element name="CDContentModel" positionX="-27" positionY="27" width="128" height="119"/>
+        <element name="CDInputModel" positionX="-63" positionY="-18" width="128" height="59"/>
+        <element name="CDOptionModel" positionX="-9" positionY="45" width="128" height="74"/>
+        <element name="CDSectionModel" positionX="-45" positionY="18" width="128" height="74"/>
+    </elements>
+</model>

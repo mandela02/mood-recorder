@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Chore: CaseIterable {
+enum Chore: Int, CaseIterable {
     case basket
     case broom
     case windowClean
