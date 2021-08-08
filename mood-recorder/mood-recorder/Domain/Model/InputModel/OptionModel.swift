@@ -12,9 +12,10 @@ class OptionModel: Equatable, Identifiable {
         lhs.id == rhs.id
     }
     
-    init(content: ImageAndTitleModel, optionID: Int) {
+    init(content: ImageAndTitleModel, optionID: Int, isSelected: Bool = false) {
         self.content = content
         self.optionID = optionID
+        self.isSelected = isSelected
     }
     
     let id = UUID()

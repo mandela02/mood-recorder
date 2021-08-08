@@ -30,16 +30,18 @@ class InputViewModel: ObservableObject {
     
     init(emotion: CoreEmotion) {
         setupSubcription()
-        initData(with: emotion)
         
-        let response = useCase.get()
-        
-        switch response {
-        case .success(data: let data):
-            print(data)
-        case .error(error: let error):
-            print(error)
-        }
+//        let response = useCase.fetch(date: Date())
+//        
+//        switch response {
+//        case .success(data: let data as InputDataModel):
+//            self.inputDataModel = data
+//        case .error(error: let error):
+//            print(error)
+//        default:
+//            self.inputDataModel = InputDataModel.initData()
+//            initData(with: emotion)
+//        }
     }
     
     func onActionHappeded(action: InputAction) {
@@ -47,14 +49,16 @@ class InputViewModel: ObservableObject {
     }
     
     private func initData(with emotion: CoreEmotion) {
-        guard let model = inputDataModel
-                .sections
-                .first(where: { $0.section == .emotion })?
-                .cell as? [OptionModel] else {
-            return
+        setState {
+            guard let model = inputDataModel
+                    .sections
+                    .first(where: { $0.section == .emotion })?
+                    .cell as? [OptionModel] else {
+                return
+            }
+            
+            model.first(where: { $0.content.image == emotion.imageName })?.isSelected.toggle()
         }
-        
-        model.first(where: { $0.content.image == emotion.imageName })?.isSelected.toggle()
     }
 }
 
@@ -170,15 +174,15 @@ extension InputViewModel {
             changeViewStatus()
             return
         }
-        
-        let response = useCase.save(model: inputDataModel)
-        
-        switch response {
-        case .success(data: let data):
-            print(data)
-        case .error(error: let error):
-            print(error)
-        }
+//
+//        let response = useCase.save(model: inputDataModel)
+//
+//        switch response {
+//        case .success(data: let data):
+//            print(data)
+//        case .error(error: let error):
+//            print(error)
+//        }
     }
     
     private func onDismissKeyboardNeeded() {

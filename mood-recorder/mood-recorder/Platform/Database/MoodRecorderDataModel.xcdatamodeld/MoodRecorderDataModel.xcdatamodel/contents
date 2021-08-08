@@ -23,6 +23,7 @@
         <relationship name="content" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDContentModel" inverseName="options" inverseEntity="CDContentModel"/>
     </entity>
     <entity name="CDSectionModel" representedClassName="CDSectionModel" syncable="YES">
+        <attribute name="isVisible" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="sectionID" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="content" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDContentModel" inverseName="section" inverseEntity="CDContentModel"/>
         <relationship name="origin" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDInputModel" inverseName="sections" inverseEntity="CDInputModel"/>
@@ -43,6 +44,6 @@
         <element name="CDContentModel" positionX="-27" positionY="27" width="128" height="119"/>
         <element name="CDInputModel" positionX="-63" positionY="-18" width="128" height="59"/>
         <element name="CDOptionModel" positionX="-9" positionY="45" width="128" height="74"/>
-        <element name="CDSectionModel" positionX="-45" positionY="18" width="128" height="74"/>
+        <element name="CDSectionModel" positionX="-45" positionY="18" width="128" height="89"/>
     </elements>
 </model>

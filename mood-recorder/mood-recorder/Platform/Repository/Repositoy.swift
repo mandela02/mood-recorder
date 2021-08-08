@@ -60,7 +60,7 @@ class Repository<T: NSManagedObject>: RepositoryType {
         
         do {
             let result = try container.viewContext.fetch(fetchRequest)
-            return .success(data: result)
+            return .success(data: result.first)
         } catch let error {
             return .error(error: error)
         }

@@ -28,6 +28,7 @@ class InputUseCase {
             let cdSection = CDSectionModel(context: context)
             
             cdSection.sectionID = Double(section.section.rawValue)
+            cdSection.isVisible = section.isVisible
             
             let cdContent = CDContentModel(context: context)
             
@@ -70,6 +71,58 @@ class InputUseCase {
         inputModel.addToSections(NSSet(array: cdSections))
         
         return repository.save()
+    }
+    
+    func fetch(date: Date) -> DatabaseResponse {
+        let result = repository.fetchRequest(predicate: "date", value: "\(date.startOfDay.timeIntervalSince1970)")
+        switch result {
+        case .success(data: let model as CDInputModel):
+            var sectionModels = [SectionModel]()
+            
+            for cdSection in model.sectionArray {
+                guard let content = cdSection.content else { continue }
+                let section = Section.section(from: Int(cdSection.sectionID))
+                
+                switch section {
+                case .note:
+                    sectionModels.append(SectionModel(section: section,
+                                                      title: section.title,
+                                                      cell: TextModel(text: content.text),
+                                                      isVisible: cdSection.isVisible))
+                case .photo:
+                    sectionModels.append(SectionModel(section: section,
+                                                      title: section.title,
+                                                      cell: ImageModel(data: content.image)))
+                case .sleep:
+                    sectionModels.append(SectionModel(section: section,
+                                                      title: section.title,
+                                                      cell: SleepSchelduleModel(startTime: content.startDate,
+                                                                                endTime: content.endDate),
+                                                      isVisible: cdSection.isVisible))
+                default:
+                    let cdOptions = content.optionArray
+                    var optionModels = [OptionModel]()
+                    
+                    for cdOption in cdOptions {
+                        optionModels.append(OptionModel(content: section.allOptions[Int(cdOption.optionID)],
+                                                       optionID: Int(cdOption.optionID),
+                                                       isSelected: cdOption.isSelected))
+                    }
+                    
+                    sectionModels.append(SectionModel(section: section,
+                                                      title: section.title,
+                                                      cell: optionModels,
+                                                      isEditable: section != .emotion,
+                                                      isVisible: cdSection.isVisible))
+                }
+            }
+            
+            return .success(data: InputDataModel(sections: sectionModels))
+        case .error(error: let error):
+            return .error(error: error)
+        default:
+            return .success(data: nil)
+        }
     }
     
     func get() -> DatabaseResponse {

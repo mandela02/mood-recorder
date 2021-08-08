@@ -8,11 +8,12 @@
 import Foundation
 
 class SectionModel: Identifiable {
-    init(section: Section, title: String, cell: Any?, isEditable: Bool = true) {
+    init(section: Section, title: String, cell: Any?, isEditable: Bool = true, isVisible: Bool = true) {
         self.section = section
         self.title = title
         self.cell = cell
         self.isEditable = isEditable
+        self.isVisible = isVisible
     }
     
     let id = UUID()
