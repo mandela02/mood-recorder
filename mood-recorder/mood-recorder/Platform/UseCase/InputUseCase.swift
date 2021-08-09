@@ -102,6 +102,16 @@ class InputUseCase {
         }
     }
     
+    func isRecordExist(date: Double) -> Bool {
+        let result = repository.fetchRequest(predicate: "date", value: "\(date)")
+        switch result {
+        case .success(data: _):
+            return true
+        default:
+            return false
+        }
+    }
+    
     private func createContent(model: InputDataModel) -> [CDSectionModel] {
         var cdSections: [CDSectionModel] = []
         

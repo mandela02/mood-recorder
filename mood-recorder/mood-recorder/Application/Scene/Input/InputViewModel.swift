@@ -12,17 +12,16 @@ class InputViewModel: ObservableObject {
     @Published var isImagePickerShowing = false
     @Published var text = ""
     @Published var isInEditMode = false
-    
-    @Published var inputDataModel = InputDataModel.initData()
+    @Published var inputDataModel = InputDataModel(sections: [])
     
     private let action = PassthroughSubject<InputAction, Never>()
     private let response = PassthroughSubject<DatabaseResponse, Never>()
 
-    private var cancellables = Set<AnyCancellable>()
-    
-    private let useCase = UseCaseProvider.defaultProvider.getinputUseCase()
-    
     private var status = Status.new
+
+    private let useCase = UseCaseProvider.defaultProvider.getinputUseCase()
+
+    private var cancellables = Set<AnyCancellable>()
     
     deinit {
         action.send(completion: .finished)
@@ -32,7 +31,8 @@ class InputViewModel: ObservableObject {
         cancellables.removeAll()
     }
     
-    init(emotion: CoreEmotion? = nil, at date: Date? = nil) {
+    init(emotion: CoreEmotion? = nil,
+         at date: Date = Date()) {
         setupSubcription()
         initData(with: emotion, at: date)
     }
@@ -41,24 +41,25 @@ class InputViewModel: ObservableObject {
         self.action.send(action)
     }
     
-    private func initData(with emotion: CoreEmotion?, at date: Date?) {
+    private func initData(with emotion: CoreEmotion?, at date: Date) {
         setState {
-            guard let emotion = emotion, date == nil else {
-                status = .update(date: date!)
-                response.send(useCase.fetch(at: date!.startOfDay.timeIntervalSince1970))
-                return
+            if useCase.isRecordExist(date: date.startOfDay.timeIntervalSince1970) {
+                status = .update(date: date)
+                response.send(useCase.fetch(at: date.startOfDay.timeIntervalSince1970))
+            } else {
+                self.inputDataModel = InputDataModel.initData()
             }
             
-            self.inputDataModel = InputDataModel.initData()
-
-            guard let model = inputDataModel
-                    .sections
-                    .first(where: { $0.section == .emotion })?
-                    .cell as? [OptionModel] else {
-                return
+            if let emotion = emotion {
+                guard let model = inputDataModel
+                        .sections
+                        .first(where: { $0.section == .emotion })?
+                        .cell as? [OptionModel] else {
+                    return
+                }
+                model.forEach { $0.isSelected = false }
+                model.first(where: { $0.content.image == emotion.imageName })?.isSelected.toggle()
             }
-            
-            model.first(where: { $0.content.image == emotion.imageName })?.isSelected.toggle()
         }
     }
 }
@@ -75,7 +76,7 @@ extension InputViewModel {
                         self.inputDataModel = model
                     }
                 case .error(error: let error):
-                    print(error)
+                    print("error")
                 }
 
             }
@@ -168,12 +169,7 @@ extension InputViewModel {
         }
     }
     
-    private func onCloseButtonTapped() {
-        if isInEditMode {
-            changeViewStatus()
-            return
-        }
-    }
+    private func onCloseButtonTapped() {}
     
     private func onEditButtonTapped() {
         changeViewStatus()
@@ -186,11 +182,6 @@ extension InputViewModel {
     }
     
     private func onDoneButtonTapped() {
-        if isInEditMode {
-            changeViewStatus()
-            return
-        }
-
         switch status {
         case .new:
             self.response.send(useCase.save(model: inputDataModel))
@@ -204,7 +195,7 @@ extension InputViewModel {
     private func onDismissKeyboardNeeded() {
         UIApplication.shared.endEditing()
     }
-    
+
     private enum Status {
         case new
         case update(date: Date)

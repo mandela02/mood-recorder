@@ -20,10 +20,8 @@ struct InputView: View {
     }
     
     // MARK: - Dismiss
-    func dismissIfNeed() {
-        if !viewModel.isInEditMode {
-            presentationMode.wrappedValue.dismiss()
-        }
+    func dismiss() {
+        presentationMode.wrappedValue.dismiss()
     }
     
     // MARK: - Icon background color
@@ -149,6 +147,8 @@ struct InputView: View {
                                 .foregroundColor(Theme.current.buttonColor.iconColor)
                         }
                     }
+                } else {
+                    SizedBox(height: 0)
                 }
             }
         case let model as ImageModel:
@@ -210,6 +210,7 @@ struct InputView: View {
     var doneButton: some View {
         Button(action: {
             viewModel.onActionHappeded(action: .doneButtonTapped)
+            dismiss()
         }) {
             Text("Done")
                 .font(.system(size: 20))
@@ -224,32 +225,32 @@ struct InputView: View {
     // MARK: - Navigation Bar
     var navigationBar: some View {
         HStack {
-            if !viewModel.isInEditMode {
-                Button(action: {
-                    viewModel.onActionHappeded(action: .editButtonTapped)
-                }) {
-                    HStack {
-                        Text("Edit")
-                            .foregroundColor(Theme.current.buttonColor.textColor)
-                            .font(.system(size: 20))
-                        Image(systemName: "square.and.pencil")
-                            .resizable()
-                            .renderingMode(.template)
-                            .frame(width: 20, height: 20, alignment: .center)
-                            .foregroundColor(Theme.current.buttonColor.textColor)
-                    }
+            Button(action: {
+                viewModel.onActionHappeded(action: .editButtonTapped)
+            }) {
+                HStack {
+                    Text( viewModel.isInEditMode ? "Done" : "Edit")
+                        .foregroundColor(Theme.current.buttonColor.textColor)
+                        .font(.system(size: 20))
+                    Image(systemName: "square.and.pencil")
+                        .resizable()
+                        .renderingMode(.template)
+                        .frame(width: 20, height: 20, alignment: .center)
+                        .foregroundColor(Theme.current.buttonColor.textColor)
                 }
             }
             Spacer()
-            Button(action: {
-                viewModel.onActionHappeded(action: .closeButtonTapped)
-                dismissIfNeed()
-            }) {
-                Image(systemName: "xmark")
-                    .resizable()
-                    .renderingMode(.template)
-                    .frame(width: 20, height: 20, alignment: .center)
-                    .foregroundColor(Theme.current.buttonColor.textColor)
+            if !viewModel.isInEditMode {
+                Button(action: {
+                    viewModel.onActionHappeded(action: .closeButtonTapped)
+                    dismiss()
+                }) {
+                    Image(systemName: "xmark")
+                        .resizable()
+                        .renderingMode(.template)
+                        .frame(width: 20, height: 20, alignment: .center)
+                        .foregroundColor(Theme.current.buttonColor.textColor)
+                }
             }
         }
     }
@@ -272,15 +273,16 @@ struct InputView: View {
                             } else if section.isVisible {
                                 getSectionCell(sectionModel: section)
                             } else {
-                                Color.clear
-                                    .frame(height: 0)
+                                SizedBox(height: 0)
                             }
                         }
                     }
                     
                     SizedBox(height: 10)
                 }
-                doneButton
+                if !viewModel.isInEditMode {
+                    doneButton
+                }
             }
             VStack {
                 ZStack {
