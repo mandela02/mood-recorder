@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum School: CaseIterable {
+enum School: Int, CaseIterable {
     case alarmClock
     case atom
     case blackboard

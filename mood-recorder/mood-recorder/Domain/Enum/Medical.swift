@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Medical: CaseIterable {
+enum Medical: Int, CaseIterable {
     case bacterial
     case bloodTest
     case bone

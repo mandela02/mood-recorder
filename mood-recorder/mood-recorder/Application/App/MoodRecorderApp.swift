@@ -8,13 +8,10 @@
 import SwiftUI
 
 @main
-struct mood_recorderApp: App {
-    let persistenceController = PersistenceController.shared
-
+struct MoodRecorderApp: App {
     var body: some Scene {
         WindowGroup {
             HomeView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
 }

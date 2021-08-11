@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum CoreEmotion: String, CaseIterable {
+enum CoreEmotion: Int, CaseIterable {
     case blissful
     case happy
     case neutral

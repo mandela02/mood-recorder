@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Hobby: CaseIterable {
+enum Hobby: Int, CaseIterable {
     case actionCamera
     case baking
     case barbecue

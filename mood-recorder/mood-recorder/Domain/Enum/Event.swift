@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Event: CaseIterable {
+enum Event: Int, CaseIterable {
     case auditorium
     case balloons
     case banner
