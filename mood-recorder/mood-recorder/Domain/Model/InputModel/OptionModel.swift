@@ -7,7 +7,7 @@
 
 import Foundation
 
-class OptionModel: Equatable, Identifiable {
+struct OptionModel: Equatable, Identifiable {
     static func == (lhs: OptionModel, rhs: OptionModel) -> Bool {
         lhs.id == rhs.id
     }
@@ -24,4 +24,8 @@ class OptionModel: Equatable, Identifiable {
     let content: ImageAndTitleModel
     
     var isSelected: Bool = false
+    
+    mutating func changeSelectionStatus() {
+        isSelected.toggle()
+    }
 }

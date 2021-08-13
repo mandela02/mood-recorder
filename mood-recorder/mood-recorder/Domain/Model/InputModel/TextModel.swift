@@ -7,7 +7,7 @@
 
 import Foundation
 
-class TextModel {
+struct TextModel {
     init(text: String? = nil) {
         self.text = text
     }

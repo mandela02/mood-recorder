@@ -215,6 +215,10 @@ extension Date {
         // formatter.locale = Locale(identifier: Strings.localeIdentifier)
         return formatter.string(from: self)
     }
+    
+    var startOfDayInterval: Double {
+        return self.startOfDay.timeIntervalSince1970
+    }
 }
 
 extension Date {

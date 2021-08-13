@@ -30,15 +30,17 @@ struct InputView: View {
     }
     
     // MARK: - Section Icon Type
-    func getIconGrid(optionModels: [OptionModel], sectionModel: SectionModel) -> some View {
+    func getIconGrid(optionModels: [OptionModel], at sectionIndex: Int) -> some View {
         LazyVGrid(columns: Array(repeating: GridItem(.flexible(),
                                                      alignment: .top),
                                  count: 5),
                   content: {
-                    ForEach(optionModels) { optionModel in
+                    ForEach(Array(optionModels.enumerated()),
+                            id: \.offset) { optionIndex, optionModel in
                         LazyVStack(spacing: 5) {
                             Button(action: {
-                                viewModel.onActionHappeded(action: .optionTap(sectionModel: sectionModel, optionModel: optionModel))
+                                viewModel.onActionHappeded(action: .optionTap(sectionModelIndex: sectionIndex,
+                                                                              optionModelIndex: optionIndex))
                             }, label: {
                                 RoundImageView(image: optionModel.content.image.image,
                                                backgroundColor: iconBackgroundColor(optionModel.isSelected))
@@ -58,7 +60,8 @@ struct InputView: View {
     }
     
     // MARK: - Section Image Type
-    func getImagePicker(imageModel: ImageModel, sectionModel: SectionModel) -> some View {
+    func getImagePicker(imageModel: ImageModel,
+                        sectionIndex: Int) -> some View {
         Button(action: {
             viewModel.onActionHappeded(action: .imageButtonTapped)
         }) {
@@ -88,7 +91,8 @@ struct InputView: View {
         .buttonStyle(ResizeAnimationButtonStyle())
         .sheet(isPresented: $viewModel.isImagePickerShowing) {
             ImagePicker(sourceType: .photoLibrary) { image in
-                viewModel.onActionHappeded(action: .pictureSelected(sectionModel: sectionModel, image: image))
+                viewModel.onActionHappeded(action: .pictureSelected(sectionModelIndex: sectionIndex,
+                                                                    image: image))
             }
         }
     }
@@ -126,11 +130,12 @@ struct InputView: View {
     
     // MARK: - Section Content
     @ViewBuilder
-    func getSectionContent(at sectionModel: SectionModel) -> some View {
+    func getSectionContent(at sectionModel: SectionModel, index: Int) -> some View {
         switch sectionModel.cell {
         case let models as [OptionModel]:
             VStack {
-                getIconGrid(optionModels: models, sectionModel: sectionModel)
+                getIconGrid(optionModels: models,
+                            at: index)
                     .padding(.horizontal, 10)
                     .disabled(!sectionModel.isVisible || viewModel.isInEditMode)
                 SizedBox(height: 10)
@@ -152,7 +157,8 @@ struct InputView: View {
                 }
             }
         case let model as ImageModel:
-            getImagePicker(imageModel: model, sectionModel: sectionModel)
+            getImagePicker(imageModel: model,
+                           sectionIndex: index)
                 .disabled(!sectionModel.isVisible || viewModel.isInEditMode)
                 .padding()
         case _ as TextModel:
@@ -185,7 +191,7 @@ struct InputView: View {
     }
     
     // MARK: - Calculate section cell
-    func getSectionCell(sectionModel: SectionModel) -> some View {
+    func getSectionCell(sectionModel: SectionModel, at index: Int) -> some View {
         ZStack(alignment: .topLeading) {
             Theme.current.tableViewColor.cellBackground
             VStack(alignment: .leading) {
@@ -194,12 +200,12 @@ struct InputView: View {
                         .foregroundColor(Theme.current.tableViewColor.text)
                     Spacer()
                     sectionDismissButton(at: sectionModel) {
-                        viewModel.onActionHappeded(action: .onSectionStatusChanged(sectionModel: sectionModel))
+                        viewModel.onActionHappeded(action: .onSectionVisibilityChanged(sectionIndex: index))
                     }
                 }
                 .padding(.all, 10)
 
-                getSectionContent(at: sectionModel)
+                getSectionContent(at: sectionModel, index: index)
             }
         }
         .cornerRadius(10)
@@ -208,18 +214,21 @@ struct InputView: View {
     
     // MARK: - Done Button
     var doneButton: some View {
-        Button(action: {
-            viewModel.onActionHappeded(action: .doneButtonTapped)
-            dismiss()
-        }) {
-            Text("Done")
-                .font(.system(size: 20))
-                .foregroundColor(Theme.current.buttonColor.textColor)
-                .frame(maxWidth: .infinity)
-                .padding()
-                .background(Theme.current.buttonColor.backgroundColor
-                                .ignoresSafeArea(.all, edges: .bottom))
+        ZStack {
+            Theme.current.buttonColor.backgroundColor
+            Button(action: {
+                viewModel.onActionHappeded(action: .doneButtonTapped)
+                dismiss()
+            }) {
+                Text("Done")
+                    .font(.system(size: 20))
+                    .foregroundColor(Theme.current.buttonColor.textColor)
+                    .frame(maxWidth: .infinity)
+                    .padding()
+            }
         }
+        .cornerRadius(10)
+        .padding(.all, 10)
     }
     
     // MARK: - Navigation Bar
@@ -255,48 +264,55 @@ struct InputView: View {
         }
     }
     
+    // MARK: - gradient
+    func makeGradient() -> some View {
+        VStack {
+            ZStack {
+                LinearGradient(gradient: Gradient(colors: [Theme.current.buttonColor.backgroundColor,
+                                                           Color.clear]),
+                                           startPoint: .top,
+                                           endPoint: .bottom)
+                    .ignoresSafeArea(.all, edges: .top)
+                navigationBar
+                    .padding(.horizontal, 20)
+            }
+            .frame(height: 80)
+            Spacer()
+        }
+    }
+    
     // MARK: - BODY
     var body: some View {
         ZStack {
             Theme.current.tableViewColor.background.ignoresSafeArea()
-            VStack {
-                ScrollView(.vertical, showsIndicators: false) {
+            ScrollView(.vertical, showsIndicators: false) {
+                LazyVStack(spacing: 0) {
                     SizedBox(height: 80)
                     
-                    LazyVStack(spacing: 0) {
-                        ForEach(viewModel.inputDataModel.sections) { section in
-                            if viewModel.isInEditMode {
-                                ZStack {
-                                    section.isVisible ? Color.clear : Color.gray
-                                    getSectionCell(sectionModel: section)
-                                }
-                            } else if section.isVisible {
-                                getSectionCell(sectionModel: section)
-                            } else {
-                                SizedBox(height: 0)
+                    ForEach(Array(viewModel.sectionModels.enumerated()),
+                            id: \.offset) { index, section in
+                        if viewModel.isInEditMode {
+                            ZStack {
+                                section.isVisible ? Color.clear : Color.gray
+                                getSectionCell(sectionModel: section,
+                                               at: index)
                             }
+                        } else if section.isVisible {
+                            getSectionCell(sectionModel: section,
+                                           at: index)
+                        } else {
+                            SizedBox(height: 0)
                         }
                     }
                     
                     SizedBox(height: 10)
-                }
-                if !viewModel.isInEditMode {
-                    doneButton
+                    
+                    if !viewModel.isInEditMode {
+                        doneButton
+                    }
                 }
             }
-            VStack {
-                ZStack {
-                    LinearGradient(gradient: Gradient(colors: [Theme.current.buttonColor.backgroundColor,
-                                                               Color.clear]),
-                                               startPoint: .top,
-                                               endPoint: .bottom)
-                        .ignoresSafeArea(.all, edges: .top)
-                    navigationBar
-                        .padding(.horizontal, 20)
-                }
-                .frame(height: 80)
-                Spacer()
-            }
+            makeGradient()
         }
         .onTapGesture {
             viewModel.onActionHappeded(action: .dismissKeyboard)

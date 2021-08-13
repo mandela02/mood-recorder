@@ -8,7 +8,7 @@
 import Foundation
 import CoreData
 
-class InputUseCase {
+struct InputUseCase {
     private let repository: Repository<CDInputModel>
 
     init(repository: Repository<CDInputModel>) {

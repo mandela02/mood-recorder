@@ -7,7 +7,7 @@
 
 import Foundation
 
-class InputDataModel {
+struct InputDataModel {
     init(sections: [SectionModel]) {
         self.sections = sections
     }

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-class ImageModel {
+struct ImageModel {
     init(data: Data? = nil) {
         self.data = data
     }

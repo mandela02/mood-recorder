@@ -7,7 +7,11 @@
 
 import Foundation
 
-class SectionModel: Identifiable {
+struct SectionModel: Identifiable, Equatable {
+    static func == (lhs: SectionModel, rhs: SectionModel) -> Bool {
+        return lhs.id == rhs.id
+    }
+    
     init(section: Section, title: String, cell: Any?, isEditable: Bool = true, isVisible: Bool = true) {
         self.section = section
         self.title = title
@@ -25,4 +29,38 @@ class SectionModel: Identifiable {
     
     var isVisible: Bool = true
     var isEditable: Bool = true
+    
+    mutating func changeVisibility() {
+        isVisible.toggle()
+    }
+    
+    mutating func changeOptionSelection(at index: Int) {
+        guard var options = cell as? [OptionModel] else {
+            return
+        }
+        
+        if section == .emotion {
+            for i in options.indices {
+                options[i].isSelected = false
+            }
+        }
+        
+        options[index].changeSelectionStatus()
+        
+        cell = options
+    }
+    
+    mutating func onEmotionSelected(emotion: CoreEmotion) {
+        guard var options = cell as? [OptionModel] else {
+            return
+        }
+        
+        if section == .emotion {
+            for i in options.indices {
+                options[i].isSelected = options[i].content.image == emotion.imageName
+            }
+            
+            cell = options
+        }
+    }
 }
