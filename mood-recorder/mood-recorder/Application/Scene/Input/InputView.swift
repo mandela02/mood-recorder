@@ -175,7 +175,7 @@ struct InputView: View {
                 SizedBox(height: 10)
                 if sectionModel.isEditable && sectionModel.isVisible && viewModel.isInEditMode {
                     Button(action: {
-                        viewModel.trigger(.onCustomizeSection(model: sectionModel))
+                        viewModel.trigger(.onOpenCustomizeSectionDialog(model: sectionModel))
                         isAboutToCustomizeSection.toggle()
                     }) {
                         ZStack {
@@ -438,13 +438,14 @@ struct InputView: View {
             Group {
                 if let sectionModel = viewModel.state.selectedSectionModel {
                     OptionAdditionView(sectionModel: sectionModel,
-                                       onConfirm: {
+                                       onConfirm: { models in
                         isAboutToCustomizeSection.toggle()
-                        viewModel.trigger(.onCustomizeSection(model: nil))
+                        viewModel.trigger(.onCustomSection(models: models))
+                        viewModel.trigger(.onOpenCustomizeSectionDialog(model: nil))
                     },
                                        onCancel: {
                         isAboutToCustomizeSection.toggle()
-                        viewModel.trigger(.onCustomizeSection(model: nil))
+                        viewModel.trigger(.onOpenCustomizeSectionDialog(model: nil))
                     })
                 }
             }.padding()

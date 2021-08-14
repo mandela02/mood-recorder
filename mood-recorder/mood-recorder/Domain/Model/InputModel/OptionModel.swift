@@ -7,11 +7,15 @@
 
 import Foundation
 
-struct OptionModel: Equatable, Identifiable {
+struct OptionModel: Equatable, Identifiable, Hashable {
     static func == (lhs: OptionModel, rhs: OptionModel) -> Bool {
-        lhs.id == rhs.id
+        lhs.id == rhs.id || lhs.content == rhs.content
     }
     
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+
     init(content: ImageAndTitleModel, optionID: Int, isSelected: Bool = false) {
         self.content = content
         self.optionID = optionID

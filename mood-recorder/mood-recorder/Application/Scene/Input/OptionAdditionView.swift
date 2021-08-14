@@ -28,10 +28,9 @@ class OptionAdditionViewModel: ViewModel {
                 allModel[index].changeSelectionStatus()
             }
         }
-        
+                
         self.state.optionModels = allModel.chunked(into: 15)
         self.state.numberOfPage = self.state.optionModels.count
-        self.state.displayOption = self.state.optionModels[state.currentPage]
     }
     
     func trigger(_ input: OptionAdditionTrigger) {
@@ -42,7 +41,16 @@ class OptionAdditionViewModel: ViewModel {
         case .goToPage(let page):
             state.currentPage = page
         case .loadData:
-            self.state.displayOption = state.optionModels[state.currentPage]
+            let allModels = state.optionModels.flatMap({$0})
+
+            var selectedModels = allModels
+                .filter({$0.isSelected})
+            
+            for index in selectedModels.indices {
+                selectedModels[index].isSelected = false
+            }
+
+            self.state.outPutModels = selectedModels
         }
     }
     
@@ -51,7 +59,8 @@ class OptionAdditionViewModel: ViewModel {
         var optionModels: [[OptionModel]] = []
         var currentPage = 0
         var numberOfPage = 0
-        var displayOption: [OptionModel] = []
+        
+        var outPutModels: [OptionModel] = []
     }
     
     enum OptionAdditionTrigger {
@@ -63,19 +72,21 @@ class OptionAdditionViewModel: ViewModel {
 
 struct OptionAdditionView: View {
     typealias Function = () -> ()
+    typealias CallbackFunction = ([OptionModel]) -> ()
+
     typealias OptionAdditionState = OptionAdditionViewModel.OptionAdditionState
     typealias OptionAdditionTrigger = OptionAdditionViewModel.OptionAdditionTrigger
 
     @ObservedObject var viewModel: BaseViewModel<OptionAdditionState,
                                                  OptionAdditionTrigger>
 
-    let onConfirm: Function
+    let onConfirm: CallbackFunction
     let onCancel: Function
     
     @State var currentIndex: Int = 0
     
     init(sectionModel: SectionModel,
-         onConfirm: @escaping Function,
+         onConfirm: @escaping CallbackFunction,
          onCancel: @escaping Function) {
         let optionAdditionState = OptionAdditionState(initialSectionModel: sectionModel)
         viewModel = BaseViewModel(OptionAdditionViewModel(state: optionAdditionState))
@@ -126,10 +137,11 @@ struct OptionAdditionView: View {
                     getIconGrid(optionModels: viewModel.optionModels[index])
                     Spacer()
                 }
+                .padding(.all, 5)
                 .tag(index)
             }
         }
-        .aspectRatio(1, contentMode: .fit)
+        .aspectRatio(0.95, contentMode: .fit)
         .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
         .onChange(of: currentIndex) { newValue in
             viewModel.trigger(.goToPage(page: newValue))
@@ -167,7 +179,10 @@ struct OptionAdditionView: View {
             SizedBox(height: 10)
             
             VStack {
-                createButton(title: "Confirm", callback: onConfirm)
+                createButton(title: "Confirm", callback: {
+                    viewModel.trigger(.loadData)
+                    onConfirm(viewModel.state.outPutModels)
+                })
                 createButton(title: "Cancel", callback: onCancel)
             }
             .padding(.horizontal, 30)

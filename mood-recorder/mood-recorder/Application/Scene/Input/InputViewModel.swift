@@ -77,8 +77,23 @@ class InputViewModel: ViewModel {
             }
             
         // MARK: - Custom Section
-        case .onCustomizeSection(model: let model):
+        case .onOpenCustomizeSectionDialog(model: let model):
             state.selectedSectionModel = model
+            
+        case .onCustomSection(models: var models):
+            guard let options = state.selectedSectionModel?.cell as? [OptionModel]
+            else { return }
+            
+            guard let sectionIndex = state.sectionModels.firstIndex(where: {$0.id == state.selectedSectionModel?.id})
+            else { return }
+            
+            for index in models.indices {
+                guard let model = options.first(where: {$0.content == models[index].content})
+                else { continue }
+                models[index].isSelected = model.isSelected
+            }
+            
+            state.sectionModels[sectionIndex].cell = models
         }
     }
         
@@ -138,7 +153,8 @@ extension InputViewModel {
         case pictureSelected(sectionIndex: Int, image: UIImage)
         case onSectionVisibilityChanged(section: SectionType)
         case onTextChange(sectionIndex: Int, text: String)
-        case onCustomizeSection(model: SectionModel?)
+        case onOpenCustomizeSectionDialog(model: SectionModel?)
+        case onCustomSection(models: [OptionModel])
         case editButtonTapped
         case doneButtonTapped
         case resetButtonTapped
