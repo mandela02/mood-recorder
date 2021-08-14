@@ -8,14 +8,22 @@
 import SwiftUI
 
 struct InputView: View {
+    typealias InputState = InputViewModel.InputState
+    typealias InputTrigger = InputViewModel.InputTrigger
+
     @Environment(\.presentationMode) var presentationMode
     
-    @ObservedObject var viewModel: InputViewModel
+    @ObservedObject var viewModel: BaseViewModel<InputState,
+                                                 InputTrigger>
+    
+    @State var text = ""
+    @State var isImagePickerShowing = false
     
     @FocusState private var isFocus: Bool
     
     init(emotion: CoreEmotion) {
-        self.viewModel = InputViewModel(emotion: emotion)
+        let inputState = InputState(emotion: emotion)
+        self.viewModel = BaseViewModel(InputViewModel(state: inputState))
         
         UITextView.appearance().backgroundColor =  UIColor(Theme.current.commonColor.textBackground)
         UITableView.appearance().backgroundColor = UIColor(Theme.current.tableViewColor.background)
@@ -42,8 +50,8 @@ struct InputView: View {
                 LazyVStack(spacing: 5) {
                     Button(action: {
                         isFocus = false
-                        viewModel.onActionHappeded(action: .optionTap(sectionIndex: sectionIndex,
-                                                                      optionIndex: optionIndex))
+                        viewModel.trigger(.optionTap(sectionIndex: sectionIndex,
+                                                     optionIndex: optionIndex))
                     }, label: {
                         RoundImageView(image: optionModel.content.image.image,
                                        backgroundColor: iconBackgroundColor(optionModel.isSelected))
@@ -67,7 +75,7 @@ struct InputView: View {
                              sectionIndex: Int) -> some View {
         Button(action: {
             isFocus = false
-            viewModel.onActionHappeded(action: .imageButtonTapped)
+            isImagePickerShowing.toggle()
         }) {
             ZStack {
                 Theme.current.commonColor.textBackground
@@ -93,24 +101,25 @@ struct InputView: View {
             .cornerRadius(10)
         }
         .buttonStyle(ResizeAnimationButtonStyle())
-        .sheet(isPresented: $viewModel.isImagePickerShowing) {
+        .sheet(isPresented: $isImagePickerShowing) {
             ImagePicker(sourceType: .photoLibrary) { image in
-                viewModel.onActionHappeded(action: .pictureSelected(sectionIndex: sectionIndex,
+                viewModel.trigger(.pictureSelected(sectionIndex: sectionIndex,
                                                                     image: image))
             }
         }
     }
     
     // MARK: - Section Text Type
-    var getTextView: some View {
+    func getTextView(textModel: TextModel,
+                     sectionIndex: Int) -> some View {
         ZStack {
             Theme.current.commonColor.textBackground
-            TextEditor(text: $viewModel.text)
+            TextEditor(text: $text)
                 .foregroundColor(Theme.current.tableViewColor.text)
                 .font(.system(size: 12))
                 .padding()
                 .focused($isFocus)
-            Text(viewModel.text)
+            Text(textModel.text ?? "")
                 .opacity(0)
                 .font(.system(size: 12))
                 .padding(.all, 8)
@@ -118,6 +127,12 @@ struct InputView: View {
         }
         .cornerRadius(10)
         .frame(minHeight: 200)
+        .onChange(of: text) { newValue in
+            viewModel.trigger(.onTextChange(sectionIndex: sectionIndex,
+                                            text: newValue))
+        }.onAppear {
+            text = textModel.text ?? ""
+        }
     }
     
     // MARK: - Section Sleep Scheldule Type
@@ -166,8 +181,9 @@ struct InputView: View {
                                 sectionIndex: index)
                 .disabled(!sectionModel.isVisible || viewModel.isInEditMode)
                 .padding()
-        case _ as TextModel:
-            getTextView
+        case let model as TextModel:
+            getTextView(textModel: model,
+                        sectionIndex: index)
                 .disabled(!sectionModel.isVisible || viewModel.isInEditMode)
                 .padding()
         case let model as SleepSchelduleModel:
@@ -207,7 +223,7 @@ struct InputView: View {
                             .foregroundColor(Theme.current.tableViewColor.text)
                         Spacer()
                         sectionDismissButton(at: sectionModel) {
-                            viewModel.onActionHappeded(action: .onSectionVisibilityChanged(section: sectionModel.section))
+                            viewModel.trigger(.onSectionVisibilityChanged(section: sectionModel.section))
                         }
                     }
                     .padding(.all, 10)
@@ -225,7 +241,7 @@ struct InputView: View {
         ZStack {
             Theme.current.buttonColor.backgroundColor
             Button(action: {
-                viewModel.onActionHappeded(action: .doneButtonTapped)
+                viewModel.trigger(.doneButtonTapped)
                 dismiss()
             }) {
                 Text("Done")
@@ -244,7 +260,7 @@ struct InputView: View {
         HStack {
             Button(action: {
                 isFocus = false
-                viewModel.onActionHappeded(action: .editButtonTapped)
+                viewModel.trigger(.editButtonTapped)
             }) {
                 HStack {
                     Text( viewModel.isInEditMode ? "Done" : "Edit")

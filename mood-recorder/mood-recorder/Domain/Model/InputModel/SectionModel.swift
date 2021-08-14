@@ -72,4 +72,12 @@ struct SectionModel: Identifiable, Equatable {
         model.data = image.jpegData(compressionQuality: 0.25)
         cell = model
     }
+    
+    mutating func addText(text: String) {
+        guard var model = cell as? TextModel else {
+            return
+        }
+        model.text = text
+        cell = model
+    }
 }

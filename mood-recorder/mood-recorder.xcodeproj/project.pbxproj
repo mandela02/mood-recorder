@@ -63,6 +63,7 @@
 		84CBB36A26B71E7500A8E377 /* ResizeAnimationButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CBB36926B71E7500A8E377 /* ResizeAnimationButtonStyle.swift */; };
 		84CBB36C26B71EE600A8E377 /* RoundImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CBB36B26B71EE600A8E377 /* RoundImageView.swift */; };
 		84EF6B7226B7A4BA00C0551F /* CoreEmotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EF6B7126B7A4BA00C0551F /* CoreEmotion.swift */; };
+		84FE1B3B26C7B55600D32330 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FE1B3A26C7B55600D32330 /* BaseViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -124,6 +125,7 @@
 		84CBB36926B71E7500A8E377 /* ResizeAnimationButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResizeAnimationButtonStyle.swift; sourceTree = "<group>"; };
 		84CBB36B26B71EE600A8E377 /* RoundImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundImageView.swift; sourceTree = "<group>"; };
 		84EF6B7126B7A4BA00C0551F /* CoreEmotion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreEmotion.swift; sourceTree = "<group>"; };
+		84FE1B3A26C7B55600D32330 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -319,6 +321,7 @@
 		84CBB35826B6FDF800A8E377 /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				84FE1B3926C7B54400D32330 /* Base */,
 				8476F1AA26B8635900F62854 /* Utilities */,
 				84CBB35D26B703AB00A8E377 /* Component */,
 				84CBB35B26B6FE3300A8E377 /* Scene */,
@@ -383,6 +386,14 @@
 				8404939626BA5118006523D9 /* InputModel */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		84FE1B3926C7B54400D32330 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				84FE1B3A26C7B55600D32330 /* BaseViewModel.swift */,
+			);
+			path = Base;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -455,6 +466,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8423C20926BE85CE000717D9 /* Love.swift in Sources */,
+				84FE1B3B26C7B55600D32330 /* BaseViewModel.swift in Sources */,
 				84C3F72626C03AE600C789F5 /* CDContentModel+CoreDataClass.swift in Sources */,
 				8423C21A26C0098D000717D9 /* Event.swift in Sources */,
 				8404938026B977A5006523D9 /* Activities.swift in Sources */,
