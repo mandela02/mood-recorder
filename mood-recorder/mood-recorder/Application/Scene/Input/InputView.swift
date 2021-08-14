@@ -10,7 +10,7 @@ import SwiftUI
 struct InputView: View {
     typealias InputState = InputViewModel.InputState
     typealias InputTrigger = InputViewModel.InputTrigger
-
+    
     @Environment(\.presentationMode) var presentationMode
     
     @ObservedObject var viewModel: BaseViewModel<InputState,
@@ -18,6 +18,7 @@ struct InputView: View {
     
     @State var text = ""
     @State var isImagePickerShowing = false
+    @State var isAboutToDismiss = false
     
     @FocusState private var isFocus: Bool
     
@@ -104,7 +105,7 @@ struct InputView: View {
         .sheet(isPresented: $isImagePickerShowing) {
             ImagePicker(sourceType: .photoLibrary) { image in
                 viewModel.trigger(.pictureSelected(sectionIndex: sectionIndex,
-                                                                    image: image))
+                                                   image: image))
             }
         }
     }
@@ -277,7 +278,7 @@ struct InputView: View {
             if !viewModel.isInEditMode {
                 Button(action: {
                     isFocus = false
-                    dismiss()
+                    isAboutToDismiss = true
                 }) {
                     Image(systemName: "xmark")
                         .resizable()
@@ -331,5 +332,16 @@ struct InputView: View {
         .onTapGesture {
             isFocus = false
         }
+        .customDialog(isShowing: $isAboutToDismiss) {
+            DismissAlertView(save: {
+                viewModel.trigger(.doneButtonTapped)
+                dismiss()
+            },
+                             cancel: {
+                isAboutToDismiss.toggle()
+            },
+                             exit: dismiss)
+                .padding()
+        }.animation(.easeInOut, value: isAboutToDismiss)
     }
 }
