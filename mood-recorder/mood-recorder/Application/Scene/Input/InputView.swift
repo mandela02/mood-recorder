@@ -8,6 +8,11 @@
 import SwiftUI
 
 struct InputView: View {
+    private enum ScrollDestination {
+        case top
+        case bottom
+    }
+    
     typealias InputState = InputViewModel.InputState
     typealias InputTrigger = InputViewModel.InputTrigger
     
@@ -16,9 +21,11 @@ struct InputView: View {
     @ObservedObject var viewModel: BaseViewModel<InputState,
                                                  InputTrigger>
     
-    @State var text = ""
-    @State var isImagePickerShowing = false
-    @State var isAboutToDismiss = false
+    @State private var text = ""
+    @State private var isImagePickerShowing = false
+    @State private var isAboutToDismiss = false
+    
+    @State private var destination: ScrollDestination?
     
     @FocusState private var isFocus: Bool
     
@@ -304,33 +311,77 @@ struct InputView: View {
         }
     }
     
+    func makeAutoScrollButton() -> some View {
+        VStack {
+            Spacer()
+            HStack {
+                Spacer()
+                HStack(spacing: 59) {
+                    ArrowAnimation(foregroundColor: Theme.current.buttonColor.backgroundColor)
+                        .rotationEffect(Angle(degrees: 180))
+                        .onTapGesture {
+                            destination = .top
+                        }
+                    ArrowAnimation(foregroundColor: Theme.current.buttonColor.backgroundColor)
+                        .onTapGesture {
+                            destination = .bottom
+                        }
+                }
+                .rotationEffect(Angle(degrees: 90), anchor: .topTrailing)
+                .padding(.horizontal, 30)
+                .padding(.bottom, 30)
+            }
+        }
+    }
+    
     // MARK: - BODY
     var body: some View {
         ZStack {
             Theme.current.tableViewColor.background
-            List {
-                ForEach(Array(viewModel.sectionModels.enumerated()),
-                        id: \.offset) { index, section in
-                    if section.isVisible || viewModel.isInEditMode{
-                        getSectionCell(sectionModel: section,
-                                       at: index)
-                            .animation(.easeInOut(duration: 0.2),
-                                       value: section.isVisible)
+            ScrollViewReader { proxy in
+                List {
+                    ForEach(Array(viewModel.sectionModels.enumerated()),
+                            id: \.offset) { index, section in
+                        if section.isVisible || viewModel.isInEditMode{
+                            getSectionCell(sectionModel: section,
+                                           at: index)
+                                .animation(.easeInOut(duration: 0.2),
+                                           value: section.isVisible)
+                                .id(section.section)
+                        }
+                    }
+                    
+                    if !viewModel.isInEditMode {
+                        Section(header: SizedBox(height: .leastNonzeroMagnitude),
+                                footer: SizedBox(height: isFocus ? 50 : .leastNonzeroMagnitude)) {
+                            doneButton
+                                .id("DoneButton")
+                        }
                     }
                 }
-                
-                if !viewModel.isInEditMode {
-                    Section(header: SizedBox(height: .leastNonzeroMagnitude),
-                            footer: SizedBox(height: isFocus ? 50 : .leastNonzeroMagnitude)) {
-                        doneButton
+                .buttonStyle(PlainButtonStyle())
+                .animation(.easeInOut(duration: 0.2), value: viewModel.state.isInEditMode)
+                .animation(.easeInOut(duration: 0.2), value: viewModel.state.sectionModels)
+                .onChange(of: destination) { destination in
+                    guard let destination = destination else {
+                        return
                     }
+                    
+                    withAnimation(.spring()) {
+                        switch destination {
+                        case .top:
+                            proxy.scrollTo(SectionType.emotion, anchor: .top)
+                        case .bottom:
+                            proxy.scrollTo("DoneButton", anchor: .bottom)
+                        }
+                    }
+                    self.destination = nil
                 }
             }
-            .buttonStyle(PlainButtonStyle())
-            .animation(.easeInOut(duration: 0.2), value: viewModel.state.isInEditMode)
-            .animation(.easeInOut(duration: 0.2), value: viewModel.state.sectionModels)
 
             makeGradient()
+            
+            makeAutoScrollButton()
         }
         .onTapGesture {
             isFocus = false
