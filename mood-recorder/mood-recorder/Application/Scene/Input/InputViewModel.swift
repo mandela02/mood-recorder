@@ -62,8 +62,12 @@ class InputViewModel: ViewModel {
             
             withAnimation(.easeInOut(duration: 0.2)) {
                 self.state.sectionModels[index].changeVisibility()
-
             }
+            
+            if !self.state.sectionModels[index].isVisible {
+                self.state.sectionModels[index].resetCell()
+            }
+            
             self.sort()
         
         // MARK: - text change
