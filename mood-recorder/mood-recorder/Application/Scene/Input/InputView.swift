@@ -24,6 +24,7 @@ struct InputView: View {
     @State private var text = ""
     @State private var isImagePickerShowing = false
     @State private var isAboutToDismiss = false
+    @State private var isAboutToCustomizeSection = false
     @State private var isAboutToReset = false
     @State private var destination: ScrollDestination?
     @State private var imagePickerController: UIImagePickerController?
@@ -173,7 +174,10 @@ struct InputView: View {
                     .disabled(!sectionModel.isVisible || viewModel.isInEditMode)
                 SizedBox(height: 10)
                 if sectionModel.isEditable && sectionModel.isVisible && viewModel.isInEditMode {
-                    Button(action: {}) {
+                    Button(action: {
+                        viewModel.trigger(.onCustomizeSection(model: sectionModel))
+                        isAboutToCustomizeSection.toggle()
+                    }) {
                         ZStack {
                             Theme.current.buttonColor.backgroundColor
                                 .frame(maxWidth: .infinity)
@@ -429,6 +433,23 @@ struct InputView: View {
                 .padding()
         }
         .animation(.easeInOut, value: isAboutToReset)
+        .customDialog(isShowing: $isAboutToCustomizeSection,
+                      padding: 20) {
+            Group {
+                if let sectionModel = viewModel.state.selectedSectionModel {
+                    OptionAdditionView(sectionModel: sectionModel,
+                                       onConfirm: {
+                        isAboutToCustomizeSection.toggle()
+                        viewModel.trigger(.onCustomizeSection(model: nil))
+                    },
+                                       onCancel: {
+                        isAboutToCustomizeSection.toggle()
+                        viewModel.trigger(.onCustomizeSection(model: nil))
+                    })
+                }
+            }.padding()
+        }
+        .animation(.easeInOut, value: isAboutToCustomizeSection)
         .task {
             imagePickerController = UIImagePickerController()
         }

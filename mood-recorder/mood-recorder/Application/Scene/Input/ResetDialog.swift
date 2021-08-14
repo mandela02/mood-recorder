@@ -32,9 +32,13 @@ struct ResetDialog: View {
             Text("You are about to reset this diary")
                 .fontWeight(.bold)
                 .font(.system(size: 20))
+                .foregroundColor(Theme.current.commonColor.textColor)
+
             Text("All data will be lost. Do you want to reset?")
                 .font(.system(size: 15))
                 .multilineTextAlignment(.center)
+                .foregroundColor(Theme.current.commonColor.textColor)
+
 
             Image(avatar == .dino ? AppImage.surprise : AppImage.surprised)
                 .resizable()

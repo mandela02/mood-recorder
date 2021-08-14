@@ -66,14 +66,19 @@ class InputViewModel: ViewModel {
             
             self.sort()
         
-        // MARK: - text change
+        // MARK: - Text change
         case .onTextChange(sectionIndex: let sectionIndex, text: let text):
             self.state.sectionModels[sectionIndex].addText(text: text)
         
+        // MARK: - Reset button tap
         case .resetButtonTapped:
             for index in state.sectionModels.indices {
                 self.state.sectionModels[index].resetCell()
             }
+            
+        // MARK: - Custom Section
+        case .onCustomizeSection(model: let model):
+            state.selectedSectionModel = model
         }
     }
         
@@ -133,6 +138,7 @@ extension InputViewModel {
         case pictureSelected(sectionIndex: Int, image: UIImage)
         case onSectionVisibilityChanged(section: SectionType)
         case onTextChange(sectionIndex: Int, text: String)
+        case onCustomizeSection(model: SectionModel?)
         case editButtonTapped
         case doneButtonTapped
         case resetButtonTapped
@@ -144,6 +150,8 @@ extension InputViewModel {
 
         var isInEditMode = false
         var sectionModels: [SectionModel] = []
+        
+        var selectedSectionModel: SectionModel?
 
         let response = PassthroughSubject<DatabaseResponse, Never>()
         

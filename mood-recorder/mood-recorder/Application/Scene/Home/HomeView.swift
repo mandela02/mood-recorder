@@ -11,7 +11,7 @@ struct HomeView: View {
     @ObservedObject var viewModel = HomeViewModel()
 
     init() {
-        UITabBar.appearance().isHidden = true
+        //UITabBar.appearance().isHidden = true
     }
 
     @ViewBuilder
@@ -37,6 +37,7 @@ struct HomeView: View {
                     Color.yellow.tag(3)
                         .ignoresSafeArea()
                 })
+            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
     }
     
     @ViewBuilder

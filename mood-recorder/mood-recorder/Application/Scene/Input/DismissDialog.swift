@@ -33,9 +33,11 @@ struct DismissDialog: View {
             Text("This diary is not saved")
                 .fontWeight(.bold)
                 .font(.system(size: 20))
+                .foregroundColor(Theme.current.commonColor.textColor)
             Text("All data will be lost. Do you want to exit?")
                 .font(.system(size: 15))
                 .multilineTextAlignment(.center)
+                .foregroundColor(Theme.current.commonColor.textColor)
 
             Image(avatar == .dino ? AppImage.dinoCrying : AppImage.crying)
                 .resizable()

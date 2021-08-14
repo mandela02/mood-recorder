@@ -14,7 +14,7 @@ struct CustomDialog<DialogContent: View>: ViewModifier {
     let dialogContent: DialogContent
     
     init(isShowing: Binding<Bool>,
-         padding: CGFloat = 40,
+         padding: CGFloat,
          @ViewBuilder dialogContent: () -> DialogContent) {
         _isShowing = isShowing
         self.padding = padding
@@ -41,7 +41,10 @@ struct CustomDialog<DialogContent: View>: ViewModifier {
 extension View {
     func customDialog<DialogContent: View>(
         isShowing: Binding<Bool>,
+        padding: CGFloat = 40,
         @ViewBuilder dialogContent: @escaping () -> DialogContent) -> some View {
-            self.modifier(CustomDialog(isShowing: isShowing, dialogContent: dialogContent))
+            self.modifier(CustomDialog(isShowing: isShowing,
+                                       padding: padding,
+                                       dialogContent: dialogContent))
         }
 }
