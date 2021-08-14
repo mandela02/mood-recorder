@@ -8,209 +8,152 @@
 import SwiftUI
 import Combine
 
-class InputViewModel: ObservableObject {
-    @Published var isImagePickerShowing = false
-    @Published var text = ""
-    @Published var isInEditMode = false
-    @Published var inputDataModel = InputDataModel(sections: [])
+class InputViewModel: ViewModel {
+    @Published var state: InputState
     
-    private let action = PassthroughSubject<InputAction, Never>()
-    private let response = PassthroughSubject<DatabaseResponse, Never>()
-
-    private var status = Status.new
-
     private let useCase = UseCaseProvider.defaultProvider.getinputUseCase()
-
+    
     private var cancellables = Set<AnyCancellable>()
     
     deinit {
-        action.send(completion: .finished)
-        response.send(completion: .finished)
-        
         cancellables.forEach({$0.cancel()})
         cancellables.removeAll()
     }
     
-    init(emotion: CoreEmotion? = nil,
-         at date: Date = Date()) {
+    init(state: InputState) {
+        self.state = state
         setupSubcription()
-        initData(with: emotion, at: date)
+        initData(with: state.initialEmotion, at: state.initialDate)
     }
     
-    func onActionHappeded(action: InputAction) {
-        self.action.send(action)
-    }
-    
-    private func initData(with emotion: CoreEmotion?, at date: Date) {
-        setState {
-            if useCase.isRecordExist(date: date.startOfDay.timeIntervalSince1970) {
-                status = .update(date: date)
-                response.send(useCase.fetch(at: date.startOfDay.timeIntervalSince1970))
-            } else {
-                self.inputDataModel = InputDataModel.initData()
+    func trigger(_ input: InputTrigger) {
+        switch input {
+        // MARK: - edit button tapped
+        case .editButtonTapped:
+            withAnimation(.easeInOut(duration: 0.2)) {
+                self.state.isInEditMode.toggle()
             }
             
-            if let emotion = emotion {
-                guard let model = inputDataModel
-                        .sections
-                        .first(where: { $0.section == .emotion })?
-                        .cell as? [OptionModel] else {
-                    return
-                }
-                model.forEach { $0.isSelected = false }
-                model.first(where: { $0.content.image == emotion.imageName })?.isSelected.toggle()
+        // MARK: - done button tapped
+        case .doneButtonTapped:
+            let model = InputDataModel(sections: self.state.sectionModels)
+            switch self.state.status {
+            case .new:
+                self.state.response.send(self.useCase.save(model: model))
+            case .update(date: let date):
+                self.state.response.send(self.useCase.update(at: date.startOfDayInterval,
+                                                       model: model))
+            }
+            
+        // MARK: - cell option tapped
+        case .optionTap(sectionIndex: let sectionIndex,
+                        optionIndex: let optionIndex):
+            if self.state.isInEditMode { return }
+            self.state.sectionModels[sectionIndex]
+                .changeOptionSelection(at: optionIndex)
+            
+        // MARK: - picture selected
+        case .pictureSelected(sectionIndex: let sectionIndex, image: let image):
+            self.state.sectionModels[sectionIndex].addImage(image: image)
+            
+        // MARK: - display or hide section
+        case .onSectionVisibilityChanged(section: let section):
+            guard let index = self.state.sectionModels.firstIndex(where: {$0.section == section}) else { return }
+            
+            withAnimation(.easeInOut(duration: 0.2)) {
+                self.state.sectionModels[index].changeVisibility()
+
+            }
+            self.sort()
+        
+        // MARK: - text change
+        case .onTextChange(sectionIndex: let sectionIndex, text: let text):
+            self.state.sectionModels[sectionIndex].addText(text: text)
+        }
+
+    }
+        
+    private func initData(with emotion: CoreEmotion?, at date: Date) {
+        if useCase.isRecordExist(date: date.startOfDayInterval) {
+            state.status = .update(date: date)
+            state.response.send(useCase.fetch(at: date.startOfDayInterval))
+        } else {
+            state.sectionModels = InputDataModel.initData().sections
+        }
+        
+        if let emotion = emotion {
+            for index in state.sectionModels.indices {
+                state.sectionModels[index].onEmotionSelected(emotion: emotion)
             }
         }
+        
+        self.sort()
     }
 }
 
 // MARK: - Subcription Handler
 extension InputViewModel {
     private func setupSubcription() {
-        response
+        self.state.response
             .sink { [weak self] response in
                 guard let self = self else { return }
                 switch response {
                 case .success(data: let data):
                     if let model = data as? InputDataModel {
-                        self.inputDataModel = model
+                        self.state.sectionModels = model.sections
+                        self.sort()
                     }
-                case .error(error: let error):
+                case .error(error: _):
                     print("error")
                 }
-
-            }
-            .store(in: &cancellables)
-
-        action
-            .sink { [weak self] action in
-                guard let self = self else { return }
-                switch action {
-                case .optionTap(sectionModel: let sectionModel,
-                                optionModel: let optionModel):
-                    self.onDismissKeyboardNeeded()
-                    self.onOptionTap(at: sectionModel,
-                                     with: optionModel)
-                case .pictureSelected(sectionModel: let sectionModel,
-                                      image: let image):
-                    self.onPictureSelected(at: sectionModel,
-                                           with: image)
-                case .onSectionStatusChanged(sectionModel: let sectionModel):
-                    self.onSectionStatusChanged(at: sectionModel)
-                case .closeButtonTapped:
-                    self.onDismissKeyboardNeeded()
-                    self.onCloseButtonTapped()
-                case .editButtonTapped:
-                    self.onDismissKeyboardNeeded()
-                    self.changeViewStatus()
-                case .doneButtonTapped:
-                    self.onDismissKeyboardNeeded()
-                    self.onDoneButtonTapped()
-                case .imageButtonTapped:
-                    self.onDismissKeyboardNeeded()
-                    self.showImagePicker()
-                case .dismissKeyboard:
-                    self.onDismissKeyboardNeeded()
-                }
+                
             }
             .store(in: &cancellables)
     }
-}
-
-// MARK: - Apply data change handler
-extension InputViewModel {
-    private func setState(_ change:() -> ()) {
-        change()
-        withAnimation(.easeInOut) {
-            let psuedoData = inputDataModel
-            
-            var visibles = psuedoData.sections.filter { $0.isVisible }
+    
+    private func sort() {
+        withAnimation(.easeInOut(duration: 0.2)) {
+            var visibles = self.state.sectionModels.filter { $0.isVisible }
             visibles.sort(by: { $0.section.rawValue < $1.section.rawValue })
-            
-            var hiddens = psuedoData.sections.filter { !$0.isVisible }
+                    
+            var hiddens = self.state.sectionModels.filter { !$0.isVisible }
             hiddens.sort(by: { $0.section.rawValue < $1.section.rawValue })
-
-            psuedoData.sections = visibles + hiddens
             
-            inputDataModel = psuedoData
+            self.state.sectionModels = visibles + hiddens
         }
     }
 }
 
-// MARK: - Action handler
+// MARK: - Private enum
 extension InputViewModel {
-    private func onOptionTap(at sectionModel: SectionModel, with optionModel: OptionModel) {
-        setState {
-            guard let models = sectionModel.cell as? [OptionModel] else { return }
-            
-            if sectionModel.section == .emotion {
-                models.forEach { $0.isSelected = false }
-            }
-            
-            optionModel.isSelected.toggle()
-        }
+    enum InputTrigger {
+        case optionTap(sectionIndex: Int, optionIndex: Int)
+        case pictureSelected(sectionIndex: Int, image: UIImage)
+        case onSectionVisibilityChanged(section: SectionType)
+        case onTextChange(sectionIndex: Int, text: String)
+        case editButtonTapped
+        case doneButtonTapped
     }
     
-    private func showImagePicker() {
-        isImagePickerShowing.toggle()
-    }
-    
-    private func onPictureSelected(at sectionModel: SectionModel, with image: UIImage) {
-        setState {
-            guard let model = sectionModel.cell as? ImageModel else { return }
+    struct InputState {
+        var initialEmotion: CoreEmotion?
+        var initialDate: Date
 
-            model.data = image.jpegData(compressionQuality: 0.5)
-        }
-    }
-    
-    private func onSectionStatusChanged(at sectionModel: SectionModel) {
-        setState {
-            sectionModel.isVisible.toggle()
-        }
-    }
-    
-    private func onCloseButtonTapped() {}
-    
-    private func onEditButtonTapped() {
-        changeViewStatus()
-    }
-    
-    private func changeViewStatus() {
-        withAnimation(.easeInOut) {
-            isInEditMode.toggle()
-        }
-    }
-    
-    private func onDoneButtonTapped() {
-        switch status {
-        case .new:
-            self.response.send(useCase.save(model: inputDataModel))
-        case .update(date: let date):
-            self.response.send(useCase.update(at: date.startOfDay.timeIntervalSince1970,
-                                              model: inputDataModel))
-        }
+        var isInEditMode = false
+        var sectionModels: [SectionModel] = []
+
+        let response = PassthroughSubject<DatabaseResponse, Never>()
         
-    }
-    
-    private func onDismissKeyboardNeeded() {
-        UIApplication.shared.endEditing()
-    }
+        var status = Status.new
+        
+        init(emotion: CoreEmotion? = nil, date: Date = Date()) {
+            self.initialDate = date
+            self.initialEmotion = emotion
+        }
 
-    private enum Status {
-        case new
-        case update(date: Date)
+        enum Status {
+            case new
+            case update(date: Date)
+        }
     }
-}
-
-
-// MARK: - Input Action Enum
-enum InputAction {
-    case optionTap(sectionModel: SectionModel, optionModel: OptionModel)
-    case pictureSelected(sectionModel: SectionModel, image: UIImage)
-    case onSectionStatusChanged(sectionModel: SectionModel)
-    case closeButtonTapped
-    case editButtonTapped
-    case doneButtonTapped
-    case imageButtonTapped
-    case dismissKeyboard
 }

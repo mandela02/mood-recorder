@@ -60,7 +60,13 @@ class Repository<T: NSManagedObject>: RepositoryType {
         
         do {
             let result = try container.viewContext.fetch(fetchRequest)
-            return .success(data: result.first)
+            if result.isEmpty {
+                return .error(error: NSError(domain: "Can not find this record",
+                                             code: 1,
+                                             userInfo: nil))
+            } else {
+                return .success(data: result.first)
+            }
         } catch let error {
             return .error(error: error)
         }

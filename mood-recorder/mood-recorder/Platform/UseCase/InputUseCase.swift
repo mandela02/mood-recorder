@@ -8,7 +8,7 @@
 import Foundation
 import CoreData
 
-class InputUseCase {
+struct InputUseCase {
     private let repository: Repository<CDInputModel>
 
     init(repository: Repository<CDInputModel>) {
@@ -56,7 +56,7 @@ class InputUseCase {
             
             for cdSection in model.sectionArray {
                 guard let content = cdSection.content else { continue }
-                let section = Section.section(from: Int(cdSection.sectionID))
+                let section = SectionType.section(from: Int(cdSection.sectionID))
                 
                 switch section {
                 case .note:
@@ -67,7 +67,8 @@ class InputUseCase {
                 case .photo:
                     sectionModels.append(SectionModel(section: section,
                                                       title: section.title,
-                                                      cell: ImageModel(data: content.image)))
+                                                      cell: ImageModel(data: content.image),
+                                                      isVisible: cdSection.isVisible))
                 case .sleep:
                     sectionModels.append(SectionModel(section: section,
                                                       title: section.title,

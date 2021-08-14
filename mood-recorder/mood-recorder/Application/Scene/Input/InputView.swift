@@ -8,15 +8,25 @@
 import SwiftUI
 
 struct InputView: View {
-    @Environment(\.presentationMode) var presentationMode
+    typealias InputState = InputViewModel.InputState
+    typealias InputTrigger = InputViewModel.InputTrigger
 
-    @ObservedObject var viewModel: InputViewModel
+    @Environment(\.presentationMode) var presentationMode
+    
+    @ObservedObject var viewModel: BaseViewModel<InputState,
+                                                 InputTrigger>
+    
+    @State var text = ""
+    @State var isImagePickerShowing = false
+    
+    @FocusState private var isFocus: Bool
     
     init(emotion: CoreEmotion) {
-        self.viewModel = InputViewModel(emotion: emotion)
+        let inputState = InputState(emotion: emotion)
+        self.viewModel = BaseViewModel(InputViewModel(state: inputState))
         
         UITextView.appearance().backgroundColor =  UIColor(Theme.current.commonColor.textBackground)
-
+        UITableView.appearance().backgroundColor = UIColor(Theme.current.tableViewColor.background)
     }
     
     // MARK: - Dismiss
@@ -30,37 +40,42 @@ struct InputView: View {
     }
     
     // MARK: - Section Icon Type
-    func getIconGrid(optionModels: [OptionModel], sectionModel: SectionModel) -> some View {
+    func getIconGrid(optionModels: [OptionModel], at sectionIndex: Int) -> some View {
         LazyVGrid(columns: Array(repeating: GridItem(.flexible(),
                                                      alignment: .top),
                                  count: 5),
                   content: {
-                    ForEach(optionModels) { optionModel in
-                        LazyVStack(spacing: 5) {
-                            Button(action: {
-                                viewModel.onActionHappeded(action: .optionTap(sectionModel: sectionModel, optionModel: optionModel))
-                            }, label: {
-                                RoundImageView(image: optionModel.content.image.image,
-                                               backgroundColor: iconBackgroundColor(optionModel.isSelected))
-                            })
-                            .aspectRatio(1, contentMode: .fit)
-                            .saturation(optionModel.isSelected ? 1 : 0)
-                            .buttonStyle(ResizeAnimationButtonStyle())
-                            
-                            if optionModel.content.title != "" {
-                                Text(optionModel.content.title)
-                                    .foregroundColor(Theme.current.tableViewColor.text)
-                                    .font(.system(size: 12))
-                            }
-                        }
+            ForEach(Array(optionModels.enumerated()),
+                    id: \.offset) { optionIndex, optionModel in
+                LazyVStack(spacing: 5) {
+                    Button(action: {
+                        isFocus = false
+                        viewModel.trigger(.optionTap(sectionIndex: sectionIndex,
+                                                     optionIndex: optionIndex))
+                    }, label: {
+                        RoundImageView(image: optionModel.content.image.image,
+                                       backgroundColor: iconBackgroundColor(optionModel.isSelected))
+                    })
+                        .aspectRatio(1, contentMode: .fit)
+                        .saturation(optionModel.isSelected ? 1 : 0)
+                        .buttonStyle(ResizeAnimationButtonStyle())
+                    
+                    if optionModel.content.title != "" {
+                        Text(optionModel.content.title)
+                            .foregroundColor(Theme.current.tableViewColor.text)
+                            .font(.system(size: 12))
                     }
-                  })
+                }
+            }
+        })
     }
     
     // MARK: - Section Image Type
-    func getImagePicker(imageModel: ImageModel, sectionModel: SectionModel) -> some View {
+    func getImageContentCell(imageModel: ImageModel,
+                             sectionIndex: Int) -> some View {
         Button(action: {
-            viewModel.onActionHappeded(action: .imageButtonTapped)
+            isFocus = false
+            isImagePickerShowing.toggle()
         }) {
             ZStack {
                 Theme.current.commonColor.textBackground
@@ -86,22 +101,25 @@ struct InputView: View {
             .cornerRadius(10)
         }
         .buttonStyle(ResizeAnimationButtonStyle())
-        .sheet(isPresented: $viewModel.isImagePickerShowing) {
+        .sheet(isPresented: $isImagePickerShowing) {
             ImagePicker(sourceType: .photoLibrary) { image in
-                viewModel.onActionHappeded(action: .pictureSelected(sectionModel: sectionModel, image: image))
+                viewModel.trigger(.pictureSelected(sectionIndex: sectionIndex,
+                                                                    image: image))
             }
         }
     }
     
     // MARK: - Section Text Type
-    var getTextView: some View {
+    func getTextView(textModel: TextModel,
+                     sectionIndex: Int) -> some View {
         ZStack {
             Theme.current.commonColor.textBackground
-            TextEditor(text: $viewModel.text)
+            TextEditor(text: $text)
                 .foregroundColor(Theme.current.tableViewColor.text)
                 .font(.system(size: 12))
                 .padding()
-            Text(viewModel.text)
+                .focused($isFocus)
+            Text(textModel.text ?? "")
                 .opacity(0)
                 .font(.system(size: 12))
                 .padding(.all, 8)
@@ -109,6 +127,12 @@ struct InputView: View {
         }
         .cornerRadius(10)
         .frame(minHeight: 200)
+        .onChange(of: text) { newValue in
+            viewModel.trigger(.onTextChange(sectionIndex: sectionIndex,
+                                            text: newValue))
+        }.onAppear {
+            text = textModel.text ?? ""
+        }
     }
     
     // MARK: - Section Sleep Scheldule Type
@@ -126,11 +150,12 @@ struct InputView: View {
     
     // MARK: - Section Content
     @ViewBuilder
-    func getSectionContent(at sectionModel: SectionModel) -> some View {
+    func getSectionContent(at sectionModel: SectionModel, index: Int) -> some View {
         switch sectionModel.cell {
         case let models as [OptionModel]:
             VStack {
-                getIconGrid(optionModels: models, sectionModel: sectionModel)
+                getIconGrid(optionModels: models,
+                            at: index)
                     .padding(.horizontal, 10)
                     .disabled(!sectionModel.isVisible || viewModel.isInEditMode)
                 SizedBox(height: 10)
@@ -148,15 +173,17 @@ struct InputView: View {
                         }
                     }
                 } else {
-                    SizedBox(height: 0)
+                    SizedBox(height: .leastNonzeroMagnitude)
                 }
             }
         case let model as ImageModel:
-            getImagePicker(imageModel: model, sectionModel: sectionModel)
+            getImageContentCell(imageModel: model,
+                                sectionIndex: index)
                 .disabled(!sectionModel.isVisible || viewModel.isInEditMode)
                 .padding()
-        case _ as TextModel:
-            getTextView
+        case let model as TextModel:
+            getTextView(textModel: model,
+                        sectionIndex: index)
                 .disabled(!sectionModel.isVisible || viewModel.isInEditMode)
                 .padding()
         case let model as SleepSchelduleModel:
@@ -179,54 +206,61 @@ struct InputView: View {
                     .frame(width: 20, height: 20, alignment: .center)
                     .foregroundColor(Theme.current.commonColor.textColor)
             }
+            .buttonStyle(PlainButtonStyle())
         } else {
             EmptyView()
         }
     }
     
     // MARK: - Calculate section cell
-    func getSectionCell(sectionModel: SectionModel) -> some View {
-        ZStack(alignment: .topLeading) {
-            Theme.current.tableViewColor.cellBackground
-            VStack(alignment: .leading) {
-                HStack {
-                    Text(sectionModel.title)
-                        .foregroundColor(Theme.current.tableViewColor.text)
-                    Spacer()
-                    sectionDismissButton(at: sectionModel) {
-                        viewModel.onActionHappeded(action: .onSectionStatusChanged(sectionModel: sectionModel))
+    func getSectionCell(sectionModel: SectionModel, at index: Int) -> some View {
+        Section(header: SizedBox(height: index == 0 ? 50 : .leastNonzeroMagnitude)) {
+            ZStack(alignment: .topLeading) {
+                sectionModel.isVisible ? Theme.current.tableViewColor.cellBackground : Color.gray.opacity(0.5)
+                VStack(alignment: .leading) {
+                    HStack {
+                        Text(sectionModel.title)
+                            .foregroundColor(Theme.current.tableViewColor.text)
+                        Spacer()
+                        sectionDismissButton(at: sectionModel) {
+                            viewModel.trigger(.onSectionVisibilityChanged(section: sectionModel.section))
+                        }
                     }
+                    .padding(.all, 10)
+                    
+                    getSectionContent(at: sectionModel, index: index)
                 }
-                .padding(.all, 10)
-
-                getSectionContent(at: sectionModel)
             }
+            .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+            .buttonStyle(PlainButtonStyle())
         }
-        .cornerRadius(10)
-        .padding(.all, 10)
     }
     
     // MARK: - Done Button
     var doneButton: some View {
-        Button(action: {
-            viewModel.onActionHappeded(action: .doneButtonTapped)
-            dismiss()
-        }) {
-            Text("Done")
-                .font(.system(size: 20))
-                .foregroundColor(Theme.current.buttonColor.textColor)
-                .frame(maxWidth: .infinity)
-                .padding()
-                .background(Theme.current.buttonColor.backgroundColor
-                                .ignoresSafeArea(.all, edges: .bottom))
+        ZStack {
+            Theme.current.buttonColor.backgroundColor
+            Button(action: {
+                viewModel.trigger(.doneButtonTapped)
+                dismiss()
+            }) {
+                Text("Done")
+                    .font(.system(size: 20))
+                    .foregroundColor(Theme.current.buttonColor.textColor)
+                    .frame(maxWidth: .infinity)
+                    .padding()
+            }
         }
+        .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+        .buttonStyle(PlainButtonStyle())
     }
     
     // MARK: - Navigation Bar
     var navigationBar: some View {
         HStack {
             Button(action: {
-                viewModel.onActionHappeded(action: .editButtonTapped)
+                isFocus = false
+                viewModel.trigger(.editButtonTapped)
             }) {
                 HStack {
                     Text( viewModel.isInEditMode ? "Done" : "Edit")
@@ -242,7 +276,7 @@ struct InputView: View {
             Spacer()
             if !viewModel.isInEditMode {
                 Button(action: {
-                    viewModel.onActionHappeded(action: .closeButtonTapped)
+                    isFocus = false
                     dismiss()
                 }) {
                     Image(systemName: "xmark")
@@ -255,51 +289,47 @@ struct InputView: View {
         }
     }
     
+    // MARK: - gradient
+    func makeGradient() -> some View {
+        VStack {
+            ZStack {
+                LinearGradient(gradient: Gradient(colors: [Theme.current.buttonColor.backgroundColor,
+                                                           Color.clear]),
+                               startPoint: .top,
+                               endPoint: .bottom)
+                    .ignoresSafeArea(.all, edges: .top)
+                navigationBar
+                    .padding(.horizontal, 20)
+            }
+            .frame(height: 80)
+            Spacer()
+        }
+    }
+    
     // MARK: - BODY
     var body: some View {
         ZStack {
-            Theme.current.tableViewColor.background.ignoresSafeArea()
-            VStack {
-                ScrollView(.vertical, showsIndicators: false) {
-                    SizedBox(height: 80)
-                    
-                    LazyVStack(spacing: 0) {
-                        ForEach(viewModel.inputDataModel.sections) { section in
-                            if viewModel.isInEditMode {
-                                ZStack {
-                                    section.isVisible ? Color.clear : Color.gray
-                                    getSectionCell(sectionModel: section)
-                                }
-                            } else if section.isVisible {
-                                getSectionCell(sectionModel: section)
-                            } else {
-                                SizedBox(height: 0)
-                            }
-                        }
+            Theme.current.tableViewColor.background
+            List {
+                ForEach(Array(viewModel.sectionModels.enumerated()),
+                        id: \.offset) { index, section in
+                    if section.isVisible || viewModel.isInEditMode{
+                        getSectionCell(sectionModel: section,
+                                       at: index)
                     }
-                    
-                    SizedBox(height: 10)
                 }
+                
                 if !viewModel.isInEditMode {
-                    doneButton
+                    Section(header: SizedBox(height: .leastNonzeroMagnitude),
+                            footer: SizedBox(height: isFocus ? 50 : .leastNonzeroMagnitude)) {
+                        doneButton
+                    }
                 }
             }
-            VStack {
-                ZStack {
-                    LinearGradient(gradient: Gradient(colors: [Theme.current.buttonColor.backgroundColor,
-                                                               Color.clear]),
-                                               startPoint: .top,
-                                               endPoint: .bottom)
-                        .ignoresSafeArea(.all, edges: .top)
-                    navigationBar
-                        .padding(.horizontal, 20)
-                }
-                .frame(height: 80)
-                Spacer()
-            }
+            makeGradient()
         }
         .onTapGesture {
-            viewModel.onActionHappeded(action: .dismissKeyboard)
+            isFocus = false
         }
     }
 }

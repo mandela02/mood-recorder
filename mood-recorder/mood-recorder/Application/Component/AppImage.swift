@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-class AppImage {
+struct AppImage {
     static let bodyOil = "body.oil"
     static let bra = "bra"
     static let brush1 = "brush.1"

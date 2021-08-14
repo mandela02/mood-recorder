@@ -7,7 +7,7 @@
 
 import Foundation
 
-class InputDataModel {
+struct InputDataModel {
     init(sections: [SectionModel]) {
         self.sections = sections
     }
@@ -15,7 +15,7 @@ class InputDataModel {
     var sections: [SectionModel]
     
     static func initData() -> InputDataModel {
-        let sections = Section.allCases.map { section -> SectionModel in
+        let sections = SectionType.allCases.map { section -> SectionModel in
             switch section {
             case .emotion:
                 let models = CoreEmotion

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HomeView: View {
     @ObservedObject var viewModel = HomeViewModel()
-    
+
     init() {
         UITabBar.appearance().isHidden = true
     }

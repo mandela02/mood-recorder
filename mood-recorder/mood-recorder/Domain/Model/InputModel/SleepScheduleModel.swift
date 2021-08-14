@@ -7,7 +7,7 @@
 
 import Foundation
 
-class SleepSchelduleModel {
+struct SleepSchelduleModel {
     init(startTime: Double? = nil, endTime: Double? = nil) {
         self.startTime = startTime
         self.endTime = endTime
