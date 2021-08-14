@@ -39,8 +39,8 @@ struct InputView: View {
                             id: \.offset) { optionIndex, optionModel in
                         LazyVStack(spacing: 5) {
                             Button(action: {
-                                viewModel.onActionHappeded(action: .optionTap(sectionModelIndex: sectionIndex,
-                                                                              optionModelIndex: optionIndex))
+                                viewModel.onActionHappeded(action: .optionTap(sectionIndex: sectionIndex,
+                                                                              optionIndex: optionIndex))
                             }, label: {
                                 RoundImageView(image: optionModel.content.image.image,
                                                backgroundColor: iconBackgroundColor(optionModel.isSelected))
@@ -91,7 +91,7 @@ struct InputView: View {
         .buttonStyle(ResizeAnimationButtonStyle())
         .sheet(isPresented: $viewModel.isImagePickerShowing) {
             ImagePicker(sourceType: .photoLibrary) { image in
-                viewModel.onActionHappeded(action: .pictureSelected(sectionModelIndex: sectionIndex,
+                viewModel.onActionHappeded(action: .pictureSelected(sectionIndex: sectionIndex,
                                                                     image: image))
             }
         }
@@ -200,7 +200,7 @@ struct InputView: View {
                         .foregroundColor(Theme.current.tableViewColor.text)
                     Spacer()
                     sectionDismissButton(at: sectionModel) {
-                        viewModel.onActionHappeded(action: .onSectionVisibilityChanged(sectionIndex: index))
+                        viewModel.onActionHappeded(action: .onSectionVisibilityChanged(section: sectionModel.section))
                     }
                 }
                 .padding(.all, 10)
@@ -289,19 +289,19 @@ struct InputView: View {
                 LazyVStack(spacing: 0) {
                     SizedBox(height: 80)
                     
-                    ForEach(Array(viewModel.sectionModels.enumerated()),
+                    ForEach(Array(viewModel.visibles.enumerated()),
                             id: \.offset) { index, section in
+                        getSectionCell(sectionModel: section,
+                                       at: index)
+                    }
+                    
+                    Group() {
                         if viewModel.isInEditMode {
-                            ZStack {
-                                section.isVisible ? Color.clear : Color.gray
+                            ForEach(Array(viewModel.hiddens.enumerated()),
+                                    id: \.offset) { index, section in
                                 getSectionCell(sectionModel: section,
                                                at: index)
-                            }
-                        } else if section.isVisible {
-                            getSectionCell(sectionModel: section,
-                                           at: index)
-                        } else {
-                            SizedBox(height: 0)
+                            }.background(Color.gray)
                         }
                     }
                     

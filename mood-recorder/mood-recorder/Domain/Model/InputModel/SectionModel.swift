@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct SectionModel: Identifiable, Equatable {
     static func == (lhs: SectionModel, rhs: SectionModel) -> Bool {
@@ -62,5 +63,13 @@ struct SectionModel: Identifiable, Equatable {
             
             cell = options
         }
+    }
+    
+    mutating func addImage(image: UIImage) {
+        guard var model = cell as? ImageModel else {
+            return
+        }
+        model.data = image.jpegData(compressionQuality: 0.5)
+        cell = model
     }
 }
