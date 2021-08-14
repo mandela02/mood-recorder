@@ -10,11 +10,14 @@ import SwiftUI
 struct CustomDialog<DialogContent: View>: ViewModifier {
     @Binding var isShowing: Bool
     
+    let padding: CGFloat
     let dialogContent: DialogContent
     
     init(isShowing: Binding<Bool>,
+         padding: CGFloat = 40,
          @ViewBuilder dialogContent: () -> DialogContent) {
         _isShowing = isShowing
+        self.padding = padding
         self.dialogContent = dialogContent()
     }
     
@@ -28,7 +31,7 @@ struct CustomDialog<DialogContent: View>: ViewModifier {
                     .background(
                         RoundedRectangle(cornerRadius: 20)
                             .foregroundColor(.white))
-                    .padding(40)
+                    .padding(padding)
             }
             .opacity(isShowing ? 1 : 0)
         }

@@ -390,7 +390,11 @@ struct InputView: View {
                         case .top:
                             proxy.scrollTo(SectionType.emotion, anchor: .top)
                         case .bottom:
-                            proxy.scrollTo("DoneButton", anchor: .bottom)
+                            if viewModel.isInEditMode {
+                                proxy.scrollTo(SectionType.custom, anchor: .bottom)
+                            } else {
+                                proxy.scrollTo("DoneButton", anchor: .bottom)
+                            }
                         }
                     }
                     self.destination = nil

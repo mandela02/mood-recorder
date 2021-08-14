@@ -16,6 +16,7 @@ struct TalkBubble: View {
     var body: some View {
         VStack(spacing: 0) {
             ZStack {
+                backgroundColor
                 VStack(spacing: 15) {
                     Text("How are your feeling today?")
                         .foregroundColor(textColor)
@@ -38,7 +39,7 @@ struct TalkBubble: View {
             .background(.thickMaterial)
             .frame(height: 180)
             .cornerRadius(20)
-            Color.clear
+            backgroundColor
                 .frame(width: 30, height: 20, alignment: .center)
                 .clipShape(Triangle())
                 .background(.thickMaterial, in: Triangle())
