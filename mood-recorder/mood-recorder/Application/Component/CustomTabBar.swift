@@ -73,7 +73,9 @@ struct CustomTabBar: View {
             minWidth: 0,
             maxWidth: .infinity
         )
-        .background(backgroundColor.clipShape(CurveBackgroundShape()).cornerRadius(20))
+        .background(.thickMaterial,
+                    in: CurveBackgroundShape())
+        .cornerRadius(20)
         .padding(.all, 10)
         
     }
@@ -83,7 +85,10 @@ struct CustomTabBar: View {
             tabBarContent
             Button(action: onBigButtonTapped, label: {
                 RoundImageView(image: CoreEmotion.neutral.image,
-                               backgroundColor: backgroundColor)
+                               backgroundColor: Color.clear)
+                    .background(.thickMaterial,
+                                in: Circle())
+                
                     .frame(width: 70, height: 70, alignment: .center)
             })
             .buttonStyle(ResizeAnimationButtonStyle())
