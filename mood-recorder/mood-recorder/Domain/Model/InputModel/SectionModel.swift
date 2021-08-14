@@ -90,6 +90,10 @@ struct SectionModel: Identifiable, Equatable {
         
         switch cell {
         case var models as [OptionModel]:
+            if section == .emotion {
+                return
+            }
+            
             for i in models.indices {
                 models[i].isSelected = false
             }

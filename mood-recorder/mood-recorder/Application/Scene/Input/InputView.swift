@@ -24,8 +24,9 @@ struct InputView: View {
     @State private var text = ""
     @State private var isImagePickerShowing = false
     @State private var isAboutToDismiss = false
-    
+    @State private var isAboutToReset = false
     @State private var destination: ScrollDestination?
+    @State private var imagePickerController: UIImagePickerController?
     
     @FocusState private var isFocus: Bool
     
@@ -110,9 +111,13 @@ struct InputView: View {
         }
         .buttonStyle(ResizeAnimationButtonStyle())
         .sheet(isPresented: $isImagePickerShowing) {
-            ImagePicker(sourceType: .photoLibrary) { image in
-                viewModel.trigger(.pictureSelected(sectionIndex: sectionIndex,
-                                                   image: image))
+            if let imagePickerController = imagePickerController {
+                ImagePicker(sourceType: .photoLibrary, controller: imagePickerController) { image in
+                    viewModel.trigger(.pictureSelected(sectionIndex: sectionIndex,
+                                                       image: image))
+                }
+            } else {
+                SizedBox()
             }
         }
     }
@@ -276,18 +281,31 @@ struct InputView: View {
                         .renderingMode(.template)
                         .frame(width: 20, height: 20, alignment: .center)
                         .foregroundColor(Theme.current.buttonColor.textColor)
-                }
+                }.animation(.easeInOut, value: viewModel.isInEditMode)
             }
             Spacer()
             if !viewModel.isInEditMode {
                 Button(action: {
                     isFocus = false
-                    isAboutToDismiss = true
+                    isAboutToReset.toggle()
                 }) {
-                    Image(systemName: "xmark")
+                    Image(systemName: "arrow.triangle.2.circlepath.circle")
                         .resizable()
                         .renderingMode(.template)
-                        .frame(width: 20, height: 20, alignment: .center)
+                        .frame(width: 30, height: 30, alignment: .center)
+                        .foregroundColor(Theme.current.buttonColor.textColor)
+                }
+
+                SizedBox(width: 10)
+                
+                Button(action: {
+                    isFocus = false
+                    isAboutToDismiss = true
+                }) {
+                    Image(systemName: "xmark.circle")
+                        .resizable()
+                        .renderingMode(.template)
+                        .frame(width: 30, height: 30, alignment: .center)
                         .foregroundColor(Theme.current.buttonColor.textColor)
                 }
             }
@@ -367,7 +385,7 @@ struct InputView: View {
                         return
                     }
                     
-                    withAnimation(.spring()) {
+                    withAnimation(.easeInOut(duration: 0.5)) {
                         switch destination {
                         case .top:
                             proxy.scrollTo(SectionType.emotion, anchor: .top)
@@ -378,7 +396,7 @@ struct InputView: View {
                     self.destination = nil
                 }
             }
-
+            
             makeGradient()
             
             makeAutoScrollButton()
@@ -387,15 +405,28 @@ struct InputView: View {
             isFocus = false
         }
         .customDialog(isShowing: $isAboutToDismiss) {
-            DismissAlertView(save: {
+            DismissDialog(save: {
                 viewModel.trigger(.doneButtonTapped)
                 dismiss()
-            },
-                             cancel: {
+            }, cancel: {
                 isAboutToDismiss.toggle()
-            },
-                             exit: dismiss)
+            }, exit: dismiss)
                 .padding()
-        }.animation(.easeInOut, value: isAboutToDismiss)
+        }
+        .animation(.easeInOut, value: isAboutToDismiss)
+        .customDialog(isShowing: $isAboutToReset) {
+            ResetDialog(reset: {
+                viewModel.trigger(.resetButtonTapped)
+                text = ""
+                isAboutToReset.toggle()
+            }, cancel: {
+                isAboutToReset.toggle()
+            })
+                .padding()
+        }
+        .animation(.easeInOut, value: isAboutToReset)
+        .task {
+            imagePickerController = UIImagePickerController()
+        }
     }
 }

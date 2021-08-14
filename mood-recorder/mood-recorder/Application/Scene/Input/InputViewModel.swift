@@ -69,8 +69,12 @@ class InputViewModel: ViewModel {
         // MARK: - text change
         case .onTextChange(sectionIndex: let sectionIndex, text: let text):
             self.state.sectionModels[sectionIndex].addText(text: text)
+        
+        case .resetButtonTapped:
+            for index in state.sectionModels.indices {
+                self.state.sectionModels[index].resetCell()
+            }
         }
-
     }
         
     private func initData(with emotion: CoreEmotion?, at date: Date) {
@@ -131,6 +135,7 @@ extension InputViewModel {
         case onTextChange(sectionIndex: Int, text: String)
         case editButtonTapped
         case doneButtonTapped
+        case resetButtonTapped
     }
     
     struct InputState {

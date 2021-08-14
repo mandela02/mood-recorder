@@ -21,6 +21,7 @@
 		8404939A26BAA522006523D9 /* SizedBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8404939926BAA522006523D9 /* SizedBox.swift */; };
 		8404939C26BAA9E7006523D9 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8404939B26BAA9E7006523D9 /* Color+Extension.swift */; };
 		8404939F26BAAB21006523D9 /* ThemeHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8404939E26BAAB21006523D9 /* ThemeHelper.swift */; };
+		842208CC26C809420022C92F /* ResetDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842208CB26C809420022C92F /* ResetDialog.swift */; };
 		8423C1FF26BE42E5000717D9 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8423C1FE26BE42E5000717D9 /* Date+Extension.swift */; };
 		8423C20126BE4306000717D9 /* Calendar+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8423C20026BE4306000717D9 /* Calendar+Extension.swift */; };
 		8423C20326BE4329000717D9 /* DateFormatter+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8423C20226BE4329000717D9 /* DateFormatter+Extension.swift */; };
@@ -65,7 +66,7 @@
 		84CBB36826B71A2800A8E377 /* TalkBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CBB36726B71A2800A8E377 /* TalkBubble.swift */; };
 		84CBB36A26B71E7500A8E377 /* ResizeAnimationButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CBB36926B71E7500A8E377 /* ResizeAnimationButtonStyle.swift */; };
 		84CBB36C26B71EE600A8E377 /* RoundImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CBB36B26B71EE600A8E377 /* RoundImageView.swift */; };
-		84EE2F8526C7CFF800C0195D /* DismissAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EE2F8426C7CFF800C0195D /* DismissAlertView.swift */; };
+		84EE2F8526C7CFF800C0195D /* DismissDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EE2F8426C7CFF800C0195D /* DismissDialog.swift */; };
 		84EE2F8726C7D08500C0195D /* CustomDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EE2F8626C7D08500C0195D /* CustomDialog.swift */; };
 		84EF6B7226B7A4BA00C0551F /* CoreEmotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EF6B7126B7A4BA00C0551F /* CoreEmotion.swift */; };
 		84FE1B3B26C7B55600D32330 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FE1B3A26C7B55600D32330 /* BaseViewModel.swift */; };
@@ -86,6 +87,7 @@
 		8404939926BAA522006523D9 /* SizedBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizedBox.swift; sourceTree = "<group>"; };
 		8404939B26BAA9E7006523D9 /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
 		8404939E26BAAB21006523D9 /* ThemeHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeHelper.swift; sourceTree = "<group>"; };
+		842208CB26C809420022C92F /* ResetDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetDialog.swift; sourceTree = "<group>"; };
 		8423C1FE26BE42E5000717D9 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		8423C20026BE4306000717D9 /* Calendar+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Calendar+Extension.swift"; sourceTree = "<group>"; };
 		8423C20226BE4329000717D9 /* DateFormatter+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Extension.swift"; sourceTree = "<group>"; };
@@ -132,7 +134,7 @@
 		84CBB36726B71A2800A8E377 /* TalkBubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkBubble.swift; sourceTree = "<group>"; };
 		84CBB36926B71E7500A8E377 /* ResizeAnimationButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResizeAnimationButtonStyle.swift; sourceTree = "<group>"; };
 		84CBB36B26B71EE600A8E377 /* RoundImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundImageView.swift; sourceTree = "<group>"; };
-		84EE2F8426C7CFF800C0195D /* DismissAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissAlertView.swift; sourceTree = "<group>"; };
+		84EE2F8426C7CFF800C0195D /* DismissDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissDialog.swift; sourceTree = "<group>"; };
 		84EE2F8626C7D08500C0195D /* CustomDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDialog.swift; sourceTree = "<group>"; };
 		84EF6B7126B7A4BA00C0551F /* CoreEmotion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreEmotion.swift; sourceTree = "<group>"; };
 		84FE1B3A26C7B55600D32330 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
@@ -241,7 +243,8 @@
 			children = (
 				8404938526B9BFCE006523D9 /* InputView.swift */,
 				8404938126B9A928006523D9 /* InputViewModel.swift */,
-				84EE2F8426C7CFF800C0195D /* DismissAlertView.swift */,
+				84EE2F8426C7CFF800C0195D /* DismissDialog.swift */,
+				842208CB26C809420022C92F /* ResetDialog.swift */,
 			);
 			path = Input;
 			sourceTree = "<group>";
@@ -485,6 +488,7 @@
 				84C3F72626C03AE600C789F5 /* CDContentModel+CoreDataClass.swift in Sources */,
 				8423C21A26C0098D000717D9 /* Event.swift in Sources */,
 				8404938026B977A5006523D9 /* Activities.swift in Sources */,
+				842208CC26C809420022C92F /* ResetDialog.swift in Sources */,
 				84CBB35F26B703BF00A8E377 /* CustomTabBar.swift in Sources */,
 				8423C22526C03352000717D9 /* Repositoy.swift in Sources */,
 				84CBB36C26B71EE600A8E377 /* RoundImageView.swift in Sources */,
@@ -500,7 +504,7 @@
 				84C3F73426C044A800C789F5 /* UseCaseProvider.swift in Sources */,
 				8423C21126BFD384000717D9 /* Hobby.swift in Sources */,
 				8476F1A926B861EC00F62854 /* Weather.swift in Sources */,
-				84EE2F8526C7CFF800C0195D /* DismissAlertView.swift in Sources */,
+				84EE2F8526C7CFF800C0195D /* DismissDialog.swift in Sources */,
 				84CBB36426B7154100A8E377 /* HomeView.swift in Sources */,
 				84C3F72A26C03AE600C789F5 /* CDInputModel+CoreDataClass.swift in Sources */,
 				84C3F73226C03E0E00C789F5 /* InputUseCase.swift in Sources */,

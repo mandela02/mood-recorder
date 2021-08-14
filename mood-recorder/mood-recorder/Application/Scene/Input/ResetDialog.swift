@@ -1,18 +1,17 @@
 //
-//  DismissAlertView.swift
-//  DismissAlertView
+//  ResetDialog.swift
+//  ResetDialog
 //
 //  Created by LanNTH on 14/08/2021.
 //
 
 import SwiftUI
 
-struct DismissAlertView: View {
+struct ResetDialog: View {
     typealias Function = () -> ()
-    
-    var save: Function
+
+    var reset: Function
     var cancel: Function
-    var exit: Function
 
     func createButton(title: String,
                       background: Color = Theme.current.buttonColor.backgroundColor,
@@ -27,40 +26,30 @@ struct DismissAlertView: View {
         .background(background)
         .cornerRadius(20)
     }
-    
+
     var body: some View {
         VStack(spacing: 5) {
-            Text("This diary is not saved")
+            Text("You are about to reset this diary")
                 .fontWeight(.bold)
                 .font(.system(size: 20))
-            Text("All data will be lost. Do you want to exit?")
+            Text("All data will be lost. Do you want to reset?")
                 .font(.system(size: 15))
                 .multilineTextAlignment(.center)
 
-            Image(avatar == .dino ? AppImage.dinoCrying : AppImage.crying)
+            Image(avatar == .dino ? AppImage.surprise : AppImage.surprised)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 100, height: 100)
                 .padding()
             
             VStack {
+                createButton(title: "Reset all option",
+                             background: Color.red,
+                             callback: reset)
                 createButton(title: "Cancel",
                              callback: cancel)
-                createButton(title: "Save and Exit",
-                             callback: save)
-                createButton(title: "Exit but not save",
-                             background: Color.red,
-                             callback: exit)
             }
             .padding(.horizontal, 30)
         }
-    }
-}
-
-struct DismissAlertView_Previews: PreviewProvider {
-    static var previews: some View {
-        DismissAlertView(save: {},
-                         cancel: {},
-                         exit: {})
     }
 }
