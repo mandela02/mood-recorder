@@ -67,7 +67,8 @@ struct InputUseCase {
                 case .photo:
                     sectionModels.append(SectionModel(section: section,
                                                       title: section.title,
-                                                      cell: ImageModel(data: content.image)))
+                                                      cell: ImageModel(data: content.image),
+                                                      isVisible: cdSection.isVisible))
                 case .sleep:
                     sectionModels.append(SectionModel(section: section,
                                                       title: section.title,

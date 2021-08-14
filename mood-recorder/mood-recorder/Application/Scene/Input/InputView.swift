@@ -297,16 +297,9 @@ struct InputView: View {
             List {
                 ForEach(Array(viewModel.sectionModels.enumerated()),
                         id: \.offset) { index, section in
-                    if viewModel.isInEditMode {
+                    if section.isVisible || viewModel.isInEditMode{
                         getSectionCell(sectionModel: section,
                                        at: index)
-                    } else {
-                        Group {
-                            if section.isVisible {
-                                getSectionCell(sectionModel: section,
-                                               at: index)
-                            }
-                        }
                     }
                 }
                 
