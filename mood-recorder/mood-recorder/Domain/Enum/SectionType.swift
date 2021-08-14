@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Section: Int, CaseIterable {
+enum SectionType: Int, CaseIterable {
     case emotion
     case activity
     case weather
@@ -25,8 +25,8 @@ enum Section: Int, CaseIterable {
     case photo
     case custom
     
-    static func section(from id: Int) -> Section {
-        return Section.allCases[id]
+    static func section(from id: Int) -> SectionType {
+        return SectionType.allCases[id]
     }
     
     var title: String {

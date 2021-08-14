@@ -14,7 +14,7 @@
 		8404938B26BA4F51006523D9 /* OptionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8404938A26BA4F51006523D9 /* OptionModel.swift */; };
 		8404938D26BA4F6B006523D9 /* SleepScheduleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8404938C26BA4F6B006523D9 /* SleepScheduleModel.swift */; };
 		8404938F26BA4F7D006523D9 /* ImageAndTitleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8404938E26BA4F7D006523D9 /* ImageAndTitleModel.swift */; };
-		8404939126BA4F97006523D9 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8404939026BA4F97006523D9 /* Section.swift */; };
+		8404939126BA4F97006523D9 /* SectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8404939026BA4F97006523D9 /* SectionType.swift */; };
 		8404939326BA4FC0006523D9 /* ImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8404939226BA4FC0006523D9 /* ImageModel.swift */; };
 		8404939526BA50DF006523D9 /* TextModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8404939426BA50DF006523D9 /* TextModel.swift */; };
 		8404939826BA8471006523D9 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8404939726BA8471006523D9 /* ImagePicker.swift */; };
@@ -73,7 +73,7 @@
 		8404938A26BA4F51006523D9 /* OptionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionModel.swift; sourceTree = "<group>"; };
 		8404938C26BA4F6B006523D9 /* SleepScheduleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepScheduleModel.swift; sourceTree = "<group>"; };
 		8404938E26BA4F7D006523D9 /* ImageAndTitleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageAndTitleModel.swift; sourceTree = "<group>"; };
-		8404939026BA4F97006523D9 /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
+		8404939026BA4F97006523D9 /* SectionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionType.swift; sourceTree = "<group>"; };
 		8404939226BA4FC0006523D9 /* ImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageModel.swift; sourceTree = "<group>"; };
 		8404939426BA50DF006523D9 /* TextModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextModel.swift; sourceTree = "<group>"; };
 		8404939726BA8471006523D9 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
@@ -143,7 +143,7 @@
 				84EF6B7126B7A4BA00C0551F /* CoreEmotion.swift */,
 				8476F1A826B861EC00F62854 /* Weather.swift */,
 				8404937F26B977A5006523D9 /* Activities.swift */,
-				8404939026BA4F97006523D9 /* Section.swift */,
+				8404939026BA4F97006523D9 /* SectionType.swift */,
 				8423C20626BE6AD5000717D9 /* Medical.swift */,
 				8423C20826BE85CE000717D9 /* Love.swift */,
 				8423C20C26BFBBCA000717D9 /* Food.swift */,
@@ -492,7 +492,7 @@
 				84C3F72B26C03AE600C789F5 /* CDInputModel+CoreDataProperties.swift in Sources */,
 				8404939526BA50DF006523D9 /* TextModel.swift in Sources */,
 				8423C20126BE4306000717D9 /* Calendar+Extension.swift in Sources */,
-				8404939126BA4F97006523D9 /* Section.swift in Sources */,
+				8404939126BA4F97006523D9 /* SectionType.swift in Sources */,
 				84C3F72726C03AE600C789F5 /* CDContentModel+CoreDataProperties.swift in Sources */,
 				8423C22726C03379000717D9 /* PersistenceManager.swift in Sources */,
 				8423C22026C03175000717D9 /* MoodRecorderDataModel.xcdatamodeld in Sources */,
@@ -640,7 +640,7 @@
 				DEVELOPMENT_TEAM = J243X8N8UC;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "mood-recorder/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -662,7 +662,7 @@
 				DEVELOPMENT_TEAM = J243X8N8UC;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "mood-recorder/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

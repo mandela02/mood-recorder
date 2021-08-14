@@ -9,14 +9,16 @@ import SwiftUI
 
 struct InputView: View {
     @Environment(\.presentationMode) var presentationMode
-
+    
     @ObservedObject var viewModel: InputViewModel
+    
+    @FocusState private var isFocus: Bool
     
     init(emotion: CoreEmotion) {
         self.viewModel = InputViewModel(emotion: emotion)
         
         UITextView.appearance().backgroundColor =  UIColor(Theme.current.commonColor.textBackground)
-
+        UITableView.appearance().backgroundColor = UIColor(Theme.current.tableViewColor.background)
     }
     
     // MARK: - Dismiss
@@ -35,34 +37,36 @@ struct InputView: View {
                                                      alignment: .top),
                                  count: 5),
                   content: {
-                    ForEach(Array(optionModels.enumerated()),
-                            id: \.offset) { optionIndex, optionModel in
-                        LazyVStack(spacing: 5) {
-                            Button(action: {
-                                viewModel.onActionHappeded(action: .optionTap(sectionIndex: sectionIndex,
-                                                                              optionIndex: optionIndex))
-                            }, label: {
-                                RoundImageView(image: optionModel.content.image.image,
-                                               backgroundColor: iconBackgroundColor(optionModel.isSelected))
-                            })
-                            .aspectRatio(1, contentMode: .fit)
-                            .saturation(optionModel.isSelected ? 1 : 0)
-                            .buttonStyle(ResizeAnimationButtonStyle())
-                            
-                            if optionModel.content.title != "" {
-                                Text(optionModel.content.title)
-                                    .foregroundColor(Theme.current.tableViewColor.text)
-                                    .font(.system(size: 12))
-                            }
-                        }
+            ForEach(Array(optionModels.enumerated()),
+                    id: \.offset) { optionIndex, optionModel in
+                LazyVStack(spacing: 5) {
+                    Button(action: {
+                        isFocus = false
+                        viewModel.onActionHappeded(action: .optionTap(sectionIndex: sectionIndex,
+                                                                      optionIndex: optionIndex))
+                    }, label: {
+                        RoundImageView(image: optionModel.content.image.image,
+                                       backgroundColor: iconBackgroundColor(optionModel.isSelected))
+                    })
+                        .aspectRatio(1, contentMode: .fit)
+                        .saturation(optionModel.isSelected ? 1 : 0)
+                        .buttonStyle(ResizeAnimationButtonStyle())
+                    
+                    if optionModel.content.title != "" {
+                        Text(optionModel.content.title)
+                            .foregroundColor(Theme.current.tableViewColor.text)
+                            .font(.system(size: 12))
                     }
-                  })
+                }
+            }
+        })
     }
     
     // MARK: - Section Image Type
-    func getImagePicker(imageModel: ImageModel,
-                        sectionIndex: Int) -> some View {
+    func getImageContentCell(imageModel: ImageModel,
+                             sectionIndex: Int) -> some View {
         Button(action: {
+            isFocus = false
             viewModel.onActionHappeded(action: .imageButtonTapped)
         }) {
             ZStack {
@@ -105,6 +109,7 @@ struct InputView: View {
                 .foregroundColor(Theme.current.tableViewColor.text)
                 .font(.system(size: 12))
                 .padding()
+                .focused($isFocus)
             Text(viewModel.text)
                 .opacity(0)
                 .font(.system(size: 12))
@@ -157,8 +162,8 @@ struct InputView: View {
                 }
             }
         case let model as ImageModel:
-            getImagePicker(imageModel: model,
-                           sectionIndex: index)
+            getImageContentCell(imageModel: model,
+                                sectionIndex: index)
                 .disabled(!sectionModel.isVisible || viewModel.isInEditMode)
                 .padding()
         case _ as TextModel:
@@ -185,6 +190,7 @@ struct InputView: View {
                     .frame(width: 20, height: 20, alignment: .center)
                     .foregroundColor(Theme.current.commonColor.textColor)
             }
+            .buttonStyle(PlainButtonStyle())
         } else {
             EmptyView()
         }
@@ -192,24 +198,26 @@ struct InputView: View {
     
     // MARK: - Calculate section cell
     func getSectionCell(sectionModel: SectionModel, at index: Int) -> some View {
-        ZStack(alignment: .topLeading) {
-            Theme.current.tableViewColor.cellBackground
-            VStack(alignment: .leading) {
-                HStack {
-                    Text(sectionModel.title)
-                        .foregroundColor(Theme.current.tableViewColor.text)
-                    Spacer()
-                    sectionDismissButton(at: sectionModel) {
-                        viewModel.onActionHappeded(action: .onSectionVisibilityChanged(section: sectionModel.section))
+        Section(header: SizedBox(height: index == 0 ? 50 : 0)) {
+            ZStack(alignment: .topLeading) {
+                sectionModel.isVisible ? Theme.current.tableViewColor.cellBackground : Color.gray.opacity(0.5)
+                VStack(alignment: .leading) {
+                    HStack {
+                        Text(sectionModel.title)
+                            .foregroundColor(Theme.current.tableViewColor.text)
+                        Spacer()
+                        sectionDismissButton(at: sectionModel) {
+                            viewModel.onActionHappeded(action: .onSectionVisibilityChanged(section: sectionModel.section))
+                        }
                     }
+                    .padding(.all, 10)
+                    
+                    getSectionContent(at: sectionModel, index: index)
                 }
-                .padding(.all, 10)
-
-                getSectionContent(at: sectionModel, index: index)
             }
+            .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+            .buttonStyle(PlainButtonStyle())
         }
-        .cornerRadius(10)
-        .padding(.all, 10)
     }
     
     // MARK: - Done Button
@@ -227,14 +235,15 @@ struct InputView: View {
                     .padding()
             }
         }
-        .cornerRadius(10)
-        .padding(.all, 10)
+        .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+        .buttonStyle(PlainButtonStyle())
     }
     
     // MARK: - Navigation Bar
     var navigationBar: some View {
         HStack {
             Button(action: {
+                isFocus = false
                 viewModel.onActionHappeded(action: .editButtonTapped)
             }) {
                 HStack {
@@ -251,7 +260,7 @@ struct InputView: View {
             Spacer()
             if !viewModel.isInEditMode {
                 Button(action: {
-                    viewModel.onActionHappeded(action: .closeButtonTapped)
+                    isFocus = false
                     dismiss()
                 }) {
                     Image(systemName: "xmark")
@@ -270,8 +279,8 @@ struct InputView: View {
             ZStack {
                 LinearGradient(gradient: Gradient(colors: [Theme.current.buttonColor.backgroundColor,
                                                            Color.clear]),
-                                           startPoint: .top,
-                                           endPoint: .bottom)
+                               startPoint: .top,
+                               endPoint: .bottom)
                     .ignoresSafeArea(.all, edges: .top)
                 navigationBar
                     .padding(.horizontal, 20)
@@ -284,30 +293,26 @@ struct InputView: View {
     // MARK: - BODY
     var body: some View {
         ZStack {
-            Theme.current.tableViewColor.background.ignoresSafeArea()
-            ScrollView(.vertical, showsIndicators: false) {
-                LazyVStack(spacing: 0) {
-                    SizedBox(height: 80)
-                    
-                    ForEach(Array(viewModel.visibles.enumerated()),
-                            id: \.offset) { index, section in
-                        getSectionCell(sectionModel: section,
-                                       at: index)
-                    }
-                    
-                    Group() {
-                        if viewModel.isInEditMode {
-                            ForEach(Array(viewModel.hiddens.enumerated()),
-                                    id: \.offset) { index, section in
-                                getSectionCell(sectionModel: section,
-                                               at: index)
-                            }.background(Color.gray)
+            Theme.current.tableViewColor.background
+            List {
+                ForEach(Array(viewModel.visibles.enumerated()),
+                        id: \.offset) { index, section in
+                    getSectionCell(sectionModel: section,
+                                   at: index)
+                }
+                
+                Group() {
+                    if viewModel.isInEditMode {
+                        ForEach(Array(viewModel.hiddens.enumerated()),
+                                id: \.offset) { index, section in
+                            getSectionCell(sectionModel: section,
+                                           at: index)
                         }
                     }
-                    
-                    SizedBox(height: 10)
-                    
-                    if !viewModel.isInEditMode {
+                }
+                if !viewModel.isInEditMode {
+                    Section(header: SizedBox(height: 0),
+                            footer: SizedBox(height: isFocus ? 50 : 0)) {
                         doneButton
                     }
                 }
@@ -315,7 +320,7 @@ struct InputView: View {
             makeGradient()
         }
         .onTapGesture {
-            viewModel.onActionHappeded(action: .dismissKeyboard)
+            isFocus = false
         }
     }
 }

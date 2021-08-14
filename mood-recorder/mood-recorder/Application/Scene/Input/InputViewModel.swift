@@ -65,10 +65,6 @@ class InputViewModel: ObservableObject {
 // MARK: - Subcription Handler
 extension InputViewModel {
     private func setupSubcription() {
-        func onDismissKeyboardNeeded() {
-            UIApplication.shared.endEditing()
-        }
-        
         response
             .sink { [weak self] response in
                 guard let self = self else { return }
@@ -89,20 +85,14 @@ extension InputViewModel {
             .sink { [weak self] action in
                 guard let self = self else { return }
                 switch action {
-                // MARK: - close button tapped
-                case .closeButtonTapped:
-                    onDismissKeyboardNeeded()
-                    
                 // MARK: - edit button tapped
                 case .editButtonTapped:
-                    onDismissKeyboardNeeded()
                     withAnimation(.easeInOut(duration: 0.2)) {
                         self.isInEditMode.toggle()
                     }
                     
                 // MARK: - done button tapped
                 case .doneButtonTapped:
-                    onDismissKeyboardNeeded()
                     self.merge()
                     let model = InputDataModel(sections: self.sectionModels)
                     switch self.status {
@@ -115,24 +105,18 @@ extension InputViewModel {
                     
                 // MARK: - image cell tapped
                 case .imageButtonTapped:
-                    onDismissKeyboardNeeded()
                     self.isImagePickerShowing.toggle()
-                    
-                // MARK: - keyboard need dismiss
-                case .dismissKeyboard:
-                    onDismissKeyboardNeeded()
                     
                 // MARK: - cell option tapped
                 case .optionTap(sectionIndex: let sectionIndex,
                                 optionIndex: let optionIndex):
-                    onDismissKeyboardNeeded()
                     if self.isInEditMode { return }
                     self.visibles[sectionIndex]
                         .changeOptionSelection(at: optionIndex)
                     
                 // MARK: - picture selected
                 case .pictureSelected(sectionIndex: let sectionIndex, image: let image):
-                    self.sectionModels[sectionIndex].addImage(image: image)
+                    self.visibles[sectionIndex].addImage(image: image)
                     
                 // MARK: - display or hide section
                 case .onSectionVisibilityChanged(section: let section):
@@ -172,11 +156,9 @@ extension InputViewModel {
     enum InputAction {
         case optionTap(sectionIndex: Int, optionIndex: Int)
         case pictureSelected(sectionIndex: Int, image: UIImage)
-        case onSectionVisibilityChanged(section: Section)
-        case closeButtonTapped
+        case onSectionVisibilityChanged(section: SectionType)
         case editButtonTapped
         case doneButtonTapped
         case imageButtonTapped
-        case dismissKeyboard
     }
 }

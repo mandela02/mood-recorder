@@ -13,7 +13,7 @@ struct SectionModel: Identifiable, Equatable {
         return lhs.id == rhs.id
     }
     
-    init(section: Section, title: String, cell: Any?, isEditable: Bool = true, isVisible: Bool = true) {
+    init(section: SectionType, title: String, cell: Any?, isEditable: Bool = true, isVisible: Bool = true) {
         self.section = section
         self.title = title
         self.cell = cell
@@ -23,7 +23,7 @@ struct SectionModel: Identifiable, Equatable {
     
     let id = UUID()
     
-    let section: Section
+    let section: SectionType
     let title: String
     
     var cell: Any?
@@ -69,7 +69,7 @@ struct SectionModel: Identifiable, Equatable {
         guard var model = cell as? ImageModel else {
             return
         }
-        model.data = image.jpegData(compressionQuality: 0.5)
+        model.data = image.jpegData(compressionQuality: 0.25)
         cell = model
     }
 }

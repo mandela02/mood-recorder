@@ -56,7 +56,7 @@ struct InputUseCase {
             
             for cdSection in model.sectionArray {
                 guard let content = cdSection.content else { continue }
-                let section = Section.section(from: Int(cdSection.sectionID))
+                let section = SectionType.section(from: Int(cdSection.sectionID))
                 
                 switch section {
                 case .note:
