@@ -158,7 +158,7 @@ struct InputView: View {
                         }
                     }
                 } else {
-                    SizedBox(height: 0)
+                    SizedBox(height: .leastNonzeroMagnitude)
                 }
             }
         case let model as ImageModel:
@@ -198,7 +198,7 @@ struct InputView: View {
     
     // MARK: - Calculate section cell
     func getSectionCell(sectionModel: SectionModel, at index: Int) -> some View {
-        Section(header: SizedBox(height: index == 0 ? 50 : 0)) {
+        Section(header: SizedBox(height: index == 0 ? 50 : .leastNonzeroMagnitude)) {
             ZStack(alignment: .topLeading) {
                 sectionModel.isVisible ? Theme.current.tableViewColor.cellBackground : Color.gray.opacity(0.5)
                 VStack(alignment: .leading) {
@@ -295,24 +295,24 @@ struct InputView: View {
         ZStack {
             Theme.current.tableViewColor.background
             List {
-                ForEach(Array(viewModel.visibles.enumerated()),
+                ForEach(Array(viewModel.sectionModels.enumerated()),
                         id: \.offset) { index, section in
-                    getSectionCell(sectionModel: section,
-                                   at: index)
-                }
-                
-                Group() {
                     if viewModel.isInEditMode {
-                        ForEach(Array(viewModel.hiddens.enumerated()),
-                                id: \.offset) { index, section in
-                            getSectionCell(sectionModel: section,
-                                           at: index)
+                        getSectionCell(sectionModel: section,
+                                       at: index)
+                    } else {
+                        Group {
+                            if section.isVisible {
+                                getSectionCell(sectionModel: section,
+                                               at: index)
+                            }
                         }
                     }
                 }
+                
                 if !viewModel.isInEditMode {
-                    Section(header: SizedBox(height: 0),
-                            footer: SizedBox(height: isFocus ? 50 : 0)) {
+                    Section(header: SizedBox(height: .leastNonzeroMagnitude),
+                            footer: SizedBox(height: isFocus ? 50 : .leastNonzeroMagnitude)) {
                         doneButton
                     }
                 }

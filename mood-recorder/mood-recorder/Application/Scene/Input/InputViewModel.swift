@@ -12,13 +12,10 @@ class InputViewModel: ObservableObject {
     @Published var isImagePickerShowing = false
     @Published var text = ""
     @Published var isInEditMode = false
-    
-    @Published var visibles: [SectionModel] = []
-    @Published var hiddens: [SectionModel] = []
-    
+    @Published var sectionModels: [SectionModel] = []
+
     private let action = PassthroughSubject<InputAction, Never>()
     private let response = PassthroughSubject<DatabaseResponse, Never>()
-    private var sectionModels: [SectionModel] = []
     
     private var status = Status.new
     
@@ -93,7 +90,6 @@ extension InputViewModel {
                     
                 // MARK: - done button tapped
                 case .doneButtonTapped:
-                    self.merge()
                     let model = InputDataModel(sections: self.sectionModels)
                     switch self.status {
                     case .new:
@@ -111,17 +107,21 @@ extension InputViewModel {
                 case .optionTap(sectionIndex: let sectionIndex,
                                 optionIndex: let optionIndex):
                     if self.isInEditMode { return }
-                    self.visibles[sectionIndex]
+                    self.sectionModels[sectionIndex]
                         .changeOptionSelection(at: optionIndex)
                     
                 // MARK: - picture selected
                 case .pictureSelected(sectionIndex: let sectionIndex, image: let image):
-                    self.visibles[sectionIndex].addImage(image: image)
+                    self.sectionModels[sectionIndex].addImage(image: image)
                     
                 // MARK: - display or hide section
                 case .onSectionVisibilityChanged(section: let section):
                     guard let index = self.sectionModels.firstIndex(where: {$0.section == section}) else { return }
-                    self.sectionModels[index].changeVisibility()
+                    
+                    withAnimation(.easeInOut(duration: 0.2)) {
+                        self.sectionModels[index].changeVisibility()
+
+                    }
                     self.sort()
                 }
             }
@@ -129,20 +129,15 @@ extension InputViewModel {
     }
     
     private func sort() {
-        withAnimation(.easeInOut) {
+        withAnimation(.easeInOut(duration: 0.2)) {
             var visibles = self.sectionModels.filter { $0.isVisible }
             visibles.sort(by: { $0.section.rawValue < $1.section.rawValue })
-            self.visibles = visibles
-            
+                    
             var hiddens = self.sectionModels.filter { !$0.isVisible }
             hiddens.sort(by: { $0.section.rawValue < $1.section.rawValue })
-            self.hiddens = hiddens
+            
+            self.sectionModels = visibles + hiddens
         }
-    }
-    
-    private func merge() {
-        self.sectionModels = self.visibles + self.hiddens
-        self.sectionModels.sort(by: {$0.section.rawValue < $1.section.rawValue})
     }
 }
 
