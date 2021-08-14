@@ -207,7 +207,6 @@ struct InputView: View {
                     .frame(width: 20, height: 20, alignment: .center)
                     .foregroundColor(Theme.current.commonColor.textColor)
             }
-            .buttonStyle(PlainButtonStyle())
         } else {
             EmptyView()
         }
@@ -233,27 +232,25 @@ struct InputView: View {
                 }
             }
             .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
-            .buttonStyle(PlainButtonStyle())
         }
     }
     
     // MARK: - Done Button
     var doneButton: some View {
-        ZStack {
-            Theme.current.buttonColor.backgroundColor
-            Button(action: {
-                viewModel.trigger(.doneButtonTapped)
-                dismiss()
-            }) {
-                Text("Done")
-                    .font(.system(size: 20))
-                    .foregroundColor(Theme.current.buttonColor.textColor)
+        Button(action: {
+            viewModel.trigger(.doneButtonTapped)
+            dismiss()
+        }) {
+            ZStack {
+                Theme.current.buttonColor.backgroundColor
                     .frame(maxWidth: .infinity)
+                    .frame(height: 50)
+                Text("Done")
+                    .foregroundColor(Theme.current.buttonColor.iconColor)
                     .padding()
             }
         }
         .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
-        .buttonStyle(PlainButtonStyle())
     }
     
     // MARK: - Navigation Bar
@@ -317,7 +314,8 @@ struct InputView: View {
                     if section.isVisible || viewModel.isInEditMode{
                         getSectionCell(sectionModel: section,
                                        at: index)
-                            .animation(.easeInOut(duration: 0.2), value: section.isVisible)
+                            .animation(.easeInOut(duration: 0.2),
+                                       value: section.isVisible)
                     }
                 }
                 
@@ -328,6 +326,7 @@ struct InputView: View {
                     }
                 }
             }
+            .buttonStyle(PlainButtonStyle())
             .animation(.easeInOut(duration: 0.2), value: viewModel.state.isInEditMode)
             .animation(.easeInOut(duration: 0.2), value: viewModel.state.sectionModels)
 
