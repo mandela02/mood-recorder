@@ -30,10 +30,8 @@ class InputViewModel: ViewModel {
         switch input {
         // MARK: - edit button tapped
         case .editButtonTapped:
-            withAnimation(.easeInOut(duration: 0.2)) {
-                self.state.isInEditMode.toggle()
-            }
-            
+            self.state.isInEditMode.toggle()
+
         // MARK: - done button tapped
         case .doneButtonTapped:
             let model = InputDataModel(sections: self.state.sectionModels)
@@ -60,9 +58,7 @@ class InputViewModel: ViewModel {
         case .onSectionVisibilityChanged(section: let section):
             guard let index = self.state.sectionModels.firstIndex(where: {$0.section == section}) else { return }
             
-            withAnimation(.easeInOut(duration: 0.2)) {
-                self.state.sectionModels[index].changeVisibility()
-            }
+            self.state.sectionModels[index].changeVisibility()
             
             if !self.state.sectionModels[index].isVisible {
                 self.state.sectionModels[index].resetCell()
@@ -116,15 +112,13 @@ extension InputViewModel {
     }
     
     private func sort() {
-        withAnimation(.easeInOut(duration: 0.2)) {
-            var visibles = self.state.sectionModels.filter { $0.isVisible }
-            visibles.sort(by: { $0.section.rawValue < $1.section.rawValue })
-                    
-            var hiddens = self.state.sectionModels.filter { !$0.isVisible }
-            hiddens.sort(by: { $0.section.rawValue < $1.section.rawValue })
-            
-            self.state.sectionModels = visibles + hiddens
-        }
+        var visibles = self.state.sectionModels.filter { $0.isVisible }
+        visibles.sort(by: { $0.section.rawValue < $1.section.rawValue })
+        
+        var hiddens = self.state.sectionModels.filter { !$0.isVisible }
+        hiddens.sort(by: { $0.section.rawValue < $1.section.rawValue })
+        
+        self.state.sectionModels = visibles + hiddens
     }
 }
 

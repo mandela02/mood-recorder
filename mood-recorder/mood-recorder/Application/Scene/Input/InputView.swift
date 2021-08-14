@@ -317,6 +317,7 @@ struct InputView: View {
                     if section.isVisible || viewModel.isInEditMode{
                         getSectionCell(sectionModel: section,
                                        at: index)
+                            .animation(.easeInOut(duration: 0.2), value: section.isVisible)
                     }
                 }
                 
@@ -327,6 +328,9 @@ struct InputView: View {
                     }
                 }
             }
+            .animation(.easeInOut(duration: 0.2), value: viewModel.state.isInEditMode)
+            .animation(.easeInOut(duration: 0.2), value: viewModel.state.sectionModels)
+
             makeGradient()
         }
         .onTapGesture {
