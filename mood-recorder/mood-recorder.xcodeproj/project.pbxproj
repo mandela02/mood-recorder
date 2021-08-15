@@ -21,6 +21,7 @@
 		8404939A26BAA522006523D9 /* SizedBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8404939926BAA522006523D9 /* SizedBox.swift */; };
 		8404939C26BAA9E7006523D9 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8404939B26BAA9E7006523D9 /* Color+Extension.swift */; };
 		8404939F26BAAB21006523D9 /* ThemeHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8404939E26BAAB21006523D9 /* ThemeHelper.swift */; };
+		841E1F9C26C83FAF00EC1082 /* OptionAdditionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841E1F9B26C83FAF00EC1082 /* OptionAdditionViewModel.swift */; };
 		842208CC26C809420022C92F /* ResetDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842208CB26C809420022C92F /* ResetDialog.swift */; };
 		8423C1FF26BE42E5000717D9 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8423C1FE26BE42E5000717D9 /* Date+Extension.swift */; };
 		8423C20126BE4306000717D9 /* Calendar+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8423C20026BE4306000717D9 /* Calendar+Extension.swift */; };
@@ -89,6 +90,7 @@
 		8404939926BAA522006523D9 /* SizedBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizedBox.swift; sourceTree = "<group>"; };
 		8404939B26BAA9E7006523D9 /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
 		8404939E26BAAB21006523D9 /* ThemeHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeHelper.swift; sourceTree = "<group>"; };
+		841E1F9B26C83FAF00EC1082 /* OptionAdditionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionAdditionViewModel.swift; sourceTree = "<group>"; };
 		842208CB26C809420022C92F /* ResetDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetDialog.swift; sourceTree = "<group>"; };
 		8423C1FE26BE42E5000717D9 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		8423C20026BE4306000717D9 /* Calendar+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Calendar+Extension.swift"; sourceTree = "<group>"; };
@@ -250,6 +252,7 @@
 				84EE2F8426C7CFF800C0195D /* DismissDialog.swift */,
 				842208CB26C809420022C92F /* ResetDialog.swift */,
 				842F073126C81FAF0078BE9B /* OptionAdditionView.swift */,
+				841E1F9B26C83FAF00EC1082 /* OptionAdditionViewModel.swift */,
 			);
 			path = Input;
 			sourceTree = "<group>";
@@ -530,6 +533,7 @@
 				8404938226B9A928006523D9 /* InputViewModel.swift in Sources */,
 				84C32A8B26C826BE004F6A85 /* Array+Extension.swift in Sources */,
 				84C3F72B26C03AE600C789F5 /* CDInputModel+CoreDataProperties.swift in Sources */,
+				841E1F9C26C83FAF00EC1082 /* OptionAdditionViewModel.swift in Sources */,
 				8404939526BA50DF006523D9 /* TextModel.swift in Sources */,
 				8423C20126BE4306000717D9 /* Calendar+Extension.swift in Sources */,
 				8404939126BA4F97006523D9 /* SectionType.swift in Sources */,

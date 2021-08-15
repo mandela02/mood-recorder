@@ -175,8 +175,10 @@ struct InputView: View {
                 SizedBox(height: 10)
                 if sectionModel.isEditable && sectionModel.isVisible && viewModel.isInEditMode {
                     Button(action: {
-                        viewModel.trigger(.onOpenCustomizeSectionDialog(model: sectionModel))
-                        isAboutToCustomizeSection.toggle()
+                        if sectionModel.section != .custom {
+                            viewModel.trigger(.onOpenCustomizeSectionDialog(model: sectionModel))
+                            isAboutToCustomizeSection.toggle()
+                        }
                     }) {
                         ZStack {
                             Theme.current.buttonColor.backgroundColor
