@@ -50,7 +50,7 @@ struct OptionAdditionView: View {
                     Button(action: {
                         viewModel.trigger(.optionTap(optionIndex: optionIndex))
                     }, label: {
-                        RoundImageView(image: optionModel.content.image.image,
+                        RoundImageView(image: optionModel.content.image.value.image,
                                        backgroundColor: iconBackgroundColor(optionModel.isSelected))
                     })
                         .aspectRatio(1, contentMode: .fit)

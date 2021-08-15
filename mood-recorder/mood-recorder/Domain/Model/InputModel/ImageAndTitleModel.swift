@@ -8,6 +8,6 @@
 import Foundation
 
 struct ImageAndTitleModel: Equatable {
-    let image: String
+    let image: AppImage
     let title: String
 }

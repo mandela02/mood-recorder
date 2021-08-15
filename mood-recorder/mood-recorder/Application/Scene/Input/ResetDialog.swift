@@ -40,7 +40,7 @@ struct ResetDialog: View {
                 .foregroundColor(Theme.current.commonColor.textColor)
 
 
-            Image(avatar == .dino ? AppImage.surprise : AppImage.surprised)
+            Image(avatar == .dino ? AppImage.surprise.value : AppImage.surprised.value)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 100, height: 100)

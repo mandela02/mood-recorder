@@ -14,7 +14,7 @@ enum CoreEmotion: Int, CaseIterable {
     case sad
     case terrible
     
-    var imageName: String {
+    var imageName: AppImage {
         switch self {
         case .blissful:
             return avatar == .pineapple ? AppImage.laughing : AppImage.laughingDino
@@ -30,6 +30,6 @@ enum CoreEmotion: Int, CaseIterable {
     }
     
     var image: Image {
-        Image(imageName)
+        Image(imageName.value)
     }
 }
