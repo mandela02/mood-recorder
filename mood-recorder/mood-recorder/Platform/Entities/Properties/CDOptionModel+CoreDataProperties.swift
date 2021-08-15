@@ -16,10 +16,19 @@ extension CDOptionModel {
         return NSFetchRequest<CDOptionModel>(entityName: "CDOptionModel")
     }
 
-    @NSManaged public var optionID: Double
     @NSManaged public var isSelected: Bool
-    @NSManaged public var content: CDContentModel?
+    @NSManaged public var name: String?
+    @NSManaged public var image: String?
 
+    @NSManaged public var content: CDContentModel?
+    
+    var wrappedName: String {
+        return name ?? ""
+    }
+
+    var wrappedImage: String {
+        return image ?? ""
+    }
 }
 
 extension CDOptionModel : Identifiable {

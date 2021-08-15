@@ -18,7 +18,6 @@ class OptionAdditionViewModel: ViewModel {
             .allOptions
             .enumerated()
             .map { OptionModel(content: $1,
-                               optionID: $0,
                                isSelected: false) }
         
         guard let currentSelectedOptions = state.initialSectionModel.cell as? [OptionModel] else { return }
@@ -28,6 +27,8 @@ class OptionAdditionViewModel: ViewModel {
                 allModel[index].changeSelectionStatus()
             }
         }
+        allModel
+            .sort(by: {$0.content.image.rawValue < $1.content.image.rawValue})
                 
         self.state.optionModels = allModel.chunked(into: 15)
         self.state.numberOfPage = self.state.optionModels.count

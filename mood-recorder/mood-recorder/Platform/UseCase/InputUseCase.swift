@@ -80,10 +80,15 @@ struct InputUseCase {
                     var optionModels = [OptionModel]()
                     
                     for cdOption in cdOptions {
-                        optionModels.append(OptionModel(content: section.allOptions[Int(cdOption.optionID)],
-                                                       optionID: Int(cdOption.optionID),
+                        let content = ImageAndTitleModel(image: AppImage.appImage(value: cdOption.wrappedImage),
+                                                         title: cdOption.wrappedName)
+                        
+                        optionModels.append(OptionModel(content: content,
                                                        isSelected: cdOption.isSelected))
                     }
+                    
+                    optionModels
+                        .sort(by: {$0.content.image.rawValue < $1.content.image.rawValue})
                     
                     sectionModels.append(SectionModel(section: section,
                                                       title: section.title,
@@ -92,7 +97,7 @@ struct InputUseCase {
                                                       isVisible: cdSection.isVisible))
                 }
             }
-            
+                        
             return .success(data: InputDataModel(sections: sectionModels))
         case .error(error: let error):
             return .error(error: error)
@@ -132,7 +137,8 @@ struct InputUseCase {
                 
                 options.forEach { option in
                     let model = CDOptionModel(context: context)
-                    model.optionID = Double(option.optionID)
+                    model.name = option.content.title
+                    model.image = option.content.image.value
                     model.isSelected = option.isSelected
                     
                     cdOptions.append(model)

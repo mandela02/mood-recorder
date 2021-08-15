@@ -16,15 +16,13 @@ struct OptionModel: Equatable, Identifiable, Hashable {
         hasher.combine(id)
     }
 
-    init(content: ImageAndTitleModel, optionID: Int, isSelected: Bool = false) {
+    init(content: ImageAndTitleModel, isSelected: Bool = false) {
         self.content = content
-        self.optionID = optionID
         self.isSelected = isSelected
     }
     
     let id = UUID()
     
-    let optionID: Int
     let content: ImageAndTitleModel
     
     var isSelected: Bool = false
