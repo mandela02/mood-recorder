@@ -69,6 +69,7 @@ struct InputView: View {
                         .aspectRatio(1, contentMode: .fit)
                         .saturation(optionModel.isSelected ? 1 : 0)
                         .buttonStyle(ResizeAnimationButtonStyle())
+                        .animation(Animation.easeInOut, value: optionModel.isSelected)
                     
                     if optionModel.content.title != "" {
                         Text(optionModel.content.title)
@@ -175,10 +176,8 @@ struct InputView: View {
                 SizedBox(height: 10)
                 if sectionModel.isEditable && sectionModel.isVisible && viewModel.isInEditMode {
                     Button(action: {
-                        if sectionModel.section != .custom {
-                            viewModel.trigger(.onOpenCustomizeSectionDialog(model: sectionModel))
-                            isAboutToCustomizeSection.toggle()
-                        }
+                        viewModel.trigger(.onOpenCustomizeSectionDialog(model: sectionModel))
+                        isAboutToCustomizeSection.toggle()
                     }) {
                         ZStack {
                             Theme.current.buttonColor.backgroundColor
@@ -450,7 +449,7 @@ struct InputView: View {
                         viewModel.trigger(.onOpenCustomizeSectionDialog(model: nil))
                     })
                 }
-            }.padding()
+            }
         }
         .animation(.easeInOut, value: isAboutToCustomizeSection)
         .task {

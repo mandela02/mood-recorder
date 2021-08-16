@@ -10,24 +10,27 @@ import SwiftUI
 struct OptionAdditionView: View {
     typealias Function = () -> ()
     typealias CallbackFunction = ([OptionModel]) -> ()
-
+    
     typealias OptionAdditionState = OptionAdditionViewModel.OptionAdditionState
     typealias OptionAdditionTrigger = OptionAdditionViewModel.OptionAdditionTrigger
-
+    
     @ObservedObject var viewModel: BaseViewModel<OptionAdditionState,
                                                  OptionAdditionTrigger>
-
+    
     let onConfirm: CallbackFunction
     let onCancel: Function
     
     @State var currentIndex: Int = 0
+    @State var isAboutToAddMore: Bool = false
     
+    @Namespace var namespace
+
     init(sectionModel: SectionModel,
          onConfirm: @escaping CallbackFunction,
          onCancel: @escaping Function) {
         let optionAdditionState = OptionAdditionState(initialSectionModel: sectionModel)
         viewModel = BaseViewModel(OptionAdditionViewModel(state: optionAdditionState))
-
+        
         self.onCancel = onCancel
         self.onConfirm = onConfirm
         
@@ -39,6 +42,22 @@ struct OptionAdditionView: View {
         return isSelected ? Theme.current.buttonColor.backgroundColor : Theme.current.buttonColor.disableColor
     }
     
+    func plusButtonImage() -> some View {
+        ZStack {
+            Theme.current.buttonColor.backgroundColor
+                .clipShape(Circle())
+            Image(systemName: "plus")
+                .resizable()
+                .renderingMode(.template)
+                .aspectRatio(contentMode: .fit)
+                .padding(10)
+                .frame(maxWidth: .infinity)
+                .background(Color.clear)
+                .foregroundColor(Theme.current.buttonColor.iconColor)
+                .clipShape(Circle())
+        }
+    }
+    
     func getIconGrid(optionModels: [OptionModel]) -> some View {
         LazyVGrid(columns: Array(repeating: GridItem(.flexible(),
                                                      alignment: .top),
@@ -48,14 +67,25 @@ struct OptionAdditionView: View {
                     id: \.offset) { optionIndex, optionModel in
                 LazyVStack(spacing: 5) {
                     Button(action: {
-                        viewModel.trigger(.optionTap(optionIndex: optionIndex))
+                        if optionModel.content.image == .systemPlus {
+                            isAboutToAddMore.toggle()
+                        } else {
+                            viewModel.trigger(.optionTap(optionIndex: optionIndex))
+                        }
                     }, label: {
-                        RoundImageView(image: optionModel.content.image.value.image,
-                                       backgroundColor: iconBackgroundColor(optionModel.isSelected))
+                        if optionModel.content.image == .systemPlus {
+                            plusButtonImage()
+                                .matchedGeometryEffect(id: "SaveButton",
+                                                       in: namespace)
+                        } else {
+                            RoundImageView(image: optionModel.content.image.value.image,
+                                           backgroundColor: iconBackgroundColor(optionModel.isSelected))
+                                .saturation(optionModel.isSelected ? 1 : 0)
+                        }
                     })
                         .aspectRatio(1, contentMode: .fit)
-                        .saturation(optionModel.isSelected ? 1 : 0)
                         .buttonStyle(ResizeAnimationButtonStyle())
+                        .animation(Animation.easeInOut, value: optionModel.isSelected)
                     
                     if optionModel.content.title != "" {
                         Text(optionModel.content.title)
@@ -99,7 +129,7 @@ struct OptionAdditionView: View {
         .cornerRadius(20)
     }
     
-    var body: some View {
+    var customSectionDialogContent: some View {
         VStack {
             HStack {
                 Text("Add more option to your collection")
@@ -124,5 +154,27 @@ struct OptionAdditionView: View {
             }
             .padding(.horizontal, 30)
         }
+    }
+    
+    var addMoreDialog: some View {
+        CusomOptionView(namespace: namespace,
+                        onClose: {
+            isAboutToAddMore.toggle()
+        }, onCreate: { _ in
+            isAboutToAddMore.toggle()
+        })
+    }
+    
+    var body: some View {
+        ZStack {
+            customSectionDialogContent
+                .padding()
+        }
+        .overlay {
+            if isAboutToAddMore {
+                addMoreDialog
+            }
+        }
+        .animation(.easeInOut, value: isAboutToAddMore)
     }
 }

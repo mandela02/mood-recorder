@@ -30,6 +30,11 @@ class OptionAdditionViewModel: ViewModel {
         allModel
             .sort(by: {$0.content.image.rawValue < $1.content.image.rawValue})
                 
+        if state.initialSectionModel.section == .custom {
+            allModel.append(OptionModel(content: ImageAndTitleModel(image: .systemPlus,
+                                                                    title: "")))
+        }
+        
         self.state.optionModels = allModel.chunked(into: 15)
         self.state.numberOfPage = self.state.optionModels.count
     }

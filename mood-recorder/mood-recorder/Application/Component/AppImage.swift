@@ -627,4 +627,6 @@ enum AppImage: Int, CaseIterable {
     case waxingMoon
     case wildFire
     case wind
+    
+    case systemPlus
 }
