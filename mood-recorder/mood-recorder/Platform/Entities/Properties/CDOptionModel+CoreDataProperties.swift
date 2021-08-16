@@ -17,6 +17,7 @@ extension CDOptionModel {
     }
 
     @NSManaged public var isSelected: Bool
+    @NSManaged public var isVisible: Bool
     @NSManaged public var name: String?
     @NSManaged public var image: String?
 

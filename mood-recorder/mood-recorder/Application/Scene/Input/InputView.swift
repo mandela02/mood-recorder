@@ -51,7 +51,7 @@ struct InputView: View {
     
     // MARK: - Section Icon Type
     func getIconGrid(optionModels: [OptionModel], at sectionIndex: Int) -> some View {
-        LazyVGrid(columns: Array(repeating: GridItem(.flexible(),
+        return LazyVGrid(columns: Array(repeating: GridItem(.flexible(),
                                                      alignment: .top),
                                  count: 5),
                   content: {
@@ -168,8 +168,10 @@ struct InputView: View {
     func getSectionContent(at sectionModel: SectionModel, index: Int) -> some View {
         switch sectionModel.cell {
         case let models as [OptionModel]:
+            let datasource = sectionModel.section == .custom ? models.filter { $0.isVisible } : models
+        
             VStack {
-                getIconGrid(optionModels: models,
+                getIconGrid(optionModels: datasource,
                             at: index)
                     .padding(.horizontal, 10)
                     .disabled(!sectionModel.isVisible || viewModel.isInEditMode)

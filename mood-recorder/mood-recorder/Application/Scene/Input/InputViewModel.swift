@@ -47,8 +47,16 @@ class InputViewModel: ViewModel {
         case .optionTap(sectionIndex: let sectionIndex,
                         optionIndex: let optionIndex):
             if self.state.isInEditMode { return }
-            self.state.sectionModels[sectionIndex]
-                .changeOptionSelection(at: optionIndex)
+            if state.sectionModels[sectionIndex].section != .custom {
+                self.state.sectionModels[sectionIndex]
+                    .changeOptionSelection(at: optionIndex)
+            } else {
+                guard let models = state.sectionModels[sectionIndex].cell as? [OptionModel] else { return }
+                let visibleModel = models.filter { $0.isVisible }[optionIndex]
+                guard let trueModelIndex = models.firstIndex(of: visibleModel) else { return }
+                self.state.sectionModels[sectionIndex]
+                    .changeOptionSelection(at: trueModelIndex)
+            }
             
         // MARK: - picture selected
         case .pictureSelected(sectionIndex: let sectionIndex, image: let image):

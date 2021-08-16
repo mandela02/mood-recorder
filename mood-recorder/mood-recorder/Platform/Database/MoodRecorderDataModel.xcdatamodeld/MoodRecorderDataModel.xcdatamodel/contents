@@ -20,6 +20,7 @@
     <entity name="CDOptionModel" representedClassName="CDOptionModel" syncable="YES">
         <attribute name="image" optional="YES" attributeType="String"/>
         <attribute name="isSelected" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="isVisible" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <relationship name="content" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDContentModel" inverseName="options" inverseEntity="CDContentModel"/>
     </entity>
@@ -44,7 +45,7 @@
     <elements>
         <element name="CDContentModel" positionX="-27" positionY="27" width="128" height="119"/>
         <element name="CDInputModel" positionX="-63" positionY="-18" width="128" height="59"/>
-        <element name="CDOptionModel" positionX="-9" positionY="45" width="128" height="89"/>
+        <element name="CDOptionModel" positionX="-9" positionY="45" width="128" height="104"/>
         <element name="CDSectionModel" positionX="-45" positionY="18" width="128" height="89"/>
     </elements>
 </model>

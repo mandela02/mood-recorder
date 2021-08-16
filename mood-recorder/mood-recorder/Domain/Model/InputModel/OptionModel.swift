@@ -27,7 +27,17 @@ struct OptionModel: Equatable, Identifiable, Hashable {
     
     var isSelected: Bool = false
     
+    var isVisible: Bool = true
+
     mutating func changeSelectionStatus() {
         isSelected.toggle()
+    }
+    
+    mutating func visibilitySync() {
+        isSelected = isVisible
+    }
+    
+    mutating func selectionSync() {
+        isVisible = isSelected
     }
 }

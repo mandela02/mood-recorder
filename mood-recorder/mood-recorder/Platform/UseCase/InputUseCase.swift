@@ -83,8 +83,10 @@ struct InputUseCase {
                         let content = ImageAndTitleModel(image: AppImage.appImage(value: cdOption.wrappedImage),
                                                          title: cdOption.wrappedName)
                         
-                        optionModels.append(OptionModel(content: content,
-                                                       isSelected: cdOption.isSelected))
+                        var model = OptionModel(content: content,
+                                                isSelected: cdOption.isSelected)
+                        model.isVisible = cdOption.isVisible
+                        optionModels.append(model)
                     }
                     
                     optionModels
@@ -140,6 +142,7 @@ struct InputUseCase {
                     model.name = option.content.title
                     model.image = option.content.image.value
                     model.isSelected = option.isSelected
+                    model.isVisible = option.isVisible
                     
                     cdOptions.append(model)
                 }
