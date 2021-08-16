@@ -50,6 +50,7 @@
 		8476F1A926B861EC00F62854 /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476F1A826B861EC00F62854 /* Weather.swift */; };
 		8476F1AD26B8637300F62854 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476F1AC26B8637300F62854 /* String+Extension.swift */; };
 		8482D7FB26C8C0950030054B /* CusomOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8482D7FA26C8C0950030054B /* CusomOptionView.swift */; };
+		84AC834626CA57550052B295 /* CustomOptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AC834526CA57550052B295 /* CustomOptionViewModel.swift */; };
 		84B2554926C7F490000B96DB /* ArrowAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B2554826C7F490000B96DB /* ArrowAnimation.swift */; };
 		84B395FB26C7C2F5007B8A6B /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B395FA26C7C2F5007B8A6B /* UIImage+Extension.swift */; };
 		84B395FE26C7C3D2007B8A6B /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B395FD26C7C3D2007B8A6B /* Utilities.swift */; };
@@ -123,6 +124,7 @@
 		8476F1A826B861EC00F62854 /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
 		8476F1AC26B8637300F62854 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		8482D7FA26C8C0950030054B /* CusomOptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CusomOptionView.swift; sourceTree = "<group>"; };
+		84AC834526CA57550052B295 /* CustomOptionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomOptionViewModel.swift; sourceTree = "<group>"; };
 		84B2554826C7F490000B96DB /* ArrowAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrowAnimation.swift; sourceTree = "<group>"; };
 		84B395FA26C7C2F5007B8A6B /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		84B395FD26C7C3D2007B8A6B /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
@@ -258,6 +260,7 @@
 				842F073126C81FAF0078BE9B /* OptionAdditionView.swift */,
 				841E1F9B26C83FAF00EC1082 /* OptionAdditionViewModel.swift */,
 				8482D7FA26C8C0950030054B /* CusomOptionView.swift */,
+				84AC834526CA57550052B295 /* CustomOptionViewModel.swift */,
 			);
 			path = Input;
 			sourceTree = "<group>";
@@ -523,6 +526,7 @@
 				84CBB36426B7154100A8E377 /* HomeView.swift in Sources */,
 				84C3F72A26C03AE600C789F5 /* CDInputModel+CoreDataClass.swift in Sources */,
 				84C3F73226C03E0E00C789F5 /* InputUseCase.swift in Sources */,
+				84AC834626CA57550052B295 /* CustomOptionViewModel.swift in Sources */,
 				8404938D26BA4F6B006523D9 /* SleepScheduleModel.swift in Sources */,
 				8423C21526BFE978000717D9 /* School.swift in Sources */,
 				84C3F72C26C03AE600C789F5 /* CDSectionModel+CoreDataClass.swift in Sources */,
