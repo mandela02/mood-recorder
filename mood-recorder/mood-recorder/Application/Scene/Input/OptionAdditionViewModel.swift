@@ -38,7 +38,7 @@ class OptionAdditionViewModel: ViewModel {
         self.state.optionModels = allModel.chunked(into: 15)
         self.state.numberOfPage = self.state.optionModels.count
     }
-    
+        
     func trigger(_ input: OptionAdditionTrigger) {
         switch input {
         case .optionTap(let optionIndex):
@@ -57,11 +57,20 @@ class OptionAdditionViewModel: ViewModel {
             }
 
             self.state.outPutModels = selectedModels
+        case .addData(model: let model):
+            let lastIndex = self.state.optionModels.count - 1
+            if self.state.optionModels[lastIndex].count == 15 {
+                self.state.optionModels.append([model])
+                self.state.currentPage += 1
+            } else {
+                self.state.optionModels[lastIndex].insert(model, at: 0)
+            }
         }
     }
     
     struct OptionAdditionState {
         var initialSectionModel: SectionModel
+        
         var optionModels: [[OptionModel]] = []
         var currentPage = 0
         var numberOfPage = 0
@@ -73,5 +82,6 @@ class OptionAdditionViewModel: ViewModel {
         case optionTap(optionIndex: Int)
         case goToPage(page: Int)
         case loadData
+        case addData(model: OptionModel)
     }
 }

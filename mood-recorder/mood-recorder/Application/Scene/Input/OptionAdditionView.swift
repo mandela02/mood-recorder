@@ -113,6 +113,9 @@ struct OptionAdditionView: View {
         .onChange(of: currentIndex) { newValue in
             viewModel.trigger(.goToPage(page: newValue))
         }
+        .onChange(of: viewModel.state.currentPage) { newValue in
+            currentIndex = newValue
+        }
     }
     
     func createButton(title: String,
@@ -160,8 +163,9 @@ struct OptionAdditionView: View {
         CusomOptionView(namespace: namespace,
                         onClose: {
             isAboutToAddMore.toggle()
-        }, onCreate: { _ in
+        }, onCreate: { model in
             isAboutToAddMore.toggle()
+            self.viewModel.trigger(.addData(model: model))
         })
     }
     

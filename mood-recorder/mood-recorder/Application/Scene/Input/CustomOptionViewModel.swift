@@ -38,7 +38,8 @@ class CustomOptionViewModel: ViewModel {
             }
             let content = ImageAndTitleModel(image: image,
                                              title: title)
-            state.outputModel = OptionModel(content: content)
+            state.outputModel = OptionModel(content: content,
+                                            isSelected: true)
         }
     }
     
