@@ -36,11 +36,13 @@ struct TalkBubble: View {
                 }
                 .padding()
             }
+            .background(.thickMaterial)
             .frame(height: 180)
             .cornerRadius(20)
             backgroundColor
                 .frame(width: 30, height: 20, alignment: .center)
                 .clipShape(Triangle())
+                .background(.thickMaterial, in: Triangle())
         }
         .padding()
     }

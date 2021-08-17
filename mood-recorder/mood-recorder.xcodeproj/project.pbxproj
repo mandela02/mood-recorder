@@ -21,6 +21,8 @@
 		8404939A26BAA522006523D9 /* SizedBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8404939926BAA522006523D9 /* SizedBox.swift */; };
 		8404939C26BAA9E7006523D9 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8404939B26BAA9E7006523D9 /* Color+Extension.swift */; };
 		8404939F26BAAB21006523D9 /* ThemeHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8404939E26BAAB21006523D9 /* ThemeHelper.swift */; };
+		841E1F9C26C83FAF00EC1082 /* OptionAdditionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841E1F9B26C83FAF00EC1082 /* OptionAdditionViewModel.swift */; };
+		842208CC26C809420022C92F /* ResetDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842208CB26C809420022C92F /* ResetDialog.swift */; };
 		8423C1FF26BE42E5000717D9 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8423C1FE26BE42E5000717D9 /* Date+Extension.swift */; };
 		8423C20126BE4306000717D9 /* Calendar+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8423C20026BE4306000717D9 /* Calendar+Extension.swift */; };
 		8423C20326BE4329000717D9 /* DateFormatter+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8423C20226BE4329000717D9 /* DateFormatter+Extension.swift */; };
@@ -42,11 +44,17 @@
 		8424A93126B5BE0B00BE4454 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8424A93026B5BE0B00BE4454 /* ContentView.swift */; };
 		8424A93326B5BE0F00BE4454 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8424A93226B5BE0F00BE4454 /* Assets.xcassets */; };
 		8424A93626B5BE0F00BE4454 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8424A93526B5BE0F00BE4454 /* Preview Assets.xcassets */; };
+		842F073226C81FAF0078BE9B /* OptionAdditionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842F073126C81FAF0078BE9B /* OptionAdditionView.swift */; };
+		846DA17726C8DAA700D0C7F9 /* AppImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846DA17626C8DAA700D0C7F9 /* AppImage+Extension.swift */; };
 		8476F1A726B85B9000F62854 /* InputDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476F1A626B85B9000F62854 /* InputDataModel.swift */; };
 		8476F1A926B861EC00F62854 /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476F1A826B861EC00F62854 /* Weather.swift */; };
 		8476F1AD26B8637300F62854 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476F1AC26B8637300F62854 /* String+Extension.swift */; };
+		8482D7FB26C8C0950030054B /* CusomOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8482D7FA26C8C0950030054B /* CusomOptionView.swift */; };
+		84AC834626CA57550052B295 /* CustomOptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AC834526CA57550052B295 /* CustomOptionViewModel.swift */; };
+		84B2554926C7F490000B96DB /* ArrowAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B2554826C7F490000B96DB /* ArrowAnimation.swift */; };
 		84B395FB26C7C2F5007B8A6B /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B395FA26C7C2F5007B8A6B /* UIImage+Extension.swift */; };
 		84B395FE26C7C3D2007B8A6B /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B395FD26C7C3D2007B8A6B /* Utilities.swift */; };
+		84C32A8B26C826BE004F6A85 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C32A8A26C826BD004F6A85 /* Array+Extension.swift */; };
 		84C3F72626C03AE600C789F5 /* CDContentModel+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C3F71E26C03AE600C789F5 /* CDContentModel+CoreDataClass.swift */; };
 		84C3F72726C03AE600C789F5 /* CDContentModel+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C3F71F26C03AE600C789F5 /* CDContentModel+CoreDataProperties.swift */; };
 		84C3F72826C03AE600C789F5 /* CDOptionModel+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C3F72026C03AE600C789F5 /* CDOptionModel+CoreDataClass.swift */; };
@@ -64,6 +72,8 @@
 		84CBB36826B71A2800A8E377 /* TalkBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CBB36726B71A2800A8E377 /* TalkBubble.swift */; };
 		84CBB36A26B71E7500A8E377 /* ResizeAnimationButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CBB36926B71E7500A8E377 /* ResizeAnimationButtonStyle.swift */; };
 		84CBB36C26B71EE600A8E377 /* RoundImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CBB36B26B71EE600A8E377 /* RoundImageView.swift */; };
+		84EE2F8526C7CFF800C0195D /* DismissDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EE2F8426C7CFF800C0195D /* DismissDialog.swift */; };
+		84EE2F8726C7D08500C0195D /* CustomDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EE2F8626C7D08500C0195D /* CustomDialog.swift */; };
 		84EF6B7226B7A4BA00C0551F /* CoreEmotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EF6B7126B7A4BA00C0551F /* CoreEmotion.swift */; };
 		84FE1B3B26C7B55600D32330 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FE1B3A26C7B55600D32330 /* BaseViewModel.swift */; };
 /* End PBXBuildFile section */
@@ -83,6 +93,8 @@
 		8404939926BAA522006523D9 /* SizedBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizedBox.swift; sourceTree = "<group>"; };
 		8404939B26BAA9E7006523D9 /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
 		8404939E26BAAB21006523D9 /* ThemeHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeHelper.swift; sourceTree = "<group>"; };
+		841E1F9B26C83FAF00EC1082 /* OptionAdditionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionAdditionViewModel.swift; sourceTree = "<group>"; };
+		842208CB26C809420022C92F /* ResetDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetDialog.swift; sourceTree = "<group>"; };
 		8423C1FE26BE42E5000717D9 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		8423C20026BE4306000717D9 /* Calendar+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Calendar+Extension.swift"; sourceTree = "<group>"; };
 		8423C20226BE4329000717D9 /* DateFormatter+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Extension.swift"; sourceTree = "<group>"; };
@@ -106,11 +118,17 @@
 		8424A93226B5BE0F00BE4454 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8424A93526B5BE0F00BE4454 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		8424A93C26B5BE0F00BE4454 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		842F073126C81FAF0078BE9B /* OptionAdditionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionAdditionView.swift; sourceTree = "<group>"; };
+		846DA17626C8DAA700D0C7F9 /* AppImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppImage+Extension.swift"; sourceTree = "<group>"; };
 		8476F1A626B85B9000F62854 /* InputDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputDataModel.swift; sourceTree = "<group>"; };
 		8476F1A826B861EC00F62854 /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
 		8476F1AC26B8637300F62854 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		8482D7FA26C8C0950030054B /* CusomOptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CusomOptionView.swift; sourceTree = "<group>"; };
+		84AC834526CA57550052B295 /* CustomOptionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomOptionViewModel.swift; sourceTree = "<group>"; };
+		84B2554826C7F490000B96DB /* ArrowAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrowAnimation.swift; sourceTree = "<group>"; };
 		84B395FA26C7C2F5007B8A6B /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		84B395FD26C7C3D2007B8A6B /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		84C32A8A26C826BD004F6A85 /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
 		84C3F71E26C03AE600C789F5 /* CDContentModel+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDContentModel+CoreDataClass.swift"; sourceTree = "<group>"; };
 		84C3F71F26C03AE600C789F5 /* CDContentModel+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDContentModel+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		84C3F72026C03AE600C789F5 /* CDOptionModel+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDOptionModel+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -128,6 +146,8 @@
 		84CBB36726B71A2800A8E377 /* TalkBubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkBubble.swift; sourceTree = "<group>"; };
 		84CBB36926B71E7500A8E377 /* ResizeAnimationButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResizeAnimationButtonStyle.swift; sourceTree = "<group>"; };
 		84CBB36B26B71EE600A8E377 /* RoundImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundImageView.swift; sourceTree = "<group>"; };
+		84EE2F8426C7CFF800C0195D /* DismissDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissDialog.swift; sourceTree = "<group>"; };
+		84EE2F8626C7D08500C0195D /* CustomDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDialog.swift; sourceTree = "<group>"; };
 		84EF6B7126B7A4BA00C0551F /* CoreEmotion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreEmotion.swift; sourceTree = "<group>"; };
 		84FE1B3A26C7B55600D32330 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -235,6 +255,12 @@
 			children = (
 				8404938526B9BFCE006523D9 /* InputView.swift */,
 				8404938126B9A928006523D9 /* InputViewModel.swift */,
+				84EE2F8426C7CFF800C0195D /* DismissDialog.swift */,
+				842208CB26C809420022C92F /* ResetDialog.swift */,
+				842F073126C81FAF0078BE9B /* OptionAdditionView.swift */,
+				841E1F9B26C83FAF00EC1082 /* OptionAdditionViewModel.swift */,
+				8482D7FA26C8C0950030054B /* CusomOptionView.swift */,
+				84AC834526CA57550052B295 /* CustomOptionViewModel.swift */,
 			);
 			path = Input;
 			sourceTree = "<group>";
@@ -260,6 +286,8 @@
 				8423C20426BE43BB000717D9 /* Double+Extension.swift */,
 				8423C20A26BFB5E7000717D9 /* UIApplication+Extension.swift */,
 				84B395FA26C7C2F5007B8A6B /* UIImage+Extension.swift */,
+				84C32A8A26C826BD004F6A85 /* Array+Extension.swift */,
+				846DA17626C8DAA700D0C7F9 /* AppImage+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -373,6 +401,8 @@
 				84CBB36B26B71EE600A8E377 /* RoundImageView.swift */,
 				8404939726BA8471006523D9 /* ImagePicker.swift */,
 				8404939926BAA522006523D9 /* SizedBox.swift */,
+				84EE2F8626C7D08500C0195D /* CustomDialog.swift */,
+				84B2554826C7F490000B96DB /* ArrowAnimation.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -476,6 +506,7 @@
 				84C3F72626C03AE600C789F5 /* CDContentModel+CoreDataClass.swift in Sources */,
 				8423C21A26C0098D000717D9 /* Event.swift in Sources */,
 				8404938026B977A5006523D9 /* Activities.swift in Sources */,
+				842208CC26C809420022C92F /* ResetDialog.swift in Sources */,
 				84CBB35F26B703BF00A8E377 /* CustomTabBar.swift in Sources */,
 				8423C22526C03352000717D9 /* Repositoy.swift in Sources */,
 				84CBB36C26B71EE600A8E377 /* RoundImageView.swift in Sources */,
@@ -491,9 +522,11 @@
 				84C3F73426C044A800C789F5 /* UseCaseProvider.swift in Sources */,
 				8423C21126BFD384000717D9 /* Hobby.swift in Sources */,
 				8476F1A926B861EC00F62854 /* Weather.swift in Sources */,
+				84EE2F8526C7CFF800C0195D /* DismissDialog.swift in Sources */,
 				84CBB36426B7154100A8E377 /* HomeView.swift in Sources */,
 				84C3F72A26C03AE600C789F5 /* CDInputModel+CoreDataClass.swift in Sources */,
 				84C3F73226C03E0E00C789F5 /* InputUseCase.swift in Sources */,
+				84AC834626CA57550052B295 /* CustomOptionViewModel.swift in Sources */,
 				8404938D26BA4F6B006523D9 /* SleepScheduleModel.swift in Sources */,
 				8423C21526BFE978000717D9 /* School.swift in Sources */,
 				84C3F72C26C03AE600C789F5 /* CDSectionModel+CoreDataClass.swift in Sources */,
@@ -502,22 +535,28 @@
 				8404939C26BAA9E7006523D9 /* Color+Extension.swift in Sources */,
 				8423C20326BE4329000717D9 /* DateFormatter+Extension.swift in Sources */,
 				8423C20726BE6AD5000717D9 /* Medical.swift in Sources */,
+				842F073226C81FAF0078BE9B /* OptionAdditionView.swift in Sources */,
 				8423C20D26BFBBCA000717D9 /* Food.swift in Sources */,
 				8404939A26BAA522006523D9 /* SizedBox.swift in Sources */,
 				8423C20B26BFB5E7000717D9 /* UIApplication+Extension.swift in Sources */,
 				8424A92F26B5BE0B00BE4454 /* MoodRecorderApp.swift in Sources */,
 				8404938226B9A928006523D9 /* InputViewModel.swift in Sources */,
+				84C32A8B26C826BE004F6A85 /* Array+Extension.swift in Sources */,
 				84C3F72B26C03AE600C789F5 /* CDInputModel+CoreDataProperties.swift in Sources */,
+				841E1F9C26C83FAF00EC1082 /* OptionAdditionViewModel.swift in Sources */,
 				8404939526BA50DF006523D9 /* TextModel.swift in Sources */,
 				8423C20126BE4306000717D9 /* Calendar+Extension.swift in Sources */,
+				8482D7FB26C8C0950030054B /* CusomOptionView.swift in Sources */,
 				8404939126BA4F97006523D9 /* SectionType.swift in Sources */,
 				84C3F72726C03AE600C789F5 /* CDContentModel+CoreDataProperties.swift in Sources */,
+				846DA17726C8DAA700D0C7F9 /* AppImage+Extension.swift in Sources */,
 				8423C22726C03379000717D9 /* PersistenceManager.swift in Sources */,
 				8423C22026C03175000717D9 /* MoodRecorderDataModel.xcdatamodeld in Sources */,
 				84B395FB26C7C2F5007B8A6B /* UIImage+Extension.swift in Sources */,
 				8423C20F26BFC5A0000717D9 /* Beauty.swift in Sources */,
 				8404938B26BA4F51006523D9 /* OptionModel.swift in Sources */,
 				84CBB36126B7102700A8E377 /* AppImage.swift in Sources */,
+				84EE2F8726C7D08500C0195D /* CustomDialog.swift in Sources */,
 				8423C20526BE43BB000717D9 /* Double+Extension.swift in Sources */,
 				8476F1A726B85B9000F62854 /* InputDataModel.swift in Sources */,
 				8404938626B9BFCE006523D9 /* InputView.swift in Sources */,
@@ -527,6 +566,7 @@
 				8423C21826C0037C000717D9 /* Chore.swift in Sources */,
 				84C3F72926C03AE600C789F5 /* CDOptionModel+CoreDataProperties.swift in Sources */,
 				84CBB36826B71A2800A8E377 /* TalkBubble.swift in Sources */,
+				84B2554926C7F490000B96DB /* ArrowAnimation.swift in Sources */,
 				8423C21326BFE2F0000717D9 /* Job.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

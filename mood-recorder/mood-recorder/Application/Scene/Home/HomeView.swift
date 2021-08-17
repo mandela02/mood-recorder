@@ -11,12 +11,18 @@ struct HomeView: View {
     @ObservedObject var viewModel = HomeViewModel()
 
     init() {
-        UITabBar.appearance().isHidden = true
+        //UITabBar.appearance().isHidden = true
     }
 
+    @ViewBuilder
     var tintForeGroundColor: some View {
-        (viewModel.isEmotionDialogShowing ? Color.black.opacity(0.5) : .clear)
-            .onTapGesture(perform: viewModel.onBigButtonTapped)
+        Group {
+            if viewModel.isEmotionDialogShowing {
+                Color.black.opacity(0.5)
+            } else {
+                Color.clear
+            }
+        }.onTapGesture(perform: viewModel.onBigButtonTapped)
     }
         
     var tabView: some View {
@@ -31,6 +37,7 @@ struct HomeView: View {
                     Color.yellow.tag(3)
                         .ignoresSafeArea()
                 })
+            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
     }
     
     @ViewBuilder
@@ -40,8 +47,6 @@ struct HomeView: View {
                        buttonBackgroundColor: Theme.current.buttonColor.disableColor,
                        textColor: Theme.current.commonColor.textColor,
                        onButtonTap: viewModel.onEmotionSelected)
-                .transition(.asymmetric(insertion: .move(edge: .bottom),
-                                        removal: .opacity))
         } else {
             EmptyView()
         }
@@ -63,6 +68,7 @@ struct HomeView: View {
                     onBigButtonTapped: viewModel.onBigButtonTapped)
             }
         }
+        .animation(Animation.spring().speed(1.5), value: viewModel.isEmotionDialogShowing)
         .fullScreenCover(isPresented: $viewModel.isInputViewShow,
                          onDismiss: viewModel.onInputViewDismiss) {
             if let selectedCoreEmotion = viewModel.selectedCoreEmotion {

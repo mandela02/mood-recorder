@@ -7,624 +7,626 @@
 
 import SwiftUI
 
-struct AppImage {
-    static let bodyOil = "body.oil"
-    static let bra = "bra"
-    static let brush1 = "brush.1"
-    static let brush2 = "brush.2"
-    static let brush = "brush"
-    static let candle = "candle"
-    static let comb1 = "comb.1"
-    static let comb = "comb"
-    static let corset = "corset"
-    static let cream = "cream"
-    static let dress2 = "dress.2"
-    static let dressingTable = "dressing.table"
-    static let dryer = "dryer"
-    static let dye = "dye"
-    static let earing = "earing"
-    static let eyeShadow = "eye.shadow"
-    static let eyeShadows = "eye.shadows"
-    static let facialMask = "facial.mask"
-    static let fragance = "fragance"
-    static let hairBrush = "hair.brush"
-    static let hairIron = "hair.iron"
-    static let hairSalon = "hair.salon"
-    static let handMirror = "hand.mirror"
-    static let handbag = "handbag"
-    static let lips = "lips"
-    static let lipstick = "lipstick"
-    static let lotion = "lotion"
-    static let lotus = "lotus"
-    static let mascara1 = "mascara.1"
-    static let mascara = "mascara"
-    static let mirror1 = "mirror.1"
-    static let mirror = "mirror"
-    static let nail = "nail"
-    static let nailPolish1 = "nail.polish.1"
-    static let nailPolish = "nail.polish"
-    static let nail1 = "nail1"
-    static let necklace1 = "necklace.1"
-    static let panties = "panties"
-    static let powder = "powder"
-    static let rollOn = "roll.on"
-    static let serum = "serum"
-    static let shampoo = "shampoo"
-    static let soapBeauty = "soap.beauty"
-    static let spa = "spa"
-    static let spray = "spray"
-    static let sunCream = "sun.cream"
-    static let tint = "tint"
-    static let tissues = "tissues"
-    static let weighLoss = "weigh.loss"
-    static let woman = "woman"
-    static let basket1 = "basket.1"
-    static let basket = "basket"
-    static let bottle1 = "bottle.1"
-    static let bottle2 = "bottle.2"
-    static let bottle3 = "bottle.3"
-    static let bottle4 = "bottle.4"
-    static let bottle5 = "bottle.5"
-    static let bottle6 = "bottle.6"
-    static let bottle7 = "bottle.7"
-    static let broom1 = "broom.1"
-    static let broom2 = "broom.2"
-    static let bubbles2 = "bubbles.2"
-    static let bucket = "bucket"
-    static let bucket1 = "bucket1"
-    static let bucket2 = "bucket2"
-    static let detergent = "detergent"
-    static let dishWashing1 = "dish.washing.1"
-    static let houseCleaning = "house.cleaning"
-    static let paperTowel = "paper.towel"
-    static let rake = "rake"
-    static let rubbishBin1 = "rubbish.bin.1"
-    static let rubbishBin2 = "rubbish.bin.2"
-    static let rubbishBin3 = "rubbish.bin.3"
-    static let rubbishBin = "rubbish.bin"
-    static let sink = "sink"
-    static let soap1 = "soap.1"
-    static let soap2 = "soap.2"
-    static let soap3 = "soap.3"
-    static let softener = "softener"
-    static let spray1 = "spray.1"
-    static let spray2 = "spray.2"
-    static let wash = "wash"
-    static let washingMachine = "washing.machine"
-    static let washingUp = "washing.up"
-    static let wc = "wc"
-    static let wetFloor = "wet.floor"
-    static let wheel = "wheel"
-    static let windowCleaning1 = "window.cleaning.1"
-    static let windowCleaning2 = "window.cleaning.2"
-    static let bubbles1 = "bubbles.1"
-    static let angelDino = "angel.dino"
-    static let angry = "angry"
-    static let angryRawr = "angry.rawr"
-    static let artist = "artist"
-    static let beauty = "beauty"
-    static let beauty1 = "beauty1"
-    static let beauty2 = "beauty2"
-    static let birthday = "birthday"
-    static let boxing = "boxing"
-    static let chefDino = "chef.dino"
-    static let coolDino = "cool.dino"
-    static let costume = "costume"
-    static let dancingDino = "dancing.dino"
-    static let devilDino = "devil.dino"
-    static let dinoCrying = "dino.crying"
-    static let dinoInlove = "dino.in.love"
-    static let dinoShower = "dino.shower"
-    static let dizzy = "dizzy"
-    static let doctorDino = "doctor.dino"
-    static let drawingDino = "drawing.dino"
-    static let drink = "drink"
-    static let drunkDino = "drunk.dino"
-    static let eat = "eat"
-    static let embarrassed = "embarrassed"
-    static let exerciseDino = "exercise.dino"
-    static let fear = "fear"
-    static let ghostDino = "ghost.dino"
-    static let happyDino = "happy.dino"
-    static let ideaDino = "idea.dino"
-    static let kiss = "kiss"
-    static let laughingDino = "laughing.dino"
-    static let movie = "movie"
-    static let music = "music"
-    static let painter = "painter"
-    static let phoneCall = "phone.call"
-    static let photographer = "photographer"
-    static let readingDino = "reading.dino"
-    static let scientist = "scientist"
-    static let selfieDino = "selfie.dino"
-    static let sickDino = "sick.dino"
-    static let sing = "sing"
-    static let sleepyDino = "sleepy.dino"
-    static let space = "space"
-    static let stanClaus = "stan.claus"
-    static let surprise = "surprise"
-    static let swim = "swim"
-    static let thief = "thief"
-    static let think = "think"
-    static let warm = "warm"
-    static let workerDino = "worker.dino"
-    static let alarmClock = "alarm.clock"
-    static let atom = "atom"
-    static let backpack = "backpack"
-    static let binder = "binder"
-    static let blackboard = "blackboard"
-    static let books = "books"
-    static let briefcase = "briefcase"
-    static let calculator = "calculator"
-    static let colorPalette = "color.palette"
-    static let compass = "compass"
-    static let deskChair = "desk.chair"
-    static let desk = "desk"
-    static let deskLamp = "desk.lamp"
-    static let dictionary = "dictionary"
-    static let diploma = "diploma"
-    static let dna = "dna"
-    static let easel = "easel"
-    static let examFail = "exam.fail"
-    static let exam = "exam"
-    static let field = "field"
-    static let flask = "flask"
-    static let flute = "flute"
-    static let folder = "folder"
-    static let fountainPen = "fountain.pen"
-    static let geography = "geography"
-    static let glasses = "glasses"
-    static let hightlighter = "hightlighter"
-    static let laptop = "laptop"
-    static let lockers = "lockers"
-    static let medal = "medal"
-    static let microscopeStudy = "microscope.study"
-    static let mortarboard = "mortarboard"
-    static let notebook = "notebook"
-    static let notebookOpen = "notebook.open"
-    static let paperPlane = "paper.plane"
-    static let pen = "pen"
-    static let pencilCase2 = "pencil.case.2"
-    static let pencilCase = "pencil.case"
-    static let ruler = "ruler"
-    static let schoolBus = "school.bus"
-    static let school = "school"
-    static let sculpture = "sculpture"
-    static let solarSystem = "solar.system"
-    static let studentCard = "student.card"
-    static let telescope = "telescope"
-    static let testing = "testing"
-    static let timeTable = "time.table"
-    static let trophy = "trophy"
-    static let whistle = "whistle"
-    static let whiteboard = "whiteboard"
-    static let airhorn = "airhorn"
-    static let auditorium = "auditorium"
-    static let balloons = "balloons"
-    static let banner = "banner"
-    static let beach = "beach"
-    static let cakeParty = "cake.party"
-    static let candy = "candy"
-    static let champagne = "champagne"
-    static let clown = "clown"
-    static let confetti = "confetti"
-    static let cupcake = "cupcake"
-    static let cups = "cups"
-    static let date = "date"
-    static let dinnerTable = "dinner.table"
-    static let discoBall = "disco.ball"
-    static let dress = "dress"
-    static let eventHall = "event.hall"
-    static let eyeMask = "eye.mask"
-    static let fireworks = "fireworks"
-    static let garlands = "garlands"
-    static let giftBox = "gift.box"
-    static let gong = "gong"
-    static let highHeels = "high.heels"
-    static let host = "host"
-    static let icCard = "ic.card"
-    static let invitation = "invitation"
-    static let kazoo = "kazoo"
-    static let location = "location"
-    static let magicShow = "magic.show"
-    static let microphone = "microphone"
-    static let openingCeremony = "opening.ceremony"
-    static let partyBlower = "party.blower"
-    static let partyHat = "party.hat"
-    static let photoBooth = "photo.booth"
-    static let photoCamera = "photo.camera"
-    static let pinata = "pinata"
-    static let pizzaParty = "pizza.party"
-    static let poolParty = "pool.party"
-    static let redCarpet = "red.carpet"
-    static let saxophone = "saxophone"
-    static let skewer = "skewer"
-    static let speaker = "speaker"
-    static let stage = "stage"
-    static let suit = "suit"
-    static let theater = "theater"
-    static let ticket = "ticket"
-    static let videoCamera = "video.camera"
-    static let vinylPlayer = "vinyl.player"
-    static let waiter = "waiter"
-    static let weddingArch = "wedding.arch"
-    static let alcohol = "alcohol"
-    static let apple = "apple"
-    static let avocado = "avocado"
-    static let bacon = "bacon"
-    static let banana = "banana"
-    static let bbq = "bbq"
-    static let beer = "beer"
-    static let blueberry = "blueberry"
-    static let boiledEgg = "boiled.egg"
-    static let breadOvan = "bread.ovan"
-    static let breakfast = "breakfast"
-    static let butter = "butter"
-    static let cake = "cake"
-    static let carrot = "carrot"
-    static let casserole = "casserole"
-    static let celery = "celery"
-    static let cheese = "cheese"
-    static let chicken = "chicken"
-    static let chocolateBar = "chocolate.bar"
-    static let cocktail = "cocktail"
-    static let coffeeCup = "coffee.cup"
-    static let corn = "corn"
-    static let croissant = "croissant"
-    static let cucumber = "cucumber"
-    static let cutlery = "cutlery"
-    static let cutlet = "cutlet"
-    static let dessert = "dessert"
-    static let doughRollingaction = "dough.rolling.action"
-    static let dumpling = "dumpling"
-    static let eggplant = "eggplant"
-    static let eggs = "eggs"
-    static let fastFood = "fast.food"
-    static let fish = "fish"
-    static let flour = "flour"
-    static let frenchFries = "french.fries"
-    static let garlic = "garlic"
-    static let glutenFree = "gluten.free"
-    static let grape = "grape"
-    static let groceries = "groceries"
-    static let ham = "ham"
-    static let healtyFood = "healty.food"
-    static let honey = "honey"
-    static let hotDog = "hot.dog"
-    static let iceCream = "ice.cream"
-    static let jam = "jam"
-    static let juice = "juice"
-    static let kebab = "kebab"
-    static let kiwi = "kiwi"
-    static let lemon = "lemon"
-    static let lettuce = "lettuce"
-    static let milk = "milk"
-    static let milkshake = "milkshake"
-    static let muffins = "muffins"
-    static let mushroom = "mushroom"
-    static let nuts = "nuts"
-    static let octupus = "octupus"
-    static let oliveOil = "olive.oil"
-    static let omelette = "omelette"
-    static let orange = "orange"
-    static let pancake = "pancake"
-    static let peanutButter = "peanut.butter"
-    static let peas = "peas"
-    static let pepper = "pepper"
-    static let pieceOfcake = "piece.of.cake"
-    static let pillowBread = "pillow.bread"
-    static let pineapple = "pineapple"
-    static let pizza = "pizza"
-    static let pizzaSlice = "pizza.slice"
-    static let plate = "plate"
-    static let pork = "pork"
-    static let porridge = "porridge"
-    static let poultry = "poultry"
-    static let pumpkin = "pumpkin"
-    static let rice = "rice"
-    static let roastChicken = "roast.chicken"
-    static let saladDisk = "salad.disk"
-    static let salad = "salad"
-    static let salmon = "salmon"
-    static let saltAndpepper = "salt.and.pepper"
-    static let sandwich = "sandwich"
-    static let sauce = "sauce"
-    static let sausage = "sausage"
-    static let shrimp = "shrimp"
-    static let smoothie = "smoothie"
-    static let soup = "soup"
-    static let spagetti = "spagetti"
-    static let squid = "squid"
-    static let steak = "steak"
-    static let strawberry = "strawberry"
-    static let sushiFish = "sushi.fish"
-    static let sushi = "sushi"
-    static let sushuRoll = "sushu.roll"
-    static let taco = "taco"
-    static let tea = "tea"
-    static let tomato = "tomato"
-    static let tray = "tray"
-    static let vegetable = "vegetable"
-    static let waterBottle = "water.bottle"
-    static let wine = "wine"
-    static let yogurt = "yogurt"
-    static let actionCamera = "action.camera"
-    static let baking = "baking"
-    static let barbecue = "barbecue"
-    static let basketball = "basketball"
-    static let bonsai = "bonsai"
-    static let bowling = "bowling"
-    static let buildingPlan = "building.plan"
-    static let cactus = "cactus"
-    static let chatChit = "chat.chit"
-    static let chess = "chess"
-    static let cinema = "cinema"
-    static let coffeeHobby = "coffee.hobby"
-    static let controller = "controller"
-    static let cookingPod = "cooking.pod"
-    static let domino = "domino"
-    static let doughRolling = "dough.rolling"
-    static let exercise = "exercise"
-    static let facialMaskhobby = "facial.mask.hobby"
-    static let fishing = "fishing"
-    static let gardening = "gardening"
-    static let guitar = "guitar"
-    static let headphone = "headphone"
-    static let instantCamera = "instant.camera"
-    static let jogging = "jogging"
-    static let karaoke = "karaoke"
-    static let kayak = "kayak"
-    static let laptopAndbook = "laptop.and.book"
-    static let newspaper = "newspaper"
-    static let origami = "origami"
-    static let petCare = "pet.care"
-    static let piano = "piano"
-    static let pingPong = "ping.pong"
-    static let plant = "plant"
-    static let playingCard = "playing.card"
-    static let postStamp = "post.stamp"
-    static let readingBook = "reading.book"
-    static let sewing = "sewing"
-    static let shopping = "shopping"
-    static let skateboard = "skateboard"
-    static let smartphonePlay = "smartphone.play"
-    static let soccerBall = "soccer.ball"
-    static let socialCamera = "social.camera"
-    static let surfboard = "surfboard"
-    static let swimming = "swimming"
-    static let teaHobby = "tea.hobby"
-    static let telescopeHobby = "telescope.hobby"
-    static let tvScreen = "tv.screen"
-    static let vrGlasses = "vr.glasses"
-    static let worker = "worker"
-    static let yoga = "yoga"
-    static let accesibility = "accesibility"
-    static let accomodation = "accomodation"
-    static let accountant = "accountant"
-    static let ads = "ads"
-    static let assignment = "assignment"
-    static let b2b = "b2b"
-    static let blogger = "blogger"
-    static let brief = "brief"
-    static let budget = "budget"
-    static let business = "business"
-    static let cashFlow = "cash.flow"
-    static let coding = "coding"
-    static let coffeeJobs = "coffee.jobs"
-    static let consultant = "consultant"
-    static let content = "content"
-    static let contentWriting = "content.writing"
-    static let customer = "customer"
-    static let designer = "designer"
-    static let digitalNomad = "digital.nomad"
-    static let digitalNomad1 = "digital.nomad1"
-    static let editor = "editor"
-    static let exchange = "exchange"
-    static let finance = "finance"
-    static let growth = "growth"
-    static let heathycare = "heathycare"
-    static let income = "income"
-    static let influencer = "influencer"
-    static let invoice = "invoice"
-    static let laundry = "laundry"
-    static let mail = "mail"
-    static let marketing = "marketing"
-    static let network = "network"
-    static let onlineShop = "online.shop"
-    static let opportunity = "opportunity"
-    static let passionate = "passionate"
-    static let passport = "passport"
-    static let pos = "pos"
-    static let productivity = "productivity"
-    static let research = "research"
-    static let sleep = "sleep"
-    static let socialMedia = "social.media"
-    static let startup = "startup"
-    static let timeManagenment = "time.managenment"
-    static let toDolist = "to.do.list"
-    static let translator = "translator"
-    static let travel = "travel"
-    static let vlog = "vlog"
-    static let vlogger = "vlogger"
-    static let webDesign = "web.design"
-    static let brokenHeart = "broken.heart"
-    static let diamondRing = "diamond.ring"
-    static let fireLove = "fire.love"
-    static let gift = "gift"
-    static let heart = "heart"
-    static let inLove = "in.love"
-    static let lesbian = "lesbian"
-    static let longDistance = "long.distance"
-    static let loveBear = "love.bear"
-    static let loveBed = "love.bed"
-    static let loveBird = "love.bird"
-    static let loveChem = "love.chem"
-    static let loveChocolate = "love.chocolate"
-    static let loveDiary = "love.diary"
-    static let loveFly = "love.fly"
-    static let loveForever = "love.forever"
-    static let loveFrame = "love.frame"
-    static let loveGay = "love.gay"
-    static let loveHouse = "love.house"
-    static let loveLetter2 = "love.letter.2"
-    static let loveLetter = "love.letter"
-    static let loveNight = "love.night"
-    static let lovePhoto = "love.photo"
-    static let lovePill = "love.pill"
-    static let loveTexting = "love.texting"
-    static let loveYinyang = "love.yin.yang"
-    static let roses = "roses"
-    static let valentine = "valentine"
-    static let weddingRing = "wedding.ring"
-    static let wineGlass = "wine.glass"
-    static let bacteria = "bacteria"
-    static let bloodCells = "blood.cells"
-    static let bloodPressuregauge = "blood.pressure.gauge"
-    static let bloodTest = "blood.test"
-    static let bodyScale = "body.scale"
-    static let bones = "bones"
-    static let cervicalCancer = "cervical.cancer"
-    static let colesterol = "colesterol"
-    static let defribillator = "defribillator"
-    static let dental = "dental"
-    static let diabetes = "diabetes"
-    static let diet = "diet"
-    static let doctor = "doctor"
-    static let dumbbell = "dumbbell"
-    static let ear = "ear"
-    static let ekg = "ekg"
-    static let eyeExamination = "eye.examination"
-    static let faceMask = "face.mask"
-    static let healthInsurance = "health.insurance"
-    static let heartRate = "heart.rate"
-    static let hospital = "hospital"
-    static let kidney = "kidney"
-    static let liver = "liver"
-    static let lungs = "lungs"
-    static let medicalApp = "medical.app"
-    static let medicalAppointment = "medical.appointment"
-    static let medicalCheckup = "medical.check.up"
-    static let medicalFolder = "medical.folder"
-    static let medicalLocation = "medical.location"
-    static let medicalReport = "medical.report"
-    static let medicalReportpaper = "medical.report.paper"
-    static let medicine = "medicine"
-    static let mentalHealth = "mental.health"
-    static let microscope = "microscope"
-    static let mobilePhone = "mobile.phone"
-    static let monitor = "monitor"
-    static let noSmoking = "no.smoking"
-    static let nurse = "nurse"
-    static let phoneCallmedical = "phone.call.medical"
-    static let prescription = "prescription"
-    static let question = "question"
-    static let smartWatch = "smart.watch"
-    static let sonography = "sonography"
-    static let speechBubble = "speech.bubble"
-    static let stethoscope = "stethoscope"
-    static let urineTest = "urine.test"
-    static let vaccine = "vaccine"
-    static let virus = "virus"
-    static let waterBottleandcup = "water.bottle.and.cup"
-    static let xRays = "x.rays"
-    static let angel = "angel"
-    static let angryPineapple = "angry.pineapple"
-    static let astronaut = "astronaut"
-    static let birthdayPineapple = "birthday.pineapple"
-    static let blushing = "blushing"
-    static let bubblesPineapple = "bubbles.pineapple"
-    static let calling = "calling"
-    static let chef = "chef"
-    static let coffee = "coffee"
-    static let confuse = "confuse"
-    static let cool = "cool"
-    static let crying = "crying"
-    static let dancing = "dancing"
-    static let detective = "detective"
-    static let devil = "devil"
-    static let drawing = "drawing"
-    static let drunk = "drunk"
-    static let eating = "eating"
-    static let exercisePineapple = "exercise.pineapple"
-    static let facial_treatment = "facial_treatment"
-    static let ghost = "ghost"
-    static let happy = "happy"
-    static let hot = "hot"
-    static let idea = "idea"
-    static let laptopPineapple = "laptop.pineapple"
-    static let laughing = "laughing"
-    static let listening = "listening"
-    static let love = "love"
-    static let pirate = "pirate"
-    static let popsicle = "popsicle"
-    static let reading = "reading"
-    static let sad = "sad"
-    static let scare = "scare"
-    static let scientific = "scientific"
-    static let selfie = "selfie"
-    static let shower = "shower"
-    static let sick = "sick"
-    static let singing = "singing"
-    static let sleeping = "sleeping"
-    static let strong = "strong"
-    static let sunbathing = "sunbathing"
-    static let superhero = "superhero"
-    static let surfing = "surfing"
-    static let surprised = "surprised"
-    static let thinking = "thinking"
-    static let toothbrushing = "toothbrushing"
-    static let volleyball = "volleyball"
-    static let whistlePineapple = "whistle.pineapple"
-    static let wrestler = "wrestler"
-    static let zombie = "zombie"
-    static let bigWind = "big.wind"
-    static let calendarSun = "calendar.sun"
-    static let cellphoneForecast = "cellphone.forecast"
-    static let cloudyDay = "cloudy.day"
-    static let cloudyNight = "cloudy.night"
-    static let cloudyWind = "cloudy.wind"
-    static let cold = "cold"
-    static let crescentMoon = "crescent.moon"
-    static let cyclone = "cyclone"
-    static let drop = "drop"
-    static let dropSingle = "drop.single"
-    static let earth = "earth"
-    static let earthSun = "earth.sun"
-    static let eclipse = "eclipse"
-    static let flowerFlying = "flower.flying"
-    static let flowerSingle = "flower.single"
-    static let fullMoon = "full.moon"
-    static let heavyRain = "heavy.rain"
-    static let heavySnow = "heavy.snow"
-    static let heavyStorm = "heavy.storm"
-    static let heavyThunder = "heavy.thunder"
-    static let leafFalling = "leaf.falling"
-    static let leafRedhappy = "leaf.red.happy"
-    static let mountain = "mountain"
-    static let newMoon = "new.moon"
-    static let rain = "rain"
-    static let rainNight = "rain.night"
-    static let rainbow = "rainbow"
-    static let regularRainy = "regular.rainy"
-    static let regularSnow = "regular.snow"
-    static let snow = "snow"
-    static let snowflake = "snowflake"
-    static let snowman = "snowman"
-    static let springRain = "spring.rain"
-    static let sunny = "sunny"
-    static let sweat = "sweat"
-    static let thermometerCold = "thermometer.cold"
-    static let thermometerHot = "thermometer.hot"
-    static let thermometer = "thermometer"
-    static let thunder = "thunder"
-    static let tornado = "tornado"
-    static let treeFalling = "tree.falling"
-    static let treeHappy = "tree.happy"
-    static let treeRedhappy = "tree.red.happy"
-    static let umbrellaColorful = "umbrella.colorful"
-    static let umbrella = "umbrella"
-    static let umbrellaNormal = "umbrella.normal"
-    static let waxingMoon = "waxing.moon"
-    static let wildFire = "wild.fire"
-    static let wind = "wind"
+enum AppImage: Int, CaseIterable {    
+    case bodyOil
+    case bra
+    case brush1
+    case brush2
+    case brush
+    case candle
+    case comb1
+    case comb
+    case corset
+    case cream
+    case dress2
+    case dressingTable
+    case dryer
+    case dye
+    case earing
+    case eyeShadow
+    case eyeShadows
+    case facialMask
+    case fragance
+    case hairBrush
+    case hairIron
+    case hairSalon
+    case handMirror
+    case handbag
+    case lips
+    case lipstick
+    case lotion
+    case lotus
+    case mascara1
+    case mascara
+    case mirror1
+    case mirror
+    case nail
+    case nailPolish1
+    case nailPolish
+    case nail1
+    case necklace1
+    case panties
+    case powder
+    case rollOn
+    case serum
+    case shampoo
+    case soapBeauty
+    case spa
+    case spray
+    case sunCream
+    case tint
+    case tissues
+    case weighLoss
+    case woman
+    case basket1
+    case basket
+    case bottle1
+    case bottle2
+    case bottle3
+    case bottle4
+    case bottle5
+    case bottle6
+    case bottle7
+    case broom1
+    case broom2
+    case bubbles2
+    case bucket
+    case bucket1
+    case bucket2
+    case detergent
+    case dishWashing1
+    case houseCleaning
+    case paperTowel
+    case rake
+    case rubbishBin1
+    case rubbishBin2
+    case rubbishBin3
+    case rubbishBin
+    case sink
+    case soap1
+    case soap2
+    case soap3
+    case softener
+    case spray1
+    case spray2
+    case wash
+    case washingMachine
+    case washingUp
+    case wc
+    case wetFloor
+    case wheel
+    case windowCleaning1
+    case windowCleaning2
+    case bubbles1
+    case angelDino
+    case angry
+    case angryRawr
+    case artist
+    case beauty
+    case beauty1
+    case beauty2
+    case birthday
+    case boxing
+    case chefDino
+    case coolDino
+    case costume
+    case dancingDino
+    case devilDino
+    case dinoCrying
+    case dinoInlove
+    case dinoShower
+    case dizzy
+    case doctorDino
+    case drawingDino
+    case drink
+    case drunkDino
+    case eat
+    case embarrassed
+    case exerciseDino
+    case fear
+    case ghostDino
+    case happyDino
+    case ideaDino
+    case kiss
+    case laughingDino
+    case movie
+    case music
+    case painter
+    case phoneCall
+    case photographer
+    case readingDino
+    case scientist
+    case selfieDino
+    case sickDino
+    case sing
+    case sleepyDino
+    case space
+    case stanClaus
+    case surprise
+    case swim
+    case thief
+    case think
+    case warm
+    case workerDino
+    case alarmClock
+    case atom
+    case backpack
+    case binder
+    case blackboard
+    case books
+    case briefcase
+    case calculator
+    case colorPalette
+    case compass
+    case deskChair
+    case desk
+    case deskLamp
+    case dictionary
+    case diploma
+    case dna
+    case easel
+    case examFail
+    case exam
+    case field
+    case flask
+    case flute
+    case folder
+    case fountainPen
+    case geography
+    case glasses
+    case hightlighter
+    case laptop
+    case lockers
+    case medal
+    case microscopeStudy
+    case mortarboard
+    case notebook
+    case notebookOpen
+    case paperPlane
+    case pen
+    case pencilCase2
+    case pencilCase
+    case ruler
+    case schoolBus
+    case school
+    case sculpture
+    case solarSystem
+    case studentCard
+    case telescope
+    case testing
+    case timeTable
+    case trophy
+    case whistle
+    case whiteboard
+    case airhorn
+    case auditorium
+    case balloons
+    case banner
+    case beach
+    case cakeParty
+    case candy
+    case champagne
+    case clown
+    case confetti
+    case cupcake
+    case cups
+    case date
+    case dinnerTable
+    case discoBall
+    case dress
+    case eventHall
+    case eyeMask
+    case fireworks
+    case garlands
+    case giftBox
+    case gong
+    case highHeels
+    case host
+    case icCard
+    case invitation
+    case kazoo
+    case location
+    case magicShow
+    case microphone
+    case openingCeremony
+    case partyBlower
+    case partyHat
+    case photoBooth
+    case photoCamera
+    case pinata
+    case pizzaParty
+    case poolParty
+    case redCarpet
+    case saxophone
+    case skewer
+    case speaker
+    case stage
+    case suit
+    case theater
+    case ticket
+    case videoCamera
+    case vinylPlayer
+    case waiter
+    case weddingArch
+    case alcohol
+    case apple
+    case avocado
+    case bacon
+    case banana
+    case bbq
+    case beer
+    case blueberry
+    case boiledEgg
+    case breadOvan
+    case breakfast
+    case butter
+    case cake
+    case carrot
+    case casserole
+    case celery
+    case cheese
+    case chicken
+    case chocolateBar
+    case cocktail
+    case coffeeCup
+    case corn
+    case croissant
+    case cucumber
+    case cutlery
+    case cutlet
+    case dessert
+    case doughRollingaction
+    case dumpling
+    case eggplant
+    case eggs
+    case fastFood
+    case fish
+    case flour
+    case frenchFries
+    case garlic
+    case glutenFree
+    case grape
+    case groceries
+    case ham
+    case healtyFood
+    case honey
+    case hotDog
+    case iceCream
+    case jam
+    case juice
+    case kebab
+    case kiwi
+    case lemon
+    case lettuce
+    case milk
+    case milkshake
+    case muffins
+    case mushroom
+    case nuts
+    case octupus
+    case oliveOil
+    case omelette
+    case orange
+    case pancake
+    case peanutButter
+    case peas
+    case pepper
+    case pieceOfcake
+    case pillowBread
+    case pineapple
+    case pizza
+    case pizzaSlice
+    case plate
+    case pork
+    case porridge
+    case poultry
+    case pumpkin
+    case rice
+    case roastChicken
+    case saladDisk
+    case salad
+    case salmon
+    case saltAndpepper
+    case sandwich
+    case sauce
+    case sausage
+    case shrimp
+    case smoothie
+    case soup
+    case spagetti
+    case squid
+    case steak
+    case strawberry
+    case sushiFish
+    case sushi
+    case sushuRoll
+    case taco
+    case tea
+    case tomato
+    case tray
+    case vegetable
+    case waterBottle
+    case wine
+    case yogurt
+    case actionCamera
+    case baking
+    case barbecue
+    case basketball
+    case bonsai
+    case bowling
+    case buildingPlan
+    case cactus
+    case chatChit
+    case chess
+    case cinema
+    case coffeeHobby
+    case controller
+    case cookingPod
+    case domino
+    case doughRolling
+    case exercise
+    case facialMaskhobby
+    case fishing
+    case gardening
+    case guitar
+    case headphone
+    case instantCamera
+    case jogging
+    case karaoke
+    case kayak
+    case laptopAndbook
+    case newspaper
+    case origami
+    case petCare
+    case piano
+    case pingPong
+    case plant
+    case playingCard
+    case postStamp
+    case readingBook
+    case sewing
+    case shopping
+    case skateboard
+    case smartphonePlay
+    case soccerBall
+    case socialCamera
+    case surfboard
+    case swimming
+    case teaHobby
+    case telescopeHobby
+    case tvScreen
+    case vrGlasses
+    case worker
+    case yoga
+    case accesibility
+    case accomodation
+    case accountant
+    case ads
+    case assignment
+    case b2b
+    case blogger
+    case brief
+    case budget
+    case business
+    case cashFlow
+    case coding
+    case coffeeJobs
+    case consultant
+    case content
+    case contentWriting
+    case customer
+    case designer
+    case digitalNomad
+    case digitalNomad1
+    case editor
+    case exchange
+    case finance
+    case growth
+    case heathycare
+    case income
+    case influencer
+    case invoice
+    case laundry
+    case mail
+    case marketing
+    case network
+    case onlineShop
+    case opportunity
+    case passionate
+    case passport
+    case pos
+    case productivity
+    case research
+    case sleep
+    case socialMedia
+    case startup
+    case timeManagenment
+    case toDolist
+    case translator
+    case travel
+    case vlog
+    case vlogger
+    case webDesign
+    case brokenHeart
+    case diamondRing
+    case fireLove
+    case gift
+    case heart
+    case inLove
+    case lesbian
+    case longDistance
+    case loveBear
+    case loveBed
+    case loveBird
+    case loveChem
+    case loveChocolate
+    case loveDiary
+    case loveFly
+    case loveForever
+    case loveFrame
+    case loveGay
+    case loveHouse
+    case loveLetter2
+    case loveLetter
+    case loveNight
+    case lovePhoto
+    case lovePill
+    case loveTexting
+    case loveYinyang
+    case roses
+    case valentine
+    case weddingRing
+    case wineGlass
+    case bacteria
+    case bloodCells
+    case bloodPressuregauge
+    case bloodTest
+    case bodyScale
+    case bones
+    case cervicalCancer
+    case colesterol
+    case defribillator
+    case dental
+    case diabetes
+    case diet
+    case doctor
+    case dumbbell
+    case ear
+    case ekg
+    case eyeExamination
+    case faceMask
+    case healthInsurance
+    case heartRate
+    case hospital
+    case kidney
+    case liver
+    case lungs
+    case medicalApp
+    case medicalAppointment
+    case medicalCheckup
+    case medicalFolder
+    case medicalLocation
+    case medicalReport
+    case medicalReportpaper
+    case medicine
+    case mentalHealth
+    case microscope
+    case mobilePhone
+    case monitor
+    case noSmoking
+    case nurse
+    case phoneCallmedical
+    case prescription
+    case question
+    case smartWatch
+    case sonography
+    case speechBubble
+    case stethoscope
+    case urineTest
+    case vaccine
+    case virus
+    case waterBottleandcup
+    case xRays
+    case angel
+    case angryPineapple
+    case astronaut
+    case birthdayPineapple
+    case blushing
+    case bubblesPineapple
+    case calling
+    case chef
+    case coffee
+    case confuse
+    case cool
+    case crying
+    case dancing
+    case detective
+    case devil
+    case drawing
+    case drunk
+    case eating
+    case exercisePineapple
+    case facial_treatment
+    case ghost
+    case happy
+    case hot
+    case idea
+    case laptopPineapple
+    case laughing
+    case listening
+    case love
+    case pirate
+    case popsicle
+    case reading
+    case sad
+    case scare
+    case scientific
+    case selfie
+    case shower
+    case sick
+    case singing
+    case sleeping
+    case strong
+    case sunbathing
+    case superhero
+    case surfing
+    case surprised
+    case thinking
+    case toothbrushing
+    case volleyball
+    case whistlePineapple
+    case wrestler
+    case zombie
+    case bigWind
+    case calendarSun
+    case cellphoneForecast
+    case cloudyDay
+    case cloudyNight
+    case cloudyWind
+    case cold
+    case crescentMoon
+    case cyclone
+    case drop
+    case dropSingle
+    case earth
+    case earthSun
+    case eclipse
+    case flowerFlying
+    case flowerSingle
+    case fullMoon
+    case heavyRain
+    case heavySnow
+    case heavyStorm
+    case heavyThunder
+    case leafFalling
+    case leafRedhappy
+    case mountain
+    case newMoon
+    case rain
+    case rainNight
+    case rainbow
+    case regularRainy
+    case regularSnow
+    case snow
+    case snowflake
+    case snowman
+    case springRain
+    case sunny
+    case sweat
+    case thermometerCold
+    case thermometerHot
+    case thermometer
+    case thunder
+    case tornado
+    case treeFalling
+    case treeHappy
+    case treeRedhappy
+    case umbrellaColorful
+    case umbrella
+    case umbrellaNormal
+    case waxingMoon
+    case wildFire
+    case wind
+    
+    case systemPlus
 }

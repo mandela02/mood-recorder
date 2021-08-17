@@ -15,9 +15,7 @@ class HomeViewModel: ObservableObject {
     var selectedCoreEmotion: CoreEmotion?
     
     func onBigButtonTapped() {
-        withAnimation(Animation.spring().speed(1.5)) {
-            isEmotionDialogShowing.toggle()
-        }
+        isEmotionDialogShowing.toggle()
     }
     
     func onInputViewDismiss() {

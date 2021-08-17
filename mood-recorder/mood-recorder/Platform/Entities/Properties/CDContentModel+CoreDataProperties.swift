@@ -26,7 +26,7 @@ extension CDContentModel {
     var optionArray: [CDOptionModel] {
         let set = options as? Set<CDOptionModel> ?? []
         
-        return set.sorted(by: { $0.optionID < $1.optionID })
+        return Array(set)
     }
 }
 

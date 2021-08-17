@@ -84,4 +84,35 @@ struct SectionModel: Identifiable, Equatable {
         model.text = text
         cell = model
     }
+    
+    mutating func resetCell() {
+        var mutatingModel: Any
+        
+        switch cell {
+        case var models as [OptionModel]:
+            if section == .emotion {
+                return
+            }
+            
+            for i in models.indices {
+                models[i].isSelected = false
+            }
+            
+            mutatingModel = models
+        case var model as ImageModel:
+            model.data = nil
+            mutatingModel = model
+        case var model as TextModel:
+            model.text = nil
+            mutatingModel = model
+        case var model as SleepSchelduleModel:
+            model.endTime = 0
+            model.startTime = 0
+            mutatingModel = model
+        default:
+            return
+        }
+        
+        cell = mutatingModel
+    }
 }

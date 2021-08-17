@@ -8,16 +8,26 @@
 import SwiftUI
 
 struct InputView: View {
+    private enum ScrollDestination {
+        case top
+        case bottom
+    }
+    
     typealias InputState = InputViewModel.InputState
     typealias InputTrigger = InputViewModel.InputTrigger
-
+    
     @Environment(\.presentationMode) var presentationMode
     
     @ObservedObject var viewModel: BaseViewModel<InputState,
                                                  InputTrigger>
     
-    @State var text = ""
-    @State var isImagePickerShowing = false
+    @State private var text = ""
+    @State private var isImagePickerShowing = false
+    @State private var isAboutToDismiss = false
+    @State private var isAboutToCustomizeSection = false
+    @State private var isAboutToReset = false
+    @State private var destination: ScrollDestination?
+    @State private var imagePickerController: UIImagePickerController?
     
     @FocusState private var isFocus: Bool
     
@@ -41,7 +51,7 @@ struct InputView: View {
     
     // MARK: - Section Icon Type
     func getIconGrid(optionModels: [OptionModel], at sectionIndex: Int) -> some View {
-        LazyVGrid(columns: Array(repeating: GridItem(.flexible(),
+        return LazyVGrid(columns: Array(repeating: GridItem(.flexible(),
                                                      alignment: .top),
                                  count: 5),
                   content: {
@@ -53,12 +63,13 @@ struct InputView: View {
                         viewModel.trigger(.optionTap(sectionIndex: sectionIndex,
                                                      optionIndex: optionIndex))
                     }, label: {
-                        RoundImageView(image: optionModel.content.image.image,
+                        RoundImageView(image: optionModel.content.image.value.image,
                                        backgroundColor: iconBackgroundColor(optionModel.isSelected))
                     })
                         .aspectRatio(1, contentMode: .fit)
                         .saturation(optionModel.isSelected ? 1 : 0)
                         .buttonStyle(ResizeAnimationButtonStyle())
+                        .animation(Animation.easeInOut, value: optionModel.isSelected)
                     
                     if optionModel.content.title != "" {
                         Text(optionModel.content.title)
@@ -102,9 +113,13 @@ struct InputView: View {
         }
         .buttonStyle(ResizeAnimationButtonStyle())
         .sheet(isPresented: $isImagePickerShowing) {
-            ImagePicker(sourceType: .photoLibrary) { image in
-                viewModel.trigger(.pictureSelected(sectionIndex: sectionIndex,
-                                                                    image: image))
+            if let imagePickerController = imagePickerController {
+                ImagePicker(sourceType: .photoLibrary, controller: imagePickerController) { image in
+                    viewModel.trigger(.pictureSelected(sectionIndex: sectionIndex,
+                                                       image: image))
+                }
+            } else {
+                SizedBox()
             }
         }
     }
@@ -153,14 +168,19 @@ struct InputView: View {
     func getSectionContent(at sectionModel: SectionModel, index: Int) -> some View {
         switch sectionModel.cell {
         case let models as [OptionModel]:
+            let datasource = sectionModel.section == .custom ? models.filter { $0.isVisible } : models
+        
             VStack {
-                getIconGrid(optionModels: models,
+                getIconGrid(optionModels: datasource,
                             at: index)
                     .padding(.horizontal, 10)
                     .disabled(!sectionModel.isVisible || viewModel.isInEditMode)
                 SizedBox(height: 10)
                 if sectionModel.isEditable && sectionModel.isVisible && viewModel.isInEditMode {
-                    Button(action: {}) {
+                    Button(action: {
+                        viewModel.trigger(.onOpenCustomizeSectionDialog(model: sectionModel))
+                        isAboutToCustomizeSection.toggle()
+                    }) {
                         ZStack {
                             Theme.current.buttonColor.backgroundColor
                                 .frame(maxWidth: .infinity)
@@ -206,7 +226,6 @@ struct InputView: View {
                     .frame(width: 20, height: 20, alignment: .center)
                     .foregroundColor(Theme.current.commonColor.textColor)
             }
-            .buttonStyle(PlainButtonStyle())
         } else {
             EmptyView()
         }
@@ -232,27 +251,25 @@ struct InputView: View {
                 }
             }
             .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
-            .buttonStyle(PlainButtonStyle())
         }
     }
     
     // MARK: - Done Button
     var doneButton: some View {
-        ZStack {
-            Theme.current.buttonColor.backgroundColor
-            Button(action: {
-                viewModel.trigger(.doneButtonTapped)
-                dismiss()
-            }) {
-                Text("Done")
-                    .font(.system(size: 20))
-                    .foregroundColor(Theme.current.buttonColor.textColor)
+        Button(action: {
+            viewModel.trigger(.doneButtonTapped)
+            dismiss()
+        }) {
+            ZStack {
+                Theme.current.buttonColor.backgroundColor
                     .frame(maxWidth: .infinity)
+                    .frame(height: 50)
+                Text("Done")
+                    .foregroundColor(Theme.current.buttonColor.iconColor)
                     .padding()
             }
         }
         .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
-        .buttonStyle(PlainButtonStyle())
     }
     
     // MARK: - Navigation Bar
@@ -271,18 +288,31 @@ struct InputView: View {
                         .renderingMode(.template)
                         .frame(width: 20, height: 20, alignment: .center)
                         .foregroundColor(Theme.current.buttonColor.textColor)
-                }
+                }.animation(.easeInOut, value: viewModel.isInEditMode)
             }
             Spacer()
             if !viewModel.isInEditMode {
                 Button(action: {
                     isFocus = false
-                    dismiss()
+                    isAboutToReset.toggle()
                 }) {
-                    Image(systemName: "xmark")
+                    Image(systemName: "arrow.triangle.2.circlepath.circle")
                         .resizable()
                         .renderingMode(.template)
-                        .frame(width: 20, height: 20, alignment: .center)
+                        .frame(width: 30, height: 30, alignment: .center)
+                        .foregroundColor(Theme.current.buttonColor.textColor)
+                }
+
+                SizedBox(width: 10)
+                
+                Button(action: {
+                    isFocus = false
+                    isAboutToDismiss = true
+                }) {
+                    Image(systemName: "xmark.circle")
+                        .resizable()
+                        .renderingMode(.template)
+                        .frame(width: 30, height: 30, alignment: .center)
                         .foregroundColor(Theme.current.buttonColor.textColor)
                 }
             }
@@ -306,30 +336,127 @@ struct InputView: View {
         }
     }
     
+    func makeAutoScrollButton() -> some View {
+        VStack {
+            Spacer()
+            HStack {
+                Spacer()
+                HStack(spacing: 59) {
+                    ArrowAnimation(foregroundColor: Theme.current.buttonColor.backgroundColor)
+                        .rotationEffect(Angle(degrees: 180))
+                        .onTapGesture {
+                            destination = .top
+                        }
+                    ArrowAnimation(foregroundColor: Theme.current.buttonColor.backgroundColor)
+                        .onTapGesture {
+                            destination = .bottom
+                        }
+                }
+                .rotationEffect(Angle(degrees: 90), anchor: .topTrailing)
+                .padding(.horizontal, 30)
+                .padding(.bottom, 30)
+            }
+        }
+    }
+    
     // MARK: - BODY
     var body: some View {
         ZStack {
             Theme.current.tableViewColor.background
-            List {
-                ForEach(Array(viewModel.sectionModels.enumerated()),
-                        id: \.offset) { index, section in
-                    if section.isVisible || viewModel.isInEditMode{
-                        getSectionCell(sectionModel: section,
-                                       at: index)
+            ScrollViewReader { proxy in
+                List {
+                    ForEach(Array(viewModel.sectionModels.enumerated()),
+                            id: \.offset) { index, section in
+                        if section.isVisible || viewModel.isInEditMode{
+                            getSectionCell(sectionModel: section,
+                                           at: index)
+                                .animation(.easeInOut(duration: 0.2),
+                                           value: section.isVisible)
+                                .id(section.section)
+                        }
+                    }
+                    
+                    if !viewModel.isInEditMode {
+                        Section(header: SizedBox(height: .leastNonzeroMagnitude),
+                                footer: SizedBox(height: 200)) {
+                            doneButton
+                                .id("DoneButton")
+                        }
                     }
                 }
-                
-                if !viewModel.isInEditMode {
-                    Section(header: SizedBox(height: .leastNonzeroMagnitude),
-                            footer: SizedBox(height: isFocus ? 50 : .leastNonzeroMagnitude)) {
-                        doneButton
+                .buttonStyle(PlainButtonStyle())
+                .animation(.easeInOut(duration: 0.2), value: viewModel.state.isInEditMode)
+                .animation(.easeInOut(duration: 0.2), value: viewModel.state.sectionModels)
+                .onChange(of: destination) { destination in
+                    guard let destination = destination else {
+                        return
                     }
+                    
+                    withAnimation(.easeInOut(duration: 0.5)) {
+                        switch destination {
+                        case .top:
+                            proxy.scrollTo(SectionType.emotion, anchor: .top)
+                        case .bottom:
+                            if viewModel.isInEditMode {
+                                guard let section = viewModel.state.sectionModels.last?.section else { return }
+                                proxy.scrollTo(section, anchor: .bottom)
+                            } else {
+                                proxy.scrollTo("DoneButton", anchor: .bottom)
+                            }
+                        }
+                    }
+                    self.destination = nil
                 }
             }
+            
             makeGradient()
+            
+            makeAutoScrollButton()
         }
         .onTapGesture {
             isFocus = false
+        }
+        .customDialog(isShowing: $isAboutToDismiss) {
+            DismissDialog(save: {
+                viewModel.trigger(.doneButtonTapped)
+                dismiss()
+            }, cancel: {
+                isAboutToDismiss.toggle()
+            }, exit: dismiss)
+                .padding()
+        }
+        .animation(.easeInOut, value: isAboutToDismiss)
+        .customDialog(isShowing: $isAboutToReset) {
+            ResetDialog(reset: {
+                viewModel.trigger(.resetButtonTapped)
+                text = ""
+                isAboutToReset.toggle()
+            }, cancel: {
+                isAboutToReset.toggle()
+            })
+                .padding()
+        }
+        .animation(.easeInOut, value: isAboutToReset)
+        .customDialog(isShowing: $isAboutToCustomizeSection,
+                      padding: 20) {
+            Group {
+                if let sectionModel = viewModel.state.selectedSectionModel {
+                    OptionAdditionView(sectionModel: sectionModel,
+                                       onConfirm: { models in
+                        isAboutToCustomizeSection.toggle()
+                        viewModel.trigger(.onCustomSection(models: models))
+                        viewModel.trigger(.onOpenCustomizeSectionDialog(model: nil))
+                    },
+                                       onCancel: {
+                        isAboutToCustomizeSection.toggle()
+                        viewModel.trigger(.onOpenCustomizeSectionDialog(model: nil))
+                    })
+                }
+            }
+        }
+        .animation(.easeInOut, value: isAboutToCustomizeSection)
+        .task {
+            imagePickerController = UIImagePickerController()
         }
     }
 }

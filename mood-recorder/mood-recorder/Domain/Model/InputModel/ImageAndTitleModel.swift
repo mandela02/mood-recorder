@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ImageAndTitleModel {
-    let image: String
+struct ImageAndTitleModel: Equatable {
+    let image: AppImage
     let title: String
 }

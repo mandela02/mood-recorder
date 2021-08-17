@@ -30,10 +30,8 @@ class InputViewModel: ViewModel {
         switch input {
         // MARK: - edit button tapped
         case .editButtonTapped:
-            withAnimation(.easeInOut(duration: 0.2)) {
-                self.state.isInEditMode.toggle()
-            }
-            
+            self.state.isInEditMode.toggle()
+
         // MARK: - done button tapped
         case .doneButtonTapped:
             let model = InputDataModel(sections: self.state.sectionModels)
@@ -49,8 +47,16 @@ class InputViewModel: ViewModel {
         case .optionTap(sectionIndex: let sectionIndex,
                         optionIndex: let optionIndex):
             if self.state.isInEditMode { return }
-            self.state.sectionModels[sectionIndex]
-                .changeOptionSelection(at: optionIndex)
+            if state.sectionModels[sectionIndex].section != .custom {
+                self.state.sectionModels[sectionIndex]
+                    .changeOptionSelection(at: optionIndex)
+            } else {
+                guard let models = state.sectionModels[sectionIndex].cell as? [OptionModel] else { return }
+                let visibleModel = models.filter { $0.isVisible }[optionIndex]
+                guard let trueModelIndex = models.firstIndex(of: visibleModel) else { return }
+                self.state.sectionModels[sectionIndex]
+                    .changeOptionSelection(at: trueModelIndex)
+            }
             
         // MARK: - picture selected
         case .pictureSelected(sectionIndex: let sectionIndex, image: let image):
@@ -60,17 +66,43 @@ class InputViewModel: ViewModel {
         case .onSectionVisibilityChanged(section: let section):
             guard let index = self.state.sectionModels.firstIndex(where: {$0.section == section}) else { return }
             
-            withAnimation(.easeInOut(duration: 0.2)) {
-                self.state.sectionModels[index].changeVisibility()
-
+            self.state.sectionModels[index].changeVisibility()
+            
+            if !self.state.sectionModels[index].isVisible {
+                self.state.sectionModels[index].resetCell()
             }
+            
             self.sort()
         
-        // MARK: - text change
+        // MARK: - Text change
         case .onTextChange(sectionIndex: let sectionIndex, text: let text):
             self.state.sectionModels[sectionIndex].addText(text: text)
+        
+        // MARK: - Reset button tap
+        case .resetButtonTapped:
+            for index in state.sectionModels.indices {
+                self.state.sectionModels[index].resetCell()
+            }
+            
+        // MARK: - Custom Section
+        case .onOpenCustomizeSectionDialog(model: let model):
+            state.selectedSectionModel = model
+            
+        case .onCustomSection(models: var models):
+            guard let options = state.selectedSectionModel?.cell as? [OptionModel]
+            else { return }
+            
+            guard let sectionIndex = state.sectionModels.firstIndex(where: {$0.id == state.selectedSectionModel?.id})
+            else { return }
+            
+            for index in models.indices {
+                guard let model = options.first(where: {$0.content == models[index].content})
+                else { continue }
+                models[index].isSelected = model.isSelected
+            }
+            
+            state.sectionModels[sectionIndex].cell = models
         }
-
     }
         
     private func initData(with emotion: CoreEmotion?, at date: Date) {
@@ -112,15 +144,13 @@ extension InputViewModel {
     }
     
     private func sort() {
-        withAnimation(.easeInOut(duration: 0.2)) {
-            var visibles = self.state.sectionModels.filter { $0.isVisible }
-            visibles.sort(by: { $0.section.rawValue < $1.section.rawValue })
-                    
-            var hiddens = self.state.sectionModels.filter { !$0.isVisible }
-            hiddens.sort(by: { $0.section.rawValue < $1.section.rawValue })
-            
-            self.state.sectionModels = visibles + hiddens
-        }
+        var visibles = self.state.sectionModels.filter { $0.isVisible }
+        visibles.sort(by: { $0.section.rawValue < $1.section.rawValue })
+        
+        var hiddens = self.state.sectionModels.filter { !$0.isVisible }
+        hiddens.sort(by: { $0.section.rawValue < $1.section.rawValue })
+        
+        self.state.sectionModels = visibles + hiddens
     }
 }
 
@@ -131,8 +161,11 @@ extension InputViewModel {
         case pictureSelected(sectionIndex: Int, image: UIImage)
         case onSectionVisibilityChanged(section: SectionType)
         case onTextChange(sectionIndex: Int, text: String)
+        case onOpenCustomizeSectionDialog(model: SectionModel?)
+        case onCustomSection(models: [OptionModel])
         case editButtonTapped
         case doneButtonTapped
+        case resetButtonTapped
     }
     
     struct InputState {
@@ -141,6 +174,8 @@ extension InputViewModel {
 
         var isInEditMode = false
         var sectionModels: [SectionModel] = []
+        
+        var selectedSectionModel: SectionModel?
 
         let response = PassthroughSubject<DatabaseResponse, Never>()
         

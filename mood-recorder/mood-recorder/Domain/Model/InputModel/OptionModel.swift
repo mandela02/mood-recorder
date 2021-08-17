@@ -7,25 +7,37 @@
 
 import Foundation
 
-struct OptionModel: Equatable, Identifiable {
+struct OptionModel: Equatable, Identifiable, Hashable {
     static func == (lhs: OptionModel, rhs: OptionModel) -> Bool {
-        lhs.id == rhs.id
+        lhs.id == rhs.id || lhs.content == rhs.content
     }
     
-    init(content: ImageAndTitleModel, optionID: Int, isSelected: Bool = false) {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+
+    init(content: ImageAndTitleModel, isSelected: Bool = false) {
         self.content = content
-        self.optionID = optionID
         self.isSelected = isSelected
     }
     
     let id = UUID()
     
-    let optionID: Int
-    let content: ImageAndTitleModel
+    var content: ImageAndTitleModel
     
     var isSelected: Bool = false
     
+    var isVisible: Bool = true
+
     mutating func changeSelectionStatus() {
         isSelected.toggle()
+    }
+    
+    mutating func visibilitySync() {
+        isSelected = isVisible
+    }
+    
+    mutating func selectionSync() {
+        isVisible = isSelected
     }
 }
