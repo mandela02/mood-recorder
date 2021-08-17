@@ -23,7 +23,7 @@ struct OptionModel: Equatable, Identifiable, Hashable {
     
     let id = UUID()
     
-    let content: ImageAndTitleModel
+    var content: ImageAndTitleModel
     
     var isSelected: Bool = false
     

@@ -21,18 +21,24 @@ struct CusomOptionView: View {
     @State private var title: String = ""
 
     let namespace: Namespace.ID
+    
     let onClose: Function
     let onCreate: CallbackFunction
-    
+    let onUpdate: CallbackFunction
+
     init(namespace: Namespace.ID,
+         optionModel: OptionModel?,
          onClose: @escaping Function,
-         onCreate: @escaping CallbackFunction) {
+         onCreate: @escaping CallbackFunction,
+         onUpdate: @escaping CallbackFunction) {
+        
         self.namespace = namespace
         
         self.onClose = onClose
         self.onCreate = onCreate
+        self.onUpdate = onUpdate
         
-        let customOptionState = CustomOptionState()
+        let customOptionState = CustomOptionState(initialOptionModel: optionModel)
         viewModel = BaseViewModel(CustomOptionViewModel(state: customOptionState))
     }
     
@@ -81,6 +87,36 @@ struct CusomOptionView: View {
         }
     }
     
+    func makePlusButton() -> some View {
+        Button(action: {
+            if viewModel.isSaveEnable {
+                viewModel.trigger(.loadData)
+                if let model = viewModel.outputModel {
+                    if viewModel.isInEditMode {
+                        onUpdate(model)
+                    } else {
+                        onCreate(model)
+                    }
+                }
+            }
+        }) {
+            ZStack {
+                (viewModel.isSaveEnable ?
+                 Theme.current.buttonColor.backgroundColor :
+                    Theme.current.buttonColor.disableColor)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 50)
+                Image(systemName: "plus")
+                    .resizable()
+                    .renderingMode(.template)
+                    .frame(width: 25, height: 25, alignment: .center)
+                    .foregroundColor(Theme.current.buttonColor.iconColor)
+            }
+        }
+        .disabled(!viewModel.isSaveEnable)
+        .animation(.easeInOut, value: viewModel.isSaveEnable)
+    }
+    
     var body: some View {
         VStack {
             VStack {
@@ -107,6 +143,9 @@ struct CusomOptionView: View {
                     .onChange(of: title) { newValue in
                         viewModel.trigger(.textChange(text: newValue))
                     }
+                    .onAppear {
+                        title = viewModel.state.title ?? ""
+                    }
                 
                 makePagingController()
                 
@@ -119,31 +158,14 @@ struct CusomOptionView: View {
             
             Spacer()
             
-            Button(action: {
-                if viewModel.isSaveEnable {
-                    viewModel.trigger(.loadData)
-                    if let model = viewModel.outputModel {
-                        onCreate(model)
-                    }
-                }
-            }) {
-                ZStack {
-                    (viewModel.isSaveEnable ?
-                     Theme.current.buttonColor.backgroundColor :
-                        Theme.current.buttonColor.disableColor)
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 50)
-                    Image(systemName: "plus")
-                        .resizable()
-                        .renderingMode(.template)
-                        .frame(width: 25, height: 25, alignment: .center)
-                        .foregroundColor(Theme.current.buttonColor.iconColor)
-                }
+            if viewModel.isInEditMode {
+                makePlusButton()
+            } else {
+                makePlusButton()
+                    .matchedGeometryEffect(id: "SaveButton",
+                                           in: namespace,
+                                           isSource: false)
             }
-            .disabled(!viewModel.isSaveEnable)
-            .animation(.easeInOut, value: viewModel.isSaveEnable)
-            .matchedGeometryEffect(id: "SaveButton",
-                                   in: namespace)
         }
         .background(Color.white)
         .cornerRadius(20)

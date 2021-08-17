@@ -64,8 +64,10 @@ class OptionAdditionViewModel: ViewModel {
         case .optionTap(let optionIndex):
             state.optionModels[state.currentPage][optionIndex]
                 .changeSelectionStatus()
+            
         case .goToPage(let page):
             state.currentPage = page
+            
         case .loadData:
             var allModels = state.optionModels.flatMap({$0})
             var selectedModels = [OptionModel]()
@@ -83,6 +85,7 @@ class OptionAdditionViewModel: ViewModel {
             }
 
             self.state.outPutModels = selectedModels
+            
         case .addData(model: var model):
             let lastIndex = self.state.optionModels.count - 1
             model.isSelected = true
@@ -95,6 +98,30 @@ class OptionAdditionViewModel: ViewModel {
                 let index = state.optionModels[lastIndex].endIndex - 1
                 self.state.optionModels[lastIndex].insert(model, at: index)
             }
+            
+            state.numberOfPage = self.state.optionModels.count
+            
+        case .editStart(model: let model):
+            state.selectedModel = model
+            
+        case .editEnd(model: let model):
+            guard let selectedModel = state.selectedModel,
+                  let index = state.optionModels[state.currentPage].firstIndex(of: selectedModel) else { return }
+            state.optionModels[state.currentPage][index].content = model.content
+            state.selectedModel = nil
+            
+        case .delete(model: let model):
+            var allModels = state.optionModels.flatMap({$0})
+            guard let index = state.optionModels[state.currentPage].firstIndex(of: model) else { return }
+            allModels.remove(at: index)
+            self.state.optionModels = allModels.chunked(into: 15)
+            self.state.numberOfPage = self.state.optionModels.count
+            if state.currentPage == self.state.optionModels.count {
+                state.currentPage -= 1
+            }
+            
+        case .clear:
+            state.selectedModel = nil
         }
     }
     
@@ -107,10 +134,15 @@ class OptionAdditionViewModel: ViewModel {
         var status = SectionStatus.normal
         
         var outPutModels: [OptionModel] = []
+        var selectedModel: OptionModel?
         
         enum SectionStatus {
             case normal
             case custom
+        }
+        
+        var isCustomSection: Bool {
+            return initialSectionModel.section == .custom
         }
     }
     
@@ -119,5 +151,9 @@ class OptionAdditionViewModel: ViewModel {
         case goToPage(page: Int)
         case loadData
         case addData(model: OptionModel)
+        case editStart(model: OptionModel)
+        case editEnd(model: OptionModel)
+        case clear
+        case delete(model: OptionModel)
     }
 }

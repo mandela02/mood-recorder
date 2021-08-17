@@ -378,7 +378,7 @@ struct InputView: View {
                     
                     if !viewModel.isInEditMode {
                         Section(header: SizedBox(height: .leastNonzeroMagnitude),
-                                footer: SizedBox(height: isFocus ? 50 : .leastNonzeroMagnitude)) {
+                                footer: SizedBox(height: 200)) {
                             doneButton
                                 .id("DoneButton")
                         }
@@ -398,7 +398,8 @@ struct InputView: View {
                             proxy.scrollTo(SectionType.emotion, anchor: .top)
                         case .bottom:
                             if viewModel.isInEditMode {
-                                proxy.scrollTo(SectionType.custom, anchor: .bottom)
+                                guard let section = viewModel.state.sectionModels.last?.section else { return }
+                                proxy.scrollTo(section, anchor: .bottom)
                             } else {
                                 proxy.scrollTo("DoneButton", anchor: .bottom)
                             }

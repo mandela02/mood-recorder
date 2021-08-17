@@ -24,7 +24,7 @@ struct OptionAdditionView: View {
     @State var isAboutToAddMore: Bool = false
     
     @Namespace var namespace
-
+    
     init(sectionModel: SectionModel,
          onConfirm: @escaping CallbackFunction,
          onCancel: @escaping Function) {
@@ -58,40 +58,71 @@ struct OptionAdditionView: View {
         }
     }
     
+    func getIconCell(optionIndex: Int, optionModel: OptionModel) -> some View {
+        LazyVStack(spacing: 5) {
+            Button(action: {
+                if optionModel.content.image == .systemPlus {
+                    viewModel.trigger(.clear)
+                    isAboutToAddMore.toggle()
+                } else {
+                    viewModel.trigger(.optionTap(optionIndex: optionIndex))
+                }
+            }, label: {
+                if optionModel.content.image == .systemPlus {
+                    if viewModel.currentPage == viewModel.numberOfPage - 1 {
+                        plusButtonImage()
+                            .matchedGeometryEffect(id: "SaveButton",
+                                                   in: namespace,
+                                                   isSource: true)
+                    } else {
+                        plusButtonImage()
+                    }
+                } else {
+                    RoundImageView(image: optionModel.content.image.value.image,
+                                   backgroundColor: iconBackgroundColor(optionModel.isSelected))
+                        .saturation(optionModel.isSelected ? 1 : 0)
+                }
+            })
+                .aspectRatio(1, contentMode: .fit)
+                .buttonStyle(ResizeAnimationButtonStyle())
+                .animation(Animation.easeInOut, value: optionModel.isSelected)
+            
+            if optionModel.content.title != "" {
+                Text(optionModel.content.title)
+                    .foregroundColor(Theme.current.tableViewColor.text)
+                    .font(.system(size: 12))
+            }
+        }
+    }
+    
+    @ViewBuilder
     func getIconGrid(optionModels: [OptionModel]) -> some View {
         LazyVGrid(columns: Array(repeating: GridItem(.flexible(),
                                                      alignment: .top),
                                  count: 5),
                   content: {
-            ForEach(Array(optionModels.enumerated()),
-                    id: \.offset) { optionIndex, optionModel in
-                LazyVStack(spacing: 5) {
-                    Button(action: {
-                        if optionModel.content.image == .systemPlus {
-                            isAboutToAddMore.toggle()
-                        } else {
-                            viewModel.trigger(.optionTap(optionIndex: optionIndex))
+            ForEach(optionModels.indices,
+                    id: \.self) { optionIndex in
+                let optionModel = optionModels[optionIndex]
+                
+                if viewModel.isCustomSection && optionModel.content.image != .systemPlus {
+                    getIconCell(optionIndex: optionIndex, optionModel: optionModel)
+                        .contextMenu {
+                            Button {
+                                viewModel.trigger(.editStart(model: optionModel))
+                                isAboutToAddMore.toggle()
+                            } label: {
+                                Label("Edit", systemImage: "globe")
+                            }
+                            
+                            Button {
+                                viewModel.trigger(.delete(model: optionModel))
+                            } label: {
+                                Label("Delete", systemImage: "location.circle")
+                            }
                         }
-                    }, label: {
-                        if optionModel.content.image == .systemPlus {
-                            plusButtonImage()
-                                .matchedGeometryEffect(id: "SaveButton",
-                                                       in: namespace)
-                        } else {
-                            RoundImageView(image: optionModel.content.image.value.image,
-                                           backgroundColor: iconBackgroundColor(optionModel.isSelected))
-                                .saturation(optionModel.isSelected ? 1 : 0)
-                        }
-                    })
-                        .aspectRatio(1, contentMode: .fit)
-                        .buttonStyle(ResizeAnimationButtonStyle())
-                        .animation(Animation.easeInOut, value: optionModel.isSelected)
-                    
-                    if optionModel.content.title != "" {
-                        Text(optionModel.content.title)
-                            .foregroundColor(Theme.current.tableViewColor.text)
-                            .font(.system(size: 12))
-                    }
+                } else {
+                    getIconCell(optionIndex: optionIndex, optionModel: optionModel)
                 }
             }
         })
@@ -161,11 +192,16 @@ struct OptionAdditionView: View {
     
     var addMoreDialog: some View {
         CusomOptionView(namespace: namespace,
+                        optionModel: viewModel.selectedModel,
                         onClose: {
             isAboutToAddMore.toggle()
+            self.viewModel.trigger(.clear)
         }, onCreate: { model in
             isAboutToAddMore.toggle()
             self.viewModel.trigger(.addData(model: model))
+        }, onUpdate: { model in
+            isAboutToAddMore.toggle()
+            self.viewModel.trigger(.editEnd(model: model))
         })
     }
     
@@ -177,6 +213,8 @@ struct OptionAdditionView: View {
         .overlay {
             if isAboutToAddMore {
                 addMoreDialog
+            } else {
+                Color.clear
             }
         }
         .animation(.easeInOut, value: isAboutToAddMore)

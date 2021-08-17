@@ -13,6 +13,11 @@ class CustomOptionViewModel: ViewModel {
     init(state: CustomOptionState) {
         self.state = state
         
+        if let option = state.initialOptionModel {
+            self.state.selectedImage = option.content.image
+            self.state.title = option.content.title
+        }
+        
         var allImage = AppImage.allCases
         allImage.removeLast()
 
@@ -44,6 +49,8 @@ class CustomOptionViewModel: ViewModel {
     }
     
     struct CustomOptionState {
+        var initialOptionModel: OptionModel?
+        
         var images: [[AppImage]] = []
         var currentPage = 0
         var numberOfPage = 0
@@ -55,6 +62,10 @@ class CustomOptionViewModel: ViewModel {
         
         var isSaveEnable: Bool {
             return title != nil && title != "" && selectedImage != nil
+        }
+        
+        var isInEditMode: Bool {
+            return initialOptionModel != nil
         }
     }
     
