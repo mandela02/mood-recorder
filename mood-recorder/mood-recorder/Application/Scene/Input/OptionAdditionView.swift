@@ -111,13 +111,13 @@ struct OptionAdditionView: View {
                                 viewModel.trigger(.editStart(model: optionModel))
                                 isAboutToAddMore.toggle()
                             } label: {
-                                Label("Edit", systemImage: "globe")
+                                Label("Edit", systemImage: "pencil.circle.fill")
                             }
                             
                             Button {
                                 viewModel.trigger(.delete(model: optionModel))
                             } label: {
-                                Label("Delete", systemImage: "location.circle")
+                                Label("Delete", systemImage: "trash.circle.fill")
                             }
                         }
                 } else {
@@ -169,15 +169,24 @@ struct OptionAdditionView: View {
                     .foregroundColor(Theme.current.commonColor.textColor)
                     .fontWeight(.bold)
                     .font(.system(size: 20))
-                    .padding(.all, 10)
+                    .padding(EdgeInsets(top: 10, leading: 10, bottom: 0, trailing: 10))
                 Spacer()
             }
             
+            if viewModel.isCustomSection {
+                HStack {
+                    Text("* Tap and hold to edit and delete")
+                        .foregroundColor(Theme.current.commonColor.textColor)
+                        .fontWeight(.regular)
+                        .font(.system(size: 10))
+                        .padding(.all, 10)
+                    Spacer()
+                }
+            }
+            
             makePagingController()
-                .padding(.horizontal, 10)
-            
-            SizedBox(height: 10)
-            
+                .padding(.bottom, 10)
+                                    
             VStack {
                 createButton(title: "Confirm", callback: {
                     viewModel.trigger(.loadData)
