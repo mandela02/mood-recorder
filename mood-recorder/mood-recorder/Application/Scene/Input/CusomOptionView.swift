@@ -163,8 +163,7 @@ struct CusomOptionView: View {
             } else {
                 makePlusButton()
                     .matchedGeometryEffect(id: "SaveButton",
-                                           in: namespace,
-                                           isSource: false)
+                                           in: namespace)
             }
         }
         .background(Color.white)

@@ -22,7 +22,7 @@ struct OptionAdditionView: View {
     
     @State var currentIndex: Int = 0
     @State var isAboutToAddMore: Bool = false
-    
+
     @Namespace var namespace
     
     init(sectionModel: SectionModel,
@@ -69,13 +69,12 @@ struct OptionAdditionView: View {
                 }
             }, label: {
                 if optionModel.content.image == .systemPlus {
-                    if viewModel.currentPage == viewModel.numberOfPage - 1 {
+                    if !isAboutToAddMore {
                         plusButtonImage()
                             .matchedGeometryEffect(id: "SaveButton",
-                                                   in: namespace,
-                                                   isSource: true)
+                                                   in: namespace)
                     } else {
-                        plusButtonImage()
+                        Color.clear
                     }
                 } else {
                     RoundImageView(image: optionModel.content.image.value.image,
@@ -213,8 +212,6 @@ struct OptionAdditionView: View {
         .overlay {
             if isAboutToAddMore {
                 addMoreDialog
-            } else {
-                Color.clear
             }
         }
         .animation(.easeInOut, value: isAboutToAddMore)
