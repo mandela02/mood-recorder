@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct ClockAnimationView: View {
-    @State var bedTimeProgress: CGFloat = 0
-    @State var bedTimeAngle: Double = 0
+    @State var bedTimeProgress: CGFloat = 0.75
+    @State var bedTimeAngle: Double = 0.75 * 360
     
-    @State var wakeTimeProgress: CGFloat = 0
-    @State var wakeTimeAngle: Double = 0
+    @State var wakeTimeProgress: CGFloat = 0.25
+    @State var wakeTimeAngle: Double = 0.25 * 360
     
-    @State var bedTime: String = "00:00"
-    @State var wakeTime: String = "00:00"
+    @State var bedTime: String = "18:00"
+    @State var wakeTime: String = "06:00"
         
     private var defaultWidth: CGFloat = 50
     
@@ -23,50 +23,79 @@ struct ClockAnimationView: View {
     
     let sectment: Double
     
+    let images = [AppImage.newMoon, AppImage.cloudyDay, AppImage.sunny, AppImage.cloudyNight]
+    
     init() {
         hourStrings = stride(from: 2, to: 26, by: 2).map {"\($0)"}
         sectment = 360 / Double(hourStrings.count)
     }
     
+    // MARK: - BODY
     var body: some View {
         ZStack {
-            Theme.current.tableViewColor.background
+            Theme.current.sleepColor.backgroundColor
                 .ignoresSafeArea()
             VStack {
-                makeTimeView()
-                    .padding()
+                buildHourOfSleep()
                 GeometryReader { proxy in
                     let offset = 0 - (proxy.size.width / 2 - defaultWidth)
+                    let imageWidth = (proxy.size.width / 2 - defaultWidth * 2) / 2
                     
                     ZStack {
-                        makeProgressView(width: proxy.size.width)
-                        ForEach(hourStrings.indices, id: \.self) { index in
-                            Text(hourStrings[index])
-                                .font(.system(size: 10))
-                                .foregroundColor(Theme.current.commonColor.textColor)
-                                .rotationEffect(.degrees(0 - Double(index + 1) * sectment))
-                                .offset(y: offset + 20)
-                                .rotationEffect(.degrees(Double(index + 1) * sectment))
-                        }
-                        ForEach((0...47), id: \.self) { index in
-                            Group {
-                                if index % 2 == 0 {
-                                    bigRect
-                                } else {
-                                    smallRect
-                                }
-                            }
-                            .offset(y: offset)
-                            .rotationEffect(.degrees(Double(index) * 7.5))
-                        }
+                        buildProgressView(width: proxy.size.width)
+                        buildClock(offset: offset)
+                        buildImages(offset: offset, width: imageWidth)
                     }
                 }
                 .padding(.all, 50)
+                .aspectRatio(1, contentMode: .fit)
+                buildTimeView()
+                    .padding()
             }
         }
     }
 }
 
+// MARK: - CLOCK VIEW
+extension ClockAnimationView {
+    func buildClock(offset: CGFloat) -> some View {
+        ZStack {
+            ForEach(hourStrings.indices, id: \.self) { index in
+                Text(hourStrings[index])
+                    .font(.system(size: 10))
+                    .foregroundColor(Theme.current.sleepColor.textColor)
+                    .rotationEffect(.degrees(0 - Double(index + 1) * sectment))
+                    .offset(y: offset + 20)
+                    .rotationEffect(.degrees(Double(index + 1) * sectment))
+            }
+            ForEach((0...47), id: \.self) { index in
+                Group {
+                    if index % 2 == 0 {
+                        bigRect
+                    } else {
+                        smallRect
+                    }
+                }
+                .offset(y: offset)
+                .rotationEffect(.degrees(Double(index) * 7.5))
+            }
+        }
+    }
+    
+    func buildImages(offset: CGFloat, width: CGFloat) -> some View {
+        ForEach(images.indices, id: \.self) { index in
+            Image(images[index].value)
+                .resizable()
+                .aspectRatio(1, contentMode: .fit)
+                .frame(width: width)
+                .rotationEffect(.degrees(0 - Double(index) * 90))
+            .offset(y: offset + 50)
+            .rotationEffect(.degrees(Double(index) * 90))
+        }
+    }
+}
+
+// MARK: - TIME VIEW
 extension ClockAnimationView {
     var bigRect: some View {
         Color.gray.frame(width: 3, height: 10)
@@ -76,26 +105,55 @@ extension ClockAnimationView {
         Color.gray.frame(width: 2, height: 5)
     }
     
-    func makeTimeView() -> some View {
+    func buildTimeView() -> some View {
         HStack {
             VStack {
-                Text("Bedtime")
+                Text("Sleep at")
                     .font(.system(size: 15))
                     .lineLimit(1)
+                    .foregroundColor(Theme.current.sleepColor.textColor)
                 Text(bedTime)
                     .bold()
                     .font(.system(size: 20))
+                    .foregroundColor(Theme.current.sleepColor.textColor)
             }
-            Spacer()
+            .frame(minWidth: 0, maxWidth: .infinity)
+            Theme.current.sleepColor.buttonColor
+                .frame(width: 2, height: 45, alignment: .center)
             VStack {
-                Text("Wake up time")
+                Text("Wake up at")
                     .font(.system(size: 15))
                     .lineLimit(1)
+                    .foregroundColor(Theme.current.sleepColor.textColor)
                 Text(wakeTime)
                     .bold()
                     .font(.system(size: 20))
+                    .foregroundColor(Theme.current.sleepColor.textColor)
             }
+            .frame(minWidth: 0, maxWidth: .infinity)
         }
+    }
+    
+    func buildHourOfSleep() -> some View {
+        VStack {
+            Text("Hours of sleep")
+                .foregroundColor(Theme.current.sleepColor.textColor)
+                .font(.system(size: 20))
+            Text(calculateHourOfSleep())
+                .foregroundColor(Theme.current.sleepColor.textColor)
+                .font(.system(size: 25))
+        }
+    }
+    
+    func calculateHourOfSleep() -> String {
+        var hourOfSleep = 0
+
+        if bedTimeProgress > wakeTimeProgress {
+            hourOfSleep = Int((1 - bedTimeProgress + wakeTimeProgress)  * 24 * 60)
+        } else {
+            hourOfSleep = Int((wakeTimeProgress - bedTimeProgress)  * 24 * 60)
+        }
+        return hourOfSleep.generateHourMinuteString()
     }
 }
 
@@ -141,14 +199,14 @@ extension ClockAnimationView {
                 Circle()
                     .trim(from: bedTimeProgress,
                           to: 1)
-                    .stroke(Theme.current.buttonColor.backgroundColor,
+                    .stroke(Theme.current.sleepColor.smallCircleColor,
                             style: StrokeStyle(lineWidth: defaultWidth - 10,
                                                lineCap: .round,
                                                lineJoin: .round))
                 Circle()
                     .trim(from: 0,
                           to: wakeTimeProgress)
-                    .stroke(Theme.current.buttonColor.backgroundColor,
+                    .stroke(Theme.current.sleepColor.smallCircleColor,
                             style: StrokeStyle(lineWidth: defaultWidth - 10,
                                                lineCap: .round,
                                                lineJoin: .round))
@@ -157,17 +215,17 @@ extension ClockAnimationView {
             Circle()
                 .trim(from: bedTimeProgress,
                       to: wakeTimeProgress)
-                .stroke(Theme.current.buttonColor.backgroundColor,
+                .stroke(Theme.current.sleepColor.smallCircleColor,
                         style: StrokeStyle(lineWidth: defaultWidth - 10,
                                            lineCap: .round,
                                            lineJoin: .round))
         }
     }
     
-    private func makeProgressView(width: CGFloat) -> some View {
+    private func buildProgressView(width: CGFloat) -> some View {
         ZStack {
             Circle()
-                .stroke(Theme.current.buttonColor.disableColor,
+                .stroke(Theme.current.sleepColor.bigCircleColor,
                         style: StrokeStyle(lineWidth: defaultWidth,
                                            lineCap: .round,
                                            lineJoin: .round))
@@ -180,9 +238,9 @@ extension ClockAnimationView {
             Image(systemName: "zzz")
                 .resizable()
                 .padding(.all, 10)
-                .background(Color.white)
+                .background(Theme.current.sleepColor.buttonBackground)
                 .clipShape(Circle())
-                .foregroundColor(Theme.current.buttonColor.backgroundColor)
+                .foregroundColor(Theme.current.sleepColor.buttonColor)
                 .scaleEffect(0.6)
                 .rotationEffect(.degrees(0 - bedTimeAngle + 90))
                 .frame(width: defaultWidth, height: defaultWidth, alignment: .center)
@@ -195,9 +253,9 @@ extension ClockAnimationView {
             Image(systemName: "bell.fill")
                 .resizable()
                 .padding(.all, 10)
-                .background(Color.white)
+                .background(Theme.current.sleepColor.buttonBackground)
                 .clipShape(Circle())
-                .foregroundColor(Theme.current.buttonColor.backgroundColor)
+                .foregroundColor(Theme.current.sleepColor.buttonColor)
                 .scaleEffect(0.6)
                 .rotationEffect(.degrees(0 - wakeTimeAngle + 90))
                 .frame(width: defaultWidth, height: defaultWidth, alignment: .center)

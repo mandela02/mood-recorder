@@ -47,10 +47,20 @@ struct ThemeColor {
         var textBackground: Color
     }
     
+    struct SleepColor {
+        var backgroundColor: Color
+        var bigCircleColor: Color
+        var smallCircleColor: Color
+        var textColor: Color
+        var buttonColor: Color
+        var buttonBackground: Color
+    }
+    
     let navigationColor: NavigationColor
     let tableViewColor: TableViewColor
     let buttonColor: ButtonColor
     let commonColor: CommonColor
+    let sleepColor: SleepColor
 }
 
 struct ThemeValue {
@@ -58,6 +68,7 @@ struct ThemeValue {
     typealias TableViewColor            = ThemeColor.TableViewColor
     typealias ButtonColor               = ThemeColor.ButtonColor
     typealias CommonColor               = ThemeColor.CommonColor
+    typealias SleepColor                = ThemeColor.SleepColor
     
     static let matchaGreen = ThemeColor(navigationColor: NavigationColor(button: Color(hex: "FFFFFF"),
                                                                          title: Color(hex: "FFFFFF"),
@@ -70,5 +81,11 @@ struct ThemeValue {
                                                                  iconColor: Color(hex: "FFFFFF"),
                                                                  disableColor: Color(hex: "EDEDED")),
                                         commonColor: CommonColor(textColor: Color(hex: "767676"),
-                                                                 textBackground: Color(hex: "EDEDED")))
+                                                                 textBackground: Color(hex: "EDEDED")),
+                                        sleepColor: SleepColor(backgroundColor: Color(hex: "F5FAF4"),
+                                                               bigCircleColor: Color(hex: "EDEDED"),
+                                                               smallCircleColor: Color(hex: "9AA987"),
+                                                               textColor: Color(hex: "767676"),
+                                                               buttonColor: Color(hex: "9AA987"),
+                                                               buttonBackground: Color(hex: "FFFFFF")))
 }
