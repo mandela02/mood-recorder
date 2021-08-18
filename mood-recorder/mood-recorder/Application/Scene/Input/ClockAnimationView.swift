@@ -16,7 +16,12 @@ struct ClockAnimationView: View {
     
     @State var bedTime: String = "18:00"
     @State var wakeTime: String = "06:00"
-        
+    
+    @State private var isRinging = false
+    @State private var showZleft = false
+    @State private var showZmiddle = false
+    @State private var showZright = false
+
     private var defaultWidth: CGFloat = 50
     
     let hourStrings: [String]
@@ -107,11 +112,14 @@ extension ClockAnimationView {
     
     func buildTimeView() -> some View {
         HStack {
-            VStack {
-                Text("Sleep at")
-                    .font(.system(size: 15))
-                    .lineLimit(1)
-                    .foregroundColor(Theme.current.sleepColor.textColor)
+            VStack(spacing: 15) {
+                HStack {
+                    buildBedView()
+                    Text("Sleep at")
+                        .font(.system(size: 15))
+                        .lineLimit(1)
+                        .foregroundColor(Theme.current.sleepColor.textColor)
+                }
                 Text(bedTime)
                     .bold()
                     .font(.system(size: 20))
@@ -120,11 +128,14 @@ extension ClockAnimationView {
             .frame(minWidth: 0, maxWidth: .infinity)
             Theme.current.sleepColor.buttonColor
                 .frame(width: 2, height: 45, alignment: .center)
-            VStack {
-                Text("Wake up at")
-                    .font(.system(size: 15))
-                    .lineLimit(1)
-                    .foregroundColor(Theme.current.sleepColor.textColor)
+            VStack(spacing: 15) {
+                HStack {
+                    buildBell()
+                    Text("Wake up at")
+                        .font(.system(size: 15))
+                        .lineLimit(1)
+                        .foregroundColor(Theme.current.sleepColor.textColor)
+                }
                 Text(wakeTime)
                     .bold()
                     .font(.system(size: 20))
@@ -263,6 +274,66 @@ extension ClockAnimationView {
                 .rotationEffect(.init(degrees: wakeTimeAngle))
                 .gesture(DragGesture().onChanged(onDragEndCircle(value:)))
                 .rotationEffect(.init(degrees: -90))
+        }
+    }
+}
+
+extension ClockAnimationView {
+    private func buildBell() -> some View {
+        Image(systemName: "bell.fill")
+            .font(.title)
+            .foregroundColor(Theme.current.sleepColor.buttonColor)
+            .rotationEffect(.degrees(isRinging ? 0 : 90), anchor: .top)
+            .animation(Animation
+                        .interpolatingSpring(stiffness: 170,
+                                                     damping: 5)
+                        .repeatForever(autoreverses: false),
+                       value: isRinging)
+            .onAppear(perform: {
+                isRinging.toggle()
+            })
+    }
+    
+    func buildBedView() -> some View {
+        ZStack {
+            Image(systemName: "bed.double.fill")
+                .font(.title)
+                .foregroundColor(Theme.current.sleepColor.buttonColor)
+            
+            Text("Z")
+                .foregroundColor(Theme.current.sleepColor.buttonColor)
+                .font(.headline)
+                .scaleEffect(showZmiddle ? 1 : 0.5)
+                .rotationEffect(.degrees(showZmiddle ? -30 : 30), anchor: .bottomTrailing)
+                .opacity(showZmiddle ? 1 : 0)
+                .animation(Animation.easeInOut(duration: 1.5).delay(2).repeatForever(autoreverses: false), value: showZmiddle)
+                .offset(x: -10, y: showZmiddle ? -60 : -3)
+                .onAppear(perform: {
+                    showZmiddle.toggle()
+                })
+            
+            Text("Z")
+                .foregroundColor(Theme.current.sleepColor.buttonColor)
+                .scaleEffect(showZleft ? 1 : 0.5)
+                .rotationEffect(.degrees(showZleft ? 30 : 60), anchor: .bottomTrailing)
+                .opacity(showZleft ? 1 : 0)
+                .animation(Animation.easeInOut(duration: 1.5).delay(2).repeatForever(autoreverses: false), value: showZleft)
+                .offset(x: showZright ? -40 : -8, y: showZleft ? -50 : 0)
+                .onAppear(perform: {
+                    showZleft.toggle()
+                })
+            
+            Text("Z")
+                .font(.caption)
+                .foregroundColor(Theme.current.sleepColor.buttonColor)
+                .scaleEffect(0.8)
+                .rotationEffect(.degrees(showZright ? -45 : 45), anchor: .bottomTrailing)
+                .opacity(showZright ? 1 : 0)
+                .animation(Animation.easeInOut(duration: 1.5).delay(2).repeatForever(autoreverses: false), value: showZright)
+                .offset(x: showZright ? -40 : -8, y: showZleft ? -50 : 0)
+                .onAppear(perform: {
+                    showZright.toggle()
+                })
         }
     }
 }
