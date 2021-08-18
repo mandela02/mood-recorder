@@ -26,6 +26,7 @@ struct InputView: View {
     @State private var isAboutToDismiss = false
     @State private var isAboutToCustomizeSection = false
     @State private var isAboutToReset = false
+    @State private var isAboutToShowTimePicker = false
     @State private var destination: ScrollDestination?
     @State private var imagePickerController: UIImagePickerController?
     
@@ -161,6 +162,9 @@ struct InputView: View {
         }
         .cornerRadius(10)
         .frame(minHeight: 50)
+        .onTapGesture {
+            isAboutToShowTimePicker.toggle()
+        }
     }
     
     // MARK: - Section Content
@@ -455,6 +459,12 @@ struct InputView: View {
             }
         }
         .animation(.easeInOut, value: isAboutToCustomizeSection)
+        .customDialog(isShowing: $isAboutToShowTimePicker, padding: 20) {
+            ClockAnimationView(onCancel: {
+                isAboutToShowTimePicker.toggle()
+            }, onCallback: {_, _ in})
+        }
+        .animation(.easeInOut, value: isAboutToShowTimePicker)
         .task {
             imagePickerController = UIImagePickerController()
         }

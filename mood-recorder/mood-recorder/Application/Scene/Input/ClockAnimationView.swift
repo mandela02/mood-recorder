@@ -51,9 +51,10 @@ struct ClockAnimationView: View {
                 .ignoresSafeArea()
             VStack {
                 buildHourOfSleep()
+                    .padding(.top, 50)
                 GeometryReader { proxy in
-                    let offset = 0 - (proxy.size.width / 2 - defaultWidth)
-                    let imageWidth = (proxy.size.width / 2 - defaultWidth * 2) / 2
+                    let offset = 0 - (proxy.size.width - (defaultWidth - 10) * 2) / 2
+                    let imageWidth = (proxy.size.width / 2 - (defaultWidth - 10) * 2) / 2
                     
                     ZStack {
                         buildProgressView(width: proxy.size.width)
@@ -61,11 +62,11 @@ struct ClockAnimationView: View {
                         buildImages(offset: offset, width: imageWidth)
                     }
                 }
-                .padding()
+                .padding(.all, 50)
                 .aspectRatio(1, contentMode: .fit)
                 buildTimeView()
                     .padding()
-                
+                Spacer()
                 VStack {
                     createButton(title: "OK", callback: {
                         onCallback(bedTimeInMinute, wakeUpTimeInMinute)
@@ -76,11 +77,21 @@ struct ClockAnimationView: View {
                 .padding()
             }
         }
+        .cornerRadius(20)
     }
 }
 
 // MARK: - CLOCK VIEW
 extension ClockAnimationView {
+    var bigRect: some View {
+        Color.gray.frame(width: 3, height: 10)
+    }
+    
+    var smallRect: some View {
+        Color.gray.frame(width: 2, height: 5)
+    }
+    
+
     func buildClock(offset: CGFloat) -> some View {
         ZStack {
             ForEach(hourStrings.indices, id: \.self) { index in
@@ -120,14 +131,6 @@ extension ClockAnimationView {
 
 // MARK: - TIME VIEW
 extension ClockAnimationView {
-    var bigRect: some View {
-        Color.gray.frame(width: 3, height: 10)
-    }
-    
-    var smallRect: some View {
-        Color.gray.frame(width: 2, height: 5)
-    }
-    
     func buildTimeView() -> some View {
         HStack {
             VStack(spacing: 15) {
@@ -140,7 +143,7 @@ extension ClockAnimationView {
                 }
                 Text(bedTime)
                     .bold()
-                    .font(.system(size: 20))
+                    .font(.system(size: 25))
                     .foregroundColor(Theme.current.sleepColor.textColor)
             }
             .frame(minWidth: 0, maxWidth: .infinity)
@@ -156,7 +159,7 @@ extension ClockAnimationView {
                 }
                 Text(wakeTime)
                     .bold()
-                    .font(.system(size: 20))
+                    .font(.system(size: 25))
                     .foregroundColor(Theme.current.sleepColor.textColor)
             }
             .frame(minWidth: 0, maxWidth: .infinity)
@@ -170,7 +173,7 @@ extension ClockAnimationView {
                 .font(.system(size: 20))
             Text(calculateHourOfSleep())
                 .foregroundColor(Theme.current.sleepColor.textColor)
-                .font(.system(size: 25))
+                .font(.system(size: 30))
         }
     }
     
