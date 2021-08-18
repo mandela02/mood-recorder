@@ -18,12 +18,11 @@ struct ClockAnimationView: View {
     
     let hourStrings: [String]
     
-    let sectment: CGFloat
-    let offset: CGFloat
+    let sectment: Double
     
     init() {
-        hourStrings = stride(from: 2, to: 24, by: 2).map {"\($0)"}
-        sectment = 360 / CGFloat(hourStrings.count())
+        hourStrings = stride(from: 2, to: 26, by: 2).map {"\($0)"}
+        sectment = 360 / Double(hourStrings.count)
     }
     
     
@@ -34,14 +33,14 @@ struct ClockAnimationView: View {
                 let offset = 0 - (proxy.size.width / 2 - defaultWidth)
 
                 ZStack {
-                    makeProgressView()
+                    makeProgressView(width: proxy.size.width)
                     ForEach(hourStrings.indices, id: \.self) { index in
                         Text(hourStrings[index])
                             .font(.system(size: 10))
                             .foregroundColor(Theme.current.commonColor.textColor)
-                            .rotationEffect(.degrees(0 - Double(index) * sectment))
+                            .rotationEffect(.degrees(0 - Double(index + 1) * sectment))
                             .offset(y: offset)
-                            .rotationEffect(.degrees(Double(index) * sectment))
+                            .rotationEffect(.degrees(Double(index + 1) * sectment))
                     }
                 }
             }
@@ -82,45 +81,42 @@ extension ClockAnimationView {
         }
     }
     
-    func makeProgressView() -> some View {
-        GeometryReader { proxy in
-            let size = proxy.size.width
-            ZStack {
-                Circle()
-                    .stroke(Color.black.opacity(0.5),
-                            style: StrokeStyle(lineWidth: defaultWidth,
-                                               lineCap: .round,
-                                               lineJoin: .round))
-                    .frame(width: size, height: size, alignment: .center)
-                
-                Circle()
-                    .trim(from: min(startProgress, endProgress),
-                          to: max(startProgress, endProgress))
-                    .stroke(Theme.current.buttonColor.backgroundColor,
-                            style: StrokeStyle(lineWidth: defaultWidth,
-                                               lineCap: .round,
-                                               lineJoin: .round))
-                    .frame(width: size, height: size, alignment: .center)
-                    .rotationEffect(.init(degrees: -90))
-                
-                Circle()
-                    .fill(Color.white)
-                    .scaleEffect(0.8)
-                    .frame(width: defaultWidth, height: defaultWidth, alignment: .center)
-                    .offset(x: size / 2)
-                    .rotationEffect(.init(degrees: startAngle))
-                    .gesture(DragGesture().onChanged(onDragStartCircle(value:)))
-                    .rotationEffect(.init(degrees: -90))
-                
-                Circle()
-                    .fill(Color.black)
-                    .scaleEffect(0.8)
-                    .frame(width: defaultWidth, height: defaultWidth, alignment: .center)
-                    .offset(x: size / 2)
-                    .rotationEffect(.init(degrees: endAngle))
-                    .gesture(DragGesture().onChanged(onDragEndCircle(value:)))
-                    .rotationEffect(.init(degrees: -90))
-            }
+    func makeProgressView(width: CGFloat) -> some View {
+        ZStack {
+            Circle()
+                .stroke(Theme.current.buttonColor.disableColor,
+                        style: StrokeStyle(lineWidth: defaultWidth,
+                                           lineCap: .round,
+                                           lineJoin: .round))
+                .frame(width: width, height: width, alignment: .center)
+            
+            Circle()
+                .trim(from: min(startProgress, endProgress),
+                      to: max(startProgress, endProgress))
+                .stroke(Theme.current.buttonColor.backgroundColor,
+                        style: StrokeStyle(lineWidth: defaultWidth,
+                                           lineCap: .round,
+                                           lineJoin: .round))
+                .frame(width: width, height: width, alignment: .center)
+                .rotationEffect(.init(degrees: -90))
+            
+            Circle()
+                .fill(Color.white)
+                .scaleEffect(0.8)
+                .frame(width: defaultWidth, height: defaultWidth, alignment: .center)
+                .offset(x: width / 2)
+                .rotationEffect(.init(degrees: startAngle))
+                .gesture(DragGesture().onChanged(onDragStartCircle(value:)))
+                .rotationEffect(.init(degrees: -90))
+            
+            Circle()
+                .fill(Color.black)
+                .scaleEffect(0.8)
+                .frame(width: defaultWidth, height: defaultWidth, alignment: .center)
+                .offset(x: width / 2)
+                .rotationEffect(.init(degrees: endAngle))
+                .gesture(DragGesture().onChanged(onDragEndCircle(value:)))
+                .rotationEffect(.init(degrees: -90))
         }
     }
 }
