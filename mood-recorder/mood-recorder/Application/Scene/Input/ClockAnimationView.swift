@@ -16,8 +16,8 @@ struct ClockAnimationView: View {
     
     @State var bedTime: String = "00:00"
     @State var wakeTime: String = "00:00"
-    
-    private var defaultWidth: CGFloat = 40
+        
+    private var defaultWidth: CGFloat = 50
     
     let hourStrings: [String]
     
@@ -142,14 +142,14 @@ extension ClockAnimationView {
                     .trim(from: bedTimeProgress,
                           to: 1)
                     .stroke(Theme.current.buttonColor.backgroundColor,
-                            style: StrokeStyle(lineWidth: defaultWidth,
+                            style: StrokeStyle(lineWidth: defaultWidth - 10,
                                                lineCap: .round,
                                                lineJoin: .round))
                 Circle()
                     .trim(from: 0,
                           to: wakeTimeProgress)
                     .stroke(Theme.current.buttonColor.backgroundColor,
-                            style: StrokeStyle(lineWidth: defaultWidth,
+                            style: StrokeStyle(lineWidth: defaultWidth - 10,
                                                lineCap: .round,
                                                lineJoin: .round))
             }
@@ -158,7 +158,7 @@ extension ClockAnimationView {
                 .trim(from: bedTimeProgress,
                       to: wakeTimeProgress)
                 .stroke(Theme.current.buttonColor.backgroundColor,
-                        style: StrokeStyle(lineWidth: defaultWidth,
+                        style: StrokeStyle(lineWidth: defaultWidth - 10,
                                            lineCap: .round,
                                            lineJoin: .round))
         }
@@ -177,18 +177,29 @@ extension ClockAnimationView {
                 .frame(width: width, height: width, alignment: .center)
                 .rotationEffect(.init(degrees: -90))
             
-            Circle()
-                .fill(Color.white)
-                .scaleEffect(0.8)
+            Image(systemName: "zzz")
+                .resizable()
+                .padding(.all, 10)
+                .background(Color.white)
+                .clipShape(Circle())
+                .foregroundColor(Theme.current.buttonColor.backgroundColor)
+                .scaleEffect(0.6)
+                .rotationEffect(.degrees(0 - bedTimeAngle + 90))
                 .frame(width: defaultWidth, height: defaultWidth, alignment: .center)
                 .offset(x: width / 2)
                 .rotationEffect(.init(degrees: bedTimeAngle))
                 .gesture(DragGesture().onChanged(onDragStartCircle(value:)))
                 .rotationEffect(.init(degrees: -90))
+
             
-            Circle()
-                .fill(Color.black)
-                .scaleEffect(0.8)
+            Image(systemName: "bell.fill")
+                .resizable()
+                .padding(.all, 10)
+                .background(Color.white)
+                .clipShape(Circle())
+                .foregroundColor(Theme.current.buttonColor.backgroundColor)
+                .scaleEffect(0.6)
+                .rotationEffect(.degrees(0 - wakeTimeAngle + 90))
                 .frame(width: defaultWidth, height: defaultWidth, alignment: .center)
                 .offset(x: width / 2)
                 .rotationEffect(.init(degrees: wakeTimeAngle))
