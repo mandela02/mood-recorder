@@ -11,7 +11,7 @@ import SwiftUI
 struct MoodRecorderApp: App {
     var body: some Scene {
         WindowGroup {
-            ClockAnimationView()
+            ClockAnimationView(onCancel: {}, onCallback: {_, _ in})
                 .preferredColorScheme(.light)
         }
     }

@@ -8,31 +8,40 @@
 import SwiftUI
 
 struct ClockAnimationView: View {
-    @State var bedTimeProgress: CGFloat = 0.75
-    @State var bedTimeAngle: Double = 0.75 * 360
+    typealias Function = () -> ()
+    typealias CallbackFunction = (Int, Int) -> ()
+
+    @State private var bedTimeProgress: CGFloat = 0.75
+    @State private var bedTimeAngle: Double = 0.75 * 360
     
-    @State var wakeTimeProgress: CGFloat = 0.25
-    @State var wakeTimeAngle: Double = 0.25 * 360
+    @State private var wakeTimeProgress: CGFloat = 0.25
+    @State private var wakeTimeAngle: Double = 0.25 * 360
     
-    @State var bedTime: String = "18:00"
-    @State var wakeTime: String = "06:00"
+    @State private var bedTime: String = "18:00"
+    @State private var wakeTime: String = "06:00"
     
     @State private var isRinging = false
     @State private var showZleft = false
     @State private var showZmiddle = false
     @State private var showZright = false
+    
+    @State private var bedTimeInMinute = 1080
+    @State private var wakeUpTimeInMinute = 360
 
     private var defaultWidth: CGFloat = 50
+    private let hourStrings: [String] = stride(from: 2, to: 26, by: 2).map {"\($0)"}
+    private let sectment: Double
+    private let images = [AppImage.newMoon, AppImage.cloudyDay, AppImage.sunny, AppImage.cloudyNight]
     
-    let hourStrings: [String]
+    let onCancel: Function
+    let onCallback: CallbackFunction
     
-    let sectment: Double
-    
-    let images = [AppImage.newMoon, AppImage.cloudyDay, AppImage.sunny, AppImage.cloudyNight]
-    
-    init() {
-        hourStrings = stride(from: 2, to: 26, by: 2).map {"\($0)"}
+    init(onCancel: @escaping Function,
+         onCallback: @escaping CallbackFunction) {
         sectment = 360 / Double(hourStrings.count)
+
+        self.onCancel = onCancel
+        self.onCallback = onCallback
     }
     
     // MARK: - BODY
@@ -52,10 +61,19 @@ struct ClockAnimationView: View {
                         buildImages(offset: offset, width: imageWidth)
                     }
                 }
-                .padding(.all, 50)
+                .padding()
                 .aspectRatio(1, contentMode: .fit)
                 buildTimeView()
                     .padding()
+                
+                VStack {
+                    createButton(title: "OK", callback: {
+                        onCallback(bedTimeInMinute, wakeUpTimeInMinute)
+                    })
+
+                    createButton(title: "Cancel", callback: onCancel)
+                }
+                .padding()
             }
         }
     }
@@ -184,6 +202,7 @@ extension ClockAnimationView {
         self.bedTimeAngle = Double(angle)
         
         let minute = Int(progress * 24 * 60)
+        bedTimeInMinute = minute
         bedTime = minute.generateHourMinuteString()
     }
     
@@ -200,6 +219,7 @@ extension ClockAnimationView {
         self.wakeTimeAngle = Double(angle)
         
         let minute = Int(progress * 24 * 60)
+        wakeUpTimeInMinute = minute
         wakeTime = minute.generateHourMinuteString()
     }
     
@@ -335,5 +355,20 @@ extension ClockAnimationView {
                     showZright.toggle()
                 })
         }
+    }
+}
+
+extension ClockAnimationView {
+    private func createButton(title: String,
+                      callback: @escaping Function) -> some View {
+        Button(action: callback) {
+            Text(title)
+                .font(.system(size: 12))
+                .foregroundColor(Theme.current.buttonColor.textColor)
+                .frame(maxWidth: .infinity)
+                .padding()
+        }
+        .background(Theme.current.buttonColor.backgroundColor)
+        .cornerRadius(20)
     }
 }
