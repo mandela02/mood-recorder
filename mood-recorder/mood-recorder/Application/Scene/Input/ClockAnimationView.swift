@@ -11,22 +11,13 @@ struct ClockAnimationView: View {
     typealias Function = () -> ()
     typealias CallbackFunction = (Int, Int) -> ()
 
-    @State private var bedTimeProgress: CGFloat = 0.75
-    @State private var bedTimeAngle: Double = 0.75 * 360
-    
-    @State private var wakeTimeProgress: CGFloat = 0.25
-    @State private var wakeTimeAngle: Double = 0.25 * 360
-    
-    @State private var bedTime: String = "18:00"
-    @State private var wakeTime: String = "06:00"
-    
+    @State private var bedTimeProgress: CGFloat
+    @State private var wakeTimeProgress: CGFloat
+        
     @State private var isRinging = false
     @State private var showZleft = false
     @State private var showZmiddle = false
     @State private var showZright = false
-    
-    @State private var bedTimeInMinute = 1080
-    @State private var wakeUpTimeInMinute = 360
 
     private var defaultWidth: CGFloat = 50
     private let sectment: Double
@@ -36,12 +27,27 @@ struct ClockAnimationView: View {
     let onCancel: Function
     let onCallback: CallbackFunction
     
-    init(onCancel: @escaping Function,
+    init(sleepSchelduleModel: SleepSchelduleModel,
+         onCancel: @escaping Function,
          onCallback: @escaping CallbackFunction) {
         sectment = 360 / Double(hourStrings.count)
 
         self.onCancel = onCancel
         self.onCallback = onCallback
+        
+        guard let wakeUpTimeString = sleepSchelduleModel.wakeUpTime,
+              let wakeUpTime = Int(wakeUpTimeString),
+              let bedTimeString = sleepSchelduleModel.bedTime,
+              let bedTime = Int(bedTimeString)
+        else {
+            self.bedTimeProgress = 0.75
+            self.wakeTimeProgress = 0.25
+                        
+            return
+        }
+        
+        self.wakeTimeProgress = CGFloat(wakeUpTime) / (24 * 60)
+        self.bedTimeProgress = CGFloat(bedTime) / (24 * 60)
     }
     
     // MARK: - BODY
@@ -69,7 +75,8 @@ struct ClockAnimationView: View {
                 Spacer()
                 VStack {
                     createButton(title: "OK", callback: {
-                        onCallback(bedTimeInMinute, wakeUpTimeInMinute)
+                        onCallback(Int(bedTimeProgress * 24 * 60),
+                                   Int(wakeTimeProgress * 24 * 60))
                     })
 
                     createButton(title: "Cancel", callback: onCancel)
@@ -141,7 +148,7 @@ extension ClockAnimationView {
                         .lineLimit(1)
                         .foregroundColor(Theme.current.sleepColor.textColor)
                 }
-                Text(bedTime)
+                Text(Int(bedTimeProgress * 24 * 60).generateHourMinuteString())
                     .bold()
                     .font(.system(size: 25))
                     .foregroundColor(Theme.current.sleepColor.textColor)
@@ -157,7 +164,7 @@ extension ClockAnimationView {
                         .lineLimit(1)
                         .foregroundColor(Theme.current.sleepColor.textColor)
                 }
-                Text(wakeTime)
+                Text(Int(wakeTimeProgress * 24 * 60).generateHourMinuteString())
                     .bold()
                     .font(.system(size: 25))
                     .foregroundColor(Theme.current.sleepColor.textColor)
@@ -202,11 +209,6 @@ extension ClockAnimationView {
         
         let progress = angle / 360
         self.bedTimeProgress = progress
-        self.bedTimeAngle = Double(angle)
-        
-        let minute = Int(progress * 24 * 60)
-        bedTimeInMinute = minute
-        bedTime = minute.generateHourMinuteString()
     }
     
     private func onDragEndCircle(value: DragGesture.Value) {
@@ -219,11 +221,6 @@ extension ClockAnimationView {
         }
         let progress = angle / 360
         self.wakeTimeProgress = progress
-        self.wakeTimeAngle = Double(angle)
-        
-        let minute = Int(progress * 24 * 60)
-        wakeUpTimeInMinute = minute
-        wakeTime = minute.generateHourMinuteString()
     }
     
     @ViewBuilder
@@ -257,7 +254,10 @@ extension ClockAnimationView {
     }
     
     private func buildProgressView(width: CGFloat) -> some View {
-        ZStack {
+        let bedTimeAngle = Double(bedTimeProgress * 360)
+        let wakeTimeAngle = Double(wakeTimeProgress * 360)
+        
+        return ZStack {
             Circle()
                 .stroke(Theme.current.sleepColor.bigCircleColor,
                         style: StrokeStyle(lineWidth: defaultWidth,

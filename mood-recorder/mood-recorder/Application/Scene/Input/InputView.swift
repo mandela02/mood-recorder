@@ -466,13 +466,17 @@ struct InputView: View {
                       padding: 20) {
             Group {
                 if isAboutToShowTimePicker {
-                    ClockAnimationView(onCancel: {
-                        isAboutToShowTimePicker.toggle()
-                    }, onCallback: { bedTime, wakeUpTime in
-                        isAboutToShowTimePicker.toggle()
-                        viewModel.trigger(.onSleepScheduleChange(bedTime: bedTime, wakeUpTime: wakeUpTime))
-                        viewModel.trigger(.onOpenCustomizeSectionDialog(model: nil))
-                    })
+                    if let sleepModel = viewModel.state.selectedSectionModel?.cell as? SleepSchelduleModel {
+                        ClockAnimationView(sleepSchelduleModel: sleepModel,
+                                           onCancel: {
+                            isAboutToShowTimePicker.toggle()
+                        },
+                                           onCallback: { bedTime, wakeUpTime in
+                            isAboutToShowTimePicker.toggle()
+                            viewModel.trigger(.onSleepScheduleChange(bedTime: bedTime, wakeUpTime: wakeUpTime))
+                            viewModel.trigger(.onOpenCustomizeSectionDialog(model: nil))
+                        })
+                    }
                 }
             }
         }
