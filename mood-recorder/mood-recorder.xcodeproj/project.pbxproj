@@ -257,15 +257,8 @@
 		8476F1A526B85B7900F62854 /* Input */ = {
 			isa = PBXGroup;
 			children = (
-				8404938526B9BFCE006523D9 /* InputView.swift */,
-				8404938126B9A928006523D9 /* InputViewModel.swift */,
-				84EE2F8426C7CFF800C0195D /* DismissDialog.swift */,
-				842208CB26C809420022C92F /* ResetDialog.swift */,
-				842F073126C81FAF0078BE9B /* OptionAdditionView.swift */,
-				841E1F9B26C83FAF00EC1082 /* OptionAdditionViewModel.swift */,
-				8482D7FA26C8C0950030054B /* CusomOptionView.swift */,
-				84AC834526CA57550052B295 /* CustomOptionViewModel.swift */,
-				846A7C5F26CC226F004F6A63 /* ClockAnimationView.swift */,
+				9041C11626CEC3B10054617E /* Dialog */,
+				9041C11526CEC3A50054617E /* InputView */,
 			);
 			path = Input;
 			sourceTree = "<group>";
@@ -436,6 +429,69 @@
 				84FE1B3A26C7B55600D32330 /* BaseViewModel.swift */,
 			);
 			path = Base;
+			sourceTree = "<group>";
+		};
+		9041C11526CEC3A50054617E /* InputView */ = {
+			isa = PBXGroup;
+			children = (
+				8404938526B9BFCE006523D9 /* InputView.swift */,
+				8404938126B9A928006523D9 /* InputViewModel.swift */,
+			);
+			path = InputView;
+			sourceTree = "<group>";
+		};
+		9041C11626CEC3B10054617E /* Dialog */ = {
+			isa = PBXGroup;
+			children = (
+				9041C11B26CEC3E20054617E /* ClockDialog */,
+				9041C11A26CEC3D80054617E /* CustomDialog */,
+				9041C11926CEC3CC0054617E /* AddOptionDialog */,
+				9041C11826CEC3C40054617E /* ResetDialog */,
+				9041C11726CEC3BB0054617E /* DismissDialog */,
+			);
+			path = Dialog;
+			sourceTree = "<group>";
+		};
+		9041C11726CEC3BB0054617E /* DismissDialog */ = {
+			isa = PBXGroup;
+			children = (
+				84EE2F8426C7CFF800C0195D /* DismissDialog.swift */,
+			);
+			path = DismissDialog;
+			sourceTree = "<group>";
+		};
+		9041C11826CEC3C40054617E /* ResetDialog */ = {
+			isa = PBXGroup;
+			children = (
+				842208CB26C809420022C92F /* ResetDialog.swift */,
+			);
+			path = ResetDialog;
+			sourceTree = "<group>";
+		};
+		9041C11926CEC3CC0054617E /* AddOptionDialog */ = {
+			isa = PBXGroup;
+			children = (
+				842F073126C81FAF0078BE9B /* OptionAdditionView.swift */,
+				841E1F9B26C83FAF00EC1082 /* OptionAdditionViewModel.swift */,
+			);
+			path = AddOptionDialog;
+			sourceTree = "<group>";
+		};
+		9041C11A26CEC3D80054617E /* CustomDialog */ = {
+			isa = PBXGroup;
+			children = (
+				8482D7FA26C8C0950030054B /* CusomOptionView.swift */,
+				84AC834526CA57550052B295 /* CustomOptionViewModel.swift */,
+			);
+			path = CustomDialog;
+			sourceTree = "<group>";
+		};
+		9041C11B26CEC3E20054617E /* ClockDialog */ = {
+			isa = PBXGroup;
+			children = (
+				846A7C5F26CC226F004F6A63 /* ClockAnimationView.swift */,
+			);
+			path = ClockDialog;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
