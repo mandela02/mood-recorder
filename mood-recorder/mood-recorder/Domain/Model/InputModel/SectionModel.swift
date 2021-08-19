@@ -85,6 +85,13 @@ struct SectionModel: Identifiable, Equatable {
         cell = model
     }
     
+    mutating func addSleepScheldule(bedTime: Int, wakeUpTime: Int) {
+        guard var model = cell as? SleepSchelduleModel else { return }
+        model.wakeUpTime = "\(wakeUpTime)"
+        model.bedTime = "\(bedTime)"
+        cell = model
+    }
+    
     mutating func resetCell() {
         var mutatingModel: Any
         
@@ -106,8 +113,8 @@ struct SectionModel: Identifiable, Equatable {
             model.text = nil
             mutatingModel = model
         case var model as SleepSchelduleModel:
-            model.endTime = 0
-            model.startTime = 0
+            model.bedTime = nil
+            model.wakeUpTime = nil
             mutatingModel = model
         default:
             return

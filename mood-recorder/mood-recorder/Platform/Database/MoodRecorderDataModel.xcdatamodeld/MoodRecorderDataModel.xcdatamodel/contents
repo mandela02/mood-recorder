@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19197" systemVersion="21A5268h" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19197" systemVersion="20G95" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="CDContentModel" representedClassName="CDContentModel" syncable="YES">
-        <attribute name="endDate" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="bedTime" optional="YES" attributeType="String"/>
         <attribute name="image" optional="YES" attributeType="Binary"/>
-        <attribute name="startDate" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="text" optional="YES" attributeType="String"/>
+        <attribute name="wakeUpTime" optional="YES" attributeType="String"/>
         <relationship name="options" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDOptionModel" inverseName="content" inverseEntity="CDOptionModel"/>
         <relationship name="section" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDSectionModel" inverseName="content" inverseEntity="CDSectionModel"/>
     </entity>

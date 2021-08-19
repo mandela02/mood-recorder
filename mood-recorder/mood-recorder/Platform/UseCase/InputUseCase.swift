@@ -72,8 +72,8 @@ struct InputUseCase {
                 case .sleep:
                     sectionModels.append(SectionModel(section: section,
                                                       title: section.title,
-                                                      cell: SleepSchelduleModel(startTime: content.startDate,
-                                                                                endTime: content.endDate),
+                                                      cell: SleepSchelduleModel(bedTime: content.bedTime,
+                                                                                wakeUpTime: content.wakeUpTime),
                                                       isVisible: cdSection.isVisible))
                 default:
                     let cdOptions = content.optionArray
@@ -156,8 +156,8 @@ struct InputUseCase {
                 cdContent.text = model.text
 
             case let model as SleepSchelduleModel:
-                cdContent.startDate = model.startTime ?? 00
-                cdContent.endDate = model.endTime ?? 00
+                cdContent.bedTime = model.bedTime
+                cdContent.wakeUpTime = model.wakeUpTime
                 
             default:
                 continue

@@ -26,6 +26,7 @@ struct InputView: View {
     @State private var isAboutToDismiss = false
     @State private var isAboutToCustomizeSection = false
     @State private var isAboutToReset = false
+    @State private var isAboutToShowTimePicker = false
     @State private var destination: ScrollDestination?
     @State private var imagePickerController: UIImagePickerController?
     
@@ -154,7 +155,7 @@ struct InputView: View {
     func getSleepScheduleText(model: SleepSchelduleModel) -> some View {
         ZStack {
             Theme.current.commonColor.textBackground
-            Text(model.isHavingNilData ? "Select today sleep schedule" : model.hourString)
+            Text(model.displayString)
                 .foregroundColor(Theme.current.tableViewColor.text)
                 .font(.system(size: 12))
                 .padding()
@@ -210,6 +211,10 @@ struct InputView: View {
             getSleepScheduleText(model: model)
                 .disabled(!sectionModel.isVisible || viewModel.isInEditMode)
                 .padding()
+                .onTapGesture {
+                    viewModel.trigger(.onOpenCustomizeSectionDialog(model: sectionModel))
+                    isAboutToShowTimePicker.toggle()
+                }
         default:
             Text("wait")
         }
@@ -440,21 +445,42 @@ struct InputView: View {
         .customDialog(isShowing: $isAboutToCustomizeSection,
                       padding: 20) {
             Group {
-                if let sectionModel = viewModel.state.selectedSectionModel {
-                    OptionAdditionView(sectionModel: sectionModel,
-                                       onConfirm: { models in
-                        isAboutToCustomizeSection.toggle()
-                        viewModel.trigger(.onCustomSection(models: models))
-                        viewModel.trigger(.onOpenCustomizeSectionDialog(model: nil))
-                    },
-                                       onCancel: {
-                        isAboutToCustomizeSection.toggle()
-                        viewModel.trigger(.onOpenCustomizeSectionDialog(model: nil))
-                    })
+                if isAboutToCustomizeSection {
+                    if let sectionModel = viewModel.state.selectedSectionModel {
+                        OptionAdditionView(sectionModel: sectionModel,
+                                           onConfirm: { models in
+                            isAboutToCustomizeSection.toggle()
+                            viewModel.trigger(.onCustomSection(models: models))
+                            viewModel.trigger(.onOpenCustomizeSectionDialog(model: nil))
+                        },
+                                           onCancel: {
+                            isAboutToCustomizeSection.toggle()
+                            viewModel.trigger(.onOpenCustomizeSectionDialog(model: nil))
+                        })
+                    }
                 }
             }
         }
         .animation(.easeInOut, value: isAboutToCustomizeSection)
+        .customDialog(isShowing: $isAboutToShowTimePicker,
+                      padding: 20) {
+            Group {
+                if isAboutToShowTimePicker {
+                    if let sleepModel = viewModel.state.selectedSectionModel?.cell as? SleepSchelduleModel {
+                        ClockAnimationView(sleepSchelduleModel: sleepModel,
+                                           onCancel: {
+                            isAboutToShowTimePicker.toggle()
+                        },
+                                           onCallback: { bedTime, wakeUpTime in
+                            isAboutToShowTimePicker.toggle()
+                            viewModel.trigger(.onSleepScheduleChange(bedTime: bedTime, wakeUpTime: wakeUpTime))
+                            viewModel.trigger(.onOpenCustomizeSectionDialog(model: nil))
+                        })
+                    }
+                }
+            }
+        }
+        .animation(.easeInOut, value: isAboutToShowTimePicker)
         .task {
             imagePickerController = UIImagePickerController()
         }

@@ -8,19 +8,26 @@
 import Foundation
 
 struct SleepSchelduleModel {
-    init(startTime: Double? = nil, endTime: Double? = nil) {
-        self.startTime = startTime
-        self.endTime = endTime
+    init(bedTime: String? = nil, wakeUpTime: String? = nil) {
+        self.bedTime = bedTime
+        self.wakeUpTime = wakeUpTime
     }
     
-    var startTime: Double?
-    var endTime: Double?
+    var bedTime: String?
+    var wakeUpTime: String?
     
     var isHavingNilData: Bool {
-        startTime == nil && endTime == nil
+        bedTime == nil && wakeUpTime == nil
     }
     
-    var hourString: String {
-        return "\(startTime?.date?.hourString ?? "00:00") - \(endTime?.date?.hourString ?? "00:00")"
+    var displayString: String {
+        guard let bedTime = bedTime,
+                let bedTimeValue = Int(bedTime),
+                let wakeUpTime = wakeUpTime,
+                let wakeUpTimeValue = Int(wakeUpTime)
+        else {
+            return "Select today sleep schedule"
+        }
+        return bedTimeValue.generateHourMinuteString() + " : " + wakeUpTimeValue.generateHourMinuteString()
     }
 }

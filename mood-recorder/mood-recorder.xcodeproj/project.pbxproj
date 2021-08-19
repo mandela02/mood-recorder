@@ -45,6 +45,7 @@
 		8424A93326B5BE0F00BE4454 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8424A93226B5BE0F00BE4454 /* Assets.xcassets */; };
 		8424A93626B5BE0F00BE4454 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8424A93526B5BE0F00BE4454 /* Preview Assets.xcassets */; };
 		842F073226C81FAF0078BE9B /* OptionAdditionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842F073126C81FAF0078BE9B /* OptionAdditionView.swift */; };
+		846A7C6026CC226F004F6A63 /* ClockAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846A7C5F26CC226F004F6A63 /* ClockAnimationView.swift */; };
 		846DA17726C8DAA700D0C7F9 /* AppImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846DA17626C8DAA700D0C7F9 /* AppImage+Extension.swift */; };
 		8476F1A726B85B9000F62854 /* InputDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476F1A626B85B9000F62854 /* InputDataModel.swift */; };
 		8476F1A926B861EC00F62854 /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476F1A826B861EC00F62854 /* Weather.swift */; };
@@ -76,6 +77,7 @@
 		84EE2F8726C7D08500C0195D /* CustomDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EE2F8626C7D08500C0195D /* CustomDialog.swift */; };
 		84EF6B7226B7A4BA00C0551F /* CoreEmotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EF6B7126B7A4BA00C0551F /* CoreEmotion.swift */; };
 		84FE1B3B26C7B55600D32330 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FE1B3A26C7B55600D32330 /* BaseViewModel.swift */; };
+		909DC15E26CCA621004179F0 /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 909DC15D26CCA621004179F0 /* Int+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -119,6 +121,7 @@
 		8424A93526B5BE0F00BE4454 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		8424A93C26B5BE0F00BE4454 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		842F073126C81FAF0078BE9B /* OptionAdditionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionAdditionView.swift; sourceTree = "<group>"; };
+		846A7C5F26CC226F004F6A63 /* ClockAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockAnimationView.swift; sourceTree = "<group>"; };
 		846DA17626C8DAA700D0C7F9 /* AppImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppImage+Extension.swift"; sourceTree = "<group>"; };
 		8476F1A626B85B9000F62854 /* InputDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputDataModel.swift; sourceTree = "<group>"; };
 		8476F1A826B861EC00F62854 /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
@@ -150,6 +153,7 @@
 		84EE2F8626C7D08500C0195D /* CustomDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDialog.swift; sourceTree = "<group>"; };
 		84EF6B7126B7A4BA00C0551F /* CoreEmotion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreEmotion.swift; sourceTree = "<group>"; };
 		84FE1B3A26C7B55600D32330 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
+		909DC15D26CCA621004179F0 /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -261,6 +265,7 @@
 				841E1F9B26C83FAF00EC1082 /* OptionAdditionViewModel.swift */,
 				8482D7FA26C8C0950030054B /* CusomOptionView.swift */,
 				84AC834526CA57550052B295 /* CustomOptionViewModel.swift */,
+				846A7C5F26CC226F004F6A63 /* ClockAnimationView.swift */,
 			);
 			path = Input;
 			sourceTree = "<group>";
@@ -288,6 +293,7 @@
 				84B395FA26C7C2F5007B8A6B /* UIImage+Extension.swift */,
 				84C32A8A26C826BD004F6A85 /* Array+Extension.swift */,
 				846DA17626C8DAA700D0C7F9 /* AppImage+Extension.swift */,
+				909DC15D26CCA621004179F0 /* Int+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -511,6 +517,7 @@
 				8423C22526C03352000717D9 /* Repositoy.swift in Sources */,
 				84CBB36C26B71EE600A8E377 /* RoundImageView.swift in Sources */,
 				8424A93126B5BE0B00BE4454 /* ContentView.swift in Sources */,
+				846A7C6026CC226F004F6A63 /* ClockAnimationView.swift in Sources */,
 				8423C1FF26BE42E5000717D9 /* Date+Extension.swift in Sources */,
 				84CBB36626B7164E00A8E377 /* HomeViewModel.swift in Sources */,
 				84CBB36A26B71E7500A8E377 /* ResizeAnimationButtonStyle.swift in Sources */,
@@ -563,6 +570,7 @@
 				8476F1AD26B8637300F62854 /* String+Extension.swift in Sources */,
 				84B395FE26C7C3D2007B8A6B /* Utilities.swift in Sources */,
 				8404938F26BA4F7D006523D9 /* ImageAndTitleModel.swift in Sources */,
+				909DC15E26CCA621004179F0 /* Int+Extension.swift in Sources */,
 				8423C21826C0037C000717D9 /* Chore.swift in Sources */,
 				84C3F72926C03AE600C789F5 /* CDOptionModel+CoreDataProperties.swift in Sources */,
 				84CBB36826B71A2800A8E377 /* TalkBubble.swift in Sources */,
