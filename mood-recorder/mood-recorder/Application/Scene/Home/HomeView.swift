@@ -28,8 +28,7 @@ struct HomeView: View {
     var tabView: some View {
         TabView(selection: $viewModel.seletedTabBarIndex,
                 content:  {
-                    Color.red.tag(0)
-                        .ignoresSafeArea()
+                    CalendarView().tag(0)
                     Color.green.tag(1)
                         .ignoresSafeArea()
                     Color.blue.tag(2)

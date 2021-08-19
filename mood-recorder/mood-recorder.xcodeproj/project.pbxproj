@@ -77,6 +77,8 @@
 		84EE2F8726C7D08500C0195D /* CustomDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EE2F8626C7D08500C0195D /* CustomDialog.swift */; };
 		84EF6B7226B7A4BA00C0551F /* CoreEmotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EF6B7126B7A4BA00C0551F /* CoreEmotion.swift */; };
 		84FE1B3B26C7B55600D32330 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FE1B3A26C7B55600D32330 /* BaseViewModel.swift */; };
+		9017B97026CEC7CE00736037 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9017B96F26CEC7CE00736037 /* CalendarView.swift */; };
+		9041C11E26CEC45C0054617E /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9041C11D26CEC45C0054617E /* CalendarViewModel.swift */; };
 		909DC15E26CCA621004179F0 /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 909DC15D26CCA621004179F0 /* Int+Extension.swift */; };
 /* End PBXBuildFile section */
 
@@ -153,6 +155,8 @@
 		84EE2F8626C7D08500C0195D /* CustomDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDialog.swift; sourceTree = "<group>"; };
 		84EF6B7126B7A4BA00C0551F /* CoreEmotion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreEmotion.swift; sourceTree = "<group>"; };
 		84FE1B3A26C7B55600D32330 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
+		9017B96F26CEC7CE00736037 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
+		9041C11D26CEC45C0054617E /* CalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
 		909DC15D26CCA621004179F0 /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -384,6 +388,7 @@
 		84CBB35B26B6FE3300A8E377 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				9041C11C26CEC44E0054617E /* Calendar */,
 				8476F1A526B85B7900F62854 /* Input */,
 				84CBB36226B7152C00A8E377 /* Home */,
 			);
@@ -494,6 +499,15 @@
 			path = ClockDialog;
 			sourceTree = "<group>";
 		};
+		9041C11C26CEC44E0054617E /* Calendar */ = {
+			isa = PBXGroup;
+			children = (
+				9041C11D26CEC45C0054617E /* CalendarViewModel.swift */,
+				9017B96F26CEC7CE00736037 /* CalendarView.swift */,
+			);
+			path = Calendar;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -597,6 +611,7 @@
 				84EF6B7226B7A4BA00C0551F /* CoreEmotion.swift in Sources */,
 				8404939C26BAA9E7006523D9 /* Color+Extension.swift in Sources */,
 				8423C20326BE4329000717D9 /* DateFormatter+Extension.swift in Sources */,
+				9041C11E26CEC45C0054617E /* CalendarViewModel.swift in Sources */,
 				8423C20726BE6AD5000717D9 /* Medical.swift in Sources */,
 				842F073226C81FAF0078BE9B /* OptionAdditionView.swift in Sources */,
 				8423C20D26BFBBCA000717D9 /* Food.swift in Sources */,
@@ -615,6 +630,7 @@
 				846DA17726C8DAA700D0C7F9 /* AppImage+Extension.swift in Sources */,
 				8423C22726C03379000717D9 /* PersistenceManager.swift in Sources */,
 				8423C22026C03175000717D9 /* MoodRecorderDataModel.xcdatamodeld in Sources */,
+				9017B97026CEC7CE00736037 /* CalendarView.swift in Sources */,
 				84B395FB26C7C2F5007B8A6B /* UIImage+Extension.swift in Sources */,
 				8423C20F26BFC5A0000717D9 /* Beauty.swift in Sources */,
 				8404938B26BA4F51006523D9 /* OptionModel.swift in Sources */,
