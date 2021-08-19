@@ -16,9 +16,9 @@ extension CDContentModel {
         return NSFetchRequest<CDContentModel>(entityName: "CDContentModel")
     }
 
-    @NSManaged public var endDate: Double
+    @NSManaged public var bedTime: String?
+    @NSManaged public var wakeUpTime: String?
     @NSManaged public var image: Data?
-    @NSManaged public var startDate: Double
     @NSManaged public var text: String?
     @NSManaged public var options: NSSet?
     @NSManaged public var section: CDSectionModel?

@@ -29,10 +29,10 @@ struct ClockAnimationView: View {
     @State private var wakeUpTimeInMinute = 360
 
     private var defaultWidth: CGFloat = 50
-    private let hourStrings: [String] = stride(from: 2, to: 26, by: 2).map {"\($0)"}
     private let sectment: Double
     private let images = [AppImage.newMoon, AppImage.cloudyDay, AppImage.sunny, AppImage.cloudyNight]
-    
+    private let hourStrings: [String] = stride(from: 2, to: 26, by: 2).map {"\($0)"}
+
     let onCancel: Function
     let onCallback: CallbackFunction
     
@@ -55,7 +55,7 @@ struct ClockAnimationView: View {
                 GeometryReader { proxy in
                     let offset = 0 - (proxy.size.width - (defaultWidth - 10) * 2) / 2
                     let imageWidth = (proxy.size.width / 2 - (defaultWidth - 10) * 2) / 2
-                    
+
                     ZStack {
                         buildProgressView(width: proxy.size.width)
                         buildClock(offset: offset)

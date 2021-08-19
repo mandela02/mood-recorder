@@ -155,16 +155,13 @@ struct InputView: View {
     func getSleepScheduleText(model: SleepSchelduleModel) -> some View {
         ZStack {
             Theme.current.commonColor.textBackground
-            Text(model.isHavingNilData ? "Select today sleep schedule" : model.hourString)
+            Text(model.displayString)
                 .foregroundColor(Theme.current.tableViewColor.text)
                 .font(.system(size: 12))
                 .padding()
         }
         .cornerRadius(10)
         .frame(minHeight: 50)
-        .onTapGesture {
-            isAboutToShowTimePicker.toggle()
-        }
     }
     
     // MARK: - Section Content
@@ -214,6 +211,10 @@ struct InputView: View {
             getSleepScheduleText(model: model)
                 .disabled(!sectionModel.isVisible || viewModel.isInEditMode)
                 .padding()
+                .onTapGesture {
+                    viewModel.trigger(.onOpenCustomizeSectionDialog(model: sectionModel))
+                    isAboutToShowTimePicker.toggle()
+                }
         default:
             Text("wait")
         }
@@ -444,25 +445,36 @@ struct InputView: View {
         .customDialog(isShowing: $isAboutToCustomizeSection,
                       padding: 20) {
             Group {
-                if let sectionModel = viewModel.state.selectedSectionModel {
-                    OptionAdditionView(sectionModel: sectionModel,
-                                       onConfirm: { models in
-                        isAboutToCustomizeSection.toggle()
-                        viewModel.trigger(.onCustomSection(models: models))
-                        viewModel.trigger(.onOpenCustomizeSectionDialog(model: nil))
-                    },
-                                       onCancel: {
-                        isAboutToCustomizeSection.toggle()
-                        viewModel.trigger(.onOpenCustomizeSectionDialog(model: nil))
-                    })
+                if isAboutToCustomizeSection {
+                    if let sectionModel = viewModel.state.selectedSectionModel {
+                        OptionAdditionView(sectionModel: sectionModel,
+                                           onConfirm: { models in
+                            isAboutToCustomizeSection.toggle()
+                            viewModel.trigger(.onCustomSection(models: models))
+                            viewModel.trigger(.onOpenCustomizeSectionDialog(model: nil))
+                        },
+                                           onCancel: {
+                            isAboutToCustomizeSection.toggle()
+                            viewModel.trigger(.onOpenCustomizeSectionDialog(model: nil))
+                        })
+                    }
                 }
             }
         }
         .animation(.easeInOut, value: isAboutToCustomizeSection)
-        .customDialog(isShowing: $isAboutToShowTimePicker, padding: 20) {
-            ClockAnimationView(onCancel: {
-                isAboutToShowTimePicker.toggle()
-            }, onCallback: {_, _ in})
+        .customDialog(isShowing: $isAboutToShowTimePicker,
+                      padding: 20) {
+            Group {
+                if isAboutToShowTimePicker {
+                    ClockAnimationView(onCancel: {
+                        isAboutToShowTimePicker.toggle()
+                    }, onCallback: { bedTime, wakeUpTime in
+                        isAboutToShowTimePicker.toggle()
+                        viewModel.trigger(.onSleepScheduleChange(bedTime: bedTime, wakeUpTime: wakeUpTime))
+                        viewModel.trigger(.onOpenCustomizeSectionDialog(model: nil))
+                    })
+                }
+            }
         }
         .animation(.easeInOut, value: isAboutToShowTimePicker)
         .task {

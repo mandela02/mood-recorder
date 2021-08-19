@@ -84,10 +84,11 @@ class InputViewModel: ViewModel {
                 self.state.sectionModels[index].resetCell()
             }
             
-        // MARK: - Custom Section
+        // MARK: - Select Section
         case .onOpenCustomizeSectionDialog(model: let model):
             state.selectedSectionModel = model
             
+        // MARK: - custom Section
         case .onCustomSection(models: var models):
             guard let options = state.selectedSectionModel?.cell as? [OptionModel]
             else { return }
@@ -102,6 +103,12 @@ class InputViewModel: ViewModel {
             }
             
             state.sectionModels[sectionIndex].cell = models
+            
+        // MARK: - Select Sleep Schedule
+        case .onSleepScheduleChange(bedTime: let bedTime, wakeUpTime: let wakeUpTime):
+            guard let sectionIndex = state.sectionModels.firstIndex(where: {$0.id == state.selectedSectionModel?.id})
+            else { return }
+            self.state.sectionModels[sectionIndex].addSleepScheldule(bedTime: bedTime, wakeUpTime: wakeUpTime)
         }
     }
         
@@ -161,6 +168,7 @@ extension InputViewModel {
         case pictureSelected(sectionIndex: Int, image: UIImage)
         case onSectionVisibilityChanged(section: SectionType)
         case onTextChange(sectionIndex: Int, text: String)
+        case onSleepScheduleChange(bedTime: Int, wakeUpTime: Int)
         case onOpenCustomizeSectionDialog(model: SectionModel?)
         case onCustomSection(models: [OptionModel])
         case editButtonTapped
