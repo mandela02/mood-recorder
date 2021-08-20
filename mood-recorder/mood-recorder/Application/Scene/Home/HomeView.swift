@@ -8,10 +8,16 @@
 import SwiftUI
 
 struct HomeView: View {
+    typealias CalendarState = CalendarViewModel.CalendarState
+    typealias CalendarTrigger = CalendarViewModel.CalendarTrigger
+    
+    
     @ObservedObject var viewModel = HomeViewModel()
-
+    
+    var calendarViewModel: BaseViewModel<CalendarState,
+                                         CalendarTrigger>
     init() {
-        //UITabBar.appearance().isHidden = true
+        calendarViewModel = BaseViewModel(CalendarViewModel(state: CalendarState()))
     }
 
     @ViewBuilder
@@ -28,7 +34,7 @@ struct HomeView: View {
     var tabView: some View {
         TabView(selection: $viewModel.seletedTabBarIndex,
                 content:  {
-                    CalendarView().tag(0)
+            CalendarView(viewModel: calendarViewModel).tag(0)
                     Color.green.tag(1)
                         .ignoresSafeArea()
                     Color.blue.tag(2)
