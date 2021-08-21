@@ -81,6 +81,7 @@
 		9021188B26D0C34200273FC8 /* FutureWarningDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9021188A26D0C34200273FC8 /* FutureWarningDialog.swift */; };
 		9021188D26D0C37B00273FC8 /* TypeAlias.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9021188C26D0C37B00273FC8 /* TypeAlias.swift */; };
 		9041C11E26CEC45C0054617E /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9041C11D26CEC45C0054617E /* CalendarViewModel.swift */; };
+		9057DE9326D1086600FF7DA2 /* CalendarDiaryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9057DE9226D1086600FF7DA2 /* CalendarDiaryDetailView.swift */; };
 		90901D0826CFF18900ADE8D9 /* MonthPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90901D0726CFF18900ADE8D9 /* MonthPicker.swift */; };
 		909DC15E26CCA621004179F0 /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 909DC15D26CCA621004179F0 /* Int+Extension.swift */; };
 		90B4E97A26D0D5790048A2C2 /* CalendarUseCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B4E97926D0D5790048A2C2 /* CalendarUseCases.swift */; };
@@ -164,6 +165,7 @@
 		9021188A26D0C34200273FC8 /* FutureWarningDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FutureWarningDialog.swift; sourceTree = "<group>"; };
 		9021188C26D0C37B00273FC8 /* TypeAlias.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeAlias.swift; sourceTree = "<group>"; };
 		9041C11D26CEC45C0054617E /* CalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
+		9057DE9226D1086600FF7DA2 /* CalendarDiaryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDiaryDetailView.swift; sourceTree = "<group>"; };
 		90901D0726CFF18900ADE8D9 /* MonthPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthPicker.swift; sourceTree = "<group>"; };
 		909DC15D26CCA621004179F0 /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
 		90B4E97926D0D5790048A2C2 /* CalendarUseCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarUseCases.swift; sourceTree = "<group>"; };
@@ -517,6 +519,7 @@
 				9017B96F26CEC7CE00736037 /* CalendarView.swift */,
 				90901D0726CFF18900ADE8D9 /* MonthPicker.swift */,
 				9021188A26D0C34200273FC8 /* FutureWarningDialog.swift */,
+				9057DE9226D1086600FF7DA2 /* CalendarDiaryDetailView.swift */,
 			);
 			path = Calendar;
 			sourceTree = "<group>";
@@ -658,6 +661,7 @@
 				8423C22726C03379000717D9 /* PersistenceManager.swift in Sources */,
 				8423C22026C03175000717D9 /* MoodRecorderDataModel.xcdatamodeld in Sources */,
 				9017B97026CEC7CE00736037 /* CalendarView.swift in Sources */,
+				9057DE9326D1086600FF7DA2 /* CalendarDiaryDetailView.swift in Sources */,
 				84B395FB26C7C2F5007B8A6B /* UIImage+Extension.swift in Sources */,
 				8423C20F26BFC5A0000717D9 /* Beauty.swift in Sources */,
 				8404938B26BA4F51006523D9 /* OptionModel.swift in Sources */,

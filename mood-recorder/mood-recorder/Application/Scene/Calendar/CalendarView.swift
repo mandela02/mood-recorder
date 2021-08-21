@@ -16,7 +16,7 @@ struct CalendarView: View {
     @Binding var isTabBarHiddenNeeded: Bool
     
     @State var isInputViewShowing = false
-        
+    
     init(viewModel: BaseViewModel<CalendarState, CalendarTrigger>,
          isTabBarHiddenNeeded: Binding<Bool>) {
         self.viewModel = viewModel
@@ -35,8 +35,20 @@ struct CalendarView: View {
                 .ignoresSafeArea()
             VStack {
                 buildDateView()
-                buildCalendar()
-                    .padding()
+                ScrollView {
+                    VStack {
+                        buildCalendar()
+                            .padding()
+                        
+                        if viewModel.state.isDetailViewShowing,
+                           let diary = viewModel.state.selectedDate {
+                            CalendarDiaryDetailView(diary: diary)
+                                .id(diary.emotion)
+                        }
+                        
+                        SizedBox(height: 150)
+                    }
+                }
             }
         }
         .onChange(of: viewModel.state.isFutureWarningDialogShow,
@@ -49,14 +61,14 @@ struct CalendarView: View {
                     month: viewModel.currentMonth.month,
                     year: viewModel.currentMonth.year,
                     onApply: { (month, year) in
-                    viewModel.trigger(.goTo(month: month, year: year))
-                    viewModel.trigger(.closeDatePicker)
-                    showTabBar()
-                },
+                        viewModel.trigger(.goTo(month: month, year: year))
+                        viewModel.trigger(.closeDatePicker)
+                        showTabBar()
+                    },
                     onCancel: {
-                    viewModel.trigger(.closeDatePicker)
-                    showTabBar()
-                })
+                        viewModel.trigger(.closeDatePicker)
+                        showTabBar()
+                    })
             }
         }
         .animation(.easeInOut, value: viewModel.state.isDatePickerShow)
@@ -74,7 +86,6 @@ struct CalendarView: View {
         .fullScreenCover(isPresented: $isInputViewShowing,
                          onDismiss: {
             viewModel.trigger(.closeInputView)
-            viewModel.trigger(.reload)
         }) {
             if let data = viewModel.state.selectedDate {
                 InputView(data: data)
@@ -184,7 +195,7 @@ extension CalendarView {
                     .frame(width: 50, height: 30)
                     .foregroundColor(Theme.current.buttonColor.backgroundColor)
             }
-
+            
             Spacer()
             
             Button(action: {
@@ -219,7 +230,7 @@ extension CalendarView {
             }
             
             Spacer()
-
+            
             Button(action: {
                 viewModel.trigger(.goToToDay)
             }) {

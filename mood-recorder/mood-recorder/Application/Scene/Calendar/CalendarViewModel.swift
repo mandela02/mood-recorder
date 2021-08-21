@@ -18,7 +18,7 @@ class CalendarViewModel: ViewModel {
     init(state: CalendarState) {
         self.state = state
         setupSubcription()
-        loadToday()
+        loadData(date: Date())
     }
     
     
@@ -33,15 +33,19 @@ class CalendarViewModel: ViewModel {
             state.selectedDate = model
             if model.date.isInTheFuture {
                 state.isFutureWarningDialogShow = true
+                state.isDetailViewShowing = false
+                state.isInputViewShowing = false
             } else {
                 if model.sections.isEmpty {
+                    state.isDetailViewShowing = false
                     state.isInputViewShowing = true
                 } else {
-                    state.isDetailViewShowing = false
+                    state.isDetailViewShowing = true
                 }
             }
         case .deselectDate:
             state.selectedDate = nil
+            state.isDetailViewShowing = false
         case .goToNextMonth:
             state.currentMonth.month += 1
             if state.currentMonth.month == 13 {
@@ -65,15 +69,14 @@ class CalendarViewModel: ViewModel {
             createCalendarDates()
             fetch()
         case .goToToDay:
-            loadToday()
+            loadData(date: Date())
         case .share:
             print("share")
         case .closeFutureDialog:
             state.isFutureWarningDialogShow = false
         case .closeInputView:
             state.isInputViewShowing = false
-        case .reload:
-            fetch()
+            loadData(date: state.selectedDate?.date ?? Date())
         }
     }
     
@@ -100,12 +103,12 @@ class CalendarViewModel: ViewModel {
         
         state.response.send(result)
     }
-    
-    private func loadToday() {
-        state.currentMonth = (Date().month, Date().year)
-        state.selectedDate = state.diaries.first(where: {$0.date.isInSameDay(as: Date())})
+        
+    private func loadData(date: Date) {
+        state.currentMonth = (date.month, date.year)
         createCalendarDates()
         fetch()
+        state.selectedDate = state.diaries.first(where: {$0.date.isInSameDay(as: date)})
         if !(state.selectedDate?.sections.isEmpty ?? true) {
             state.isDetailViewShowing = true
         }
@@ -165,6 +168,5 @@ extension CalendarViewModel {
         case closeDatePicker
         case closeFutureDialog
         case closeInputView
-        case reload
     }
 }
