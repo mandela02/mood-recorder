@@ -11,7 +11,7 @@ import Combine
 class InputViewModel: ViewModel {
     @Published var state: InputState
     
-    private let useCase = UseCaseProvider.defaultProvider.getinputUseCase()
+    private let useCase = UseCaseProvider.defaultProvider.getInputUseCases()
     
     private var cancellables = Set<AnyCancellable>()
     
@@ -34,13 +34,15 @@ class InputViewModel: ViewModel {
 
         // MARK: - done button tapped
         case .doneButtonTapped:
-            let model = InputDataModel(sections: self.state.sectionModels)
             switch self.state.status {
             case .new:
+                let model = InputDataModel(date: Date(),
+                                           sections: self.state.sectionModels)
                 self.state.response.send(self.useCase.save(model: model))
             case .update(date: let date):
-                self.state.response.send(self.useCase.update(at: date.startOfDayInterval,
-                                                       model: model))
+                let model = InputDataModel(date: date,
+                                           sections: self.state.sectionModels)
+                self.state.response.send(self.useCase.update(model: model))
             }
             
         // MARK: - cell option tapped
@@ -150,8 +152,8 @@ extension InputViewModel {
                         self.state.sectionModels = model.sections
                         self.sort()
                     }
-                case .error(error: _):
-                    print("error")
+                case .error(error: let error):
+                    print(error)
                 }
                 
             }

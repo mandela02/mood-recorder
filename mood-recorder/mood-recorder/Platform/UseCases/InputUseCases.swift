@@ -8,11 +8,20 @@
 import Foundation
 import CoreData
 
-struct InputUseCase {
-    private let repository: Repository<CDInputModel>
+protocol InputUseCaseType {
+    func save(model: InputDataModel) -> DatabaseResponse
+    func update(model: InputDataModel) -> DatabaseResponse
+    func fetch(at date: Double) -> DatabaseResponse
+    func isRecordExist(date: Double) -> Bool
+}
 
+struct InputUseCases: InputUseCaseType {
+    private let repository: Repository<CDInputModel>
+    private let fetchUseCase: FetchUseCaseType
+    
     init(repository: Repository<CDInputModel>) {
         self.repository = repository
+        self.fetchUseCase = FetchUseCase(repository: repository)
     }
 
     var context: NSManagedObjectContext {
@@ -23,15 +32,15 @@ struct InputUseCase {
         let cdSections: [CDSectionModel] = createContent(model: model)
 
         let inputModel = CDInputModel(context: context)
-        inputModel.date = Date().startOfDay.timeIntervalSince1970
+        inputModel.date = model.date.startOfDayInterval
         
         inputModel.addToSections(NSSet(array: cdSections))
         
         return repository.save()
     }
     
-    func update(at date: Double, model: InputDataModel) -> DatabaseResponse {
-        let result = repository.fetchRequest(predicate: "date", value: "\(date)")
+    func update(model: InputDataModel) -> DatabaseResponse {
+        let result = fetchUseCase.fetch(at: model.date.startOfDayInterval)
         switch result {
         case .success(data: let cdInputModel):
             guard  let cdInputModel = cdInputModel as? CDInputModel else {
@@ -49,60 +58,12 @@ struct InputUseCase {
     }
     
     func fetch(at date: Double) -> DatabaseResponse {
-        let result = repository.fetchRequest(predicate: "date", value: "\(date)")
+        let result = fetchUseCase.fetch(at: date)
         switch result {
         case .success(data: let model as CDInputModel):
-            var sectionModels = [SectionModel]()
-            
-            for cdSection in model.sectionArray {
-                guard let content = cdSection.content else { continue }
-                let section = SectionType.section(from: Int(cdSection.sectionID))
-                
-                switch section {
-                case .note:
-                    sectionModels.append(SectionModel(section: section,
-                                                      title: section.title,
-                                                      cell: TextModel(text: content.text),
-                                                      isVisible: cdSection.isVisible))
-                case .photo:
-                    sectionModels.append(SectionModel(section: section,
-                                                      title: section.title,
-                                                      cell: ImageModel(data: content.image),
-                                                      isVisible: cdSection.isVisible))
-                case .sleep:
-                    sectionModels.append(SectionModel(section: section,
-                                                      title: section.title,
-                                                      cell: SleepSchelduleModel(bedTime: content.bedTime,
-                                                                                wakeUpTime: content.wakeUpTime),
-                                                      isVisible: cdSection.isVisible))
-                default:
-                    let cdOptions = content.optionArray
-                    var optionModels = [OptionModel]()
-                    
-                    for cdOption in cdOptions {
-                        let content = ImageAndTitleModel(image: AppImage.appImage(value: cdOption.wrappedImage),
-                                                         title: cdOption.wrappedName)
-                        
-                        var model = OptionModel(content: content,
-                                                isSelected: cdOption.isSelected)
-                        model.isVisible = cdOption.isVisible
-                        optionModels.append(model)
-                    }
-                    
-                    optionModels
-                        .sort(by: {$0.content.image.rawValue < $1.content.image.rawValue})
-                    
-                    sectionModels.append(SectionModel(section: section,
-                                                      title: section.title,
-                                                      cell: optionModels,
-                                                      isEditable: section != .emotion,
-                                                      isVisible: cdSection.isVisible))
-                }
-            }
-                        
-            return .success(data: InputDataModel(sections: sectionModels))
-        case .error(error: let error):
-            return .error(error: error)
+            return .success(data: fetchUseCase.convert(model: model))
+        case .error(let error):
+            return.error(error: error)
         default:
             return .error(error: NSError(domain: "Can not find this record",
                                          code: 1,
@@ -111,7 +72,7 @@ struct InputUseCase {
     }
     
     func isRecordExist(date: Double) -> Bool {
-        let result = repository.fetchRequest(predicate: "date", value: "\(date)")
+        let result = fetchUseCase.fetch(at: date)
         switch result {
         case .success(data: _):
             return true

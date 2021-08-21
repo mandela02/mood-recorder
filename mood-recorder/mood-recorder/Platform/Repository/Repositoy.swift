@@ -19,7 +19,8 @@ protocol RepositoryType {
     var entityName: String { get }
     func countAll() -> DatabaseResponse
     func fetchAllData() -> DatabaseResponse
-    func fetchRequest(predicate: String, value: String) -> DatabaseResponse
+    func fetchRequestGetFirst(predicate: NSPredicate) -> DatabaseResponse
+    func fetchRequest(predicate: NSPredicate) -> DatabaseResponse
     func save() -> DatabaseResponse
     func delete(model: T)
     func publisher() -> AnyPublisher<Void, Never>
@@ -54,9 +55,9 @@ class Repository<T: NSManagedObject>: RepositoryType {
         }
     }
     
-    func fetchRequest(predicate: String, value: String) -> DatabaseResponse {
+    func fetchRequestGetFirst(predicate: NSPredicate) -> DatabaseResponse {
         let fetchRequest = NSFetchRequest<T>(entityName: entityName)
-        fetchRequest.predicate = NSPredicate(format: "\(predicate) CONTAINS[c] %@", value)
+        fetchRequest.predicate = predicate
         
         do {
             let result = try container.viewContext.fetch(fetchRequest)
@@ -67,6 +68,18 @@ class Repository<T: NSManagedObject>: RepositoryType {
             } else {
                 return .success(data: result.first)
             }
+        } catch let error {
+            return .error(error: error)
+        }
+    }
+    
+    func fetchRequest(predicate: NSPredicate) -> DatabaseResponse {
+        let fetchRequest = NSFetchRequest<T>(entityName: entityName)
+        fetchRequest.predicate = predicate
+        
+        do {
+            let result = try container.viewContext.fetch(fetchRequest)
+            return .success(data: result)
         } catch let error {
             return .error(error: error)
         }

@@ -8,11 +8,13 @@
 import Foundation
 
 struct InputDataModel {
-    init(sections: [SectionModel]) {
+    init(date: Date, sections: [SectionModel]) {
         self.sections = sections
+        self.date = date
     }
     
     var sections: [SectionModel]
+    var date: Date
     
     static func initData() -> InputDataModel {
         let sections = SectionType.allCases.map { section -> SectionModel in
@@ -24,7 +26,6 @@ struct InputDataModel {
                         OptionModel(content: ImageAndTitleModel(image: $0.imageName,
                                                                 title: ""))
                     }
-                    .sorted(by: {$0.content.image.rawValue < $1.content.image.rawValue})
                 
                 return SectionModel(section: section,
                                     title: "How was your day?",
@@ -140,6 +141,6 @@ struct InputDataModel {
             }
         }
         
-        return InputDataModel(sections: sections)
+        return InputDataModel(date: Date(), sections: sections)
     }
 }

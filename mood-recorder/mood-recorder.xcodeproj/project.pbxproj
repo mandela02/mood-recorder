@@ -64,7 +64,7 @@
 		84C3F72B26C03AE600C789F5 /* CDInputModel+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C3F72326C03AE600C789F5 /* CDInputModel+CoreDataProperties.swift */; };
 		84C3F72C26C03AE600C789F5 /* CDSectionModel+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C3F72426C03AE600C789F5 /* CDSectionModel+CoreDataClass.swift */; };
 		84C3F72D26C03AE600C789F5 /* CDSectionModel+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C3F72526C03AE600C789F5 /* CDSectionModel+CoreDataProperties.swift */; };
-		84C3F73226C03E0E00C789F5 /* InputUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C3F73126C03E0E00C789F5 /* InputUseCase.swift */; };
+		84C3F73226C03E0E00C789F5 /* InputUseCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C3F73126C03E0E00C789F5 /* InputUseCases.swift */; };
 		84C3F73426C044A800C789F5 /* UseCaseProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C3F73326C044A800C789F5 /* UseCaseProvider.swift */; };
 		84CBB35F26B703BF00A8E377 /* CustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CBB35E26B703BF00A8E377 /* CustomTabBar.swift */; };
 		84CBB36126B7102700A8E377 /* AppImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CBB36026B7102700A8E377 /* AppImage.swift */; };
@@ -83,6 +83,8 @@
 		9041C11E26CEC45C0054617E /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9041C11D26CEC45C0054617E /* CalendarViewModel.swift */; };
 		90901D0826CFF18900ADE8D9 /* MonthPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90901D0726CFF18900ADE8D9 /* MonthPicker.swift */; };
 		909DC15E26CCA621004179F0 /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 909DC15D26CCA621004179F0 /* Int+Extension.swift */; };
+		90B4E97A26D0D5790048A2C2 /* CalendarUseCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B4E97926D0D5790048A2C2 /* CalendarUseCases.swift */; };
+		90B4E97C26D0D6130048A2C2 /* FetchUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B4E97B26D0D6130048A2C2 /* FetchUseCase.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -145,7 +147,7 @@
 		84C3F72326C03AE600C789F5 /* CDInputModel+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDInputModel+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		84C3F72426C03AE600C789F5 /* CDSectionModel+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDSectionModel+CoreDataClass.swift"; sourceTree = "<group>"; };
 		84C3F72526C03AE600C789F5 /* CDSectionModel+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDSectionModel+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		84C3F73126C03E0E00C789F5 /* InputUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputUseCase.swift; sourceTree = "<group>"; };
+		84C3F73126C03E0E00C789F5 /* InputUseCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputUseCases.swift; sourceTree = "<group>"; };
 		84C3F73326C044A800C789F5 /* UseCaseProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseCaseProvider.swift; sourceTree = "<group>"; };
 		84CBB35E26B703BF00A8E377 /* CustomTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBar.swift; sourceTree = "<group>"; };
 		84CBB36026B7102700A8E377 /* AppImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppImage.swift; sourceTree = "<group>"; };
@@ -164,6 +166,8 @@
 		9041C11D26CEC45C0054617E /* CalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
 		90901D0726CFF18900ADE8D9 /* MonthPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthPicker.swift; sourceTree = "<group>"; };
 		909DC15D26CCA621004179F0 /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
+		90B4E97926D0D5790048A2C2 /* CalendarUseCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarUseCases.swift; sourceTree = "<group>"; };
+		90B4E97B26D0D6130048A2C2 /* FetchUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchUseCase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -335,8 +339,7 @@
 		84C3F73026C03DFC00C789F5 /* UseCase */ = {
 			isa = PBXGroup;
 			children = (
-				84C3F73126C03E0E00C789F5 /* InputUseCase.swift */,
-				84C3F73326C044A800C789F5 /* UseCaseProvider.swift */,
+				90B4E97B26D0D6130048A2C2 /* FetchUseCase.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -344,6 +347,7 @@
 		84CBB35626B6FDD000A8E377 /* Platform */ = {
 			isa = PBXGroup;
 			children = (
+				90B4E97D26D0D7EF0048A2C2 /* UseCases */,
 				84C3F73026C03DFC00C789F5 /* UseCase */,
 				84C3F70D26C03A7C00C789F5 /* Entities */,
 				8423C22126C03352000717D9 /* Repository */,
@@ -517,6 +521,16 @@
 			path = Calendar;
 			sourceTree = "<group>";
 		};
+		90B4E97D26D0D7EF0048A2C2 /* UseCases */ = {
+			isa = PBXGroup;
+			children = (
+				84C3F73326C044A800C789F5 /* UseCaseProvider.swift */,
+				90B4E97926D0D5790048A2C2 /* CalendarUseCases.swift */,
+				84C3F73126C03E0E00C789F5 /* InputUseCases.swift */,
+			);
+			path = UseCases;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -602,6 +616,7 @@
 				84CBB36626B7164E00A8E377 /* HomeViewModel.swift in Sources */,
 				84CBB36A26B71E7500A8E377 /* ResizeAnimationButtonStyle.swift in Sources */,
 				8404939326BA4FC0006523D9 /* ImageModel.swift in Sources */,
+				90B4E97C26D0D6130048A2C2 /* FetchUseCase.swift in Sources */,
 				8404939F26BAAB21006523D9 /* ThemeHelper.swift in Sources */,
 				84C3F72826C03AE600C789F5 /* CDOptionModel+CoreDataClass.swift in Sources */,
 				84C3F72D26C03AE600C789F5 /* CDSectionModel+CoreDataProperties.swift in Sources */,
@@ -612,7 +627,7 @@
 				84EE2F8526C7CFF800C0195D /* DismissDialog.swift in Sources */,
 				84CBB36426B7154100A8E377 /* HomeView.swift in Sources */,
 				84C3F72A26C03AE600C789F5 /* CDInputModel+CoreDataClass.swift in Sources */,
-				84C3F73226C03E0E00C789F5 /* InputUseCase.swift in Sources */,
+				84C3F73226C03E0E00C789F5 /* InputUseCases.swift in Sources */,
 				84AC834626CA57550052B295 /* CustomOptionViewModel.swift in Sources */,
 				8404938D26BA4F6B006523D9 /* SleepScheduleModel.swift in Sources */,
 				8423C21526BFE978000717D9 /* School.swift in Sources */,
@@ -650,6 +665,7 @@
 				84EE2F8726C7D08500C0195D /* CustomDialog.swift in Sources */,
 				8423C20526BE43BB000717D9 /* Double+Extension.swift in Sources */,
 				8476F1A726B85B9000F62854 /* InputDataModel.swift in Sources */,
+				90B4E97A26D0D5790048A2C2 /* CalendarUseCases.swift in Sources */,
 				8404938626B9BFCE006523D9 /* InputView.swift in Sources */,
 				8476F1AD26B8637300F62854 /* String+Extension.swift in Sources */,
 				84B395FE26C7C3D2007B8A6B /* Utilities.swift in Sources */,

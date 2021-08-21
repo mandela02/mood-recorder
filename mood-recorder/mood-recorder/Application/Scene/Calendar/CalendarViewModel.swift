@@ -9,11 +9,22 @@ import Foundation
 import Combine
 
 class CalendarViewModel: ViewModel {
+    
     @Published var state: CalendarState
     
+    private var cancellables = Set<AnyCancellable>()
+    private let useCase = UseCaseProvider.defaultProvider.getCalendarUseCases()
+
     init(state: CalendarState) {
         self.state = state
+        setupSubcription()
         createCalendarDates()
+    }
+    
+    
+    deinit {
+        cancellables.forEach({$0.cancel()})
+        cancellables.removeAll()
     }
     
     func trigger(_ input: CalendarTrigger) {
@@ -67,6 +78,31 @@ class CalendarViewModel: ViewModel {
         }
         
         self.state.dates = thisMonthDate.getAllDateInMonthFaster()
+        fetch()
+    }
+    
+    private func fetch() {
+        guard let start = state.dates.first?.startOfDayInterval,
+              let end = state.dates.last?.startOfDayInterval else { return }
+        
+        state.response.send(useCase.fetch(from: start, to: end))
+    }
+    
+    private func setupSubcription() {
+        self.state.response
+            .sink { [weak self] response in
+                guard let self = self else { return }
+                switch response {
+                case .success(data: let data):
+                    if let models = data as? [InputDataModel] {
+                        self.state.diaries = models
+                    }
+                case .error(error: let error):
+                    print(error)
+                }
+                
+            }
+            .store(in: &cancellables)
     }
 }
 
@@ -77,6 +113,9 @@ extension CalendarViewModel {
         var currentMonth = (month: Date().month, year: Date().year)
         var isDatePickerShow = false
         var isFutureWarningDialogShow = false
+        var diaries: [InputDataModel] = []
+        
+        let response = PassthroughSubject<DatabaseResponse, Never>()
     }
     
     enum CalendarTrigger {
