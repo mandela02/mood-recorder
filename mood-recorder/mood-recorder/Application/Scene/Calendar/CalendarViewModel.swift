@@ -18,7 +18,7 @@ class CalendarViewModel: ViewModel {
     init(state: CalendarState) {
         self.state = state
         setupSubcription()
-        loadData(date: Date())
+        loadToday()
     }
     
     
@@ -52,14 +52,14 @@ class CalendarViewModel: ViewModel {
                 state.currentMonth = (1, state.currentMonth.year + 1)
             }
             createCalendarDates()
-            fetch()
+            syncFetch()
         case .backToLaseMonth:
             state.currentMonth.month -= 1
             if state.currentMonth.month == 0 {
                 state.currentMonth = (12, state.currentMonth.year - 1)
             }
             createCalendarDates()
-            fetch()
+            syncFetch()
         case .showDatePicker:
             state.isDatePickerShow = true
         case .closeDatePicker:
@@ -67,11 +67,11 @@ class CalendarViewModel: ViewModel {
         case .goTo(month: let month, year: let year):
             state.currentMonth = (month, year)
             createCalendarDates()
-            fetch()
+            syncFetch()
         case .goToToDay:
-            loadData(date: Date())
+            loadToday()
         case .share:
-            print("share")
+            state.isShareImageViewShowing = true
         case .closeFutureDialog:
             state.isFutureWarningDialogShow = false
         case .closeInputView:
@@ -100,22 +100,45 @@ class CalendarViewModel: ViewModel {
         self.state.dates = thisMonthDate.getAllDateInMonthFaster()
     }
     
-    private func fetch() {
+    private func syncFetch() {
+        Task {
+            await fetch()
+        }
+    }
+    
+    private func loadToday() {
+        Task {
+            await loadData(date: Date())
+        }
+    }
+    
+    private func fetch() async {
         guard let start = state.dates.first?.startOfDayInterval,
               let end = state.dates.last?.startOfDayInterval else { return }
         
-        let result = useCase.fetch(from: start, to: end)
+        let response = useCase.fetch(from: start, to: end)
         
-        state.response.send(result)
+        switch response {
+        case .success(data: let data):
+            if let models = data as? [InputDataModel] {
+                await self.handleData(models: models)
+            }
+        case .error(error: let error):
+            self.state.diaries = self.state.dates.map { InputDataModel(date: $0, sections: []) }
+            print(error)
+        }
     }
         
-    private func loadData(date: Date) {
+    private func loadData(date: Date) async {
         state.currentMonth = (date.month, date.year)
         createCalendarDates()
-        fetch()
-        state.selectedDate = state.diaries.first(where: {$0.date.isInSameDay(as: date)})
-        if !(state.selectedDate?.sections.isEmpty ?? true) {
-            state.isDetailViewShowing = true
+        await fetch()
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.state.selectedDate = self.state.diaries.first(where: {$0.date.isInSameDay(as: date)})
+            if !(self.state.selectedDate?.sections.isEmpty ?? true) {
+                self.state.isDetailViewShowing = true
+            }
         }
     }
     
@@ -123,33 +146,33 @@ class CalendarViewModel: ViewModel {
         self.useCase.publisher()
             .sink { [weak self] in
                 guard let self = self else { return }
-                self.loadData(date: self.state.selectedDate?.date ?? Date())
-            }
-            .store(in: &cancellables)
-        
-        self.state.response
-            .sink { [weak self] response in
-                guard let self = self else { return }
-                switch response {
-                case .success(data: let data):
-                    if let models = data as? [InputDataModel] {
-                        var diaries = self.state.dates.map { InputDataModel(date: $0, sections: []) }
-                        
-                        for index in diaries.indices {
-                            guard let model = models.first(where: {$0.date.startOfDayInterval == diaries[index].date.startOfDayInterval})
-                            else { continue }
-                            diaries[index].sections = model.sections
-                        }
-                        
-                        self.state.diaries = diaries
-                    }
-                case .error(error: let error):
-                    self.state.diaries = self.state.dates.map { InputDataModel(date: $0, sections: []) }
-                    print(error)
+                Task {
+                    await self.loadData(date: self.state.selectedDate?.date ?? Date())
                 }
-                
             }
             .store(in: &cancellables)
+    }
+    
+    private func handleData(models: [InputDataModel]) async {
+        let result = Task(priority: .background) { () -> [InputDataModel] in
+            var diaries = self.state.dates.map { InputDataModel(date: $0,
+                                                                sections: []) }
+            
+            for index in diaries.indices {
+                guard let model = models.first(where: {$0.date.startOfDayInterval == diaries[index].date.startOfDayInterval})
+                else { continue }
+                diaries[index].sections = model.sections
+            }
+            
+            return diaries
+        }
+        
+        let diaries = await result.value
+        
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.state.diaries = diaries
+        }
     }
 }
 
@@ -160,6 +183,7 @@ extension CalendarViewModel {
         var currentMonth = (month: Date().month, year: Date().year)
         var isDatePickerShow = false
         var isFutureWarningDialogShow = false
+        var isShareImageViewShowing = false
         var diaries: [InputDataModel] = []
         
         var isDetailViewShowing = false

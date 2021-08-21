@@ -80,6 +80,7 @@
 		9017B97026CEC7CE00736037 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9017B96F26CEC7CE00736037 /* CalendarView.swift */; };
 		9021188B26D0C34200273FC8 /* FutureWarningDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9021188A26D0C34200273FC8 /* FutureWarningDialog.swift */; };
 		9021188D26D0C37B00273FC8 /* TypeAlias.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9021188C26D0C37B00273FC8 /* TypeAlias.swift */; };
+		90256F3326D132DF0067B354 /* ImageShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90256F3226D132DF0067B354 /* ImageShareView.swift */; };
 		9041C11E26CEC45C0054617E /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9041C11D26CEC45C0054617E /* CalendarViewModel.swift */; };
 		9057DE9326D1086600FF7DA2 /* CalendarDiaryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9057DE9226D1086600FF7DA2 /* CalendarDiaryDetailView.swift */; };
 		90901D0826CFF18900ADE8D9 /* MonthPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90901D0726CFF18900ADE8D9 /* MonthPicker.swift */; };
@@ -164,6 +165,7 @@
 		9017B96F26CEC7CE00736037 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		9021188A26D0C34200273FC8 /* FutureWarningDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FutureWarningDialog.swift; sourceTree = "<group>"; };
 		9021188C26D0C37B00273FC8 /* TypeAlias.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeAlias.swift; sourceTree = "<group>"; };
+		90256F3226D132DF0067B354 /* ImageShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageShareView.swift; sourceTree = "<group>"; };
 		9041C11D26CEC45C0054617E /* CalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
 		9057DE9226D1086600FF7DA2 /* CalendarDiaryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDiaryDetailView.swift; sourceTree = "<group>"; };
 		90901D0726CFF18900ADE8D9 /* MonthPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthPicker.swift; sourceTree = "<group>"; };
@@ -520,6 +522,7 @@
 				90901D0726CFF18900ADE8D9 /* MonthPicker.swift */,
 				9021188A26D0C34200273FC8 /* FutureWarningDialog.swift */,
 				9057DE9226D1086600FF7DA2 /* CalendarDiaryDetailView.swift */,
+				90256F3226D132DF0067B354 /* ImageShareView.swift */,
 			);
 			path = Calendar;
 			sourceTree = "<group>";
@@ -668,6 +671,7 @@
 				84CBB36126B7102700A8E377 /* AppImage.swift in Sources */,
 				84EE2F8726C7D08500C0195D /* CustomDialog.swift in Sources */,
 				8423C20526BE43BB000717D9 /* Double+Extension.swift in Sources */,
+				90256F3326D132DF0067B354 /* ImageShareView.swift in Sources */,
 				8476F1A726B85B9000F62854 /* InputDataModel.swift in Sources */,
 				90B4E97A26D0D5790048A2C2 /* CalendarUseCases.swift in Sources */,
 				8404938626B9BFCE006523D9 /* InputView.swift in Sources */,

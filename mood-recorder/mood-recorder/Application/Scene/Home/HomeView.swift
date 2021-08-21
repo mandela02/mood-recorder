@@ -77,7 +77,7 @@ struct HomeView: View {
             }
         }
         .animation(.easeInOut, value: viewModel.isTabBarHiddenNeeded)
-        .animation(Animation.spring().speed(1.5), value: viewModel.isEmotionDialogShowing)
+        .animation(Animation.easeInOut.speed(1.5), value: viewModel.isEmotionDialogShowing)
         .fullScreenCover(isPresented: $viewModel.isInputViewShow,
                          onDismiss: viewModel.onInputViewDismiss) {
             if let selectedCoreEmotion = viewModel.selectedCoreEmotion {

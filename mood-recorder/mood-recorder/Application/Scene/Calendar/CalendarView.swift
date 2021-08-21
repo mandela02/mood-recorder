@@ -29,6 +29,7 @@ struct CalendarView: View {
         }
     }
     
+    // MARK: - BODY
     var body: some View {
         ZStack {
             Theme.current.commonColor.viewBackground
@@ -53,6 +54,7 @@ struct CalendarView: View {
                         
                         SizedBox(height: 150)
                     }
+                    .clipped()
                 }
             }
         }
@@ -66,8 +68,9 @@ struct CalendarView: View {
                     month: viewModel.currentMonth.month,
                     year: viewModel.currentMonth.year,
                     onApply: { (month, year) in
-                        viewModel.trigger(.goTo(month: month, year: year))
+                        viewModel.trigger(.deselectDate)
                         viewModel.trigger(.closeDatePicker)
+                        viewModel.trigger(.goTo(month: month, year: year))
                         showTabBar()
                     },
                     onCancel: {
@@ -185,7 +188,7 @@ extension CalendarView {
                 }
             }
         })
-            .animation(.spring(), value: viewModel.state.selectedDate?.date)
+        .animation(.easeInOut, value: viewModel.state.selectedDate?.date)
     }
 }
 
@@ -205,6 +208,7 @@ extension CalendarView {
             Spacer()
             
             Button(action: {
+                viewModel.trigger(.deselectDate)
                 viewModel.trigger(.backToLaseMonth)
             }) {
                 Image(systemName: "arrowtriangle.backward.fill")
@@ -226,6 +230,7 @@ extension CalendarView {
                 }
             
             Button(action: {
+                viewModel.trigger(.deselectDate)
                 viewModel.trigger(.goToNextMonth)
             }) {
                 Image(systemName: "arrowtriangle.right.fill")
