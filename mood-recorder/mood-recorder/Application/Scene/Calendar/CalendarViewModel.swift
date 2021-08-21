@@ -18,7 +18,7 @@ class CalendarViewModel: ViewModel {
     init(state: CalendarState) {
         self.state = state
         setupSubcription()
-        createCalendarDates()
+        loadToday()
     }
     
     
@@ -48,12 +48,14 @@ class CalendarViewModel: ViewModel {
                 state.currentMonth = (1, state.currentMonth.year + 1)
             }
             createCalendarDates()
+            fetch()
         case .backToLaseMonth:
             state.currentMonth.month -= 1
             if state.currentMonth.month == 0 {
                 state.currentMonth = (12, state.currentMonth.year - 1)
             }
             createCalendarDates()
+            fetch()
         case .showDatePicker:
             state.isDatePickerShow = true
         case .closeDatePicker:
@@ -61,9 +63,9 @@ class CalendarViewModel: ViewModel {
         case .goTo(month: let month, year: let year):
             state.currentMonth = (month, year)
             createCalendarDates()
+            fetch()
         case .goToToDay:
-            state.currentMonth = (Date().month, Date().year)
-            createCalendarDates()
+            loadToday()
         case .share:
             print("share")
         case .closeFutureDialog:
@@ -88,14 +90,25 @@ class CalendarViewModel: ViewModel {
         }
         
         self.state.dates = thisMonthDate.getAllDateInMonthFaster()
-        fetch()
     }
     
     private func fetch() {
         guard let start = state.dates.first?.startOfDayInterval,
               let end = state.dates.last?.startOfDayInterval else { return }
         
-        state.response.send(useCase.fetch(from: start, to: end))
+        let result = useCase.fetch(from: start, to: end)
+        
+        state.response.send(result)
+    }
+    
+    private func loadToday() {
+        state.currentMonth = (Date().month, Date().year)
+        state.selectedDate = state.diaries.first(where: {$0.date.isInSameDay(as: Date())})
+        createCalendarDates()
+        fetch()
+        if !(state.selectedDate?.sections.isEmpty ?? true) {
+            state.isDetailViewShowing = true
+        }
     }
     
     private func setupSubcription() {
