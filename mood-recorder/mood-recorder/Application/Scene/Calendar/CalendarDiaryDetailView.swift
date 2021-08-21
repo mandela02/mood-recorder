@@ -14,8 +14,17 @@ struct CalendarDiaryDetailView: View {
     @State private var date: Date?
     @State private var emotion: CoreEmotion?
     
-    init(diary: InputDataModel) {
+    @State private var isTitleShow = false
+    
+    let onEditDiary: VoidFunction
+    let onDeleteDiary: VoidFunction
+
+    init(diary: InputDataModel,
+         onEditDiary: @escaping VoidFunction,
+         onDeleteDiary: @escaping VoidFunction) {
         self.diary = diary
+        self.onEditDiary = onEditDiary
+        self.onDeleteDiary = onDeleteDiary
     }
     
     func generateData(diary: InputDataModel) {
@@ -52,6 +61,9 @@ struct CalendarDiaryDetailView: View {
                         Theme.current.buttonColor.backgroundColor
                             .clipShape(RoundedRectangle(cornerRadius: 10))
                     )
+                    .onTapGesture {
+                        onEditDiary()
+                    }
             }
             
             Spacer()
@@ -66,26 +78,71 @@ struct CalendarDiaryDetailView: View {
                              content: {
                 ForEach(models) { model in
                     Button(action: {
+                        isTitleShow.toggle()
                     }, label: {
-                        RoundImageView(image: Image(model.image.value),
-                                       backgroundColor: Theme.current.buttonColor.disableColor)
+                        ZStack {
+                            RoundImageView(image: Image(model.image.value),
+                                           backgroundColor: Theme.current.buttonColor.disableColor)
+                                .blur(radius: isTitleShow ? 3 : 0)
+                            
+                            if isTitleShow {
+                                Color.white
+                                    .clipShape(Circle())
+                                    .opacity(0.5)
+                                Text(model.title)
+                                    .foregroundColor(Theme.current.commonColor.textColor)
+                                    .font(.system(size: 8))
+                                    .lineLimit(2)
+                                    .minimumScaleFactor(0.1)
+                            }
+                        }
                     })
                         .aspectRatio(1, contentMode: .fit)
                 }
             })
+                .animation(.easeInOut, value: isTitleShow)
             Spacer()
         }
     }
     
+    func buildButton() -> some View {
+        HStack(spacing: 20) {
+            Spacer()
+            Button(action: {
+                onEditDiary()
+            }) {
+                Image(systemName: "pencil.circle")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 20, height: 20)
+                    .foregroundColor(Theme.current.commonColor.textColor)
+            }
+            Button(action: {
+                onDeleteDiary()
+            }) {
+                Image(systemName: "trash.circle")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 20, height: 20)
+                    .foregroundColor(Theme.current.commonColor.textColor)
+            }
+        }
+        .padding(.horizontal, 20)
+    }
+    
     var body: some View {
-        ZStack {
-            Color.white
-                .clipShape(RoundedRectangle(cornerRadius: 20))
-            HStack(spacing: 20) {
-                buildEmotionDate()
-                buildIconGrid(models: imageModels)
-                    .frame(maxWidth: .infinity)
-            }.padding()
+        VStack {
+            buildButton()
+            ZStack {
+                Color.white
+                    .clipShape(RoundedRectangle(cornerRadius: 20))
+                HStack(spacing: 20) {
+                    buildEmotionDate()
+                                    
+                    buildIconGrid(models: imageModels)
+                        .frame(maxWidth: .infinity)
+                }.padding()
+            }
         }
         .padding()
         .onAppear {

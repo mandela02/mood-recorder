@@ -77,6 +77,8 @@ class CalendarViewModel: ViewModel {
         case .closeInputView:
             state.isInputViewShowing = false
             loadData(date: state.selectedDate?.date ?? Date())
+        case .edit:
+            state.isInputViewShowing = true
         }
     }
     
@@ -168,5 +170,6 @@ extension CalendarViewModel {
         case closeDatePicker
         case closeFutureDialog
         case closeInputView
+        case edit
     }
 }

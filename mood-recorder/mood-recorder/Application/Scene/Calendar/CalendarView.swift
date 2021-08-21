@@ -42,7 +42,12 @@ struct CalendarView: View {
                         
                         if viewModel.state.isDetailViewShowing,
                            let diary = viewModel.state.selectedDate {
-                            CalendarDiaryDetailView(diary: diary)
+                            CalendarDiaryDetailView(diary: diary,
+                                                    onEditDiary: {
+                                viewModel.trigger(.edit)
+                            }, onDeleteDiary: {
+                                
+                            })
                                 .id(diary.emotion)
                         }
                         
