@@ -421,7 +421,7 @@ struct InputView: View {
         .onTapGesture {
             isFocus = false
         }
-        .customDialog(isShowing: $isAboutToDismiss) {
+        .customDialog(isShowing: isAboutToDismiss) {
             DismissDialog(save: {
                 viewModel.trigger(.doneButtonTapped)
                 dismiss()
@@ -430,8 +430,7 @@ struct InputView: View {
             }, exit: dismiss)
                 .padding()
         }
-        .animation(.easeInOut, value: isAboutToDismiss)
-        .customDialog(isShowing: $isAboutToReset) {
+        .customDialog(isShowing: isAboutToReset) {
             ResetDialog(reset: {
                 viewModel.trigger(.resetButtonTapped)
                 text = ""
@@ -441,8 +440,7 @@ struct InputView: View {
             })
                 .padding()
         }
-        .animation(.easeInOut, value: isAboutToReset)
-        .customDialog(isShowing: $isAboutToCustomizeSection,
+        .customDialog(isShowing: isAboutToCustomizeSection,
                       padding: 20) {
             Group {
                 if isAboutToCustomizeSection {
@@ -461,8 +459,7 @@ struct InputView: View {
                 }
             }
         }
-        .animation(.easeInOut, value: isAboutToCustomizeSection)
-        .customDialog(isShowing: $isAboutToShowTimePicker,
+        .customDialog(isShowing: isAboutToShowTimePicker,
                       padding: 20) {
             Group {
                 if isAboutToShowTimePicker {
@@ -480,7 +477,6 @@ struct InputView: View {
                 }
             }
         }
-        .animation(.easeInOut, value: isAboutToShowTimePicker)
         .task {
             imagePickerController = UIImagePickerController()
         }

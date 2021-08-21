@@ -14,9 +14,7 @@ struct CalendarView: View {
     @ObservedObject var viewModel: BaseViewModel<CalendarState,
                                                  CalendarTrigger>
     @Binding var isTabBarHiddenNeeded: Bool
-    
-    @State var isFutureWarningDialogShow = false
-    
+        
     init(viewModel: BaseViewModel<CalendarState, CalendarTrigger>,
          isTabBarHiddenNeeded: Binding<Bool>) {
         self.viewModel = viewModel
@@ -39,7 +37,8 @@ struct CalendarView: View {
                     .padding()
             }
         }
-        .onChange(of: isFutureWarningDialogShow, perform: { newValue in
+        .onChange(of: viewModel.state.isFutureWarningDialogShow,
+                  perform: { newValue in
             isTabBarHiddenNeeded = newValue
         })
         .overlay {
@@ -59,18 +58,16 @@ struct CalendarView: View {
             }
         }
         .animation(.easeInOut, value: viewModel.state.isDatePickerShow)
-        .customDialog(isShowing: $isFutureWarningDialogShow,
+        .customDialog(isShowing: viewModel.state.isFutureWarningDialogShow,
                       dialogContent: {
-            if isFutureWarningDialogShow {
-                if let date = viewModel.state.selectedDate {
-                    FutureWarningDialog(date: date) {
-                        isFutureWarningDialogShow = false
-                        viewModel.trigger(.deselectDate)
-                    }
+            if let date = viewModel.state.selectedDate {
+                FutureWarningDialog(date: date) {
+                    viewModel.trigger(.closeFutureDialog)
+                    viewModel.trigger(.deselectDate)
                 }
             }
         })
-        .animation(.easeInOut, value: isFutureWarningDialogShow)
+        //.animation(.easeInOut, value: isFutureWarningDialogShow)
     }
 }
 
@@ -128,9 +125,6 @@ extension CalendarView {
                         
                         Button(action: {
                             viewModel.trigger(.dateSelection(date: date))
-                            if date.isInTheFuture {
-                                isFutureWarningDialogShow = true
-                            }
                         }, label: {
                             if date.isInTheFuture {
                                 Theme.current.buttonColor.disableColor

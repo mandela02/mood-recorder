@@ -20,6 +20,9 @@ class CalendarViewModel: ViewModel {
         switch input {
         case .dateSelection(let date):
             state.selectedDate = date
+            if date.isInTheFuture {
+                state.isFutureWarningDialogShow = true
+            }
         case .deselectDate:
             state.selectedDate = nil
         case .goToNextMonth:
@@ -46,6 +49,8 @@ class CalendarViewModel: ViewModel {
             createCalendarDates()
         case .share:
             print("share")
+        case .closeFutureDialog:
+            state.isFutureWarningDialogShow = false
         }
     }
     
@@ -71,6 +76,7 @@ extension CalendarViewModel {
         var selectedDate: Date?
         var currentMonth = (month: Date().month, year: Date().year)
         var isDatePickerShow = false
+        var isFutureWarningDialogShow = false
     }
     
     enum CalendarTrigger {
@@ -83,5 +89,6 @@ extension CalendarViewModel {
         case backToLaseMonth
         case showDatePicker
         case closeDatePicker
+        case closeFutureDialog
     }
 }
