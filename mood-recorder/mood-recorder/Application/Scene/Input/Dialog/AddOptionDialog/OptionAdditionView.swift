@@ -8,17 +8,14 @@
 import SwiftUI
 
 struct OptionAdditionView: View {
-    typealias Function = () -> ()
-    typealias CallbackFunction = ([OptionModel]) -> ()
-    
     typealias OptionAdditionState = OptionAdditionViewModel.OptionAdditionState
     typealias OptionAdditionTrigger = OptionAdditionViewModel.OptionAdditionTrigger
     
     @ObservedObject var viewModel: BaseViewModel<OptionAdditionState,
                                                  OptionAdditionTrigger>
     
-    let onConfirm: CallbackFunction
-    let onCancel: Function
+    let onConfirm: OptionModelArrayCallbackFunction
+    let onCancel: VoidFunction
     
     @State var currentIndex: Int = 0
     @State var isAboutToAddMore: Bool = false
@@ -26,8 +23,8 @@ struct OptionAdditionView: View {
     @Namespace var namespace
     
     init(sectionModel: SectionModel,
-         onConfirm: @escaping CallbackFunction,
-         onCancel: @escaping Function) {
+         onConfirm: @escaping OptionModelArrayCallbackFunction,
+         onCancel: @escaping VoidFunction) {
         let optionAdditionState = OptionAdditionState(initialSectionModel: sectionModel)
         viewModel = BaseViewModel(OptionAdditionViewModel(state: optionAdditionState))
         
@@ -150,7 +147,7 @@ struct OptionAdditionView: View {
     
     func createButton(title: String,
                       background: Color = Theme.current.buttonColor.backgroundColor,
-                      callback: @escaping Function) -> some View {
+                      callback: @escaping VoidFunction) -> some View {
         Button(action: callback) {
             Text(title)
                 .font(.system(size: 12))

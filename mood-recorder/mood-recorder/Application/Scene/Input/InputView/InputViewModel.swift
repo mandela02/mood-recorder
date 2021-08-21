@@ -11,7 +11,7 @@ import Combine
 class InputViewModel: ViewModel {
     @Published var state: InputState
     
-    private let useCase = UseCaseProvider.defaultProvider.getinputUseCase()
+    private let useCase = UseCaseProvider.defaultProvider.getInputUseCases()
     
     private var cancellables = Set<AnyCancellable>()
     
@@ -23,7 +23,7 @@ class InputViewModel: ViewModel {
     init(state: InputState) {
         self.state = state
         setupSubcription()
-        initData(with: state.initialEmotion, at: state.initialDate)
+        initData(with: state.initialEmotion, or: state.initialData)
     }
     
     func trigger(_ input: InputTrigger) {
@@ -34,13 +34,19 @@ class InputViewModel: ViewModel {
 
         // MARK: - done button tapped
         case .doneButtonTapped:
-            let model = InputDataModel(sections: self.state.sectionModels)
             switch self.state.status {
             case .new:
+                let model = InputDataModel(date: Date(),
+                                           sections: self.state.sectionModels)
                 self.state.response.send(self.useCase.save(model: model))
             case .update(date: let date):
-                self.state.response.send(self.useCase.update(at: date.startOfDayInterval,
-                                                       model: model))
+                let model = InputDataModel(date: date,
+                                           sections: self.state.sectionModels)
+                self.state.response.send(self.useCase.update(model: model))
+            case .create(date: let date):
+                let model = InputDataModel(date: date,
+                                           sections: self.state.sectionModels)
+                self.state.response.send(self.useCase.save(model: model))
             }
             
         // MARK: - cell option tapped
@@ -58,6 +64,10 @@ class InputViewModel: ViewModel {
                     .changeOptionSelection(at: trueModelIndex)
             }
             
+        // MARK: - Emotion Selection
+        case .emotionSelected(sectionIndex: let sectionIndex, emotion: let emotion):
+            self.state.sectionModels[sectionIndex].onEmotionSelected(emotion: emotion)
+
         // MARK: - picture selected
         case .pictureSelected(sectionIndex: let sectionIndex, image: let image):
             self.state.sectionModels[sectionIndex].addImage(image: image)
@@ -109,15 +119,35 @@ class InputViewModel: ViewModel {
             guard let sectionIndex = state.sectionModels.firstIndex(where: {$0.id == state.selectedSectionModel?.id})
             else { return }
             self.state.sectionModels[sectionIndex].addSleepScheldule(bedTime: bedTime, wakeUpTime: wakeUpTime)
+        case .handleDismissDialog(status: let status):
+            state.isAboutToDismiss = status == .open
+        case .handleResetDialog(status: let status):
+            state.isAboutToReset = status == .open
+        case .handleCustomDialog(status: let status):
+            state.isAboutToCustomizeSection = status == .open
+        case .handleTimeDialog(status: let status):
+            state.isAboutToShowTimePicker = status == .open
         }
     }
         
-    private func initData(with emotion: CoreEmotion?, at date: Date) {
-        if useCase.isRecordExist(date: date.startOfDayInterval) {
-            state.status = .update(date: date)
-            state.response.send(useCase.fetch(at: date.startOfDayInterval))
+    private func initData(with emotion: CoreEmotion?,
+                          or data: InputDataModel?) {
+        if let data = data {
+            if data.sections.isEmpty {
+                state.status = .create(date: data.date)
+                state.sectionModels = InputDataModel.initData().sections
+            } else {
+                state.status = .update(date: data.date)
+                state.sectionModels = data.sections
+            }
         } else {
-            state.sectionModels = InputDataModel.initData().sections
+            if useCase.isRecordExist(date: Date().startOfDayInterval) {
+                state.status = .update(date: Date())
+                state.response.send(useCase.fetch(at: Date().startOfDayInterval))
+            } else {
+                state.status = .new
+                state.sectionModels = InputDataModel.initData().sections
+            }
         }
         
         if let emotion = emotion {
@@ -142,8 +172,8 @@ extension InputViewModel {
                         self.state.sectionModels = model.sections
                         self.sort()
                     }
-                case .error(error: _):
-                    print("error")
+                case .error(error: let error):
+                    print(error)
                 }
                 
             }
@@ -166,6 +196,7 @@ extension InputViewModel {
     enum InputTrigger {
         case optionTap(sectionIndex: Int, optionIndex: Int)
         case pictureSelected(sectionIndex: Int, image: UIImage)
+        case emotionSelected(sectionIndex: Int, emotion: CoreEmotion)
         case onSectionVisibilityChanged(section: SectionType)
         case onTextChange(sectionIndex: Int, text: String)
         case onSleepScheduleChange(bedTime: Int, wakeUpTime: Int)
@@ -174,13 +205,27 @@ extension InputViewModel {
         case editButtonTapped
         case doneButtonTapped
         case resetButtonTapped
+        case handleDismissDialog(status: ViewStatus)
+        case handleResetDialog(status: ViewStatus)
+        case handleCustomDialog(status: ViewStatus)
+        case handleTimeDialog(status: ViewStatus)
+
+        enum ViewStatus {
+            case open
+            case close
+        }
     }
     
     struct InputState {
         var initialEmotion: CoreEmotion?
-        var initialDate: Date
+        var initialData: InputDataModel?
 
         var isInEditMode = false
+        var isAboutToDismiss = false
+        var isAboutToCustomizeSection = false
+        var isAboutToReset = false
+        var isAboutToShowTimePicker = false
+
         var sectionModels: [SectionModel] = []
         
         var selectedSectionModel: SectionModel?
@@ -189,13 +234,14 @@ extension InputViewModel {
         
         var status = Status.new
         
-        init(emotion: CoreEmotion? = nil, date: Date = Date()) {
-            self.initialDate = date
+        init(emotion: CoreEmotion? = nil, data: InputDataModel? = nil) {
+            self.initialData = data
             self.initialEmotion = emotion
         }
 
         enum Status {
             case new
+            case create(date: Date)
             case update(date: Date)
         }
     }

@@ -45,6 +45,7 @@ struct ThemeColor {
     struct CommonColor {
         var textColor: Color
         var textBackground: Color
+        var viewBackground: Color
     }
     
     struct SleepColor {
@@ -81,7 +82,8 @@ struct ThemeValue {
                                                                  iconColor: Color(hex: "FFFFFF"),
                                                                  disableColor: Color(hex: "EDEDED")),
                                         commonColor: CommonColor(textColor: Color(hex: "767676"),
-                                                                 textBackground: Color(hex: "EDEDED")),
+                                                                 textBackground: Color(hex: "EDEDED"),
+                                                                 viewBackground: Color(hex: "F5FAF4")),
                                         sleepColor: SleepColor(backgroundColor: Color(hex: "F5FAF4"),
                                                                bigCircleColor: Color(hex: "EDEDED"),
                                                                smallCircleColor: Color(hex: "9AA987"),

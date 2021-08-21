@@ -8,9 +8,6 @@
 import SwiftUI
 
 struct ClockAnimationView: View {
-    typealias Function = () -> ()
-    typealias CallbackFunction = (Int, Int) -> ()
-
     @State private var bedTimeProgress: CGFloat
     @State private var wakeTimeProgress: CGFloat
         
@@ -24,12 +21,12 @@ struct ClockAnimationView: View {
     private let images = [AppImage.newMoon, AppImage.cloudyDay, AppImage.sunny, AppImage.cloudyNight]
     private let hourStrings: [String] = stride(from: 2, to: 26, by: 2).map {"\($0)"}
 
-    let onCancel: Function
-    let onCallback: CallbackFunction
+    let onCancel: VoidFunction
+    let onCallback: IntTupleCallbackFunction
     
     init(sleepSchelduleModel: SleepSchelduleModel,
-         onCancel: @escaping Function,
-         onCallback: @escaping CallbackFunction) {
+         onCancel: @escaping VoidFunction,
+         onCallback: @escaping IntTupleCallbackFunction) {
         sectment = 360 / Double(hourStrings.count)
 
         self.onCancel = onCancel
@@ -363,7 +360,7 @@ extension ClockAnimationView {
 
 extension ClockAnimationView {
     private func createButton(title: String,
-                      callback: @escaping Function) -> some View {
+                      callback: @escaping VoidFunction) -> some View {
         Button(action: callback) {
             Text(title)
                 .font(.system(size: 12))

@@ -23,7 +23,7 @@ struct CustomTabBar: View {
     
     func configuredTabBarItem(item: TabBarItem) -> some View {
         Button(action: {
-            withAnimation(.spring()) {
+            withAnimation(.easeInOut) {
                 selectedIndex = item.index
             }
         }, label: {

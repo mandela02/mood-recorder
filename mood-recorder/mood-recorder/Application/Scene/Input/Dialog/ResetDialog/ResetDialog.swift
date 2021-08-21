@@ -8,14 +8,12 @@
 import SwiftUI
 
 struct ResetDialog: View {
-    typealias Function = () -> ()
-
-    var reset: Function
-    var cancel: Function
+    var reset: VoidFunction
+    var cancel: VoidFunction
 
     func createButton(title: String,
                       background: Color = Theme.current.buttonColor.backgroundColor,
-                      callback: @escaping Function) -> some View {
+                      callback: @escaping VoidFunction) -> some View {
         Button(action: callback) {
             Text(title)
                 .font(.system(size: 12))

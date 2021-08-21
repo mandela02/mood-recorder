@@ -2,6 +2,7 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19197" systemVersion="20G95" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="CDContentModel" representedClassName="CDContentModel" syncable="YES">
         <attribute name="bedTime" optional="YES" attributeType="String"/>
+        <attribute name="emotion" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="image" optional="YES" attributeType="Binary"/>
         <attribute name="text" optional="YES" attributeType="String"/>
         <attribute name="wakeUpTime" optional="YES" attributeType="String"/>
@@ -43,7 +44,7 @@
         <memberEntity name="CDSectionModel"/>
     </configuration>
     <elements>
-        <element name="CDContentModel" positionX="-27" positionY="27" width="128" height="119"/>
+        <element name="CDContentModel" positionX="-27" positionY="27" width="128" height="134"/>
         <element name="CDInputModel" positionX="-63" positionY="-18" width="128" height="59"/>
         <element name="CDOptionModel" positionX="-9" positionY="45" width="128" height="104"/>
         <element name="CDSectionModel" positionX="-45" positionY="18" width="128" height="89"/>

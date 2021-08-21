@@ -8,10 +8,15 @@
 import SwiftUI
 
 struct HomeView: View {
+    typealias CalendarState = CalendarViewModel.CalendarState
+    typealias CalendarTrigger = CalendarViewModel.CalendarTrigger
+    
     @ObservedObject var viewModel = HomeViewModel()
-
+    
+    var calendarViewModel: BaseViewModel<CalendarState,
+                                         CalendarTrigger>
     init() {
-        //UITabBar.appearance().isHidden = true
+        calendarViewModel = BaseViewModel(CalendarViewModel(state: CalendarState()))
     }
 
     @ViewBuilder
@@ -28,8 +33,8 @@ struct HomeView: View {
     var tabView: some View {
         TabView(selection: $viewModel.seletedTabBarIndex,
                 content:  {
-                    Color.red.tag(0)
-                        .ignoresSafeArea()
+            CalendarView(viewModel: calendarViewModel,
+                         isTabBarHiddenNeeded: $viewModel.isTabBarHiddenNeeded).tag(0)
                     Color.green.tag(1)
                         .ignoresSafeArea()
                     Color.blue.tag(2)
@@ -58,17 +63,21 @@ struct HomeView: View {
                 .ignoresSafeArea()
             tintForeGroundColor
                 .ignoresSafeArea()
-            VStack(spacing: 20) {
-                emotionListDialog
-                CustomTabBar(
-                    selectedIndex: $viewModel.seletedTabBarIndex,
-                    backgroundColor: .white,
-                    selectedItemColor: Theme.current.buttonColor.backgroundColor,
-                    unselectedItemColor: .gray,
-                    onBigButtonTapped: viewModel.onBigButtonTapped)
+            if !viewModel.isTabBarHiddenNeeded {
+                VStack(spacing: 20) {
+                    emotionListDialog
+                    CustomTabBar(
+                        selectedIndex: $viewModel.seletedTabBarIndex,
+                        backgroundColor: .white,
+                        selectedItemColor: Theme.current.buttonColor.backgroundColor,
+                        unselectedItemColor: .gray,
+                        onBigButtonTapped: viewModel.onBigButtonTapped)
+                }
+                .transition(.move(edge: .bottom))
             }
         }
-        .animation(Animation.spring().speed(1.5), value: viewModel.isEmotionDialogShowing)
+        .animation(.easeInOut, value: viewModel.isTabBarHiddenNeeded)
+        .animation(Animation.easeInOut.speed(1.5), value: viewModel.isEmotionDialogShowing)
         .fullScreenCover(isPresented: $viewModel.isInputViewShow,
                          onDismiss: viewModel.onInputViewDismiss) {
             if let selectedCoreEmotion = viewModel.selectedCoreEmotion {

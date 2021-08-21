@@ -7,6 +7,37 @@
 
 import Foundation
 
+enum WeekDay:Int, CaseIterable, StringValueProtocol {
+    var value: String {
+        switch self {
+        case .sun:
+            return "Sun"
+        case .mon:
+            return "Mon"
+        case .tue:
+            return "Tue"
+        case .wed:
+            return "Wed"
+        case .thu:
+            return "Thu"
+        case .fri:
+            return "Fri"
+        case .sat:
+            return "Sat"
+        }
+    }
+    
+    case sun
+    case mon
+    case tue
+    case wed
+    case thu
+    case fri
+    case sat
+    
+    
+}
+
 extension Date {
     var year: Int {
         return Calendar.gregorian.component(.year, from: self)
@@ -219,6 +250,10 @@ extension Date {
     var startOfDayInterval: Double {
         return self.startOfDay.timeIntervalSince1970
     }
+    
+    var isInTheFuture: Bool {
+        self.startOfDay > Date().startOfDay
+    }
 }
 
 extension Date {
@@ -255,5 +290,26 @@ extension Date {
             }
         }
         return dates
+    }
+}
+
+extension Date {
+    static func dates(from fromDate: Date, to toDate: Date) -> [Date] {
+        var dates: [Date] = []
+        var date = fromDate
+        
+        while date <= toDate {
+            dates.append(date)
+            guard let newDate = Calendar.current.date(byAdding: .day, value: 1, to: date) else { break }
+            date = newDate
+        }
+        return dates
+    }
+    
+    func getAllDateInMonthFaster() -> [Date] {
+        let startDate = self.startOfMonth.startOfWeek
+        let endDate = self.endOfMonth.endOfWeek
+        
+        return Date.dates(from: startDate, to: endDate)
     }
 }

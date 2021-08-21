@@ -7,7 +7,9 @@
 
 import Foundation
 
-struct ImageAndTitleModel: Equatable {
+struct ImageAndTitleModel: Equatable, Identifiable {
+    var id = UUID()
+    
     let image: AppImage
     let title: String
 }
