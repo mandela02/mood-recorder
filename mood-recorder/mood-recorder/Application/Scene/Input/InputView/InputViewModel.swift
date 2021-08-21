@@ -109,6 +109,14 @@ class InputViewModel: ViewModel {
             guard let sectionIndex = state.sectionModels.firstIndex(where: {$0.id == state.selectedSectionModel?.id})
             else { return }
             self.state.sectionModels[sectionIndex].addSleepScheldule(bedTime: bedTime, wakeUpTime: wakeUpTime)
+        case .handleDismissDialog(status: let status):
+            state.isAboutToDismiss = status == .open
+        case .handleResetDialog(status: let status):
+            state.isAboutToReset = status == .open
+        case .handleCustomDialog(status: let status):
+            state.isAboutToCustomizeSection = status == .open
+        case .handleTimeDialog(status: let status):
+            state.isAboutToShowTimePicker = status == .open
         }
     }
         
@@ -174,6 +182,15 @@ extension InputViewModel {
         case editButtonTapped
         case doneButtonTapped
         case resetButtonTapped
+        case handleDismissDialog(status: ViewStatus)
+        case handleResetDialog(status: ViewStatus)
+        case handleCustomDialog(status: ViewStatus)
+        case handleTimeDialog(status: ViewStatus)
+
+        enum ViewStatus {
+            case open
+            case close
+        }
     }
     
     struct InputState {
@@ -181,6 +198,11 @@ extension InputViewModel {
         var initialDate: Date
 
         var isInEditMode = false
+        var isAboutToDismiss = false
+        var isAboutToCustomizeSection = false
+        var isAboutToReset = false
+        var isAboutToShowTimePicker = false
+
         var sectionModels: [SectionModel] = []
         
         var selectedSectionModel: SectionModel?

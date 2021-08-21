@@ -23,10 +23,6 @@ struct InputView: View {
     
     @State private var text = ""
     @State private var isImagePickerShowing = false
-    @State private var isAboutToDismiss = false
-    @State private var isAboutToCustomizeSection = false
-    @State private var isAboutToReset = false
-    @State private var isAboutToShowTimePicker = false
     @State private var destination: ScrollDestination?
     @State private var imagePickerController: UIImagePickerController?
     
@@ -53,9 +49,9 @@ struct InputView: View {
     // MARK: - Section Icon Type
     func getIconGrid(optionModels: [OptionModel], at sectionIndex: Int) -> some View {
         return LazyVGrid(columns: Array(repeating: GridItem(.flexible(),
-                                                     alignment: .top),
-                                 count: 5),
-                  content: {
+                                                            alignment: .top),
+                                        count: 5),
+                         content: {
             ForEach(Array(optionModels.enumerated()),
                     id: \.offset) { optionIndex, optionModel in
                 LazyVStack(spacing: 5) {
@@ -170,7 +166,7 @@ struct InputView: View {
         switch sectionModel.cell {
         case let models as [OptionModel]:
             let datasource = sectionModel.section == .custom ? models.filter { $0.isVisible } : models
-        
+            
             VStack {
                 getIconGrid(optionModels: datasource,
                             at: index)
@@ -180,7 +176,7 @@ struct InputView: View {
                 if sectionModel.isEditable && sectionModel.isVisible && viewModel.isInEditMode {
                     Button(action: {
                         viewModel.trigger(.onOpenCustomizeSectionDialog(model: sectionModel))
-                        isAboutToCustomizeSection.toggle()
+                        viewModel.trigger(.handleCustomDialog(status: .open))
                     }) {
                         ZStack {
                             Theme.current.buttonColor.backgroundColor
@@ -213,7 +209,7 @@ struct InputView: View {
                 .padding()
                 .onTapGesture {
                     viewModel.trigger(.onOpenCustomizeSectionDialog(model: sectionModel))
-                    isAboutToShowTimePicker.toggle()
+                    viewModel.trigger(.handleTimeDialog(status: .open))
                 }
         default:
             Text("wait")
@@ -299,7 +295,7 @@ struct InputView: View {
             if !viewModel.isInEditMode {
                 Button(action: {
                     isFocus = false
-                    isAboutToReset.toggle()
+                    viewModel.trigger(.handleResetDialog(status: .open))
                 }) {
                     Image(systemName: "arrow.triangle.2.circlepath.circle")
                         .resizable()
@@ -307,12 +303,12 @@ struct InputView: View {
                         .frame(width: 30, height: 30, alignment: .center)
                         .foregroundColor(Theme.current.buttonColor.textColor)
                 }
-
+                
                 SizedBox(width: 10)
                 
                 Button(action: {
                     isFocus = false
-                    isAboutToDismiss = true
+                    viewModel.trigger(.handleDismissDialog(status: .open))
                 }) {
                     Image(systemName: "xmark.circle")
                         .resizable()
@@ -325,7 +321,7 @@ struct InputView: View {
     }
     
     // MARK: - gradient
-    func makeGradient() -> some View {
+    func buildGradient() -> some View {
         VStack {
             ZStack {
                 LinearGradient(gradient: Gradient(colors: [Theme.current.buttonColor.backgroundColor,
@@ -341,7 +337,7 @@ struct InputView: View {
         }
     }
     
-    func makeAutoScrollButton() -> some View {
+    func buildAutoScrollButton() -> some View {
         VStack {
             Spacer()
             HStack {
@@ -414,67 +410,59 @@ struct InputView: View {
                 }
             }
             
-            makeGradient()
+            buildGradient()
             
-            makeAutoScrollButton()
+            buildAutoScrollButton()
         }
         .onTapGesture {
             isFocus = false
         }
-        .customDialog(isShowing: isAboutToDismiss) {
+        .customDialog(isShowing: viewModel.state.isAboutToDismiss) {
             DismissDialog(save: {
                 viewModel.trigger(.doneButtonTapped)
                 dismiss()
             }, cancel: {
-                isAboutToDismiss.toggle()
+                viewModel.trigger(.handleDismissDialog(status: .close))
             }, exit: dismiss)
                 .padding()
         }
-        .customDialog(isShowing: isAboutToReset) {
+        .customDialog(isShowing: viewModel.state.isAboutToReset) {
             ResetDialog(reset: {
                 viewModel.trigger(.resetButtonTapped)
                 text = ""
-                isAboutToReset.toggle()
+                viewModel.trigger(.handleResetDialog(status: .close))
             }, cancel: {
-                isAboutToReset.toggle()
+                viewModel.trigger(.handleResetDialog(status: .close))
             })
                 .padding()
         }
-        .customDialog(isShowing: isAboutToCustomizeSection,
+        .customDialog(isShowing: viewModel.state.isAboutToCustomizeSection,
                       padding: 20) {
-            Group {
-                if isAboutToCustomizeSection {
-                    if let sectionModel = viewModel.state.selectedSectionModel {
-                        OptionAdditionView(sectionModel: sectionModel,
-                                           onConfirm: { models in
-                            isAboutToCustomizeSection.toggle()
-                            viewModel.trigger(.onCustomSection(models: models))
-                            viewModel.trigger(.onOpenCustomizeSectionDialog(model: nil))
-                        },
-                                           onCancel: {
-                            isAboutToCustomizeSection.toggle()
-                            viewModel.trigger(.onOpenCustomizeSectionDialog(model: nil))
-                        })
-                    }
-                }
+            if let sectionModel = viewModel.state.selectedSectionModel {
+                OptionAdditionView(sectionModel: sectionModel,
+                                   onConfirm: { models in
+                    viewModel.trigger(.handleCustomDialog(status: .close))
+                    viewModel.trigger(.onCustomSection(models: models))
+                    viewModel.trigger(.onOpenCustomizeSectionDialog(model: nil))
+                },
+                                   onCancel: {
+                    viewModel.trigger(.handleCustomDialog(status: .close))
+                    viewModel.trigger(.onOpenCustomizeSectionDialog(model: nil))
+                })
             }
         }
-        .customDialog(isShowing: isAboutToShowTimePicker,
+        .customDialog(isShowing: viewModel.state.isAboutToShowTimePicker,
                       padding: 20) {
-            Group {
-                if isAboutToShowTimePicker {
-                    if let sleepModel = viewModel.state.selectedSectionModel?.cell as? SleepSchelduleModel {
-                        ClockAnimationView(sleepSchelduleModel: sleepModel,
-                                           onCancel: {
-                            isAboutToShowTimePicker.toggle()
-                        },
-                                           onCallback: { bedTime, wakeUpTime in
-                            isAboutToShowTimePicker.toggle()
-                            viewModel.trigger(.onSleepScheduleChange(bedTime: bedTime, wakeUpTime: wakeUpTime))
-                            viewModel.trigger(.onOpenCustomizeSectionDialog(model: nil))
-                        })
-                    }
-                }
+            if let sleepModel = viewModel.state.selectedSectionModel?.cell as? SleepSchelduleModel {
+                ClockAnimationView(sleepSchelduleModel: sleepModel,
+                                   onCancel: {
+                    viewModel.trigger(.handleTimeDialog(status: .close))
+                },
+                                   onCallback: { bedTime, wakeUpTime in
+                    viewModel.trigger(.handleTimeDialog(status: .close))
+                    viewModel.trigger(.onSleepScheduleChange(bedTime: bedTime, wakeUpTime: wakeUpTime))
+                    viewModel.trigger(.onOpenCustomizeSectionDialog(model: nil))
+                })
             }
         }
         .task {
