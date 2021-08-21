@@ -32,6 +32,13 @@ class CalendarViewModel: ViewModel {
                 state.currentMonth = (12, state.currentMonth.year - 1)
             }
             createCalendarDates()
+        case .showDatePicker:
+            state.isDatePickerShow = true
+        case .closeDatePicker:
+            state.isDatePickerShow = false
+        case .goTo(month: let month, year: let year):
+            state.currentMonth = (month, year)
+            createCalendarDates()
         }
     }
     
@@ -55,11 +62,15 @@ extension CalendarViewModel {
     struct CalendarState {
         var dates: [Date] = []
         var currentMonth = (month: Date().month, year: Date().year)
+        var isDatePickerShow = false
     }
     
     enum CalendarTrigger {
         case dateSelection(date: Date)
+        case goTo(month: Int, year: Int)
         case goToNextMonth
         case backToLaseMonth
+        case showDatePicker
+        case closeDatePicker
     }
 }

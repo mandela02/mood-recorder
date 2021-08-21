@@ -11,7 +11,6 @@ struct HomeView: View {
     typealias CalendarState = CalendarViewModel.CalendarState
     typealias CalendarTrigger = CalendarViewModel.CalendarTrigger
     
-    
     @ObservedObject var viewModel = HomeViewModel()
     
     var calendarViewModel: BaseViewModel<CalendarState,
@@ -34,7 +33,8 @@ struct HomeView: View {
     var tabView: some View {
         TabView(selection: $viewModel.seletedTabBarIndex,
                 content:  {
-            CalendarView(viewModel: calendarViewModel).tag(0)
+            CalendarView(viewModel: calendarViewModel,
+                         isTabBarHiddenNeeded: $viewModel.isTabBarHiddenNeeded).tag(0)
                     Color.green.tag(1)
                         .ignoresSafeArea()
                     Color.blue.tag(2)
@@ -63,16 +63,20 @@ struct HomeView: View {
                 .ignoresSafeArea()
             tintForeGroundColor
                 .ignoresSafeArea()
-            VStack(spacing: 20) {
-                emotionListDialog
-                CustomTabBar(
-                    selectedIndex: $viewModel.seletedTabBarIndex,
-                    backgroundColor: .white,
-                    selectedItemColor: Theme.current.buttonColor.backgroundColor,
-                    unselectedItemColor: .gray,
-                    onBigButtonTapped: viewModel.onBigButtonTapped)
+            if !viewModel.isTabBarHiddenNeeded {
+                VStack(spacing: 20) {
+                    emotionListDialog
+                    CustomTabBar(
+                        selectedIndex: $viewModel.seletedTabBarIndex,
+                        backgroundColor: .white,
+                        selectedItemColor: Theme.current.buttonColor.backgroundColor,
+                        unselectedItemColor: .gray,
+                        onBigButtonTapped: viewModel.onBigButtonTapped)
+                }
+                .transition(.move(edge: .bottom))
             }
         }
+        .animation(.easeInOut, value: viewModel.isTabBarHiddenNeeded)
         .animation(Animation.spring().speed(1.5), value: viewModel.isEmotionDialogShowing)
         .fullScreenCover(isPresented: $viewModel.isInputViewShow,
                          onDismiss: viewModel.onInputViewDismiss) {

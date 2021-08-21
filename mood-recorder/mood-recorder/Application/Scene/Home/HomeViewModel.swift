@@ -11,6 +11,7 @@ class HomeViewModel: ObservableObject {
     @Published var seletedTabBarIndex = 0
     @Published var isEmotionDialogShowing = false
     @Published var isInputViewShow = false
+    @Published var isTabBarHiddenNeeded = false
 
     var selectedCoreEmotion: CoreEmotion?
     

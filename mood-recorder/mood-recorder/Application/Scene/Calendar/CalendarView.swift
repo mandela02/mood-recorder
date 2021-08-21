@@ -13,9 +13,18 @@ struct CalendarView: View {
     
     @ObservedObject var viewModel: BaseViewModel<CalendarState,
                                                  CalendarTrigger>
+    @Binding var isTabBarHiddenNeeded: Bool
     
-    init(viewModel: BaseViewModel<CalendarState, CalendarTrigger>) {
+    init(viewModel: BaseViewModel<CalendarState, CalendarTrigger>,
+         isTabBarHiddenNeeded: Binding<Bool>) {
         self.viewModel = viewModel
+        self._isTabBarHiddenNeeded = isTabBarHiddenNeeded
+    }
+    
+    private func showTabBar() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            isTabBarHiddenNeeded = false
+        }
     }
     
     var body: some View {
@@ -28,6 +37,19 @@ struct CalendarView: View {
                     .padding()
             }
         }
+        .overlay {
+            if viewModel.state.isDatePickerShow {
+                MonthPicker(onApply: { (month, year) in
+                    viewModel.trigger(.goTo(month: month, year: year))
+                    viewModel.trigger(.closeDatePicker)
+                    showTabBar()
+                }, onCancel: {
+                    viewModel.trigger(.closeDatePicker)
+                    showTabBar()
+                })
+            }
+        }
+        .animation(.easeInOut, value: viewModel.state.isDatePickerShow)
     }
 }
 
@@ -127,6 +149,10 @@ extension CalendarView {
                 .background(RoundedRectangle(cornerRadius: 10)
                                 .fill(Theme.current.buttonColor.backgroundColor))
                 .padding(.horizontal, 30)
+                .onTapGesture {
+                    isTabBarHiddenNeeded = true
+                    viewModel.trigger(.showDatePicker)
+                }
             
             Button(action: {
                 viewModel.trigger(.goToNextMonth)

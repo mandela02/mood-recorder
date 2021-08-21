@@ -79,6 +79,7 @@
 		84FE1B3B26C7B55600D32330 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FE1B3A26C7B55600D32330 /* BaseViewModel.swift */; };
 		9017B97026CEC7CE00736037 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9017B96F26CEC7CE00736037 /* CalendarView.swift */; };
 		9041C11E26CEC45C0054617E /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9041C11D26CEC45C0054617E /* CalendarViewModel.swift */; };
+		90901D0826CFF18900ADE8D9 /* MonthPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90901D0726CFF18900ADE8D9 /* MonthPicker.swift */; };
 		909DC15E26CCA621004179F0 /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 909DC15D26CCA621004179F0 /* Int+Extension.swift */; };
 /* End PBXBuildFile section */
 
@@ -157,6 +158,7 @@
 		84FE1B3A26C7B55600D32330 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
 		9017B96F26CEC7CE00736037 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		9041C11D26CEC45C0054617E /* CalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
+		90901D0726CFF18900ADE8D9 /* MonthPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthPicker.swift; sourceTree = "<group>"; };
 		909DC15D26CCA621004179F0 /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -504,6 +506,7 @@
 			children = (
 				9041C11D26CEC45C0054617E /* CalendarViewModel.swift */,
 				9017B96F26CEC7CE00736037 /* CalendarView.swift */,
+				90901D0726CFF18900ADE8D9 /* MonthPicker.swift */,
 			);
 			path = Calendar;
 			sourceTree = "<group>";
@@ -617,6 +620,7 @@
 				8423C20D26BFBBCA000717D9 /* Food.swift in Sources */,
 				8404939A26BAA522006523D9 /* SizedBox.swift in Sources */,
 				8423C20B26BFB5E7000717D9 /* UIApplication+Extension.swift in Sources */,
+				90901D0826CFF18900ADE8D9 /* MonthPicker.swift in Sources */,
 				8424A92F26B5BE0B00BE4454 /* MoodRecorderApp.swift in Sources */,
 				8404938226B9A928006523D9 /* InputViewModel.swift in Sources */,
 				84C32A8B26C826BE004F6A85 /* Array+Extension.swift in Sources */,
