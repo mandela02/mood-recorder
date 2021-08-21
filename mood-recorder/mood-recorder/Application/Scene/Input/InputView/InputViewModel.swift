@@ -60,6 +60,10 @@ class InputViewModel: ViewModel {
                     .changeOptionSelection(at: trueModelIndex)
             }
             
+        // MARK: - Emotion Selection
+        case .emotionSelected(sectionIndex: let sectionIndex, emotion: let emotion):
+            self.state.sectionModels[sectionIndex].onEmotionSelected(emotion: emotion)
+
         // MARK: - picture selected
         case .pictureSelected(sectionIndex: let sectionIndex, image: let image):
             self.state.sectionModels[sectionIndex].addImage(image: image)
@@ -176,6 +180,7 @@ extension InputViewModel {
     enum InputTrigger {
         case optionTap(sectionIndex: Int, optionIndex: Int)
         case pictureSelected(sectionIndex: Int, image: UIImage)
+        case emotionSelected(sectionIndex: Int, emotion: CoreEmotion)
         case onSectionVisibilityChanged(section: SectionType)
         case onTextChange(sectionIndex: Int, text: String)
         case onSleepScheduleChange(bedTime: Int, wakeUpTime: Int)

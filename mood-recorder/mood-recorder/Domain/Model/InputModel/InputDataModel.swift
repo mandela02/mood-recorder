@@ -16,20 +16,23 @@ struct InputDataModel {
     var sections: [SectionModel]
     var date: Date
     
+    
+    var emotion: CoreEmotion? {
+        guard let section = sections.first(where: { $0.section == .emotion }),
+              let coreEmotion = section.cell as? CoreEmotion
+        else {
+            return nil
+        }
+        return coreEmotion
+    }
+    
     static func initData() -> InputDataModel {
         let sections = SectionType.allCases.map { section -> SectionModel in
             switch section {
             case .emotion:
-                let models = CoreEmotion
-                    .allCases
-                    .map {
-                        OptionModel(content: ImageAndTitleModel(image: $0.imageName,
-                                                                title: ""))
-                    }
-                
                 return SectionModel(section: section,
                                     title: "How was your day?",
-                                    cell: models,
+                                    cell: CoreEmotion.neutral,
                                     isEditable: false)
                 
             case .activity:

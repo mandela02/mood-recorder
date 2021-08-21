@@ -136,8 +136,14 @@ extension CalendarView {
                                                         lineWidth: 2))
                                     .aspectRatio(1, contentMode: .fit)
                             } else {
-                                RoundImageView(image: AppImage.dinoInlove.value.image,
-                                               backgroundColor: Theme.current.buttonColor.disableColor)
+                                if let emotion = model.emotion {
+                                    RoundImageView(image: emotion.image,
+                                                   backgroundColor: Theme.current.buttonColor.disableColor)
+                                } else {
+                                    Theme.current.buttonColor.disableColor
+                                        .clipShape(Circle())
+                                        .aspectRatio(1, contentMode: .fit)
+                                }
                             }
                         })
                             .aspectRatio(1, contentMode: .fit)

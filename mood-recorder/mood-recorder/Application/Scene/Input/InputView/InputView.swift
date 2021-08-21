@@ -78,6 +78,31 @@ struct InputView: View {
         })
     }
     
+    // MARK: - Section Emotion Type
+    func getEmotionContentType(emotion: CoreEmotion,
+                               sectionIndex: Int) -> some View {
+        return LazyVGrid(columns: Array(repeating: GridItem(.flexible(),
+                                                            alignment: .top),
+                                        count: 5),
+                         content: {
+            ForEach(CoreEmotion.allCases,
+                    id: \.rawValue) { coreEmotion in
+                Button(action: {
+                    isFocus = false
+                    viewModel.trigger(.emotionSelected(sectionIndex: sectionIndex,
+                                                       emotion: coreEmotion))
+                }, label: {
+                    RoundImageView(image: coreEmotion.image,
+                                   backgroundColor: iconBackgroundColor(coreEmotion == emotion))
+                })
+                    .aspectRatio(1, contentMode: .fit)
+                    .saturation(coreEmotion == emotion ? 1 : 0)
+                    .buttonStyle(ResizeAnimationButtonStyle())
+                    .animation(Animation.easeInOut, value: coreEmotion == emotion)
+            }
+        })
+    }
+    
     // MARK: - Section Image Type
     func getImageContentCell(imageModel: ImageModel,
                              sectionIndex: Int) -> some View {
@@ -164,6 +189,10 @@ struct InputView: View {
     @ViewBuilder
     func getSectionContent(at sectionModel: SectionModel, index: Int) -> some View {
         switch sectionModel.cell {
+        case let emotion as CoreEmotion:
+            getEmotionContentType(emotion: emotion, sectionIndex: index)
+                .padding(.horizontal, 10)
+                .padding(.bottom, 10)
         case let models as [OptionModel]:
             let datasource = sectionModel.section == .custom ? models.filter { $0.isVisible } : models
             

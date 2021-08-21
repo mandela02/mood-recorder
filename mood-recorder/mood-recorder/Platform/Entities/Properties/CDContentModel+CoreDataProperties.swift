@@ -15,7 +15,8 @@ extension CDContentModel {
     @nonobjc public class func fetchRequest() -> NSFetchRequest<CDContentModel> {
         return NSFetchRequest<CDContentModel>(entityName: "CDContentModel")
     }
-
+    
+    @NSManaged public var emotion: Double
     @NSManaged public var bedTime: String?
     @NSManaged public var wakeUpTime: String?
     @NSManaged public var image: Data?

@@ -36,6 +36,11 @@ class FetchUseCase: FetchUseCaseType {
             let section = SectionType.section(from: Int(cdSection.sectionID))
             
             switch section {
+            case .emotion:
+                sectionModels.append(SectionModel(section: section,
+                                                  title: section.title,
+                                                  cell: CoreEmotion(rawValue: Int(content.emotion)),
+                                                  isVisible: cdSection.isVisible))
             case .note:
                 sectionModels.append(SectionModel(section: section,
                                                   title: section.title,

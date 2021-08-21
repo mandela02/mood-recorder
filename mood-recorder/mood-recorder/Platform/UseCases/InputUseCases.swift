@@ -120,6 +120,8 @@ struct InputUseCases: InputUseCaseType {
                 cdContent.bedTime = model.bedTime
                 cdContent.wakeUpTime = model.wakeUpTime
                 
+            case let model as CoreEmotion:
+                cdContent.emotion = Double(model.rawValue)
             default:
                 continue
             }

@@ -52,16 +52,8 @@ struct SectionModel: Identifiable, Equatable {
     }
     
     mutating func onEmotionSelected(emotion: CoreEmotion) {
-        guard var options = cell as? [OptionModel] else {
-            return
-        }
-        
-        if section == .emotion {
-            for i in options.indices {
-                options[i].isSelected = options[i].content.image == emotion.imageName
-            }
-            
-            cell = options
+        if cell is CoreEmotion {
+            cell = emotion
         }
     }
     
