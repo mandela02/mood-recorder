@@ -42,7 +42,7 @@ struct CalendarView: View {
                             .padding()
                         
                         if viewModel.state.isDetailViewShowing,
-                           let diary = viewModel.state.selectedDate {
+                           let diary = viewModel.state.selectedInputDataModel {
                             CalendarDiaryDetailView(diary: diary,
                                                     onEditDiary: {
                                 viewModel.trigger(.edit)
@@ -81,7 +81,7 @@ struct CalendarView: View {
         }
         .customDialog(isShowing: viewModel.state.isFutureWarningDialogShow,
                       dialogContent: {
-            if let model = viewModel.state.selectedDate {
+            if let model = viewModel.state.selectedInputDataModel {
                 FutureWarningDialog(date: model.date) {
                     viewModel.trigger(.closeFutureDialog)
                 }
@@ -94,7 +94,7 @@ struct CalendarView: View {
                          onDismiss: {
             viewModel.trigger(.closeInputView)
         }) {
-            if let data = viewModel.state.selectedDate {
+            if let data = viewModel.state.selectedInputDataModel {
                 InputView(data: data)
             } else {
                 Color.clear
@@ -142,7 +142,7 @@ extension CalendarView {
                 if date.month == viewModel.state.currentMonth.month &&
                     date.year == viewModel.state.currentMonth.year {
                     LazyVStack(spacing: 5) {
-                        if date.isInSameDay(as: viewModel.state.selectedDate?.date ?? Date()) {
+                        if date.isInSameDay(as: viewModel.state.selectedInputDataModel?.date ?? Date()) {
                             ZStack {
                                 Theme.current.buttonColor.backgroundColor
                                     .clipShape(Capsule())
@@ -188,7 +188,7 @@ extension CalendarView {
                 }
             }
         })
-        .animation(.easeInOut, value: viewModel.state.selectedDate?.date)
+        .animation(.easeInOut, value: viewModel.state.selectedInputDataModel?.date)
     }
 }
 
