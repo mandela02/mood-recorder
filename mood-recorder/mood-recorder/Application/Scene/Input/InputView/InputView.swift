@@ -28,8 +28,8 @@ struct InputView: View {
     
     @FocusState private var isFocus: Bool
     
-    init(emotion: CoreEmotion) {
-        let inputState = InputState(emotion: emotion)
+    init(emotion: CoreEmotion? = nil, data: InputDataModel? = nil) {
+        let inputState = InputState(emotion: emotion, data: data)
         self.viewModel = BaseViewModel(InputViewModel(state: inputState))
         
         UITextView.appearance().backgroundColor =  UIColor(Theme.current.commonColor.textBackground)

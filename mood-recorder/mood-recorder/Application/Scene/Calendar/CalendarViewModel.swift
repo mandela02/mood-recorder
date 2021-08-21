@@ -29,10 +29,16 @@ class CalendarViewModel: ViewModel {
     
     func trigger(_ input: CalendarTrigger) {
         switch input {
-        case .dateSelection(let date):
-            state.selectedDate = date
-            if date.isInTheFuture {
+        case .dateSelection(let model):
+            state.selectedDate = model
+            if model.date.isInTheFuture {
                 state.isFutureWarningDialogShow = true
+            } else {
+                if model.sections.isEmpty {
+                    state.isInputViewShowing = true
+                } else {
+                    state.isDetailViewShowing = false
+                }
             }
         case .deselectDate:
             state.selectedDate = nil
@@ -62,6 +68,10 @@ class CalendarViewModel: ViewModel {
             print("share")
         case .closeFutureDialog:
             state.isFutureWarningDialogShow = false
+        case .closeInputView:
+            state.isInputViewShowing = false
+        case .reload:
+            fetch()
         }
     }
     
@@ -118,17 +128,20 @@ class CalendarViewModel: ViewModel {
 extension CalendarViewModel {
     struct CalendarState {
         var dates: [Date] = []
-        var selectedDate: Date?
+        var selectedDate: InputDataModel?
         var currentMonth = (month: Date().month, year: Date().year)
         var isDatePickerShow = false
         var isFutureWarningDialogShow = false
         var diaries: [InputDataModel] = []
         
+        var isDetailViewShowing = false
+        var isInputViewShowing = false
+        
         let response = PassthroughSubject<DatabaseResponse, Never>()
     }
     
     enum CalendarTrigger {
-        case dateSelection(date: Date)
+        case dateSelection(model: InputDataModel)
         case deselectDate
         case goTo(month: Int, year: Int)
         case goToNextMonth
@@ -138,5 +151,7 @@ extension CalendarViewModel {
         case showDatePicker
         case closeDatePicker
         case closeFutureDialog
+        case closeInputView
+        case reload
     }
 }

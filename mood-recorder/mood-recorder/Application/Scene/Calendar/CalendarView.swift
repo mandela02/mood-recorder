@@ -14,6 +14,8 @@ struct CalendarView: View {
     @ObservedObject var viewModel: BaseViewModel<CalendarState,
                                                  CalendarTrigger>
     @Binding var isTabBarHiddenNeeded: Bool
+    
+    @State var isInputViewShowing = false
         
     init(viewModel: BaseViewModel<CalendarState, CalendarTrigger>,
          isTabBarHiddenNeeded: Binding<Bool>) {
@@ -60,14 +62,26 @@ struct CalendarView: View {
         .animation(.easeInOut, value: viewModel.state.isDatePickerShow)
         .customDialog(isShowing: viewModel.state.isFutureWarningDialogShow,
                       dialogContent: {
-            if let date = viewModel.state.selectedDate {
-                FutureWarningDialog(date: date) {
+            if let model = viewModel.state.selectedDate {
+                FutureWarningDialog(date: model.date) {
                     viewModel.trigger(.closeFutureDialog)
-                    viewModel.trigger(.deselectDate)
                 }
             }
         })
-        //.animation(.easeInOut, value: isFutureWarningDialogShow)
+        .onChange(of: viewModel.state.isInputViewShowing, perform: { newValue in
+            self.isInputViewShowing = viewModel.state.isInputViewShowing
+        })
+        .fullScreenCover(isPresented: $isInputViewShowing,
+                         onDismiss: {
+            viewModel.trigger(.closeInputView)
+            viewModel.trigger(.reload)
+        }) {
+            if let data = viewModel.state.selectedDate {
+                InputView(data: data)
+            } else {
+                Color.clear
+            }
+        }
     }
 }
 
@@ -108,7 +122,7 @@ extension CalendarView {
                 if date.month == viewModel.state.currentMonth.month &&
                     date.year == viewModel.state.currentMonth.year {
                     LazyVStack(spacing: 5) {
-                        if date.isInSameDay(as: Date()) {
+                        if date.isInSameDay(as: viewModel.state.selectedDate?.date ?? Date()) {
                             ZStack {
                                 Theme.current.buttonColor.backgroundColor
                                     .clipShape(Capsule())
@@ -126,7 +140,7 @@ extension CalendarView {
                         }
                         
                         Button(action: {
-                            viewModel.trigger(.dateSelection(date: date))
+                            viewModel.trigger(.dateSelection(model: model))
                         }, label: {
                             if date.isInTheFuture {
                                 Theme.current.buttonColor.disableColor
@@ -154,6 +168,7 @@ extension CalendarView {
                 }
             }
         })
+            .animation(.spring(), value: viewModel.state.selectedDate?.date)
     }
 }
 

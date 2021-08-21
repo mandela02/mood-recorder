@@ -23,7 +23,7 @@ class InputViewModel: ViewModel {
     init(state: InputState) {
         self.state = state
         setupSubcription()
-        initData(with: state.initialEmotion, at: state.initialDate)
+        initData(with: state.initialEmotion, or: state.initialData)
     }
     
     func trigger(_ input: InputTrigger) {
@@ -43,6 +43,10 @@ class InputViewModel: ViewModel {
                 let model = InputDataModel(date: date,
                                            sections: self.state.sectionModels)
                 self.state.response.send(self.useCase.update(model: model))
+            case .create(date: let date):
+                let model = InputDataModel(date: date,
+                                           sections: self.state.sectionModels)
+                self.state.response.send(self.useCase.save(model: model))
             }
             
         // MARK: - cell option tapped
@@ -126,12 +130,24 @@ class InputViewModel: ViewModel {
         }
     }
         
-    private func initData(with emotion: CoreEmotion?, at date: Date) {
-        if useCase.isRecordExist(date: date.startOfDayInterval) {
-            state.status = .update(date: date)
-            state.response.send(useCase.fetch(at: date.startOfDayInterval))
+    private func initData(with emotion: CoreEmotion?,
+                          or data: InputDataModel?) {
+        if let data = data {
+            if data.sections.isEmpty {
+                state.status = .create(date: data.date)
+                state.sectionModels = InputDataModel.initData().sections
+            } else {
+                state.status = .update(date: data.date)
+                state.sectionModels = data.sections
+            }
         } else {
-            state.sectionModels = InputDataModel.initData().sections
+            if useCase.isRecordExist(date: Date().startOfDayInterval) {
+                state.status = .update(date: Date())
+                state.response.send(useCase.fetch(at: Date().startOfDayInterval))
+            } else {
+                state.status = .new
+                state.sectionModels = InputDataModel.initData().sections
+            }
         }
         
         if let emotion = emotion {
@@ -202,7 +218,7 @@ extension InputViewModel {
     
     struct InputState {
         var initialEmotion: CoreEmotion?
-        var initialDate: Date
+        var initialData: InputDataModel?
 
         var isInEditMode = false
         var isAboutToDismiss = false
@@ -218,13 +234,14 @@ extension InputViewModel {
         
         var status = Status.new
         
-        init(emotion: CoreEmotion? = nil, date: Date = Date()) {
-            self.initialDate = date
+        init(emotion: CoreEmotion? = nil, data: InputDataModel? = nil) {
+            self.initialData = data
             self.initialEmotion = emotion
         }
 
         enum Status {
             case new
+            case create(date: Date)
             case update(date: Date)
         }
     }
