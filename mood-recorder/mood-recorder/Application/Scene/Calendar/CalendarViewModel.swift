@@ -103,6 +103,7 @@ class CalendarViewModel: ViewModel {
         self.useCase.publisher()
             .sink { [weak self] in
                 guard let self = self else { return }
+                self.state.isDetailViewShowing = false
                 Task {
                     await self.loadData(date: self.state.selectedInputDataModel?.date ?? Date())
                 }
