@@ -46,7 +46,7 @@ struct CalendarView: View {
                                                     onEditDiary: {
                                 viewModel.trigger(.edit)
                             }, onDeleteDiary: {
-                                
+                                viewModel.trigger(.delete)
                             })
                                 .id(diary.emotion)
                         }
@@ -76,7 +76,6 @@ struct CalendarView: View {
                     })
             }
         }
-        .animation(.easeInOut, value: viewModel.state.isDatePickerShow)
         .customDialog(isShowing: viewModel.state.isFutureWarningDialogShow,
                       dialogContent: {
             if let model = viewModel.state.selectedDate {
@@ -98,6 +97,8 @@ struct CalendarView: View {
                 Color.clear
             }
         }
+        .animation(.easeInOut, value: viewModel.state.isDatePickerShow)
+        .animation(.easeInOut, value: viewModel.state.isDetailViewShowing)
     }
 }
 

@@ -78,6 +78,10 @@ class CalendarViewModel: ViewModel {
             state.isInputViewShowing = false
         case .edit:
             state.isInputViewShowing = true
+        case .delete:
+            guard let date = state.selectedDate?.date else { return }
+            state.response.send(useCase.delete(at: date.startOfDayInterval))
+            state.isDetailViewShowing = false
         }
     }
     
@@ -177,5 +181,6 @@ extension CalendarViewModel {
         case closeFutureDialog
         case closeInputView
         case edit
+        case delete
     }
 }

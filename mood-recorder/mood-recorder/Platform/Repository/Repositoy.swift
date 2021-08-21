@@ -22,7 +22,7 @@ protocol RepositoryType {
     func fetchRequestGetFirst(predicate: NSPredicate) -> DatabaseResponse
     func fetchRequest(predicate: NSPredicate) -> DatabaseResponse
     func save() -> DatabaseResponse
-    func delete(model: T)
+    func delete(model: T) -> DatabaseResponse
     func publisher() -> AnyPublisher<Void, Never>
 }
 
@@ -94,8 +94,9 @@ class Repository<T: NSManagedObject>: RepositoryType {
         }
     }
     
-    func delete(model: T) {
+    func delete(model: T) -> DatabaseResponse {
         container.viewContext.delete(model)
+        return save()
     }
         
     func publisher() -> AnyPublisher<Void, Never> {
