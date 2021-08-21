@@ -6,8 +6,11 @@
 //
 
 import Foundation
+import Combine
+
 protocol CalendarUseCaseType {
     func fetch(from start: Double, to end: Double) -> DatabaseResponse
+    func publisher() -> AnyPublisher<Void, Never>
 }
 
 struct CalendarUseCases: CalendarUseCaseType {
@@ -32,5 +35,9 @@ struct CalendarUseCases: CalendarUseCaseType {
                                          code: 1,
                                          userInfo: nil))
         }
+    }
+    
+    func publisher() -> AnyPublisher<Void, Never> {
+        return repository.publisher()
     }
 }

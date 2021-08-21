@@ -76,7 +76,6 @@ class CalendarViewModel: ViewModel {
             state.isFutureWarningDialogShow = false
         case .closeInputView:
             state.isInputViewShowing = false
-            loadData(date: state.selectedDate?.date ?? Date())
         case .edit:
             state.isInputViewShowing = true
         }
@@ -117,6 +116,13 @@ class CalendarViewModel: ViewModel {
     }
     
     private func setupSubcription() {
+        self.useCase.publisher()
+            .sink { [weak self] in
+                guard let self = self else { return }
+                self.loadData(date: self.state.selectedDate?.date ?? Date())
+            }
+            .store(in: &cancellables)
+        
         self.state.response
             .sink { [weak self] response in
                 guard let self = self else { return }
