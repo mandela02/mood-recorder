@@ -95,9 +95,18 @@ class CalendarViewModel: ViewModel {
                 switch response {
                 case .success(data: let data):
                     if let models = data as? [InputDataModel] {
-                        self.state.diaries = models
+                        var diaries = self.state.dates.map { InputDataModel(date: $0, sections: []) }
+                        
+                        for index in diaries.indices {
+                            guard let model = models.first(where: {$0.date.startOfDayInterval == diaries[index].date.startOfDayInterval})
+                            else { continue }
+                            diaries[index].sections = model.sections
+                        }
+                        
+                        self.state.diaries = diaries
                     }
                 case .error(error: let error):
+                    self.state.diaries = self.state.dates.map { InputDataModel(date: $0, sections: []) }
                     print(error)
                 }
                 

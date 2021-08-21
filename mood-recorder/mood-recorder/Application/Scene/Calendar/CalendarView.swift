@@ -76,7 +76,7 @@ extension CalendarView {
     private func buildCalendar() -> some View {
         VStack(spacing: 10) {
             buildWeekDay()
-            buildCalendarDays(dates: viewModel.state.dates)
+            buildCalendarDays(models: viewModel.state.diaries)
                 .animation(.easeInOut(duration: 0.2), value: viewModel.state.currentMonth.month)
             Spacer()
         }
@@ -95,14 +95,16 @@ extension CalendarView {
         })
     }
     
-    private func buildCalendarDays(dates: [Date]) -> some View {
+    private func buildCalendarDays(models: [InputDataModel]) -> some View {
         LazyVGrid(columns: Array(repeating: GridItem(.flexible(),
                                                      alignment: .top),
                                  count: 7),
                   spacing: 10,
                   content: {
-            ForEach(Array(dates.enumerated()),
-                    id: \.offset) { index, date in
+            ForEach(Array(models.enumerated()),
+                    id: \.offset) { index, model in
+                let date = model.date
+                
                 if date.month == viewModel.state.currentMonth.month &&
                     date.year == viewModel.state.currentMonth.year {
                     LazyVStack(spacing: 5) {
