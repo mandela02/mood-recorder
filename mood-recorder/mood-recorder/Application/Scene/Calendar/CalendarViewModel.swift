@@ -39,6 +39,11 @@ class CalendarViewModel: ViewModel {
         case .goTo(month: let month, year: let year):
             state.currentMonth = (month, year)
             createCalendarDates()
+        case .goToToDay:
+            state.currentMonth = (Date().month, Date().year)
+            createCalendarDates()
+        case .share:
+            print("share")
         }
     }
     
@@ -69,6 +74,8 @@ extension CalendarViewModel {
         case dateSelection(date: Date)
         case goTo(month: Int, year: Int)
         case goToNextMonth
+        case goToToDay
+        case share
         case backToLaseMonth
         case showDatePicker
         case closeDatePicker

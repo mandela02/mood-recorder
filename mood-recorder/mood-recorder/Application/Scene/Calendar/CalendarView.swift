@@ -39,11 +39,15 @@ struct CalendarView: View {
         }
         .overlay {
             if viewModel.state.isDatePickerShow {
-                MonthPicker(onApply: { (month, year) in
+                MonthPicker(
+                    month: viewModel.currentMonth.month,
+                    year: viewModel.currentMonth.year,
+                    onApply: { (month, year) in
                     viewModel.trigger(.goTo(month: month, year: year))
                     viewModel.trigger(.closeDatePicker)
                     showTabBar()
-                }, onCancel: {
+                },
+                    onCancel: {
                     viewModel.trigger(.closeDatePicker)
                     showTabBar()
                 })
@@ -59,6 +63,7 @@ extension CalendarView {
         VStack(spacing: 10) {
             buildWeekDay()
             buildCalendarDays(dates: viewModel.state.dates)
+                .animation(.easeInOut(duration: 0.2), value: viewModel.state.currentMonth.month)
             Spacer()
         }
     }
@@ -134,6 +139,18 @@ extension CalendarView {
     func buildDateView() -> some View {
         HStack {
             Button(action: {
+                viewModel.trigger(.share)
+            }) {
+                Image(systemName: "square.and.arrow.up")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 50, height: 30)
+                    .foregroundColor(Theme.current.buttonColor.backgroundColor)
+            }
+
+            Spacer()
+            
+            Button(action: {
                 viewModel.trigger(.backToLaseMonth)
             }) {
                 Image(systemName: "arrowtriangle.backward.fill")
@@ -148,7 +165,7 @@ extension CalendarView {
                 .padding(EdgeInsets(top: 10, leading: 30, bottom: 10, trailing: 30))
                 .background(RoundedRectangle(cornerRadius: 10)
                                 .fill(Theme.current.buttonColor.backgroundColor))
-                .padding(.horizontal, 30)
+                .padding(.horizontal, 10)
                 .onTapGesture {
                     isTabBarHiddenNeeded = true
                     viewModel.trigger(.showDatePicker)
@@ -163,6 +180,19 @@ extension CalendarView {
                     .frame(width: 30)
                     .foregroundColor(Theme.current.buttonColor.backgroundColor)
             }
+            
+            Spacer()
+
+            Button(action: {
+                viewModel.trigger(.goToToDay)
+            }) {
+                Text("Today")
+                    .minimumScaleFactor(0.1)
+                    .lineLimit(1)
+                    .foregroundColor(Theme.current.commonColor.textColor)
+                    .frame(width: 50)
+            }
         }
+        .padding(.horizontal, 10)
     }
 }

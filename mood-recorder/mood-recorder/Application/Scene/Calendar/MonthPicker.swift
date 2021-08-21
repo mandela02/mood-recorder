@@ -55,8 +55,8 @@ struct MonthPicker: View {
     typealias VoidFunction = () -> ()
     typealias CallBackFunction = (Int, Int) -> ()
     
-    @State private var selectedMonth = Month.january
-    @State private var selectedYear = 2021
+    @State private var selectedMonth: Month
+    @State private var selectedYear: Int
     @State private var isAppear = false
     
     private let years = 1980...2099
@@ -64,8 +64,12 @@ struct MonthPicker: View {
     var onApply: CallBackFunction
     var onCancel: VoidFunction
 
-    init(onApply: @escaping CallBackFunction,
+    init(month: Int,
+         year: Int,
+         onApply: @escaping CallBackFunction,
          onCancel: @escaping VoidFunction) {
+        self.selectedMonth = Month(rawValue: month) ?? .january
+        self.selectedYear = year
         self.onApply = onApply
         self.onCancel = onCancel
     }
@@ -99,7 +103,12 @@ struct MonthPicker: View {
     
     func buildButton() -> some View {
         HStack {
-            Button(action: onCancel) {
+            Button(action: {
+                isAppear = false
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    onCancel()
+                }
+            }) {
                 Text("Cancel")
                     .foregroundColor(Color.blue)
             }
@@ -144,11 +153,5 @@ struct MonthPicker: View {
             isAppear = true
         }
         .animation(.easeInOut, value: isAppear)
-    }
-}
-
-struct MonthPicker_Previews: PreviewProvider {
-    static var previews: some View {
-        MonthPicker(onApply: {_, _ in}, onCancel: {})
     }
 }
