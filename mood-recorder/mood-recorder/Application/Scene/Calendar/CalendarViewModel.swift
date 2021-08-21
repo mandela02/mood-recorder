@@ -19,7 +19,9 @@ class CalendarViewModel: ViewModel {
     func trigger(_ input: CalendarTrigger) {
         switch input {
         case .dateSelection(let date):
-            print(date)
+            state.selectedDate = date
+        case .deselectDate:
+            state.selectedDate = nil
         case .goToNextMonth:
             state.currentMonth.month += 1
             if state.currentMonth.month == 13 {
@@ -66,12 +68,14 @@ class CalendarViewModel: ViewModel {
 extension CalendarViewModel {
     struct CalendarState {
         var dates: [Date] = []
+        var selectedDate: Date?
         var currentMonth = (month: Date().month, year: Date().year)
         var isDatePickerShow = false
     }
     
     enum CalendarTrigger {
         case dateSelection(date: Date)
+        case deselectDate
         case goTo(month: Int, year: Int)
         case goToNextMonth
         case goToToDay

@@ -8,9 +8,6 @@
 import SwiftUI
 
 struct CusomOptionView: View {
-    typealias Function = () -> ()
-    typealias CallbackFunction = (OptionModel) -> ()
-    
     typealias CustomOptionState = CustomOptionViewModel.CustomOptionState
     typealias CustomOptionTrigger = CustomOptionViewModel.CustomOptionTrigger
     
@@ -22,15 +19,15 @@ struct CusomOptionView: View {
 
     let namespace: Namespace.ID
     
-    let onClose: Function
-    let onCreate: CallbackFunction
-    let onUpdate: CallbackFunction
+    let onClose: VoidFunction
+    let onCreate: OptionModelCallbackFunction
+    let onUpdate: OptionModelCallbackFunction
 
     init(namespace: Namespace.ID,
          optionModel: OptionModel?,
-         onClose: @escaping Function,
-         onCreate: @escaping CallbackFunction,
-         onUpdate: @escaping CallbackFunction) {
+         onClose: @escaping VoidFunction,
+         onCreate: @escaping OptionModelCallbackFunction,
+         onUpdate: @escaping OptionModelCallbackFunction) {
         
         self.namespace = namespace
         

@@ -52,21 +52,18 @@ enum Month: Int, CaseIterable, StringValueProtocol {
 }
 
 struct MonthPicker: View {
-    typealias VoidFunction = () -> ()
-    typealias CallBackFunction = (Int, Int) -> ()
-    
     @State private var selectedMonth: Month
     @State private var selectedYear: Int
     @State private var isAppear = false
     
     private let years = 1980...2099
     
-    var onApply: CallBackFunction
+    var onApply: IntTupleCallbackFunction
     var onCancel: VoidFunction
 
     init(month: Int,
          year: Int,
-         onApply: @escaping CallBackFunction,
+         onApply: @escaping IntTupleCallbackFunction,
          onCancel: @escaping VoidFunction) {
         self.selectedMonth = Month(rawValue: month) ?? .january
         self.selectedYear = year

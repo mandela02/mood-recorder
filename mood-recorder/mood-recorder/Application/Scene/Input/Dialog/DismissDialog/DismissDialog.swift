@@ -8,15 +8,13 @@
 import SwiftUI
 
 struct DismissDialog: View {
-    typealias Function = () -> ()
-    
-    var save: Function
-    var cancel: Function
-    var exit: Function
+    var save: VoidFunction
+    var cancel: VoidFunction
+    var exit: VoidFunction
 
     func createButton(title: String,
                       background: Color = Theme.current.buttonColor.backgroundColor,
-                      callback: @escaping Function) -> some View {
+                      callback: @escaping VoidFunction) -> some View {
         Button(action: callback) {
             Text(title)
                 .font(.system(size: 12))
