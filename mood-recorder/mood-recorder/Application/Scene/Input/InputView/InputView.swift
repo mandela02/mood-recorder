@@ -16,24 +16,36 @@ struct InputView: View {
     typealias InputState = InputViewModel.InputState
     typealias InputTrigger = InputViewModel.InputTrigger
     
-    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.presentationMode)
+    var presentationMode
     
-    @ObservedObject var viewModel: BaseViewModel<InputState,
+    @ObservedObject
+    var viewModel: BaseViewModel<InputState,
                                                  InputTrigger>
     
-    @State private var text = ""
-    @State private var isImagePickerShowing = false
-    @State private var destination: ScrollDestination?
-    @State private var imagePickerController: UIImagePickerController?
+    @State
+    private var text = ""
+    
+    @State
+    private var isImagePickerShowing = false
+    
+    @State
+    private var destination: ScrollDestination?
+    
+    @State
+    private var imagePickerController: UIImagePickerController?
     
     @FocusState private var isFocus: Bool
+    
+    @AppStorage(Keys.themeId.rawValue)
+    var themeId: Int = 0
     
     init(emotion: CoreEmotion? = nil, data: InputDataModel? = nil) {
         let inputState = InputState(emotion: emotion, data: data)
         self.viewModel = BaseViewModel(InputViewModel(state: inputState))
         
-        UITextView.appearance().backgroundColor =  UIColor(Theme.current.commonColor.textBackground)
-        UITableView.appearance().backgroundColor = UIColor(Theme.current.tableViewColor.background)
+        UITextView.appearance().backgroundColor =  UIColor(Color.clear)
+        UITableView.appearance().backgroundColor = UIColor(Color.clear)
     }
     
     // MARK: - Dismiss
@@ -43,7 +55,7 @@ struct InputView: View {
     
     // MARK: - Icon background color
     func iconBackgroundColor(_ isSelected: Bool) -> Color {
-        return isSelected ? Theme.current.buttonColor.backgroundColor : Theme.current.buttonColor.disableColor
+        return isSelected ? Theme.get(id: themeId).buttonColor.backgroundColor : Theme.get(id: themeId).buttonColor.disableColor
     }
     
     // MARK: - Section Icon Type
@@ -70,7 +82,7 @@ struct InputView: View {
                     
                     if optionModel.content.title != "" {
                         Text(optionModel.content.title)
-                            .foregroundColor(Theme.current.tableViewColor.text)
+                            .foregroundColor(Theme.get(id: themeId).tableViewColor.text)
                             .font(.system(size: 12))
                     }
                 }
@@ -111,7 +123,7 @@ struct InputView: View {
             isImagePickerShowing.toggle()
         }) {
             ZStack {
-                Theme.current.commonColor.textBackground
+                Theme.get(id: themeId).commonColor.textBackground
                 if imageModel.isHavingData {
                     imageModel.image?
                         .resizable()
@@ -121,11 +133,11 @@ struct InputView: View {
                         Image(systemName: "camera.fill")
                             .resizable()
                             .renderingMode(.template)
-                            .foregroundColor(Theme.current.tableViewColor.text)
+                            .foregroundColor(Theme.get(id: themeId).tableViewColor.text)
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 50, height: 50)
                         Text("Select a photo")
-                            .foregroundColor(Theme.current.tableViewColor.text)
+                            .foregroundColor(Theme.get(id: themeId).tableViewColor.text)
                     }
                 }
                 
@@ -150,9 +162,9 @@ struct InputView: View {
     func getTextView(textModel: TextModel,
                      sectionIndex: Int) -> some View {
         ZStack {
-            Theme.current.commonColor.textBackground
+            Theme.get(id: themeId).commonColor.textBackground
             TextEditor(text: $text)
-                .foregroundColor(Theme.current.tableViewColor.text)
+                .foregroundColor(Theme.get(id: themeId).tableViewColor.text)
                 .font(.system(size: 12))
                 .padding()
                 .focused($isFocus)
@@ -175,9 +187,9 @@ struct InputView: View {
     // MARK: - Section Sleep Scheldule Type
     func getSleepScheduleText(model: SleepSchelduleModel) -> some View {
         ZStack {
-            Theme.current.commonColor.textBackground
+            Theme.get(id: themeId).commonColor.textBackground
             Text(model.displayString)
-                .foregroundColor(Theme.current.tableViewColor.text)
+                .foregroundColor(Theme.get(id: themeId).tableViewColor.text)
                 .font(.system(size: 12))
                 .padding()
         }
@@ -208,14 +220,14 @@ struct InputView: View {
                         viewModel.trigger(.handleCustomDialog(status: .open))
                     }) {
                         ZStack {
-                            Theme.current.buttonColor.backgroundColor
+                            Theme.get(id: themeId).buttonColor.backgroundColor
                                 .frame(maxWidth: .infinity)
                                 .frame(height: 50)
                             Image(systemName: "plus")
                                 .resizable()
                                 .renderingMode(.template)
                                 .frame(width: 25, height: 25, alignment: .center)
-                                .foregroundColor(Theme.current.buttonColor.iconColor)
+                                .foregroundColor(Theme.get(id: themeId).buttonColor.iconColor)
                         }
                     }
                 } else {
@@ -254,7 +266,7 @@ struct InputView: View {
                     .resizable()
                     .renderingMode(.template)
                     .frame(width: 20, height: 20, alignment: .center)
-                    .foregroundColor(Theme.current.commonColor.textColor)
+                    .foregroundColor(Theme.get(id: themeId).commonColor.textColor)
             }
         } else {
             EmptyView()
@@ -265,11 +277,11 @@ struct InputView: View {
     func getSectionCell(sectionModel: SectionModel, at index: Int) -> some View {
         Section(header: SizedBox(height: index == 0 ? 50 : .leastNonzeroMagnitude)) {
             ZStack(alignment: .topLeading) {
-                sectionModel.isVisible ? Theme.current.tableViewColor.cellBackground : Color.gray.opacity(0.5)
+                sectionModel.isVisible ? Theme.get(id: themeId).tableViewColor.cellBackground : Color.gray.opacity(0.5)
                 VStack(alignment: .leading) {
                     HStack {
                         Text(sectionModel.title)
-                            .foregroundColor(Theme.current.tableViewColor.text)
+                            .foregroundColor(Theme.get(id: themeId).tableViewColor.text)
                         Spacer()
                         sectionDismissButton(at: sectionModel) {
                             viewModel.trigger(.onSectionVisibilityChanged(section: sectionModel.section))
@@ -291,11 +303,12 @@ struct InputView: View {
             dismiss()
         }) {
             ZStack {
-                Theme.current.buttonColor.backgroundColor
+                Theme.get(id: themeId).buttonColor.backgroundColor
                     .frame(maxWidth: .infinity)
                     .frame(height: 50)
+                    .scaleEffect(1.1)
                 Text("Done")
-                    .foregroundColor(Theme.current.buttonColor.iconColor)
+                    .foregroundColor(Theme.get(id: themeId).buttonColor.iconColor)
                     .padding()
             }
         }
@@ -311,13 +324,13 @@ struct InputView: View {
             }) {
                 HStack {
                     Text( viewModel.isInEditMode ? "Done" : "Edit")
-                        .foregroundColor(Theme.current.buttonColor.textColor)
+                        .foregroundColor(Theme.get(id: themeId).navigationColor.button)
                         .font(.system(size: 20))
                     Image(systemName: "square.and.pencil")
                         .resizable()
                         .renderingMode(.template)
                         .frame(width: 20, height: 20, alignment: .center)
-                        .foregroundColor(Theme.current.buttonColor.textColor)
+                        .foregroundColor(Theme.get(id: themeId).navigationColor.button)
                 }.animation(.easeInOut, value: viewModel.isInEditMode)
             }
             Spacer()
@@ -330,7 +343,7 @@ struct InputView: View {
                         .resizable()
                         .renderingMode(.template)
                         .frame(width: 30, height: 30, alignment: .center)
-                        .foregroundColor(Theme.current.buttonColor.textColor)
+                        .foregroundColor(Theme.get(id: themeId).navigationColor.button)
                 }
                 
                 SizedBox(width: 10)
@@ -343,7 +356,7 @@ struct InputView: View {
                         .resizable()
                         .renderingMode(.template)
                         .frame(width: 30, height: 30, alignment: .center)
-                        .foregroundColor(Theme.current.buttonColor.textColor)
+                        .foregroundColor(Theme.get(id: themeId).navigationColor.button)
                 }
             }
         }
@@ -353,7 +366,7 @@ struct InputView: View {
     func buildGradient() -> some View {
         VStack {
             ZStack {
-                LinearGradient(gradient: Gradient(colors: [Theme.current.buttonColor.backgroundColor,
+                LinearGradient(gradient: Gradient(colors: [Theme.get(id: themeId).buttonColor.backgroundColor,
                                                            Color.clear]),
                                startPoint: .top,
                                endPoint: .bottom)
@@ -372,12 +385,12 @@ struct InputView: View {
             HStack {
                 Spacer()
                 HStack(spacing: 59) {
-                    ArrowAnimation(foregroundColor: Theme.current.buttonColor.backgroundColor)
+                    ArrowAnimation(foregroundColor: Theme.get(id: themeId).buttonColor.backgroundColor)
                         .rotationEffect(Angle(degrees: 180))
                         .onTapGesture {
                             destination = .top
                         }
-                    ArrowAnimation(foregroundColor: Theme.current.buttonColor.backgroundColor)
+                    ArrowAnimation(foregroundColor: Theme.get(id: themeId).buttonColor.backgroundColor)
                         .onTapGesture {
                             destination = .bottom
                         }
@@ -392,7 +405,7 @@ struct InputView: View {
     // MARK: - BODY
     var body: some View {
         ZStack {
-            Theme.current.tableViewColor.background
+            Theme.get(id: themeId).tableViewColor.background
             ScrollViewReader { proxy in
                 List {
                     ForEach(Array(viewModel.sectionModels.enumerated()),

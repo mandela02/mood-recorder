@@ -8,13 +8,27 @@
 import SwiftUI
 
 struct ClockAnimationView: View {
-    @State private var bedTimeProgress: CGFloat
-    @State private var wakeTimeProgress: CGFloat
+    
+    @State
+    private var bedTimeProgress: CGFloat
+    
+    @State
+    private var wakeTimeProgress: CGFloat
         
-    @State private var isRinging = false
-    @State private var showZleft = false
-    @State private var showZmiddle = false
-    @State private var showZright = false
+    @State
+    private var isRinging = false
+    
+    @State
+    private var showZleft = false
+    
+    @State
+    private var showZmiddle = false
+    
+    @State
+    private var showZright = false
+
+    @AppStorage(Keys.themeId.rawValue)
+    var themeId: Int = 0
 
     private var defaultWidth: CGFloat = 50
     private let sectment: Double
@@ -50,7 +64,7 @@ struct ClockAnimationView: View {
     // MARK: - BODY
     var body: some View {
         ZStack {
-            Theme.current.sleepColor.backgroundColor
+            Theme.get(id: themeId).sleepColor.backgroundColor
                 .ignoresSafeArea()
             VStack {
                 buildHourOfSleep()
@@ -101,7 +115,7 @@ extension ClockAnimationView {
             ForEach(hourStrings.indices, id: \.self) { index in
                 Text(hourStrings[index])
                     .font(.system(size: 10))
-                    .foregroundColor(Theme.current.sleepColor.textColor)
+                    .foregroundColor(Theme.get(id: themeId).sleepColor.textColor)
                     .rotationEffect(.degrees(0 - Double(index + 1) * sectment))
                     .offset(y: offset + 20)
                     .rotationEffect(.degrees(Double(index + 1) * sectment))
@@ -143,15 +157,15 @@ extension ClockAnimationView {
                     Text("Sleep at")
                         .font(.system(size: 15))
                         .lineLimit(1)
-                        .foregroundColor(Theme.current.sleepColor.textColor)
+                        .foregroundColor(Theme.get(id: themeId).sleepColor.textColor)
                 }
                 Text(Int(bedTimeProgress * 24 * 60).generateHourMinuteString())
                     .bold()
                     .font(.system(size: 25))
-                    .foregroundColor(Theme.current.sleepColor.textColor)
+                    .foregroundColor(Theme.get(id: themeId).commonColor.textColor)
             }
             .frame(minWidth: 0, maxWidth: .infinity)
-            Theme.current.sleepColor.buttonColor
+            Theme.get(id: themeId).sleepColor.buttonColor
                 .frame(width: 2, height: 45, alignment: .center)
             VStack(spacing: 15) {
                 HStack {
@@ -159,12 +173,12 @@ extension ClockAnimationView {
                     Text("Wake up at")
                         .font(.system(size: 15))
                         .lineLimit(1)
-                        .foregroundColor(Theme.current.sleepColor.textColor)
+                        .foregroundColor(Theme.get(id: themeId).sleepColor.textColor)
                 }
                 Text(Int(wakeTimeProgress * 24 * 60).generateHourMinuteString())
                     .bold()
                     .font(.system(size: 25))
-                    .foregroundColor(Theme.current.sleepColor.textColor)
+                    .foregroundColor(Theme.get(id: themeId).commonColor.textColor)
             }
             .frame(minWidth: 0, maxWidth: .infinity)
         }
@@ -173,10 +187,10 @@ extension ClockAnimationView {
     func buildHourOfSleep() -> some View {
         VStack {
             Text("Hours of sleep")
-                .foregroundColor(Theme.current.sleepColor.textColor)
+                .foregroundColor(Theme.get(id: themeId).sleepColor.textColor)
                 .font(.system(size: 20))
             Text(calculateHourOfSleep())
-                .foregroundColor(Theme.current.sleepColor.textColor)
+                .foregroundColor(Theme.get(id: themeId).commonColor.textColor)
                 .font(.system(size: 30))
         }
     }
@@ -227,14 +241,14 @@ extension ClockAnimationView {
                 Circle()
                     .trim(from: bedTimeProgress,
                           to: 1)
-                    .stroke(Theme.current.sleepColor.smallCircleColor,
+                    .stroke(Theme.get(id: themeId).sleepColor.smallCircleColor,
                             style: StrokeStyle(lineWidth: defaultWidth - 10,
                                                lineCap: .round,
                                                lineJoin: .round))
                 Circle()
                     .trim(from: 0,
                           to: wakeTimeProgress)
-                    .stroke(Theme.current.sleepColor.smallCircleColor,
+                    .stroke(Theme.get(id: themeId).sleepColor.smallCircleColor,
                             style: StrokeStyle(lineWidth: defaultWidth - 10,
                                                lineCap: .round,
                                                lineJoin: .round))
@@ -243,7 +257,7 @@ extension ClockAnimationView {
             Circle()
                 .trim(from: bedTimeProgress,
                       to: wakeTimeProgress)
-                .stroke(Theme.current.sleepColor.smallCircleColor,
+                .stroke(Theme.get(id: themeId).sleepColor.smallCircleColor,
                         style: StrokeStyle(lineWidth: defaultWidth - 10,
                                            lineCap: .round,
                                            lineJoin: .round))
@@ -256,7 +270,7 @@ extension ClockAnimationView {
         
         return ZStack {
             Circle()
-                .stroke(Theme.current.sleepColor.bigCircleColor,
+                .stroke(Theme.get(id: themeId).sleepColor.bigCircleColor,
                         style: StrokeStyle(lineWidth: defaultWidth,
                                            lineCap: .round,
                                            lineJoin: .round))
@@ -269,9 +283,9 @@ extension ClockAnimationView {
             Image(systemName: "zzz")
                 .resizable()
                 .padding(.all, 10)
-                .background(Theme.current.sleepColor.buttonBackground)
+                .background(Theme.get(id: themeId).sleepColor.buttonBackground)
                 .clipShape(Circle())
-                .foregroundColor(Theme.current.sleepColor.buttonColor)
+                .foregroundColor(Theme.get(id: themeId).sleepColor.buttonColor)
                 .scaleEffect(0.6)
                 .rotationEffect(.degrees(0 - bedTimeAngle + 90))
                 .frame(width: defaultWidth, height: defaultWidth, alignment: .center)
@@ -284,9 +298,9 @@ extension ClockAnimationView {
             Image(systemName: "bell.fill")
                 .resizable()
                 .padding(.all, 10)
-                .background(Theme.current.sleepColor.buttonBackground)
+                .background(Theme.get(id: themeId).sleepColor.buttonBackground)
                 .clipShape(Circle())
-                .foregroundColor(Theme.current.sleepColor.buttonColor)
+                .foregroundColor(Theme.get(id: themeId).sleepColor.buttonColor)
                 .scaleEffect(0.6)
                 .rotationEffect(.degrees(0 - wakeTimeAngle + 90))
                 .frame(width: defaultWidth, height: defaultWidth, alignment: .center)
@@ -302,7 +316,7 @@ extension ClockAnimationView {
     private func buildBell() -> some View {
         Image(systemName: "bell.fill")
             .font(.title)
-            .foregroundColor(Theme.current.sleepColor.buttonColor)
+            .foregroundColor(Theme.get(id: themeId).sleepColor.buttonColor)
             .rotationEffect(.degrees(isRinging ? 0 : 90), anchor: .top)
             .animation(Animation
                         .interpolatingSpring(stiffness: 170,
@@ -318,10 +332,10 @@ extension ClockAnimationView {
         ZStack {
             Image(systemName: "bed.double.fill")
                 .font(.title)
-                .foregroundColor(Theme.current.sleepColor.buttonColor)
+                .foregroundColor(Theme.get(id: themeId).sleepColor.buttonColor)
             
             Text("Z")
-                .foregroundColor(Theme.current.sleepColor.buttonColor)
+                .foregroundColor(Theme.get(id: themeId).sleepColor.buttonColor)
                 .font(.headline)
                 .scaleEffect(showZmiddle ? 1 : 0.5)
                 .rotationEffect(.degrees(showZmiddle ? -30 : 30), anchor: .bottomTrailing)
@@ -333,7 +347,7 @@ extension ClockAnimationView {
                 })
             
             Text("Z")
-                .foregroundColor(Theme.current.sleepColor.buttonColor)
+                .foregroundColor(Theme.get(id: themeId).sleepColor.buttonColor)
                 .scaleEffect(showZleft ? 1 : 0.5)
                 .rotationEffect(.degrees(showZleft ? 30 : 60), anchor: .bottomTrailing)
                 .opacity(showZleft ? 1 : 0)
@@ -345,7 +359,7 @@ extension ClockAnimationView {
             
             Text("Z")
                 .font(.caption)
-                .foregroundColor(Theme.current.sleepColor.buttonColor)
+                .foregroundColor(Theme.get(id: themeId).sleepColor.buttonColor)
                 .scaleEffect(0.8)
                 .rotationEffect(.degrees(showZright ? -45 : 45), anchor: .bottomTrailing)
                 .opacity(showZright ? 1 : 0)
@@ -364,11 +378,11 @@ extension ClockAnimationView {
         Button(action: callback) {
             Text(title)
                 .font(.system(size: 12))
-                .foregroundColor(Theme.current.buttonColor.textColor)
+                .foregroundColor(Theme.get(id: themeId).buttonColor.textColor)
                 .frame(maxWidth: .infinity)
                 .padding()
         }
-        .background(Theme.current.buttonColor.backgroundColor)
+        .background(Theme.get(id: themeId).buttonColor.backgroundColor)
         .cornerRadius(20)
     }
 }

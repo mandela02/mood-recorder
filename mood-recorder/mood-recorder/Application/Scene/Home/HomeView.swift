@@ -11,14 +11,24 @@ struct HomeView: View {
     typealias CalendarState = CalendarViewModel.CalendarState
     typealias CalendarTrigger = CalendarViewModel.CalendarTrigger
     
-    @ObservedObject var viewModel = HomeViewModel()
+    @AppStorage(Keys.themeId.rawValue)
+    var themeId: Int = 0
+    
+    @AppStorage(Keys.isUsingSystemTheme.rawValue)
+    var isUsingSystemTheme: Bool = false
+
+    @Environment(\.colorScheme)
+    var colorScheme
+    
+    @ObservedObject
+    var viewModel = HomeViewModel()
     
     var calendarViewModel: BaseViewModel<CalendarState,
                                          CalendarTrigger>
     init() {
         calendarViewModel = BaseViewModel(CalendarViewModel(state: CalendarState()))
     }
-
+    
     @ViewBuilder
     var tintForeGroundColor: some View {
         Group {
@@ -29,28 +39,27 @@ struct HomeView: View {
             }
         }.onTapGesture(perform: viewModel.onBigButtonTapped)
     }
-        
+    
     var tabView: some View {
         TabView(selection: $viewModel.seletedTabBarIndex,
                 content:  {
             CalendarView(viewModel: calendarViewModel,
                          isTabBarHiddenNeeded: $viewModel.isTabBarHiddenNeeded).tag(0)
-                    Color.green.tag(1)
-                        .ignoresSafeArea()
-                    Color.blue.tag(2)
-                        .ignoresSafeArea()
-                    Color.yellow.tag(3)
-                        .ignoresSafeArea()
-                })
+            Color.green.tag(1)
+                .ignoresSafeArea()
+            Color.blue.tag(2)
+                .ignoresSafeArea()
+            SettingView(isTabBarHiddenNeeded: $viewModel.isTabBarHiddenNeeded).tag(3)
+        })
             .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
     }
     
     @ViewBuilder
     var emotionListDialog: some View {
         if viewModel.isEmotionDialogShowing {
-            TalkBubble(backgroundColor: .white,
-                       buttonBackgroundColor: Theme.current.buttonColor.disableColor,
-                       textColor: Theme.current.commonColor.textColor,
+            TalkBubble(backgroundColor: Theme.get(id: themeId).commonColor.dialogBackground,
+                       buttonBackgroundColor: Theme.get(id: themeId).buttonColor.disableColor,
+                       textColor: Theme.get(id: themeId).commonColor.textColor,
                        onButtonTap: viewModel.onEmotionSelected)
         } else {
             EmptyView()
@@ -69,7 +78,7 @@ struct HomeView: View {
                     CustomTabBar(
                         selectedIndex: $viewModel.seletedTabBarIndex,
                         backgroundColor: .white,
-                        selectedItemColor: Theme.current.buttonColor.backgroundColor,
+                        selectedItemColor: Theme.get(id: themeId).buttonColor.backgroundColor,
                         unselectedItemColor: .gray,
                         onBigButtonTapped: viewModel.onBigButtonTapped)
                 }
@@ -79,18 +88,23 @@ struct HomeView: View {
         .animation(.easeInOut, value: viewModel.isTabBarHiddenNeeded)
         .animation(Animation.easeInOut.speed(1.5), value: viewModel.isEmotionDialogShowing)
         .fullScreenCover(isPresented: $viewModel.isInputViewShow,
-                         onDismiss: viewModel.onInputViewDismiss) {
+                         onDismiss: viewModel.onInputViewDismiss, content: {
             if let selectedCoreEmotion = viewModel.selectedCoreEmotion {
                 InputView(emotion: selectedCoreEmotion)
             } else {
                 Color.clear
             }
-        }
-    }
-}
-
-struct HomeView_Previews: PreviewProvider {
-    static var previews: some View {
-        HomeView()
+        })
+        .preferredColorScheme(isUsingSystemTheme ? nil : Theme.get(id: themeId).colorScheme)
+        .onAppear(perform: {
+            if isUsingSystemTheme {
+                Theme.post(themeId: colorScheme == .dark ? 1 : 0)
+            }
+        })
+        .onChange(of: colorScheme, perform: { newValue in
+            if isUsingSystemTheme {
+                Theme.post(themeId: newValue == .dark ? 1 : 0)
+            }
+        })
     }
 }

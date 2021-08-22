@@ -12,13 +12,16 @@ struct DismissDialog: View {
     var cancel: VoidFunction
     var exit: VoidFunction
 
+    @AppStorage(Keys.themeId.rawValue)
+    var themeId: Int = 0
+
     func createButton(title: String,
-                      background: Color = Theme.current.buttonColor.backgroundColor,
+                      background: Color,
                       callback: @escaping VoidFunction) -> some View {
         Button(action: callback) {
             Text(title)
                 .font(.system(size: 12))
-                .foregroundColor(Theme.current.buttonColor.textColor)
+                .foregroundColor(Theme.get(id: themeId).buttonColor.textColor)
                 .frame(maxWidth: .infinity)
                 .padding()
         }
@@ -31,11 +34,11 @@ struct DismissDialog: View {
             Text("This diary is not saved")
                 .fontWeight(.bold)
                 .font(.system(size: 20))
-                .foregroundColor(Theme.current.commonColor.textColor)
+                .foregroundColor(Theme.get(id: themeId).commonColor.textColor)
             Text("All data will be lost. Do you want to exit?")
                 .font(.system(size: 15))
                 .multilineTextAlignment(.center)
-                .foregroundColor(Theme.current.commonColor.textColor)
+                .foregroundColor(Theme.get(id: themeId).commonColor.textColor)
 
             Image(avatar == .dino ? AppImage.dinoCrying.value : AppImage.crying.value)
                 .resizable()
@@ -45,11 +48,13 @@ struct DismissDialog: View {
             
             VStack {
                 createButton(title: "Cancel",
+                             background: Theme.get(id: themeId).buttonColor.backgroundColor,
                              callback: cancel)
                 createButton(title: "Save and Exit",
+                             background: Theme.get(id: themeId).buttonColor.backgroundColor,
                              callback: save)
                 createButton(title: "Exit but not save",
-                             background: Color.red,
+                             background: Theme.get(id: themeId).buttonColor.redColor,
                              callback: exit)
             }
             .padding(.horizontal, 30)

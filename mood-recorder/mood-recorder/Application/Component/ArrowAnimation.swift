@@ -29,8 +29,11 @@ struct ArrowAnimation: View {
                               on: .main,
                               in: .common).autoconnect()
     
-    @State var scale: CGFloat = 1.0
-    @State var fade: Double = 0.5
+    @State
+    var scale: CGFloat = 1.0
+    
+    @State
+    var fade: Double = 0.5
     
     var body: some View {
         HStack{

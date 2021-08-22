@@ -11,16 +11,24 @@ struct OptionAdditionView: View {
     typealias OptionAdditionState = OptionAdditionViewModel.OptionAdditionState
     typealias OptionAdditionTrigger = OptionAdditionViewModel.OptionAdditionTrigger
     
-    @ObservedObject var viewModel: BaseViewModel<OptionAdditionState,
-                                                 OptionAdditionTrigger>
+    @ObservedObject
+    var viewModel: BaseViewModel<OptionAdditionState,
+                                 OptionAdditionTrigger>
     
     let onConfirm: OptionModelArrayCallbackFunction
     let onCancel: VoidFunction
     
-    @State var currentIndex: Int = 0
-    @State var isAboutToAddMore: Bool = false
-
-    @Namespace var namespace
+    @State
+    var currentIndex: Int = 0
+    
+    @State
+    var isAboutToAddMore: Bool = false
+    
+    @AppStorage(Keys.themeId.rawValue)
+    var themeId: Int = 0
+    
+    @Namespace
+    var namespace
     
     init(sectionModel: SectionModel,
          onConfirm: @escaping OptionModelArrayCallbackFunction,
@@ -31,17 +39,17 @@ struct OptionAdditionView: View {
         self.onCancel = onCancel
         self.onConfirm = onConfirm
         
-        UIPageControl.appearance().currentPageIndicatorTintColor = UIColor(Theme.current.buttonColor.backgroundColor)
-        UIPageControl.appearance().pageIndicatorTintColor = UIColor(Theme.current.buttonColor.disableColor)
+        UIPageControl.appearance().currentPageIndicatorTintColor = UIColor(Theme.get(id: themeId).buttonColor.backgroundColor)
+        UIPageControl.appearance().pageIndicatorTintColor = UIColor(Theme.get(id: themeId).buttonColor.disableColor)
     }
     
     func iconBackgroundColor(_ isSelected: Bool) -> Color {
-        return isSelected ? Theme.current.buttonColor.backgroundColor : Theme.current.buttonColor.disableColor
+        return isSelected ? Theme.get(id: themeId).buttonColor.backgroundColor : Theme.get(id: themeId).buttonColor.disableColor
     }
     
     func plusButtonImage() -> some View {
         ZStack {
-            Theme.current.buttonColor.backgroundColor
+            Theme.get(id: themeId).buttonColor.backgroundColor
                 .clipShape(Circle())
             Image(systemName: "plus")
                 .resizable()
@@ -50,7 +58,7 @@ struct OptionAdditionView: View {
                 .padding(10)
                 .frame(maxWidth: .infinity)
                 .background(Color.clear)
-                .foregroundColor(Theme.current.buttonColor.iconColor)
+                .foregroundColor(Theme.get(id: themeId).buttonColor.iconColor)
                 .clipShape(Circle())
         }
     }
@@ -85,7 +93,7 @@ struct OptionAdditionView: View {
             
             if optionModel.content.title != "" {
                 Text(optionModel.content.title)
-                    .foregroundColor(Theme.current.tableViewColor.text)
+                    .foregroundColor(Theme.get(id: themeId).tableViewColor.text)
                     .font(.system(size: 12))
             }
         }
@@ -146,12 +154,12 @@ struct OptionAdditionView: View {
     }
     
     func createButton(title: String,
-                      background: Color = Theme.current.buttonColor.backgroundColor,
+                      background: Color,
                       callback: @escaping VoidFunction) -> some View {
         Button(action: callback) {
             Text(title)
                 .font(.system(size: 12))
-                .foregroundColor(Theme.current.buttonColor.textColor)
+                .foregroundColor(Theme.get(id: themeId).buttonColor.textColor)
                 .frame(maxWidth: .infinity)
                 .padding()
         }
@@ -163,7 +171,7 @@ struct OptionAdditionView: View {
         VStack {
             HStack {
                 Text("Add more option to your collection")
-                    .foregroundColor(Theme.current.commonColor.textColor)
+                    .foregroundColor(Theme.get(id: themeId).commonColor.textColor)
                     .fontWeight(.bold)
                     .font(.system(size: 20))
                     .padding(EdgeInsets(top: 10, leading: 10, bottom: 0, trailing: 10))
@@ -173,7 +181,7 @@ struct OptionAdditionView: View {
             if viewModel.isCustomSection {
                 HStack {
                     Text("* Tap and hold to edit and delete")
-                        .foregroundColor(Theme.current.commonColor.textColor)
+                        .foregroundColor(Theme.get(id: themeId).commonColor.textColor)
                         .fontWeight(.regular)
                         .font(.system(size: 10))
                         .padding(.all, 10)
@@ -183,13 +191,17 @@ struct OptionAdditionView: View {
             
             makePagingController()
                 .padding(.bottom, 10)
-                                    
+            
             VStack {
-                createButton(title: "Confirm", callback: {
+                createButton(title: "Confirm",
+                             background: Theme.get(id: themeId).buttonColor.backgroundColor,
+                             callback: {
                     viewModel.trigger(.loadData)
                     onConfirm(viewModel.state.outPutModels)
                 })
-                createButton(title: "Cancel", callback: onCancel)
+                createButton(title: "Cancel",
+                             background: Theme.get(id: themeId).buttonColor.backgroundColor,
+                             callback: onCancel)
             }
             .padding(.horizontal, 30)
         }

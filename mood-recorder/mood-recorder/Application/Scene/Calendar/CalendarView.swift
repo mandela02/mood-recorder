@@ -11,12 +11,19 @@ struct CalendarView: View {
     typealias CalendarState = CalendarViewModel.CalendarState
     typealias CalendarTrigger = CalendarViewModel.CalendarTrigger
     
-    @ObservedObject var viewModel: BaseViewModel<CalendarState,
-                                                 CalendarTrigger>
-    @Binding var isTabBarHiddenNeeded: Bool
+    @ObservedObject
+    var viewModel: BaseViewModel<CalendarState,
+                                 CalendarTrigger>
     
-    @State var isInputViewShowing = false
+    @Binding
+    var isTabBarHiddenNeeded: Bool
     
+    @State
+    var isInputViewShowing = false
+    
+    @AppStorage(Keys.themeId.rawValue)
+    var themeId: Int = 0
+
     init(viewModel: BaseViewModel<CalendarState, CalendarTrigger>,
          isTabBarHiddenNeeded: Binding<Bool>) {
         self.viewModel = viewModel
@@ -32,7 +39,7 @@ struct CalendarView: View {
     // MARK: - BODY
     var body: some View {
         ZStack {
-            Theme.current.commonColor.viewBackground
+            Theme.get(id: themeId).commonColor.viewBackground
                 .ignoresSafeArea()
             VStack {
                 buildDateView()
@@ -124,7 +131,7 @@ extension CalendarView {
             ForEach(WeekDay.allCases, id: \.rawValue) { day in
                 Text(day.value)
                     .font(.system(size: 15))
-                    .foregroundColor(Theme.current.commonColor.textColor)
+                    .foregroundColor(Theme.get(id: themeId).commonColor.textColor)
             }
         })
     }
@@ -144,38 +151,38 @@ extension CalendarView {
                     LazyVStack(spacing: 5) {
                         if date.isInSameDay(as: viewModel.state.selectedInputDataModel?.date ?? Date()) {
                             ZStack {
-                                Theme.current.buttonColor.backgroundColor
+                                Theme.get(id: themeId).buttonColor.backgroundColor
                                     .clipShape(Capsule())
                                     .padding(.horizontal, 5)
                                 Text("\(date.day)")
                                     .font(.system(size: 10))
                                     .padding(.all, 5)
-                                    .foregroundColor(Theme.current.buttonColor.textColor)
+                                    .foregroundColor(Theme.get(id: themeId).buttonColor.textColor)
                             }
                         } else {
                             Text("\(date.day)")
                                 .font(.system(size: 10))
                                 .padding(.all, 5)
-                                .foregroundColor(Theme.current.commonColor.textColor)
+                                .foregroundColor(Theme.get(id: themeId).commonColor.textColor)
                         }
                         
                         Button(action: {
                             viewModel.trigger(.dateSelection(model: model))
                         }, label: {
                             if date.isInTheFuture {
-                                Theme.current.buttonColor.disableColor
+                                Theme.get(id: themeId).buttonColor.disableColor
                                     .clipShape(Circle())
-                                    .overlay(Circle()
-                                                .stroke(Theme.current.buttonColor.backgroundColor,
-                                                        lineWidth: 2))
                                     .aspectRatio(1, contentMode: .fit)
                             } else {
                                 if let emotion = model.emotion {
                                     RoundImageView(image: emotion.image,
-                                                   backgroundColor: Theme.current.buttonColor.disableColor)
+                                                   backgroundColor: Theme.get(id: themeId).buttonColor.backgroundColor)
                                 } else {
-                                    Theme.current.buttonColor.disableColor
+                                    Theme.get(id: themeId).buttonColor.disableColor
                                         .clipShape(Circle())
+                                        .overlay(Circle()
+                                                    .stroke(Theme.get(id: themeId).buttonColor.backgroundColor,
+                                                            lineWidth: 2))
                                         .aspectRatio(1, contentMode: .fit)
                                 }
                             }
@@ -202,7 +209,8 @@ extension CalendarView {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 50, height: 30)
-                    .foregroundColor(Theme.current.buttonColor.backgroundColor)
+                    .scaleEffect(0.8)
+                    .foregroundColor(Theme.get(id: themeId).commonColor.textColor)
             }
             
             Spacer()
@@ -215,14 +223,14 @@ extension CalendarView {
                     .resizable()
                     .aspectRatio(1, contentMode: .fit)
                     .frame(width: 30)
-                    .foregroundColor(Theme.current.buttonColor.backgroundColor)
+                    .foregroundColor(Theme.get(id: themeId).buttonColor.backgroundColor)
             }
             
             Text("\(viewModel.state.currentMonth.month)/\(String(viewModel.state.currentMonth.year))")
-                .foregroundColor(Theme.current.buttonColor.textColor)
+                .foregroundColor(Theme.get(id: themeId).buttonColor.textColor)
                 .padding(EdgeInsets(top: 10, leading: 30, bottom: 10, trailing: 30))
                 .background(RoundedRectangle(cornerRadius: 10)
-                                .fill(Theme.current.buttonColor.backgroundColor))
+                                .fill(Theme.get(id: themeId).buttonColor.backgroundColor))
                 .padding(.horizontal, 10)
                 .onTapGesture {
                     isTabBarHiddenNeeded = true
@@ -237,7 +245,7 @@ extension CalendarView {
                     .resizable()
                     .aspectRatio(1, contentMode: .fit)
                     .frame(width: 30)
-                    .foregroundColor(Theme.current.buttonColor.backgroundColor)
+                    .foregroundColor(Theme.get(id: themeId).buttonColor.backgroundColor)
             }
             
             Spacer()
@@ -248,7 +256,7 @@ extension CalendarView {
                 Text("Today")
                     .minimumScaleFactor(0.1)
                     .lineLimit(1)
-                    .foregroundColor(Theme.current.commonColor.textColor)
+                    .foregroundColor(Theme.get(id: themeId).commonColor.textColor)
                     .frame(width: 50)
             }
         }

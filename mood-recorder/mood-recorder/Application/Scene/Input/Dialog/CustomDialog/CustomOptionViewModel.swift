@@ -8,7 +8,9 @@
 import Foundation
 
 class CustomOptionViewModel: ViewModel {
-    @Published var state: CustomOptionState
+    
+    @Published
+    var state: CustomOptionState
     
     init(state: CustomOptionState) {
         self.state = state

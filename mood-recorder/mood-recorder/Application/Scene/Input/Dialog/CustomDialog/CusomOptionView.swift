@@ -11,11 +11,18 @@ struct CusomOptionView: View {
     typealias CustomOptionState = CustomOptionViewModel.CustomOptionState
     typealias CustomOptionTrigger = CustomOptionViewModel.CustomOptionTrigger
     
-    @ObservedObject var viewModel: BaseViewModel<CustomOptionState,
-                                                 CustomOptionTrigger>
+    @AppStorage(Keys.themeId.rawValue)
+    var themeId: Int = 0
+
+    @ObservedObject
+    var viewModel: BaseViewModel<CustomOptionState,
+                                 CustomOptionTrigger>
     
-    @State private var currentIndex: Int = 0
-    @State private var title: String = ""
+    @State
+    private var currentIndex: Int = 0
+    
+    @State
+    private var title: String = ""
 
     let namespace: Namespace.ID
     
@@ -40,7 +47,7 @@ struct CusomOptionView: View {
     }
     
     func iconBackgroundColor(_ isSelected: Bool) -> Color {
-        return isSelected ? Theme.current.buttonColor.backgroundColor : Theme.current.buttonColor.disableColor
+        return isSelected ? Theme.get(id: themeId).buttonColor.backgroundColor : Theme.get(id: themeId).buttonColor.disableColor
     }
     
     
@@ -99,15 +106,15 @@ struct CusomOptionView: View {
         }) {
             ZStack {
                 (viewModel.isSaveEnable ?
-                 Theme.current.buttonColor.backgroundColor :
-                    Theme.current.buttonColor.disableColor)
+                 Theme.get(id: themeId).buttonColor.backgroundColor :
+                    Theme.get(id: themeId).buttonColor.disableColor)
                     .frame(maxWidth: .infinity)
                     .frame(height: 50)
                 Image(systemName: "plus")
                     .resizable()
                     .renderingMode(.template)
                     .frame(width: 25, height: 25, alignment: .center)
-                    .foregroundColor(Theme.current.buttonColor.iconColor)
+                    .foregroundColor(Theme.get(id: themeId).buttonColor.iconColor)
             }
         }
         .disabled(!viewModel.isSaveEnable)
@@ -119,7 +126,7 @@ struct CusomOptionView: View {
             VStack {
                 HStack {
                     Text("Create your note")
-                        .foregroundColor(Theme.current.commonColor.textColor)
+                        .foregroundColor(Theme.get(id: themeId).commonColor.textColor)
                         .fontWeight(.bold)
                         .font(.system(size: 20))
 
@@ -129,7 +136,7 @@ struct CusomOptionView: View {
                             .resizable()
                             .renderingMode(.template)
                             .frame(width: 20, height: 20, alignment: .center)
-                            .foregroundColor(Theme.current.commonColor.textColor)
+                            .foregroundColor(Theme.get(id: themeId).commonColor.textColor)
                     }
                 }
                 .padding()
@@ -147,7 +154,7 @@ struct CusomOptionView: View {
                 makePagingController()
                 
                 Text("\(viewModel.currentPage + 1)/\(viewModel.numberOfPage)")
-                    .foregroundColor(Theme.current.commonColor.textColor)
+                    .foregroundColor(Theme.get(id: themeId).commonColor.textColor)
                     .fontWeight(.regular)
                     .font(.system(size: 10))
                     .padding(.bottom, 5)
@@ -163,7 +170,7 @@ struct CusomOptionView: View {
                                            in: namespace)
             }
         }
-        .background(Color.white)
+        .background(Theme.get(id: themeId).commonColor.dialogBackground)
         .cornerRadius(20)
     }
 }

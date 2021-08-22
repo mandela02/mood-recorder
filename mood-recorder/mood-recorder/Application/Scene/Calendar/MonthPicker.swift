@@ -52,14 +52,22 @@ enum Month: Int, CaseIterable, StringValueProtocol {
 }
 
 struct MonthPicker: View {
-    @State private var selectedMonth: Month
-    @State private var selectedYear: Int
-    @State private var isAppear = false
+    @State
+    private var selectedMonth: Month
+    
+    @State
+    private var selectedYear: Int
+    
+    @State
+    private var isAppear = false
     
     private let years = 1980...2099
     
     var onApply: IntTupleCallbackFunction
     var onCancel: VoidFunction
+
+    @AppStorage(Keys.themeId.rawValue)
+    var themeId: Int = 0
 
     init(month: Int,
          year: Int,
@@ -107,7 +115,7 @@ struct MonthPicker: View {
                 }
             }) {
                 Text("Cancel")
-                    .foregroundColor(Color.blue)
+                    .foregroundColor(Theme.get(id: themeId).buttonColor.backgroundColor)
             }
             
             Spacer()
@@ -116,7 +124,7 @@ struct MonthPicker: View {
                 onApply(selectedMonth.rawValue, selectedYear)
             }) {
                 Text("Apply")
-                    .foregroundColor(Color.blue)
+                    .foregroundColor(Theme.get(id: themeId).buttonColor.backgroundColor)
             }
         }
     }
@@ -129,7 +137,7 @@ struct MonthPicker: View {
                 Spacer()
                 if isAppear {
                     ZStack {
-                        Color.white
+                        Theme.get(id: themeId).commonColor.dialogBackground
                             .cornerRadius(20)
                             .ignoresSafeArea()
                         VStack {

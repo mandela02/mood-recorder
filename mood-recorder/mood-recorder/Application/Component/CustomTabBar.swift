@@ -14,7 +14,9 @@ struct TabBarItem {
 }
 
 struct CustomTabBar: View {
-    @Binding var selectedIndex: Int
+    
+    @Binding
+    var selectedIndex: Int
     
     let backgroundColor: Color
     let selectedItemColor: Color
