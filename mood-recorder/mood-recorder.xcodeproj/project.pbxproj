@@ -88,7 +88,6 @@
 		9085BD5A26D1F49400D71F42 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9085BD5926D1F49400D71F42 /* SettingView.swift */; };
 		9085BD5C26D1FAD200D71F42 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9085BD5B26D1FAD200D71F42 /* Settings.swift */; };
 		9085BD5E26D1FC9500D71F42 /* Collection+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9085BD5D26D1FC9500D71F42 /* Collection+Extension.swift */; };
-		9085BD6026D1FD0600D71F42 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9085BD5F26D1FD0600D71F42 /* BaseView.swift */; };
 		90901D0826CFF18900ADE8D9 /* MonthPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90901D0726CFF18900ADE8D9 /* MonthPicker.swift */; };
 		909DC15E26CCA621004179F0 /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 909DC15D26CCA621004179F0 /* Int+Extension.swift */; };
 		90B4E97A26D0D5790048A2C2 /* CalendarUseCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B4E97926D0D5790048A2C2 /* CalendarUseCases.swift */; };
@@ -179,7 +178,6 @@
 		9085BD5926D1F49400D71F42 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		9085BD5B26D1FAD200D71F42 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		9085BD5D26D1FC9500D71F42 /* Collection+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Extension.swift"; sourceTree = "<group>"; };
-		9085BD5F26D1FD0600D71F42 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		90901D0726CFF18900ADE8D9 /* MonthPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthPicker.swift; sourceTree = "<group>"; };
 		909DC15D26CCA621004179F0 /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
 		90B4E97926D0D5790048A2C2 /* CalendarUseCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarUseCases.swift; sourceTree = "<group>"; };
@@ -462,7 +460,6 @@
 			children = (
 				84FE1B3A26C7B55600D32330 /* BaseViewModel.swift */,
 				9021188C26D0C37B00273FC8 /* TypeAlias.swift */,
-				9085BD5F26D1FD0600D71F42 /* BaseView.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -671,7 +668,6 @@
 				8404939C26BAA9E7006523D9 /* Color+Extension.swift in Sources */,
 				8423C20326BE4329000717D9 /* DateFormatter+Extension.swift in Sources */,
 				9085BD5E26D1FC9500D71F42 /* Collection+Extension.swift in Sources */,
-				9085BD6026D1FD0600D71F42 /* BaseView.swift in Sources */,
 				9041C11E26CEC45C0054617E /* CalendarViewModel.swift in Sources */,
 				9021188B26D0C34200273FC8 /* FutureWarningDialog.swift in Sources */,
 				8423C20726BE6AD5000717D9 /* Medical.swift in Sources */,

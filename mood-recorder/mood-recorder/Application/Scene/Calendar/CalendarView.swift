@@ -166,17 +166,17 @@ extension CalendarView {
                             if date.isInTheFuture {
                                 Theme.get(id: themeId).buttonColor.disableColor
                                     .clipShape(Circle())
-                                    .overlay(Circle()
-                                                .stroke(Theme.get(id: themeId).buttonColor.backgroundColor,
-                                                        lineWidth: 2))
                                     .aspectRatio(1, contentMode: .fit)
                             } else {
                                 if let emotion = model.emotion {
                                     RoundImageView(image: emotion.image,
-                                                   backgroundColor: Theme.get(id: themeId).buttonColor.disableColor)
+                                                   backgroundColor: Theme.get(id: themeId).buttonColor.backgroundColor)
                                 } else {
                                     Theme.get(id: themeId).buttonColor.disableColor
                                         .clipShape(Circle())
+                                        .overlay(Circle()
+                                                    .stroke(Theme.get(id: themeId).buttonColor.backgroundColor,
+                                                            lineWidth: 2))
                                         .aspectRatio(1, contentMode: .fit)
                                 }
                             }

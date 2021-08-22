@@ -11,17 +11,24 @@ struct HomeView: View {
     typealias CalendarState = CalendarViewModel.CalendarState
     typealias CalendarTrigger = CalendarViewModel.CalendarTrigger
     
-    @AppStorage(Keys.themeId.rawValue) var themeId: Int = 0
-    @Environment(\.colorScheme) var colorScheme
+    @AppStorage(Keys.themeId.rawValue)
+    var themeId: Int = 0
+    
+    @AppStorage(Keys.isUsingSystemTheme.rawValue)
+    var isUsingSystemTheme: Bool = false
 
-    @ObservedObject var viewModel = HomeViewModel()
+    @Environment(\.colorScheme)
+    var colorScheme
+    
+    @ObservedObject
+    var viewModel = HomeViewModel()
     
     var calendarViewModel: BaseViewModel<CalendarState,
                                          CalendarTrigger>
     init() {
         calendarViewModel = BaseViewModel(CalendarViewModel(state: CalendarState()))
     }
-
+    
     @ViewBuilder
     var tintForeGroundColor: some View {
         Group {
@@ -32,7 +39,7 @@ struct HomeView: View {
             }
         }.onTapGesture(perform: viewModel.onBigButtonTapped)
     }
-        
+    
     var tabView: some View {
         TabView(selection: $viewModel.seletedTabBarIndex,
                 content:  {
@@ -81,12 +88,23 @@ struct HomeView: View {
         .animation(.easeInOut, value: viewModel.isTabBarHiddenNeeded)
         .animation(Animation.easeInOut.speed(1.5), value: viewModel.isEmotionDialogShowing)
         .fullScreenCover(isPresented: $viewModel.isInputViewShow,
-                         onDismiss: viewModel.onInputViewDismiss) {
+                         onDismiss: viewModel.onInputViewDismiss, content: {
             if let selectedCoreEmotion = viewModel.selectedCoreEmotion {
                 InputView(emotion: selectedCoreEmotion)
             } else {
                 Color.clear
             }
-        }
+        })
+        .preferredColorScheme(isUsingSystemTheme ? nil : Theme.get(id: themeId).colorScheme)
+        .onAppear(perform: {
+            if isUsingSystemTheme {
+                Theme.post(themeId: colorScheme == .dark ? 1 : 0)
+            }
+        })
+        .onChange(of: colorScheme, perform: { newValue in
+            if isUsingSystemTheme {
+                Theme.post(themeId: newValue == .dark ? 1 : 0)
+            }
+        })
     }
 }

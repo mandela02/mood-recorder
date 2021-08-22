@@ -11,9 +11,7 @@ import SwiftUI
 struct MoodRecorderApp: App {
     var body: some Scene {
         WindowGroup {
-            BaseView {
-                HomeView()
-            }
+            HomeView()
         }
     }
 }

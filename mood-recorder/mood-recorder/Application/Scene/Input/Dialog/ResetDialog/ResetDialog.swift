@@ -51,7 +51,7 @@ struct ResetDialog: View {
             
             VStack {
                 createButton(title: "Reset all option",
-                             background: Color.red,
+                             background: Theme.get(id: themeId).buttonColor.redColor,
                              callback: reset)
                 createButton(title: "Cancel",
                              callback: cancel)

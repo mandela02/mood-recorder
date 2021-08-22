@@ -10,13 +10,20 @@ import SwiftUI
 struct CalendarDiaryDetailView: View {
     var diary: InputDataModel
     
-    @State private var imageModels: [ImageAndTitleModel] = []
-    @State private var date: Date?
-    @State private var emotion: CoreEmotion?
+    @State
+    private var imageModels: [ImageAndTitleModel] = []
     
-    @State private var isTitleShow = false
+    @State
+    private var date: Date?
+   
+    @State
+    private var emotion: CoreEmotion?
     
-    @AppStorage(Keys.themeId.rawValue) var themeId: Int = 0
+    @State
+    private var isTitleShow = false
+    
+    @AppStorage(Keys.themeId.rawValue)
+    var themeId: Int = 0
 
     let onEditDiary: VoidFunction
     let onDeleteDiary: VoidFunction

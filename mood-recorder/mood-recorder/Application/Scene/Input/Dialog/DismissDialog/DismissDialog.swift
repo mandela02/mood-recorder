@@ -12,7 +12,8 @@ struct DismissDialog: View {
     var cancel: VoidFunction
     var exit: VoidFunction
 
-    @AppStorage(Keys.themeId.rawValue) var themeId: Int = 0
+    @AppStorage(Keys.themeId.rawValue)
+    var themeId: Int = 0
 
     func createButton(title: String,
                       background: Color,
@@ -53,7 +54,7 @@ struct DismissDialog: View {
                              background: Theme.get(id: themeId).buttonColor.backgroundColor,
                              callback: save)
                 createButton(title: "Exit but not save",
-                             background: Color.red,
+                             background: Theme.get(id: themeId).buttonColor.redColor,
                              callback: exit)
             }
             .padding(.horizontal, 30)
