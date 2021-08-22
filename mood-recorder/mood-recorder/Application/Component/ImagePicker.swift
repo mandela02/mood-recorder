@@ -31,8 +31,13 @@ struct ImagePicker: UIViewControllerRepresentable {
         }
         
         func imagePickerController(_ picker: UIImagePickerController,
-                                   didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-            let uiImage = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
+                                   didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+            
+            guard let uiImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
+            else {
+                presentationMode.dismiss()
+                return
+            }
             onImagePicked(uiImage)
             presentationMode.dismiss()
             

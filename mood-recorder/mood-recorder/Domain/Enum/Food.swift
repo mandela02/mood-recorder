@@ -327,6 +327,7 @@ enum Food: Int, CaseIterable {
     }
     
     static var defaultOptions: [Food] {
-        return [.apple, .rice, .roastChicken, .wine, shrimp, .sushi, .yogurt, .bbq, .beer, .bacon, .fish, .croissant, .dumpling, .cucumber, .taco]
+        return [.apple, .rice, .roastChicken, .wine, .shrimp, .sushi, .yogurt, .bbq, .beer,
+                .bacon, .fish, .croissant, .dumpling, .cucumber, .taco]
     }
 }

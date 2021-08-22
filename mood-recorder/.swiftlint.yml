@@ -1,0 +1,26 @@
+# reporter: json
+disabled_rules:
+  - todo # 開発中のみignore
+  - trailing_whitespace
+  - unused_closure_parameter
+  - notification_center_detachment
+  - unused_optional_binding
+  - identifier_name
+  - function_body_length
+  - cyclomatic_complexity
+  - type_name
+  - file_length
+  - type_body_length
+excluded:
+  - Carthage
+  - Pods
+  - vendor
+identifier_name:
+  min_length:
+    error: 3
+  excluded:
+    - i
+    - j
+    - k
+    - l
+    - id

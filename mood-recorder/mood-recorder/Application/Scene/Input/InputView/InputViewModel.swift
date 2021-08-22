@@ -211,11 +211,11 @@ extension InputViewModel {
         case handleResetDialog(status: ViewStatus)
         case handleCustomDialog(status: ViewStatus)
         case handleTimeDialog(status: ViewStatus)
-
-        enum ViewStatus {
-            case open
-            case close
-        }
+    }
+    
+    enum ViewStatus {
+        case open
+        case close
     }
     
     struct InputState {
@@ -240,11 +240,11 @@ extension InputViewModel {
             self.initialData = data
             self.initialEmotion = emotion
         }
-
-        enum Status {
-            case new
-            case create(date: Date)
-            case update(date: Date)
-        }
+    }
+    
+    enum Status {
+        case new
+        case create(date: Date)
+        case update(date: Date)
     }
 }

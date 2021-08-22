@@ -33,7 +33,7 @@ struct SettingView: View {
                     Button(action: {
                         isTabBarHiddenNeeded = true
                         isThemeViewShowing = true
-                    }) {
+                    }, label: {
                         HStack {
                             Text("Theme")
                                 .foregroundColor(Theme.get(id: themeId).tableViewColor.text)
@@ -45,7 +45,7 @@ struct SettingView: View {
                         .background(RoundedRectangle(cornerRadius: 10)
                                         .fill(Theme.get(id: themeId).tableViewColor.cellBackground))
                         .padding()
-                    }
+                    })
                 }
             }
         }.overlay {

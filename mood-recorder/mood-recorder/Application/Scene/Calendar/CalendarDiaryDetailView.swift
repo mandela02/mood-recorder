@@ -119,22 +119,22 @@ struct CalendarDiaryDetailView: View {
             Spacer()
             Button(action: {
                 onEditDiary()
-            }) {
+            }, label: {
                 Image(systemName: "pencil.circle")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 20, height: 20)
                     .foregroundColor(Theme.get(id: themeId).commonColor.textColor)
-            }
+            })
             Button(action: {
                 onDeleteDiary()
-            }) {
+            }, label: {
                 Image(systemName: "trash.circle")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 20, height: 20)
                     .foregroundColor(Theme.get(id: themeId).commonColor.textColor)
-            }
+            })
         }
         .padding(.horizontal, 20)
     }

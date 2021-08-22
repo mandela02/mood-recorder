@@ -22,13 +22,13 @@ struct ImageShareView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                 
-                Button(action: {}) {
+                Button(action: {}, label: {
                     Text("Share this image")
                         .font(.system(size: 12))
                         .foregroundColor(Theme.get(id: themeId).buttonColor.textColor)
                         .frame(maxWidth: .infinity)
                         .padding()
-                }
+                })
                 .cornerRadius(20)
                 .background(Theme.get(id: themeId).buttonColor.backgroundColor)
             }

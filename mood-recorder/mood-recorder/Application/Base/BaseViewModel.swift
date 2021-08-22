@@ -28,7 +28,6 @@ final class BaseViewModel<State, Input>: ViewModel {
     private let wrappedState: () -> State
     private let wrappedTrigger: (Input) -> Void
 
-    
     subscript<Value>(dynamicMember keyPath: KeyPath<State, Value>) -> Value {
         state[keyPath: keyPath]
     }

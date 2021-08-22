@@ -30,11 +30,11 @@ class Repository<T: NSManagedObject>: RepositoryType {
     var container: NSPersistentContainer {
         PersistenceManager.shared.persistentContainer
     }
-    
+
     var entityName: String {
         return NSStringFromClass(T.self).components(separatedBy: ".").last ?? "Unknown"
     }
-    
+
     func countAll() -> DatabaseResponse {
         do {
             let request = NSFetchRequest<T>(entityName: entityName)
@@ -72,11 +72,11 @@ class Repository<T: NSManagedObject>: RepositoryType {
             return .error(error: error)
         }
     }
-    
+
     func fetchRequest(predicate: NSPredicate) -> DatabaseResponse {
         let fetchRequest = NSFetchRequest<T>(entityName: entityName)
         fetchRequest.predicate = predicate
-        
+
         do {
             let result = try container.viewContext.fetch(fetchRequest)
             return .success(data: result)
@@ -84,7 +84,7 @@ class Repository<T: NSManagedObject>: RepositoryType {
             return .error(error: error)
         }
     }
-    
+
     func save() -> DatabaseResponse {
         do {
             try container.viewContext.save()
@@ -93,12 +93,12 @@ class Repository<T: NSManagedObject>: RepositoryType {
             return .error(error: error)
         }
     }
-    
+
     func delete(model: T) -> DatabaseResponse {
         container.viewContext.delete(model)
         return save()
     }
-        
+
     func publisher() -> AnyPublisher<Void, Never> {
         var notification: Notification.Name = Notification.Name(rawValue: "")
         if #available(iOS 14.0, *) {
@@ -106,7 +106,7 @@ class Repository<T: NSManagedObject>: RepositoryType {
         } else {
             notification = Notification.Name.NSManagedObjectContextDidMergeChangesObjectIDs
         }
-        
+
         let context = PersistenceManager.shared.persistentContainer.viewContext
 
       return NotificationCenter.default.publisher(for: notification, object: context)

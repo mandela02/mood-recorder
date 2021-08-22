@@ -78,4 +78,3 @@ class CustomOptionViewModel: ViewModel {
         case loadData
     }
 }
-

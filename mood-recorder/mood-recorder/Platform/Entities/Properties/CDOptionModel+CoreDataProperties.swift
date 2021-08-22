@@ -9,7 +9,6 @@
 import Foundation
 import CoreData
 
-
 extension CDOptionModel {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<CDOptionModel> {
@@ -32,6 +31,6 @@ extension CDOptionModel {
     }
 }
 
-extension CDOptionModel : Identifiable {
+extension CDOptionModel: Identifiable {
 
 }

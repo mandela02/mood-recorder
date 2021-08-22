@@ -13,4 +13,3 @@ struct ResizeAnimationButtonStyle: ButtonStyle {
             .scaleEffect(configuration.isPressed ? 0.8 : 1.0)
     }
 }
-

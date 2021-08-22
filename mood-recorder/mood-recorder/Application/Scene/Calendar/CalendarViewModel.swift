@@ -22,7 +22,6 @@ class CalendarViewModel: ViewModel {
         loadToday()
     }
     
-    
     deinit {
         cancellables.forEach({$0.cancel()})
         cancellables.removeAll()
@@ -143,7 +142,9 @@ extension CalendarViewModel {
                                                                 sections: []) }
             
             for index in diaries.indices {
-                guard let model = models.first(where: {$0.date.startOfDayInterval == diaries[index].date.startOfDayInterval})
+                guard let model = models
+                        .first(where: {$0.date.startOfDayInterval ==
+                            diaries[index].date.startOfDayInterval})
                 else { continue }
                 diaries[index].sections = model.sections
             }

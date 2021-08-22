@@ -637,14 +637,12 @@ extension AppImage: StringValueProtocol {
         }
     }
     
-    
     static func appImage(value: String) -> AppImage {
         guard let index = allNames.firstIndex(where: {$0 == value}) else {
             return .dinoCrying
         }
         return  AppImage.allCases[index]
     }
-    
     
     static let allNames = AppImage.allCases.map { $0.value }
 }

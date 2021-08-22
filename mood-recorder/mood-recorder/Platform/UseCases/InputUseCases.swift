@@ -18,7 +18,7 @@ protocol InputUseCaseType {
 struct InputUseCases: InputUseCaseType {
     private let repository: Repository<CDInputModel>
     private let fetchUseCase: FetchUseCaseType
-    
+
     init(repository: Repository<CDInputModel>) {
         self.repository = repository
         self.fetchUseCase = FetchUseCase(repository: repository)
@@ -27,18 +27,18 @@ struct InputUseCases: InputUseCaseType {
     var context: NSManagedObjectContext {
         return PersistenceManager.shared.persistentContainer.viewContext
     }
-    
+
     func save(model: InputDataModel) -> DatabaseResponse {
         let cdSections: [CDSectionModel] = createContent(model: model)
 
         let inputModel = CDInputModel(context: context)
         inputModel.date = model.date.startOfDayInterval
-        
+
         inputModel.addToSections(NSSet(array: cdSections))
-        
+
         return repository.save()
     }
-    
+
     func update(model: InputDataModel) -> DatabaseResponse {
         let result = fetchUseCase.fetch(at: model.date.startOfDayInterval)
         switch result {
@@ -48,7 +48,7 @@ struct InputUseCases: InputUseCaseType {
                                              code: 1,
                                              userInfo: nil))
             }
-            
+
             let sections = createContent(model: model)
             cdInputModel.sections = NSSet(array: sections)
             return repository.save()
@@ -56,7 +56,7 @@ struct InputUseCases: InputUseCaseType {
             return .error(error: error)
         }
     }
-    
+
     func fetch(at date: Double) -> DatabaseResponse {
         let result = fetchUseCase.fetch(at: date)
         switch result {
@@ -70,7 +70,7 @@ struct InputUseCases: InputUseCaseType {
                                          userInfo: nil))
         }
     }
-    
+
     func isRecordExist(date: Double) -> Bool {
         let result = fetchUseCase.fetch(at: date)
         switch result {
@@ -80,7 +80,7 @@ struct InputUseCases: InputUseCaseType {
             return false
         }
     }
-    
+
     private func createContent(model: InputDataModel) -> [CDSectionModel] {
         var cdSections: [CDSectionModel] = []
         

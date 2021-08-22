@@ -50,7 +50,7 @@ class OptionAdditionViewModel: ViewModel {
         
         if !allModels.isEmpty {
             for index in allModels.indices {
-                allModels[index].visibilitySync();
+                allModels[index].visibilitySync()
             }
         }
         
@@ -138,14 +138,14 @@ class OptionAdditionViewModel: ViewModel {
         var outPutModels: [OptionModel] = []
         var selectedModel: OptionModel?
         
-        enum SectionStatus {
-            case normal
-            case custom
-        }
-        
         var isCustomSection: Bool {
             return initialSectionModel.section == .custom
         }
+    }
+    
+    enum SectionStatus {
+        case normal
+        case custom
     }
     
     enum OptionAdditionTrigger {

@@ -9,7 +9,6 @@
 import Foundation
 import CoreData
 
-
 extension CDInputModel {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<CDInputModel> {
@@ -21,7 +20,6 @@ extension CDInputModel {
 
     var sectionArray: [CDSectionModel] {
         let set = sections as? Set<CDSectionModel> ?? []
-        
         return set.sorted(by: { $0.sectionID < $1.sectionID })
     }
 }
@@ -43,6 +41,6 @@ extension CDInputModel {
 
 }
 
-extension CDInputModel : Identifiable {
+extension CDInputModel: Identifiable {
 
 }

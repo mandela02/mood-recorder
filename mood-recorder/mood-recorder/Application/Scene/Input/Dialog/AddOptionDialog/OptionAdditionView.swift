@@ -39,12 +39,19 @@ struct OptionAdditionView: View {
         self.onCancel = onCancel
         self.onConfirm = onConfirm
         
-        UIPageControl.appearance().currentPageIndicatorTintColor = UIColor(Theme.get(id: themeId).buttonColor.backgroundColor)
-        UIPageControl.appearance().pageIndicatorTintColor = UIColor(Theme.get(id: themeId).buttonColor.disableColor)
+        UIPageControl.appearance()
+            .currentPageIndicatorTintColor =
+        UIColor(Theme.get(id: themeId).buttonColor.backgroundColor)
+        
+        UIPageControl.appearance()
+            .pageIndicatorTintColor =
+        UIColor(Theme.get(id: themeId).buttonColor.disableColor)
     }
     
     func iconBackgroundColor(_ isSelected: Bool) -> Color {
-        return isSelected ? Theme.get(id: themeId).buttonColor.backgroundColor : Theme.get(id: themeId).buttonColor.disableColor
+        return isSelected ?
+        Theme.get(id: themeId).buttonColor.backgroundColor :
+        Theme.get(id: themeId).buttonColor.disableColor
     }
     
     func plusButtonImage() -> some View {

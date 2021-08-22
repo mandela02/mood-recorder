@@ -96,6 +96,6 @@ enum Weather: Int, CaseIterable {
     }
     
     static var defaultOptions: [Weather] {
-        return [.sunny, .cloudyDay, .rainy, .snowy, .bigWind, rainbow, thunderStorm, heavyRain, .hot, cold,]
+        return [.sunny, .cloudyDay, .rainy, .snowy, .bigWind, rainbow, thunderStorm, heavyRain, .hot, .cold]
     }
 }

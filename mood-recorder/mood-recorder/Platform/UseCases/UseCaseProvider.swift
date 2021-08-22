@@ -16,11 +16,11 @@ class UseCaseProvider {
     private lazy var calendarUseCases = CalendarUseCases(repository: inputRepository)
 
     private init() {}
-    
+
     func getInputUseCases() -> InputUseCaseType {
         return inputUseCases
     }
-    
+
     func getCalendarUseCases() -> CalendarUseCaseType {
         return calendarUseCases
     }

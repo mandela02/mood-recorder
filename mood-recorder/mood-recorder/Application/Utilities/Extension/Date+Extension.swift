@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum WeekDay:Int, CaseIterable, StringValueProtocol {
+enum WeekDay: Int, CaseIterable, StringValueProtocol {
     var value: String {
         switch self {
         case .sun:
@@ -34,8 +34,6 @@ enum WeekDay:Int, CaseIterable, StringValueProtocol {
     case thu
     case fri
     case sat
-    
-    
 }
 
 extension Date {
@@ -84,7 +82,10 @@ extension Date {
     }
     
     var nanoSecondRemoved: Date {
-        return Calendar.gregorian.date(bySettingHour: self.hour, minute: self.minute, second: self.second, of: self) ?? self
+        return Calendar.gregorian.date(bySettingHour: self.hour,
+                                       minute: self.minute,
+                                       second: self.second,
+                                       of: self) ?? self
     }
     
     var yesterday: Date {
@@ -260,36 +261,6 @@ extension Date {
     static func countBetweenDate(component: Calendar.Component, start: Date, end: Date) -> Int {
         let components = Calendar.gregorian.dateComponents([component], from: start, to: end)
         return components.value(for: component) ?? 0
-    }
-    
-    func getAllDateInMonth() -> [Date] {
-        var dates: [Date] = []
-        
-        let startDate = self.startOfMonth
-        let endDate = self.endOfMonth
-        
-        // Get all date in month
-        var date = startDate
-        while date <= endDate {
-            dates.append(date)
-            date = date.tomorrow
-        }
-        // Get all date show in last month
-        let startDayOfWeek = 1
-        guard let weekDayOfFirstDay = dates.first?.weekday else { return dates }
-        let numberDatesInsert = startDayOfWeek <= weekDayOfFirstDay ? weekDayOfFirstDay - startDayOfWeek : 7 - startDayOfWeek + weekDayOfFirstDay
-        for _ in 0..<numberDatesInsert {
-            if let firstDate = dates.first {
-                dates.insert(firstDate.yesterday, at: 0)
-            }
-        }
-        // Get all date show in next month
-        while dates.count % 7 != 0 {
-            if let lastDate = dates.last {
-                dates.append(lastDate.tomorrow)
-            }
-        }
-        return dates
     }
 }
 

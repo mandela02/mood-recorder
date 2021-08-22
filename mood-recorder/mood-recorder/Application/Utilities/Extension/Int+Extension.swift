@@ -9,17 +9,18 @@ import Foundation
 
 extension Int {
     private func minutesToHoursAndMinutes() -> (hours: Int,
-                                                leftMinutes : Int) {
+                                                leftMinutes: Int) {
         return (self / 60, (self % 60))
     }
-    
     
     func generateHourMinuteString() -> String {
         let hourMinute = minutesToHoursAndMinutes()
         var string = ""
         string.append(contentsOf: hourMinute.hours < 10 ? "0\(hourMinute.hours)" : "\(hourMinute.hours)")
         string.append(contentsOf: ":")
-        string.append(contentsOf: hourMinute.leftMinutes < 10 ? "0\(hourMinute.leftMinutes)" : "\(hourMinute.leftMinutes)")
+        string.append(contentsOf: hourMinute.leftMinutes < 10 ?
+                      "0\(hourMinute.leftMinutes)" :
+                        "\(hourMinute.leftMinutes)")
         return string
     }
 }

@@ -567,6 +567,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8424A93F26B5BE0F00BE4454 /* Build configuration list for PBXNativeTarget "mood-recorder" */;
 			buildPhases = (
+				9085BD6126D2845A00D71F42 /* SwiftLint */,
 				8424A92726B5BE0B00BE4454 /* Sources */,
 				8424A92826B5BE0B00BE4454 /* Frameworks */,
 				8424A92926B5BE0B00BE4454 /* Resources */,
@@ -623,6 +624,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		9085BD6126D2845A00D71F42 /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8424A92726B5BE0B00BE4454 /* Sources */ = {

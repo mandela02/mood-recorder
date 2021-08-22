@@ -109,7 +109,6 @@ extension ClockAnimationView {
         Color.gray.frame(width: 2, height: 5)
     }
     
-
     func buildClock(offset: CGFloat) -> some View {
         ZStack {
             ForEach(hourStrings.indices, id: \.self) { index in
@@ -294,7 +293,6 @@ extension ClockAnimationView {
                 .gesture(DragGesture().onChanged(onDragStartCircle(value:)))
                 .rotationEffect(.init(degrees: -90))
 
-            
             Image(systemName: "bell.fill")
                 .resizable()
                 .padding(.all, 10)
@@ -340,7 +338,11 @@ extension ClockAnimationView {
                 .scaleEffect(showZmiddle ? 1 : 0.5)
                 .rotationEffect(.degrees(showZmiddle ? -30 : 30), anchor: .bottomTrailing)
                 .opacity(showZmiddle ? 1 : 0)
-                .animation(Animation.easeInOut(duration: 1.5).delay(2).repeatForever(autoreverses: false), value: showZmiddle)
+                .animation(Animation
+                            .easeInOut(duration: 1.5)
+                            .delay(2)
+                            .repeatForever(autoreverses: false),
+                           value: showZmiddle)
                 .offset(x: -10, y: showZmiddle ? -60 : -3)
                 .onAppear(perform: {
                     showZmiddle.toggle()
@@ -351,7 +353,11 @@ extension ClockAnimationView {
                 .scaleEffect(showZleft ? 1 : 0.5)
                 .rotationEffect(.degrees(showZleft ? 30 : 60), anchor: .bottomTrailing)
                 .opacity(showZleft ? 1 : 0)
-                .animation(Animation.easeInOut(duration: 1.5).delay(2).repeatForever(autoreverses: false), value: showZleft)
+                .animation(Animation
+                            .easeInOut(duration: 1.5)
+                            .delay(2)
+                            .repeatForever(autoreverses: false),
+                           value: showZleft)
                 .offset(x: showZright ? -40 : -8, y: showZleft ? -50 : 0)
                 .onAppear(perform: {
                     showZleft.toggle()
@@ -363,7 +369,10 @@ extension ClockAnimationView {
                 .scaleEffect(0.8)
                 .rotationEffect(.degrees(showZright ? -45 : 45), anchor: .bottomTrailing)
                 .opacity(showZright ? 1 : 0)
-                .animation(Animation.easeInOut(duration: 1.5).delay(2).repeatForever(autoreverses: false), value: showZright)
+                .animation(Animation.easeInOut(duration: 1.5)
+                            .delay(2)
+                            .repeatForever(autoreverses: false),
+                           value: showZright)
                 .offset(x: showZright ? -40 : -8, y: showZleft ? -50 : 0)
                 .onAppear(perform: {
                     showZright.toggle()
@@ -374,7 +383,7 @@ extension ClockAnimationView {
 
 extension ClockAnimationView {
     private func createButton(title: String,
-                      callback: @escaping VoidFunction) -> some View {
+                              callback: @escaping VoidFunction) -> some View {
         Button(action: callback) {
             Text(title)
                 .font(.system(size: 12))

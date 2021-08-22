@@ -62,8 +62,10 @@ struct SectionModel: Identifiable, Equatable {
             return
         }
         
-        let newImage = image.resizeImage(targetSize: CGSize(width: UIScreen.main.bounds.width,
-                                                            height: UIScreen.main.bounds.width * image.size.height / image.size.width))
+        let newImage = image
+            .resizeImage(targetSize: CGSize(width: UIScreen.main.bounds.width,
+                                            height: UIScreen.main.bounds.width *
+                                            image.size.height / image.size.width))
         
         model.data = newImage.jpegData(compressionQuality: 1)
         cell = model

@@ -16,7 +16,6 @@ struct InputDataModel {
     var sections: [SectionModel]
     var date: Date
     
-    
     var emotion: CoreEmotion? {
         guard let section = sections.first(where: { $0.section == .emotion }),
               let coreEmotion = section.cell as? CoreEmotion
@@ -34,7 +33,7 @@ struct InputDataModel {
                                     title: "How was your day?",
                                     cell: CoreEmotion.neutral,
                                     isEditable: false)
-                
+
             case .activity:
                 let models = Activities.defaultOptions
                     .map { OptionModel(content: $0.option) }
@@ -64,7 +63,6 @@ struct InputDataModel {
                 let models = Love.defaultOptions
                     .map { OptionModel(content: $0.option) }
                     .sorted(by: {$0.content.image.rawValue < $1.content.image.rawValue})
-
 
                 return SectionModel(section: section,
                                     title: "Is love in the air tonight?",
@@ -143,7 +141,7 @@ struct InputDataModel {
                                     cell: [])
             }
         }
-        
+
         return InputDataModel(date: Date(), sections: sections)
     }
 }

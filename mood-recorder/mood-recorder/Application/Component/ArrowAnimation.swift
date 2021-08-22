@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ArrowShape : Shape {
+struct ArrowShape: Shape {
     
     func path(in rect: CGRect) -> Path {
         var path = Path()
@@ -36,7 +36,7 @@ struct ArrowAnimation: View {
     var fade: Double = 0.5
     
     var body: some View {
-        HStack{
+        HStack {
             ForEach(0 ..< self.arrowCount) { i in
                 ArrowShape()
                     .stroke(style: StrokeStyle(lineWidth: CGFloat(10),

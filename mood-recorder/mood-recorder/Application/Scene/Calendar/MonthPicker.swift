@@ -113,19 +113,19 @@ struct MonthPicker: View {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                     onCancel()
                 }
-            }) {
+            }, label: {
                 Text("Cancel")
                     .foregroundColor(Theme.get(id: themeId).buttonColor.backgroundColor)
-            }
+            })
             
             Spacer()
             
             Button(action: {
                 onApply(selectedMonth.rawValue, selectedYear)
-            }) {
+            }, label: {
                 Text("Apply")
                     .foregroundColor(Theme.get(id: themeId).buttonColor.backgroundColor)
-            }
+            })
         }
     }
     

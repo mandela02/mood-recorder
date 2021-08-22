@@ -43,7 +43,6 @@ struct ResetDialog: View {
                 .multilineTextAlignment(.center)
                 .foregroundColor(Theme.get(id: themeId).commonColor.textColor)
 
-
             Image(avatar == .dino ? AppImage.surprise.value : AppImage.surprised.value)
                 .resizable()
                 .aspectRatio(contentMode: .fit)

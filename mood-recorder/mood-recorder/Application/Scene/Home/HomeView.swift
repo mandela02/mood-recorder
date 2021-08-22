@@ -42,7 +42,7 @@ struct HomeView: View {
     
     var tabView: some View {
         TabView(selection: $viewModel.seletedTabBarIndex,
-                content:  {
+                content: {
             CalendarView(viewModel: calendarViewModel,
                          isTabBarHiddenNeeded: $viewModel.isTabBarHiddenNeeded).tag(0)
             Color.green.tag(1)

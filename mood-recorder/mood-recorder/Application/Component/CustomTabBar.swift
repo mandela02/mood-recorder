@@ -21,7 +21,7 @@ struct CustomTabBar: View {
     let backgroundColor: Color
     let selectedItemColor: Color
     let unselectedItemColor: Color
-    let onBigButtonTapped: () -> ()
+    let onBigButtonTapped: VoidFunction
     
     func configuredTabBarItem(item: TabBarItem) -> some View {
         Button(action: {
@@ -114,11 +114,11 @@ private struct CurveBackgroundShape: Shape {
             
             let to1 = CGPoint(x: centerX, y: 35)
             let control1 = CGPoint(x: centerX - 35, y: 0)
-            let control2 = CGPoint(x: centerX - 35 , y: 35)
+            let control2 = CGPoint(x: centerX - 35, y: 35)
             
             let to2 = CGPoint(x: centerX + 60, y: 0)
             let control3 = CGPoint(x: centerX + 35, y: 35)
-            let control4 = CGPoint(x: centerX + 35 , y: 0)
+            let control4 = CGPoint(x: centerX + 35, y: 0)
             
             path.addCurve(to: to1, control1: control1, control2: control2)
             
@@ -145,7 +145,6 @@ private extension Image {
         return Image(systemName: "gearshape.fill")
     }
 }
-
 
 struct CustomTabBar_Previews: PreviewProvider {
     static var previews: some View {

@@ -100,13 +100,14 @@ struct CalendarView: View {
         .fullScreenCover(isPresented: $isInputViewShowing,
                          onDismiss: {
             viewModel.trigger(.closeInputView)
-        }) {
+        },
+                         content: {
             if let data = viewModel.state.selectedInputDataModel {
                 InputView(data: data)
             } else {
                 Color.clear
             }
-        }
+        })
         .animation(.easeInOut, value: viewModel.state.isDatePickerShow)
         .animation(.easeInOut, value: viewModel.state.isDetailViewShowing)
     }
@@ -204,27 +205,27 @@ extension CalendarView {
         HStack {
             Button(action: {
                 viewModel.trigger(.share)
-            }) {
+            }, label: {
                 Image(systemName: "square.and.arrow.up")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 50, height: 30)
                     .scaleEffect(0.8)
                     .foregroundColor(Theme.get(id: themeId).commonColor.textColor)
-            }
+            })
             
             Spacer()
             
             Button(action: {
                 viewModel.trigger(.deselectDate)
                 viewModel.trigger(.backToLaseMonth)
-            }) {
+            }, label: {
                 Image(systemName: "arrowtriangle.backward.fill")
                     .resizable()
                     .aspectRatio(1, contentMode: .fit)
                     .frame(width: 30)
                     .foregroundColor(Theme.get(id: themeId).buttonColor.backgroundColor)
-            }
+            })
             
             Text("\(viewModel.state.currentMonth.month)/\(String(viewModel.state.currentMonth.year))")
                 .foregroundColor(Theme.get(id: themeId).buttonColor.textColor)
@@ -240,25 +241,25 @@ extension CalendarView {
             Button(action: {
                 viewModel.trigger(.deselectDate)
                 viewModel.trigger(.goToNextMonth)
-            }) {
+            }, label: {
                 Image(systemName: "arrowtriangle.right.fill")
                     .resizable()
                     .aspectRatio(1, contentMode: .fit)
                     .frame(width: 30)
                     .foregroundColor(Theme.get(id: themeId).buttonColor.backgroundColor)
-            }
+            })
             
             Spacer()
             
             Button(action: {
                 viewModel.trigger(.goToToDay)
-            }) {
+            }, label: {
                 Text("Today")
                     .minimumScaleFactor(0.1)
                     .lineLimit(1)
                     .foregroundColor(Theme.get(id: themeId).commonColor.textColor)
                     .frame(width: 50)
-            }
+            })
         }
         .padding(.horizontal, 10)
     }

@@ -16,14 +16,14 @@ struct DatabaseConstants {
 
 class PersistenceManager {
     static let shared = PersistenceManager()
-    
+
     lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentCloudKitContainer(name: DatabaseConstants.name)
-        
+
         let localStoreURL = URL.storeURL(for: DatabaseConstants.urlPath, databaseName: DatabaseConstants.name + "Local")
         let localStoreDescription = NSPersistentStoreDescription(url: localStoreURL)
         localStoreDescription.configuration = "Local"
-        
+
         let cloudStoreURL = URL.storeURL(for: DatabaseConstants.urlPath, databaseName: DatabaseConstants.name + "Cloud")
         let cloudStoreDescription = NSPersistentStoreDescription(url: cloudStoreURL)
         cloudStoreDescription.configuration = "Cloud"
@@ -31,7 +31,7 @@ class PersistenceManager {
         container.persistentStoreDescriptions = [localStoreDescription,
                                                  cloudStoreDescription]
 
-        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
+        container.loadPersistentStores(completionHandler: { (_, error) in
             if let error = error as NSError? {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
@@ -44,7 +44,7 @@ class PersistenceManager {
         }
         return container
     }()
-    
+
     private init() {
         let center = NotificationCenter.default
         let notification = UIApplication.willResignActiveNotification
@@ -59,7 +59,9 @@ class PersistenceManager {
 
 public extension URL {
     static func storeURL(for appGroup: String, databaseName: String) -> URL {
-        guard let fileContainer = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: appGroup) else {
+        guard let fileContainer = FileManager.default
+                .containerURL(forSecurityApplicationGroupIdentifier: appGroup)
+        else {
             fatalError("Shared file container could not be created.")
         }
 

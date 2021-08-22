@@ -102,7 +102,6 @@ enum Medical: Int, CaseIterable {
         }
     }
     
-    
     static var defaultOptions: [Medical] {
         return [.bloodTest, .lung, .mentalHealth, .dental, .corona, .vaccine, .xray, .diabete]
     }

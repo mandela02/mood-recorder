@@ -47,9 +47,10 @@ struct CusomOptionView: View {
     }
     
     func iconBackgroundColor(_ isSelected: Bool) -> Color {
-        return isSelected ? Theme.get(id: themeId).buttonColor.backgroundColor : Theme.get(id: themeId).buttonColor.disableColor
+        return isSelected ?
+        Theme.get(id: themeId).buttonColor.backgroundColor :
+        Theme.get(id: themeId).buttonColor.disableColor
     }
-    
     
     func getIconGrid(images: [AppImage]) -> some View {
         LazyVGrid(columns: Array(repeating: GridItem(.flexible(),
@@ -103,7 +104,7 @@ struct CusomOptionView: View {
                     }
                 }
             }
-        }) {
+        }, label: {
             ZStack {
                 (viewModel.isSaveEnable ?
                  Theme.get(id: themeId).buttonColor.backgroundColor :
@@ -116,7 +117,7 @@ struct CusomOptionView: View {
                     .frame(width: 25, height: 25, alignment: .center)
                     .foregroundColor(Theme.get(id: themeId).buttonColor.iconColor)
             }
-        }
+        })
         .disabled(!viewModel.isSaveEnable)
         .animation(.easeInOut, value: viewModel.isSaveEnable)
     }

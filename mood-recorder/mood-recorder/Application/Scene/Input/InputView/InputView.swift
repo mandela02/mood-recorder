@@ -55,7 +55,9 @@ struct InputView: View {
     
     // MARK: - Icon background color
     func iconBackgroundColor(_ isSelected: Bool) -> Color {
-        return isSelected ? Theme.get(id: themeId).buttonColor.backgroundColor : Theme.get(id: themeId).buttonColor.disableColor
+        return isSelected ?
+        Theme.get(id: themeId).buttonColor.backgroundColor :
+        Theme.get(id: themeId).buttonColor.disableColor
     }
     
     // MARK: - Section Icon Type
@@ -121,7 +123,7 @@ struct InputView: View {
         Button(action: {
             isFocus = false
             isImagePickerShowing.toggle()
-        }) {
+        }, label: {
             ZStack {
                 Theme.get(id: themeId).commonColor.textBackground
                 if imageModel.isHavingData {
@@ -144,7 +146,7 @@ struct InputView: View {
             }
             .aspectRatio(imageModel.aspectRatio, contentMode: .fit)
             .cornerRadius(10)
-        }
+        })
         .buttonStyle(ResizeAnimationButtonStyle())
         .sheet(isPresented: $isImagePickerShowing) {
             if let imagePickerController = imagePickerController {
@@ -218,7 +220,7 @@ struct InputView: View {
                     Button(action: {
                         viewModel.trigger(.onOpenCustomizeSectionDialog(model: sectionModel))
                         viewModel.trigger(.handleCustomDialog(status: .open))
-                    }) {
+                    }, label: {
                         ZStack {
                             Theme.get(id: themeId).buttonColor.backgroundColor
                                 .frame(maxWidth: .infinity)
@@ -229,7 +231,7 @@ struct InputView: View {
                                 .frame(width: 25, height: 25, alignment: .center)
                                 .foregroundColor(Theme.get(id: themeId).buttonColor.iconColor)
                         }
-                    }
+                    })
                 } else {
                     SizedBox(height: .leastNonzeroMagnitude)
                 }
@@ -259,7 +261,8 @@ struct InputView: View {
     
     // MARK: - Section dismiss button
     @ViewBuilder
-    func sectionDismissButton(at sectionModel: SectionModel, onTap: @escaping () -> ()) -> some View {
+    func sectionDismissButton(at sectionModel: SectionModel,
+                              onTap: @escaping VoidFunction) -> some View {
         if viewModel.isInEditMode && sectionModel.isEditable {
             Button(action: onTap) {
                 Image(systemName: sectionModel.isVisible ? "xmark.circle.fill" : "plus.circle.fill")
@@ -301,7 +304,7 @@ struct InputView: View {
         Button(action: {
             viewModel.trigger(.doneButtonTapped)
             dismiss()
-        }) {
+        }, label: {
             ZStack {
                 Theme.get(id: themeId).buttonColor.backgroundColor
                     .frame(maxWidth: .infinity)
@@ -311,7 +314,7 @@ struct InputView: View {
                     .foregroundColor(Theme.get(id: themeId).buttonColor.iconColor)
                     .padding()
             }
-        }
+        })
         .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
     }
     
@@ -321,7 +324,7 @@ struct InputView: View {
             Button(action: {
                 isFocus = false
                 viewModel.trigger(.editButtonTapped)
-            }) {
+            }, label: {
                 HStack {
                     Text( viewModel.isInEditMode ? "Done" : "Edit")
                         .foregroundColor(Theme.get(id: themeId).navigationColor.button)
@@ -332,32 +335,32 @@ struct InputView: View {
                         .frame(width: 20, height: 20, alignment: .center)
                         .foregroundColor(Theme.get(id: themeId).navigationColor.button)
                 }.animation(.easeInOut, value: viewModel.isInEditMode)
-            }
+            })
             Spacer()
             if !viewModel.isInEditMode {
                 Button(action: {
                     isFocus = false
                     viewModel.trigger(.handleResetDialog(status: .open))
-                }) {
+                }, label: {
                     Image(systemName: "arrow.triangle.2.circlepath.circle")
                         .resizable()
                         .renderingMode(.template)
                         .frame(width: 30, height: 30, alignment: .center)
                         .foregroundColor(Theme.get(id: themeId).navigationColor.button)
-                }
+                })
                 
                 SizedBox(width: 10)
                 
                 Button(action: {
                     isFocus = false
                     viewModel.trigger(.handleDismissDialog(status: .open))
-                }) {
+                }, label: {
                     Image(systemName: "xmark.circle")
                         .resizable()
                         .renderingMode(.template)
                         .frame(width: 30, height: 30, alignment: .center)
                         .foregroundColor(Theme.get(id: themeId).navigationColor.button)
-                }
+                })
             }
         }
     }
@@ -410,7 +413,7 @@ struct InputView: View {
                 List {
                     ForEach(Array(viewModel.sectionModels.enumerated()),
                             id: \.offset) { index, section in
-                        if section.isVisible || viewModel.isInEditMode{
+                        if section.isVisible || viewModel.isInEditMode {
                             getSectionCell(sectionModel: section,
                                            at: index)
                                 .animation(.easeInOut(duration: 0.2),

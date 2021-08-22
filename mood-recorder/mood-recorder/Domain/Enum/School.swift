@@ -122,7 +122,6 @@ enum School: Int, CaseIterable {
         }
     }
     
-    
     static var defaultOptions: [School] {
         return [.exam, .atom, .books, .blackboard, .colorPalette, .sculpture, .solarSystem, .field, .trophy, .examFail]
     }
