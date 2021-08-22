@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import SwiftUI
 
 class ChartViewModel: ViewModel {
     @Published
@@ -30,8 +31,33 @@ class ChartViewModel: ViewModel {
     
     func trigger(_ input: ChartTrigger) {
         switch input {
+        case .reload:
+            syncFetch()
         case .goTo(let month, let year):
-            print("goto \(month), \(year)")
+            state.currentMonth = (month, year)
+        case .goToNextMonth:
+            state.currentMonth.month += 1
+            if state.currentMonth.month == 13 {
+                state.currentMonth = (1, state.currentMonth.year + 1)
+            }
+        case .goToLastMonth:
+            state.currentMonth.month -= 1
+            if state.currentMonth.month == 0 {
+                state.currentMonth = (12, state.currentMonth.year - 1)
+            }
+        case .handleDatePickerViewStatus(status: let status):
+            state.isDatePickerShowing = status == .open
+        case .handleChartViewStatus(status: let status):
+            switch status {
+            case .close:
+                state.chartShowPercent = 0
+            case .open:
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+                    withAnimation(Animation.linear(duration: 2.0)) {
+                        self?.state.chartShowPercent = 1
+                    }
+                }
+            }
         }
     }
     
@@ -44,6 +70,12 @@ class ChartViewModel: ViewModel {
                 }
             }
             .store(in: &cancellables)
+    }
+    
+    private func syncFetch() {
+        Task {
+            await fetch()
+        }
     }
 }
 
@@ -106,6 +138,10 @@ extension ChartViewModel {
         var currentMonth = (month: Date().month, year: Date().year)
         var diaries: [InputDataModel] = []
         var chartDatas: [ChartData] = []
+        
+        var isDatePickerShowing = false
+        
+        var chartShowPercent: Double = 0
 
         var currentMonthDate: Date {
             var dateComponents = DateComponents()
@@ -123,7 +159,17 @@ extension ChartViewModel {
         }
     }
     
+    enum SubViewStatus {
+        case open
+        case close
+    }
+    
     enum ChartTrigger {
         case goTo(month: Int, year: Int)
+        case goToNextMonth
+        case goToLastMonth
+        case handleDatePickerViewStatus(status: SubViewStatus)
+        case handleChartViewStatus(status: SubViewStatus)
+        case reload
     }
 }

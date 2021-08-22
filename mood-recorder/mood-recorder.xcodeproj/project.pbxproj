@@ -86,6 +86,7 @@
 		90256F3326D132DF0067B354 /* ImageShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90256F3226D132DF0067B354 /* ImageShareView.swift */; };
 		9041C11E26CEC45C0054617E /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9041C11D26CEC45C0054617E /* CalendarViewModel.swift */; };
 		9057DE9326D1086600FF7DA2 /* CalendarDiaryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9057DE9226D1086600FF7DA2 /* CalendarDiaryDetailView.swift */; };
+		907ABBF126D2C12200201BD9 /* DateNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907ABBF026D2C12200201BD9 /* DateNavigationView.swift */; };
 		907DBD3426D2A96500A2D529 /* ChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907DBD3326D2A96500A2D529 /* ChartData.swift */; };
 		907DBD3626D2A9CD00A2D529 /* LineChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907DBD3526D2A9CD00A2D529 /* LineChartView.swift */; };
 		907E278326D1ECEC00D8129A /* AnimatedSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907E278226D1ECEC00D8129A /* AnimatedSwitch.swift */; };
@@ -181,6 +182,7 @@
 		90256F3226D132DF0067B354 /* ImageShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageShareView.swift; sourceTree = "<group>"; };
 		9041C11D26CEC45C0054617E /* CalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
 		9057DE9226D1086600FF7DA2 /* CalendarDiaryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDiaryDetailView.swift; sourceTree = "<group>"; };
+		907ABBF026D2C12200201BD9 /* DateNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateNavigationView.swift; sourceTree = "<group>"; };
 		907DBD3326D2A96500A2D529 /* ChartData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartData.swift; sourceTree = "<group>"; };
 		907DBD3526D2A9CD00A2D529 /* LineChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineChartView.swift; sourceTree = "<group>"; };
 		907E278226D1ECEC00D8129A /* AnimatedSwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedSwitch.swift; sourceTree = "<group>"; };
@@ -445,6 +447,7 @@
 				8404939926BAA522006523D9 /* SizedBox.swift */,
 				84EE2F8626C7D08500C0195D /* CustomDialog.swift */,
 				84B2554826C7F490000B96DB /* ArrowAnimation.swift */,
+				907ABBF026D2C12200201BD9 /* DateNavigationView.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -764,6 +767,7 @@
 				84B395FE26C7C3D2007B8A6B /* Utilities.swift in Sources */,
 				8404938F26BA4F7D006523D9 /* ImageAndTitleModel.swift in Sources */,
 				909DC15E26CCA621004179F0 /* Int+Extension.swift in Sources */,
+				907ABBF126D2C12200201BD9 /* DateNavigationView.swift in Sources */,
 				9085BD5A26D1F49400D71F42 /* SettingView.swift in Sources */,
 				8423C21826C0037C000717D9 /* Chore.swift in Sources */,
 				84C3F72926C03AE600C789F5 /* CDOptionModel+CoreDataProperties.swift in Sources */,

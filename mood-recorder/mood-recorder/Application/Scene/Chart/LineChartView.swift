@@ -18,10 +18,12 @@ struct LineChartView: View {
     private let minXAxisValue: Date
     private let middleXAxisValue: Date
     
-    @State
-    private var precent: CGFloat = 0
+    private var precent: CGFloat
     
-    init(month: Int, year: Int, datasource: [ChartData]) {
+    init(month: Int, year: Int, datasource: [ChartData],
+         precent: CGFloat) {
+        self.precent = precent
+        
         let date = Date(year: year, month: month)
         
         self.numberOfSecment = date.getDateMonth().count
@@ -43,7 +45,10 @@ struct LineChartView: View {
                 ZStack {
                     lineChart
                         .background(chartBackground)
-                    chartPoint
+                    if precent == 1 {
+                        chartPoint
+                            .animation(.easeInOut, value: precent == 1)
+                    }
                 }
             }
             .frame(height: 200, alignment: .center)
@@ -52,16 +57,6 @@ struct LineChartView: View {
                 chartXAxis
             }
         }
-        .onAppear(perform: {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                withAnimation(Animation.linear(duration: 2.0)) {
-                    precent = 1
-                }
-            }
-        })
-        .onDisappear(perform: {
-            precent = 0
-        })
     }
 }
 
@@ -125,8 +120,7 @@ private extension LineChartView {
                     
                     let resource = datasource[index].emotion.doubleValue
                     
-                    let yPos = CGFloat((resource - minY) / yAxis) *
-                    reader.size.height
+                    let yPos = CGFloat((resource - minY) / yAxis) * reader.size.height
                     
                     ZStack {
                         Circle()
@@ -173,24 +167,3 @@ private extension LineChartView {
         }
     }
 }
-
-//struct LineChartView_Previews: PreviewProvider {
-//    static let mock = [ChartData(emotion: .neutral,
-//                                 index: 0),
-//                       ChartData(emotion: .happy,
-//                                 index: 5),
-//                       ChartData(emotion: .sad,
-//                                 index: 9),
-//                       ChartData(emotion: .blissful,
-//                                 index: 13),
-//                       ChartData(emotion: .sad,
-//                                 index: 15),
-//                       ChartData(emotion: .terrible,
-//                                 index: 20),
-//                       ChartData(emotion: .neutral,
-//                                 index: 28)]
-//
-//    static var previews: some View {
-//        LineChartView(month: 8, year: 2021, datasource: mock)
-//    }
-//}

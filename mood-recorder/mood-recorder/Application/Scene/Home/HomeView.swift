@@ -39,7 +39,8 @@ struct HomeView: View {
                 .tag(0)
             Color.green.tag(1)
                 .ignoresSafeArea()
-            ChartView(viewModel: viewModel.chartViewModel)
+            ChartView(viewModel: viewModel.chartViewModel,
+                      isTabBarHiddenNeeded: $viewModel.isTabBarHiddenNeeded)
                 .tag(2)
             SettingView(isTabBarHiddenNeeded: $viewModel.isTabBarHiddenNeeded)
                 .tag(3)
