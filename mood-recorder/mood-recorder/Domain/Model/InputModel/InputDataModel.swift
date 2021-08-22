@@ -25,6 +25,10 @@ struct InputDataModel {
         return coreEmotion
     }
     
+    var isHavingData: Bool {
+        !sections.isEmpty
+    }
+    
     static func initData() -> InputDataModel {
         let sections = SectionType.allCases.map { section -> SectionModel in
             switch section {

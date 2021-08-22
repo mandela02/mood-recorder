@@ -8,9 +8,6 @@
 import SwiftUI
 
 struct CalendarView: View {
-    typealias CalendarState = CalendarViewModel.CalendarState
-    typealias CalendarTrigger = CalendarViewModel.CalendarTrigger
-    
     @ObservedObject
     var viewModel: BaseViewModel<CalendarState,
                                  CalendarTrigger>
@@ -213,44 +210,21 @@ extension CalendarView {
                     .scaleEffect(0.8)
                     .foregroundColor(Theme.get(id: themeId).commonColor.textColor)
             })
-            
-            Spacer()
-            
-            Button(action: {
-                viewModel.trigger(.deselectDate)
-                viewModel.trigger(.backToLaseMonth)
-            }, label: {
-                Image(systemName: "arrowtriangle.backward.fill")
-                    .resizable()
-                    .aspectRatio(1, contentMode: .fit)
-                    .frame(width: 30)
-                    .foregroundColor(Theme.get(id: themeId).buttonColor.backgroundColor)
-            })
-            
-            Text("\(viewModel.state.currentMonth.month)/\(String(viewModel.state.currentMonth.year))")
-                .foregroundColor(Theme.get(id: themeId).buttonColor.textColor)
-                .padding(EdgeInsets(top: 10, leading: 30, bottom: 10, trailing: 30))
-                .background(RoundedRectangle(cornerRadius: 10)
-                                .fill(Theme.get(id: themeId).buttonColor.backgroundColor))
-                .padding(.horizontal, 10)
-                .onTapGesture {
-                    isTabBarHiddenNeeded = true
-                    viewModel.trigger(.showDatePicker)
-                }
-            
-            Button(action: {
+                        
+            DateNavigationView(month: viewModel.state.currentMonth.month,
+                               year: viewModel.state.currentMonth.year,
+                               goToNextMonth: {
                 viewModel.trigger(.deselectDate)
                 viewModel.trigger(.goToNextMonth)
-            }, label: {
-                Image(systemName: "arrowtriangle.right.fill")
-                    .resizable()
-                    .aspectRatio(1, contentMode: .fit)
-                    .frame(width: 30)
-                    .foregroundColor(Theme.get(id: themeId).buttonColor.backgroundColor)
+            },
+                               goToLastMonth: {
+                viewModel.trigger(.deselectDate)
+                viewModel.trigger(.backToLaseMonth)
+            }, onDateTap: {
+                isTabBarHiddenNeeded = true
+                viewModel.trigger(.showDatePicker)
             })
-            
-            Spacer()
-            
+                        
             Button(action: {
                 viewModel.trigger(.goToToDay)
             }, label: {

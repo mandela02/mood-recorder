@@ -24,18 +24,7 @@ struct CalendarUseCases: CalendarUseCaseType {
     }
     
     func fetch(from start: Double, to end: Double) -> DatabaseResponse {
-        let result = fetchUseCase.fetch(from: start, to: end)
-        switch result {
-        case .success(data: let models as [CDInputModel]):
-            let inputDataModels = models.map { fetchUseCase.convert(model: $0) }
-            return .success(data: inputDataModels)
-        case .error(let error):
-            return.error(error: error)
-        default:
-            return .error(error: NSError(domain: "Can not find data this month",
-                                         code: 1,
-                                         userInfo: nil))
-        }
+        return fetchUseCase.fetchAndConvert(from: start, to: end)
     }
     
     func delete(at date: Double) -> DatabaseResponse {

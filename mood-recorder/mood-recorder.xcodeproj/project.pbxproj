@@ -77,12 +77,18 @@
 		84EE2F8726C7D08500C0195D /* CustomDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EE2F8626C7D08500C0195D /* CustomDialog.swift */; };
 		84EF6B7226B7A4BA00C0551F /* CoreEmotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EF6B7126B7A4BA00C0551F /* CoreEmotion.swift */; };
 		84FE1B3B26C7B55600D32330 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FE1B3A26C7B55600D32330 /* BaseViewModel.swift */; };
+		9007B35326D29FD100912AAC /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9007B35226D29FD100912AAC /* ChartView.swift */; };
+		9007B35526D29FE100912AAC /* ChartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9007B35426D29FE100912AAC /* ChartViewModel.swift */; };
+		9007B35726D2A2A500912AAC /* ChartUseCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9007B35626D2A2A500912AAC /* ChartUseCases.swift */; };
 		9017B97026CEC7CE00736037 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9017B96F26CEC7CE00736037 /* CalendarView.swift */; };
 		9021188B26D0C34200273FC8 /* FutureWarningDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9021188A26D0C34200273FC8 /* FutureWarningDialog.swift */; };
 		9021188D26D0C37B00273FC8 /* TypeAlias.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9021188C26D0C37B00273FC8 /* TypeAlias.swift */; };
 		90256F3326D132DF0067B354 /* ImageShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90256F3226D132DF0067B354 /* ImageShareView.swift */; };
 		9041C11E26CEC45C0054617E /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9041C11D26CEC45C0054617E /* CalendarViewModel.swift */; };
 		9057DE9326D1086600FF7DA2 /* CalendarDiaryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9057DE9226D1086600FF7DA2 /* CalendarDiaryDetailView.swift */; };
+		907ABBF126D2C12200201BD9 /* DateNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907ABBF026D2C12200201BD9 /* DateNavigationView.swift */; };
+		907DBD3426D2A96500A2D529 /* ChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907DBD3326D2A96500A2D529 /* ChartData.swift */; };
+		907DBD3626D2A9CD00A2D529 /* LineChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907DBD3526D2A9CD00A2D529 /* LineChartView.swift */; };
 		907E278326D1ECEC00D8129A /* AnimatedSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907E278226D1ECEC00D8129A /* AnimatedSwitch.swift */; };
 		907E278526D1F0ED00D8129A /* ThemeSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907E278426D1F0ED00D8129A /* ThemeSettingView.swift */; };
 		9085BD5A26D1F49400D71F42 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9085BD5926D1F49400D71F42 /* SettingView.swift */; };
@@ -167,12 +173,18 @@
 		84EE2F8626C7D08500C0195D /* CustomDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDialog.swift; sourceTree = "<group>"; };
 		84EF6B7126B7A4BA00C0551F /* CoreEmotion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreEmotion.swift; sourceTree = "<group>"; };
 		84FE1B3A26C7B55600D32330 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
+		9007B35226D29FD100912AAC /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
+		9007B35426D29FE100912AAC /* ChartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartViewModel.swift; sourceTree = "<group>"; };
+		9007B35626D2A2A500912AAC /* ChartUseCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartUseCases.swift; sourceTree = "<group>"; };
 		9017B96F26CEC7CE00736037 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		9021188A26D0C34200273FC8 /* FutureWarningDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FutureWarningDialog.swift; sourceTree = "<group>"; };
 		9021188C26D0C37B00273FC8 /* TypeAlias.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeAlias.swift; sourceTree = "<group>"; };
 		90256F3226D132DF0067B354 /* ImageShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageShareView.swift; sourceTree = "<group>"; };
 		9041C11D26CEC45C0054617E /* CalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
 		9057DE9226D1086600FF7DA2 /* CalendarDiaryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDiaryDetailView.swift; sourceTree = "<group>"; };
+		907ABBF026D2C12200201BD9 /* DateNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateNavigationView.swift; sourceTree = "<group>"; };
+		907DBD3326D2A96500A2D529 /* ChartData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartData.swift; sourceTree = "<group>"; };
+		907DBD3526D2A9CD00A2D529 /* LineChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineChartView.swift; sourceTree = "<group>"; };
 		907E278226D1ECEC00D8129A /* AnimatedSwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedSwitch.swift; sourceTree = "<group>"; };
 		907E278426D1F0ED00D8129A /* ThemeSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeSettingView.swift; sourceTree = "<group>"; };
 		9085BD5926D1F49400D71F42 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
@@ -414,6 +426,7 @@
 		84CBB35B26B6FE3300A8E377 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				9007B35126D29FC600912AAC /* Chart */,
 				907E278126D1ECDD00D8129A /* Settings */,
 				9041C11C26CEC44E0054617E /* Calendar */,
 				8476F1A526B85B7900F62854 /* Input */,
@@ -434,6 +447,7 @@
 				8404939926BAA522006523D9 /* SizedBox.swift */,
 				84EE2F8626C7D08500C0195D /* CustomDialog.swift */,
 				84B2554826C7F490000B96DB /* ArrowAnimation.swift */,
+				907ABBF026D2C12200201BD9 /* DateNavigationView.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -450,6 +464,7 @@
 		84CBB36D26B725C600A8E377 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				907DBD3226D2A95A00A2D529 /* Chart */,
 				8404939626BA5118006523D9 /* InputModel */,
 			);
 			path = Model;
@@ -462,6 +477,16 @@
 				9021188C26D0C37B00273FC8 /* TypeAlias.swift */,
 			);
 			path = Base;
+			sourceTree = "<group>";
+		};
+		9007B35126D29FC600912AAC /* Chart */ = {
+			isa = PBXGroup;
+			children = (
+				9007B35226D29FD100912AAC /* ChartView.swift */,
+				9007B35426D29FE100912AAC /* ChartViewModel.swift */,
+				907DBD3526D2A9CD00A2D529 /* LineChartView.swift */,
+			);
+			path = Chart;
 			sourceTree = "<group>";
 		};
 		9041C11526CEC3A50054617E /* InputView */ = {
@@ -540,6 +565,14 @@
 			path = Calendar;
 			sourceTree = "<group>";
 		};
+		907DBD3226D2A95A00A2D529 /* Chart */ = {
+			isa = PBXGroup;
+			children = (
+				907DBD3326D2A96500A2D529 /* ChartData.swift */,
+			);
+			path = Chart;
+			sourceTree = "<group>";
+		};
 		907E278126D1ECDD00D8129A /* Settings */ = {
 			isa = PBXGroup;
 			children = (
@@ -556,6 +589,7 @@
 				84C3F73326C044A800C789F5 /* UseCaseProvider.swift */,
 				90B4E97926D0D5790048A2C2 /* CalendarUseCases.swift */,
 				84C3F73126C03E0E00C789F5 /* InputUseCases.swift */,
+				9007B35626D2A2A500912AAC /* ChartUseCases.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -651,6 +685,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9007B35526D29FE100912AAC /* ChartViewModel.swift in Sources */,
 				8423C20926BE85CE000717D9 /* Love.swift in Sources */,
 				84FE1B3B26C7B55600D32330 /* BaseViewModel.swift in Sources */,
 				84C3F72626C03AE600C789F5 /* CDContentModel+CoreDataClass.swift in Sources */,
@@ -682,8 +717,10 @@
 				84C3F72A26C03AE600C789F5 /* CDInputModel+CoreDataClass.swift in Sources */,
 				84C3F73226C03E0E00C789F5 /* InputUseCases.swift in Sources */,
 				84AC834626CA57550052B295 /* CustomOptionViewModel.swift in Sources */,
+				9007B35726D2A2A500912AAC /* ChartUseCases.swift in Sources */,
 				8404938D26BA4F6B006523D9 /* SleepScheduleModel.swift in Sources */,
 				8423C21526BFE978000717D9 /* School.swift in Sources */,
+				907DBD3626D2A9CD00A2D529 /* LineChartView.swift in Sources */,
 				84C3F72C26C03AE600C789F5 /* CDSectionModel+CoreDataClass.swift in Sources */,
 				8404939826BA8471006523D9 /* ImagePicker.swift in Sources */,
 				84EF6B7226B7A4BA00C0551F /* CoreEmotion.swift in Sources */,
@@ -710,6 +747,7 @@
 				84C3F72726C03AE600C789F5 /* CDContentModel+CoreDataProperties.swift in Sources */,
 				846DA17726C8DAA700D0C7F9 /* AppImage+Extension.swift in Sources */,
 				8423C22726C03379000717D9 /* PersistenceManager.swift in Sources */,
+				9007B35326D29FD100912AAC /* ChartView.swift in Sources */,
 				8423C22026C03175000717D9 /* MoodRecorderDataModel.xcdatamodeld in Sources */,
 				9017B97026CEC7CE00736037 /* CalendarView.swift in Sources */,
 				9085BD5C26D1FAD200D71F42 /* Settings.swift in Sources */,
@@ -724,10 +762,12 @@
 				8476F1A726B85B9000F62854 /* InputDataModel.swift in Sources */,
 				90B4E97A26D0D5790048A2C2 /* CalendarUseCases.swift in Sources */,
 				8404938626B9BFCE006523D9 /* InputView.swift in Sources */,
+				907DBD3426D2A96500A2D529 /* ChartData.swift in Sources */,
 				8476F1AD26B8637300F62854 /* String+Extension.swift in Sources */,
 				84B395FE26C7C3D2007B8A6B /* Utilities.swift in Sources */,
 				8404938F26BA4F7D006523D9 /* ImageAndTitleModel.swift in Sources */,
 				909DC15E26CCA621004179F0 /* Int+Extension.swift in Sources */,
+				907ABBF126D2C12200201BD9 /* DateNavigationView.swift in Sources */,
 				9085BD5A26D1F49400D71F42 /* SettingView.swift in Sources */,
 				8423C21826C0037C000717D9 /* Chore.swift in Sources */,
 				84C3F72926C03AE600C789F5 /* CDOptionModel+CoreDataProperties.swift in Sources */,

@@ -14,7 +14,8 @@ class UseCaseProvider {
 
     private lazy var inputUseCases = InputUseCases(repository: inputRepository)
     private lazy var calendarUseCases = CalendarUseCases(repository: inputRepository)
-
+    private lazy var chartUseCases = ChartUseCases(repository: inputRepository)
+    
     private init() {}
 
     func getInputUseCases() -> InputUseCaseType {
@@ -23,5 +24,9 @@ class UseCaseProvider {
 
     func getCalendarUseCases() -> CalendarUseCaseType {
         return calendarUseCases
+    }
+    
+    func getChartUseCases() -> ChartUseCaseType {
+        return chartUseCases
     }
 }
