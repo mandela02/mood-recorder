@@ -29,6 +29,21 @@ enum CoreEmotion: Int, CaseIterable {
         }
     }
     
+    var color: Color {
+        switch self {
+        case .blissful:
+            return Color(hex: "eedc88")
+        case .happy:
+            return Color(hex: "b7d68a")
+        case .neutral:
+            return Color(hex: "60ae72")
+        case .sad:
+            return Color(hex: "3b7851")
+        case .terrible:
+            return Color(hex: "6b7773")
+        }
+    }
+    
     var doubleValue: Double {
         return Double(self.rawValue)
     }

@@ -34,20 +34,13 @@ struct ChartView: View {
         ZStack {
             Theme.get(id: themeId).commonColor.viewBackground
                 .ignoresSafeArea()
-            VStack {
-                buildDateNavigationView()
-                SizedBox(height: 50)
-                LineChartView(month: viewModel.state.currentMonth.month,
-                              year: viewModel.state.currentMonth.year,
-                              datasource: viewModel.state.chartDatas,
-                              precent: viewModel.chartShowPercent)
-                    .onAppear(perform: {
-                        viewModel.trigger(.handleChartViewStatus(status: .open))
-                    })
-                    .onDisappear(perform: {
-                        viewModel.trigger(.handleChartViewStatus(status: .close))
-                    })
-                Spacer()
+            ScrollView {
+                VStack {
+                    buildDateNavigationView()
+                    SizedBox(height: 20)
+                    buildLineChartView()
+                    Spacer()
+                }
             }
         }
         .overlay {
@@ -55,6 +48,46 @@ struct ChartView: View {
                 buildMonthPicker()
             }
         }
+    }
+}
+
+extension ChartView {
+    private func buildLineChartView() -> some View {
+        VStack(spacing: 15) {
+            Text("Mood flow")
+                .font(.system(size: 15))
+                .foregroundColor(Theme.get(id: themeId).commonColor.textColor)
+            LineChartView(month: viewModel.state.currentMonth.month,
+                          year: viewModel.state.currentMonth.year,
+                          datasource: viewModel.state.chartDatas,
+                          precent: viewModel.chartShowPercent)
+                .onAppear(perform: {
+                    viewModel.trigger(.handleChartViewStatus(status: .open))
+                })
+                .onDisappear(perform: {
+                    viewModel.trigger(.handleChartViewStatus(status: .close))
+                })
+            buildMoodBarView()
+        }
+    }
+}
+
+extension ChartView {
+    private func buildMoodBarView() -> some View {
+        ZStack {
+            Theme.get(id: themeId).tableViewColor.cellBackground
+                .cornerRadius(20)
+            VStack {
+                Text("Mood Bar")
+                    .font(.system(size: 15))
+                    .foregroundColor(Theme.get(id: themeId).commonColor.textColor)
+                MoodBarView(datasource: viewModel.state.chartDatas)
+                    .padding(.all, 5)
+                    .frame(maxWidth: .infinity)
+            }
+            .padding()
+        }
+        .padding()
     }
 }
 
