@@ -35,13 +35,12 @@ struct HomeView: View {
                 content:  {
             CalendarView(viewModel: calendarViewModel,
                          isTabBarHiddenNeeded: $viewModel.isTabBarHiddenNeeded).tag(0)
-                    Color.green.tag(1)
-                        .ignoresSafeArea()
-                    Color.blue.tag(2)
-                        .ignoresSafeArea()
-                    Color.yellow.tag(3)
-                        .ignoresSafeArea()
-                })
+            Color.green.tag(1)
+                .ignoresSafeArea()
+            Color.blue.tag(2)
+                .ignoresSafeArea()
+            SettingView(isTabBarHiddenNeeded: $viewModel.isTabBarHiddenNeeded).tag(3)
+        })
             .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
     }
     
@@ -86,11 +85,5 @@ struct HomeView: View {
                 Color.clear
             }
         }
-    }
-}
-
-struct HomeView_Previews: PreviewProvider {
-    static var previews: some View {
-        HomeView()
     }
 }

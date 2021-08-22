@@ -7,18 +7,29 @@
 
 import SwiftUI
 
-enum Theme: CaseIterable {
-    case matchaGreen
+enum Theme: Int, CaseIterable {
+    case lightMode
+    case nightMode
     
     private var themeColor: ThemeColor {
         switch self {
-        case .matchaGreen:
+        case .lightMode:
             return ThemeValue.matchaGreen
+        case .nightMode:
+            return ThemeValue.momotoneBlack
         }
     }
     
+    static var currentTheme: Theme {
+        Settings.themeId.value == 1 ? .nightMode : lightMode
+    }
+    
     static var current: ThemeColor {
-        return Theme.matchaGreen.themeColor
+        return Theme.allCases[safe: Settings.themeId.value]?.themeColor ?? Theme.lightMode.themeColor
+    }
+    
+    static func post(themeId: Int) {
+        Settings.themeId.value = themeId
     }
 }
 
@@ -90,4 +101,24 @@ struct ThemeValue {
                                                                textColor: Color(hex: "767676"),
                                                                buttonColor: Color(hex: "9AA987"),
                                                                buttonBackground: Color(hex: "FFFFFF")))
+    
+    static let momotoneBlack = ThemeColor(navigationColor: NavigationColor(button: Color(hex: "FFFFFF"),
+                                                                           title: Color(hex: "FFFFFF"),
+                                                                           background: Color(hex: "D1E191")),
+                                          tableViewColor: TableViewColor(background: Color(hex: "000000"),
+                                                                         cellBackground: Color(hex: "17191A"),
+                                                                         text: Color(hex: "FFFFFF")),
+                                          buttonColor: ButtonColor(backgroundColor: Color(hex: "9AA987"),
+                                                                   textColor: Color(hex: "FFFFFF"),
+                                                                   iconColor: Color(hex: "FFFFFF"),
+                                                                   disableColor: Color(hex: "EDEDED")),
+                                          commonColor: CommonColor(textColor: Color(hex: "767676"),
+                                                                   textBackground: Color(hex: "EDEDED"),
+                                                                   viewBackground: Color(hex: "F5FAF4")),
+                                          sleepColor: SleepColor(backgroundColor: Color(hex: "F5FAF4"),
+                                                                 bigCircleColor: Color(hex: "EDEDED"),
+                                                                 smallCircleColor: Color(hex: "9AA987"),
+                                                                 textColor: Color(hex: "767676"),
+                                                                 buttonColor: Color(hex: "9AA987"),
+                                                                 buttonBackground: Color(hex: "FFFFFF")))
 }
