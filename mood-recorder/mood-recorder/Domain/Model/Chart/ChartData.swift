@@ -8,6 +8,6 @@
 import Foundation
 
 struct ChartData {
-    var Emotion: CoreEmotion
+    var emotion: CoreEmotion
     var index: Int
 }

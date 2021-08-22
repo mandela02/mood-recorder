@@ -87,6 +87,7 @@
 		9041C11E26CEC45C0054617E /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9041C11D26CEC45C0054617E /* CalendarViewModel.swift */; };
 		9057DE9326D1086600FF7DA2 /* CalendarDiaryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9057DE9226D1086600FF7DA2 /* CalendarDiaryDetailView.swift */; };
 		907DBD3426D2A96500A2D529 /* ChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907DBD3326D2A96500A2D529 /* ChartData.swift */; };
+		907DBD3626D2A9CD00A2D529 /* LineChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907DBD3526D2A9CD00A2D529 /* LineChartView.swift */; };
 		907E278326D1ECEC00D8129A /* AnimatedSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907E278226D1ECEC00D8129A /* AnimatedSwitch.swift */; };
 		907E278526D1F0ED00D8129A /* ThemeSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907E278426D1F0ED00D8129A /* ThemeSettingView.swift */; };
 		9085BD5A26D1F49400D71F42 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9085BD5926D1F49400D71F42 /* SettingView.swift */; };
@@ -181,6 +182,7 @@
 		9041C11D26CEC45C0054617E /* CalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
 		9057DE9226D1086600FF7DA2 /* CalendarDiaryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDiaryDetailView.swift; sourceTree = "<group>"; };
 		907DBD3326D2A96500A2D529 /* ChartData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartData.swift; sourceTree = "<group>"; };
+		907DBD3526D2A9CD00A2D529 /* LineChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineChartView.swift; sourceTree = "<group>"; };
 		907E278226D1ECEC00D8129A /* AnimatedSwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedSwitch.swift; sourceTree = "<group>"; };
 		907E278426D1F0ED00D8129A /* ThemeSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeSettingView.swift; sourceTree = "<group>"; };
 		9085BD5926D1F49400D71F42 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
@@ -479,6 +481,7 @@
 			children = (
 				9007B35226D29FD100912AAC /* ChartView.swift */,
 				9007B35426D29FE100912AAC /* ChartViewModel.swift */,
+				907DBD3526D2A9CD00A2D529 /* LineChartView.swift */,
 			);
 			path = Chart;
 			sourceTree = "<group>";
@@ -714,6 +717,7 @@
 				9007B35726D2A2A500912AAC /* ChartUseCases.swift in Sources */,
 				8404938D26BA4F6B006523D9 /* SleepScheduleModel.swift in Sources */,
 				8423C21526BFE978000717D9 /* School.swift in Sources */,
+				907DBD3626D2A9CD00A2D529 /* LineChartView.swift in Sources */,
 				84C3F72C26C03AE600C789F5 /* CDSectionModel+CoreDataClass.swift in Sources */,
 				8404939826BA8471006523D9 /* ImagePicker.swift in Sources */,
 				84EF6B7226B7A4BA00C0551F /* CoreEmotion.swift in Sources */,

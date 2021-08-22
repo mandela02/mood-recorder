@@ -23,6 +23,11 @@ struct ChartView: View {
         ZStack {
             Theme.get(id: themeId).commonColor.viewBackground
                 .ignoresSafeArea()
+            VStack {
+                LineChartView(month: viewModel.state.currentMonth.month,
+                              year: viewModel.state.currentMonth.year,
+                              datasource: viewModel.state.chartDatas)
+            }
         }
     }
 }

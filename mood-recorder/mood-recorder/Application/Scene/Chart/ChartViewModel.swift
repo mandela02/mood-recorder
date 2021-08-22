@@ -71,7 +71,7 @@ extension ChartViewModel {
                 diaries[index].sections = model.sections
                 
                 if diaries[index].isHavingData {
-                    chartDatas.append(ChartData(Emotion: diaries[index].emotion ?? .neutral,
+                    chartDatas.append(ChartData(emotion: diaries[index].emotion ?? .neutral,
                                                 index: index))
                 }
             }

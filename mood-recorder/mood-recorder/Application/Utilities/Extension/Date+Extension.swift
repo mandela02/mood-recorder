@@ -37,6 +37,22 @@ enum WeekDay: Int, CaseIterable, StringValueProtocol {
 }
 
 extension Date {
+    init(year: Int, month: Int) {
+        var dateComponents = DateComponents()
+        dateComponents.year = year
+        dateComponents.month = month
+        dateComponents.day = 1
+
+        let calendar = Calendar.gregorian
+        
+        guard let date = calendar.date(from: dateComponents) else {
+            self.init()
+            return
+        }
+        
+        self.init(timeIntervalSince1970: date.startOfDayInterval)
+    }
+    
     var year: Int {
         return Calendar.gregorian.component(.year, from: self)
     }
@@ -129,6 +145,21 @@ extension Date {
     
     var endOfMonth: Date {
         return startOfMonth.nextMonth.previousSecond
+    }
+    
+    var middleOfMonth: Date {
+        var dateComponents = DateComponents()
+        dateComponents.year = self.year
+        dateComponents.month = self.month
+        dateComponents.day = 15
+
+        let calendar = Calendar.gregorian
+        
+        guard let middleOfMonth = calendar.date(from: dateComponents) else {
+            return Date()
+        }
+        
+        return middleOfMonth
     }
     
     var startOfDay: Date {
@@ -244,6 +275,12 @@ extension Date {
     
     var dayMonthYearString: String {
         let formatter = DateFormatter(dateFormat: "d MMMM y")
+        // formatter.locale = Locale(identifier: Strings.localeIdentifier)
+        return formatter.string(from: self)
+    }
+    
+    var dayMonthString: String {
+        let formatter = DateFormatter(dateFormat: "d/MM")
         // formatter.locale = Locale(identifier: Strings.localeIdentifier)
         return formatter.string(from: self)
     }

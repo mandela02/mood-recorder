@@ -29,6 +29,10 @@ enum CoreEmotion: Int, CaseIterable {
         }
     }
     
+    var doubleValue: Double {
+        return Double(self.rawValue)
+    }
+    
     var image: Image {
         Image(imageName.value)
     }
