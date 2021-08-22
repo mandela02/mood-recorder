@@ -94,9 +94,6 @@ struct ThemeSettingView: View {
         .onChange(of: isUsingSystemTheme) { newValue in
             if newValue {
                 Theme.post(themeId: colorScheme == .dark ? 1 : 0)
-                isAutomaticChange = true
-            } else {
-                isAutomaticChange = false
             }
         }
         .onChange(of: isOn) { newValue in
@@ -111,6 +108,13 @@ struct ThemeSettingView: View {
         .onChange(of: themeId) { newValue in
             isOn = newValue == 1
         }
+        .onChange(of: colorScheme, perform: { _ in
+            if isUsingSystemTheme {
+                isAutomaticChange = true
+            } else {
+                isAutomaticChange = false
+            }
+        })
         .onAppear(perform: {
             self.isOn = themeId == 1
         })
