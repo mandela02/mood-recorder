@@ -14,15 +14,18 @@ struct ThemeSettingView: View {
     
     @AppStorage(Keys.isUsingSystemTheme.rawValue)
     var isUsingSystemTheme: Bool = false
-
+    
     @Environment(\.colorScheme)
     var colorScheme
-
+    
     @State
     var isOn: Bool = false
     
+    @State
+    var isAutomaticChange = false
+        
     let onClose: VoidFunction
-   
+    
     init(onClose: @escaping VoidFunction) {
         self.onClose = onClose
     }
@@ -86,19 +89,28 @@ struct ThemeSettingView: View {
                 .onTapGesture(count: 1, perform: {
                     isOn.toggle()
                 })
-                .onChange(of: isOn) { newValue in
-                    Theme.post(themeId: newValue ? 1 : 0)
-                }
-                .onChange(of: themeId) { newValue in
-                    isOn = newValue == 1
-                }
                 .offset(y: 5)
         }
-        .onChange(of: isUsingSystemTheme, perform: { newValue in
+        .onChange(of: isUsingSystemTheme) { newValue in
             if newValue {
                 Theme.post(themeId: colorScheme == .dark ? 1 : 0)
+                isAutomaticChange = true
+            } else {
+                isAutomaticChange = false
             }
-        })
+        }
+        .onChange(of: isOn) { newValue in
+            Theme.post(themeId: newValue ? 1 : 0)
+            Settings.isUsingSystemTheme.value = false
+            
+            if isAutomaticChange {
+                Settings.isUsingSystemTheme.value = true
+                isAutomaticChange = false
+            }
+        }
+        .onChange(of: themeId) { newValue in
+            isOn = newValue == 1
+        }
         .onAppear(perform: {
             self.isOn = themeId == 1
         })
