@@ -11,6 +11,9 @@ struct HomeView: View {
     typealias CalendarState = CalendarViewModel.CalendarState
     typealias CalendarTrigger = CalendarViewModel.CalendarTrigger
     
+    @AppStorage(Keys.themeId.rawValue) var themeId: Int = 0
+    @Environment(\.colorScheme) var colorScheme
+
     @ObservedObject var viewModel = HomeViewModel()
     
     var calendarViewModel: BaseViewModel<CalendarState,
@@ -47,9 +50,9 @@ struct HomeView: View {
     @ViewBuilder
     var emotionListDialog: some View {
         if viewModel.isEmotionDialogShowing {
-            TalkBubble(backgroundColor: .white,
-                       buttonBackgroundColor: Theme.current.buttonColor.disableColor,
-                       textColor: Theme.current.commonColor.textColor,
+            TalkBubble(backgroundColor: Theme.get(id: themeId).commonColor.dialogBackground,
+                       buttonBackgroundColor: Theme.get(id: themeId).buttonColor.disableColor,
+                       textColor: Theme.get(id: themeId).commonColor.textColor,
                        onButtonTap: viewModel.onEmotionSelected)
         } else {
             EmptyView()
@@ -68,7 +71,7 @@ struct HomeView: View {
                     CustomTabBar(
                         selectedIndex: $viewModel.seletedTabBarIndex,
                         backgroundColor: .white,
-                        selectedItemColor: Theme.current.buttonColor.backgroundColor,
+                        selectedItemColor: Theme.get(id: themeId).buttonColor.backgroundColor,
                         unselectedItemColor: .gray,
                         onBigButtonTapped: viewModel.onBigButtonTapped)
                 }

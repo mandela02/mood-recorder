@@ -19,17 +19,13 @@ enum Theme: Int, CaseIterable {
             return ThemeValue.momotoneBlack
         }
     }
-    
-    static var currentTheme: Theme {
-        Settings.themeId.value == 1 ? .nightMode : lightMode
-    }
-    
-    static var current: ThemeColor {
-        return Theme.allCases[safe: Settings.themeId.value]?.themeColor ?? Theme.lightMode.themeColor
-    }
-    
+        
     static func post(themeId: Int) {
         Settings.themeId.value = themeId
+    }
+    
+    static func get(id: Int) -> ThemeColor {
+        return Theme.allCases[safe: id]?.themeColor ?? Theme.lightMode.themeColor
     }
 }
 
@@ -57,6 +53,7 @@ struct ThemeColor {
         var textColor: Color
         var textBackground: Color
         var viewBackground: Color
+        var dialogBackground: Color
     }
     
     struct SleepColor {
@@ -94,7 +91,8 @@ struct ThemeValue {
                                                                  disableColor: Color(hex: "EDEDED")),
                                         commonColor: CommonColor(textColor: Color(hex: "767676"),
                                                                  textBackground: Color(hex: "EDEDED"),
-                                                                 viewBackground: Color(hex: "F5FAF4")),
+                                                                 viewBackground: Color(hex: "F5FAF4"),
+                                                                 dialogBackground: Color(hex: "18191A")),
                                         sleepColor: SleepColor(backgroundColor: Color(hex: "F5FAF4"),
                                                                bigCircleColor: Color(hex: "EDEDED"),
                                                                smallCircleColor: Color(hex: "9AA987"),
@@ -102,23 +100,24 @@ struct ThemeValue {
                                                                buttonColor: Color(hex: "9AA987"),
                                                                buttonBackground: Color(hex: "FFFFFF")))
     
-    static let momotoneBlack = ThemeColor(navigationColor: NavigationColor(button: Color(hex: "FFFFFF"),
-                                                                           title: Color(hex: "FFFFFF"),
-                                                                           background: Color(hex: "D1E191")),
+    static let momotoneBlack = ThemeColor(navigationColor: NavigationColor(button: Color(hex: "F1F2F2"),
+                                                                           title: Color(hex: "F1F2F2"),
+                                                                           background: Color(hex: "FFB30A")),
                                           tableViewColor: TableViewColor(background: Color(hex: "000000"),
                                                                          cellBackground: Color(hex: "17191A"),
-                                                                         text: Color(hex: "FFFFFF")),
-                                          buttonColor: ButtonColor(backgroundColor: Color(hex: "9AA987"),
-                                                                   textColor: Color(hex: "FFFFFF"),
-                                                                   iconColor: Color(hex: "FFFFFF"),
-                                                                   disableColor: Color(hex: "EDEDED")),
-                                          commonColor: CommonColor(textColor: Color(hex: "767676"),
-                                                                   textBackground: Color(hex: "EDEDED"),
-                                                                   viewBackground: Color(hex: "F5FAF4")),
-                                          sleepColor: SleepColor(backgroundColor: Color(hex: "F5FAF4"),
-                                                                 bigCircleColor: Color(hex: "EDEDED"),
-                                                                 smallCircleColor: Color(hex: "9AA987"),
-                                                                 textColor: Color(hex: "767676"),
-                                                                 buttonColor: Color(hex: "9AA987"),
-                                                                 buttonBackground: Color(hex: "FFFFFF")))
+                                                                         text: Color(hex: "F1F2F2")),
+                                          buttonColor: ButtonColor(backgroundColor: Color(hex: "FFB30A"),
+                                                                   textColor: Color(hex: "F1F2F2"),
+                                                                   iconColor: Color(hex: "F1F2F2"),
+                                                                   disableColor: Color(hex: "555555")),
+                                          commonColor: CommonColor(textColor: Color(hex: "F1F2F2"),
+                                                                   textBackground: Color(hex: "555555"),
+                                                                   viewBackground: Color(hex: "000000"),
+                                                                   dialogBackground: Color(hex: "18191A")),
+                                          sleepColor: SleepColor(backgroundColor: Color(hex: "18191A"),
+                                                                 bigCircleColor: Color(hex: "1C1D1D"),
+                                                                 smallCircleColor: Color(hex: "FFB30A"),
+                                                                 textColor: Color(hex: "FFB30A"),
+                                                                 buttonColor: Color(hex: "FFB30A"),
+                                                                 buttonBackground: Color(hex: "1C1D1D")))
 }

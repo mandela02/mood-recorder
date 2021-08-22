@@ -16,6 +16,8 @@ struct CalendarDiaryDetailView: View {
     
     @State private var isTitleShow = false
     
+    @AppStorage(Keys.themeId.rawValue) var themeId: Int = 0
+
     let onEditDiary: VoidFunction
     let onDeleteDiary: VoidFunction
 
@@ -55,10 +57,10 @@ struct CalendarDiaryDetailView: View {
             if let date = date {
                 Text(date.dayMonthYearString)
                     .font(.system(size: 12))
-                    .foregroundColor(Theme.current.buttonColor.textColor)
+                    .foregroundColor(Theme.get(id: themeId).buttonColor.textColor)
                     .padding(.all, 5)
                     .background(
-                        Theme.current.buttonColor.backgroundColor
+                        Theme.get(id: themeId).buttonColor.backgroundColor
                             .clipShape(RoundedRectangle(cornerRadius: 10))
                     )
                     .onTapGesture {
@@ -82,7 +84,7 @@ struct CalendarDiaryDetailView: View {
                     }, label: {
                         ZStack {
                             RoundImageView(image: Image(model.image.value),
-                                           backgroundColor: Theme.current.buttonColor.disableColor)
+                                           backgroundColor: Theme.get(id: themeId).buttonColor.backgroundColor)
                                 .blur(radius: isTitleShow ? 3 : 0)
                             
                             if isTitleShow {
@@ -90,7 +92,7 @@ struct CalendarDiaryDetailView: View {
                                     .clipShape(Circle())
                                     .opacity(0.5)
                                 Text(model.title)
-                                    .foregroundColor(Theme.current.commonColor.textColor)
+                                    .foregroundColor(Theme.get(id: themeId).commonColor.textColor)
                                     .font(.system(size: 8))
                                     .lineLimit(2)
                                     .minimumScaleFactor(0.1)
@@ -115,7 +117,7 @@ struct CalendarDiaryDetailView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 20, height: 20)
-                    .foregroundColor(Theme.current.commonColor.textColor)
+                    .foregroundColor(Theme.get(id: themeId).commonColor.textColor)
             }
             Button(action: {
                 onDeleteDiary()
@@ -124,7 +126,7 @@ struct CalendarDiaryDetailView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 20, height: 20)
-                    .foregroundColor(Theme.current.commonColor.textColor)
+                    .foregroundColor(Theme.get(id: themeId).commonColor.textColor)
             }
         }
         .padding(.horizontal, 20)
@@ -134,7 +136,7 @@ struct CalendarDiaryDetailView: View {
         VStack {
             buildButton()
             ZStack {
-                Color.white
+                Theme.get(id: themeId).commonColor.dialogBackground
                     .clipShape(RoundedRectangle(cornerRadius: 20))
                 HStack(spacing: 20) {
                     buildEmotionDate()

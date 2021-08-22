@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct SettingView: View {
-    @Binding var isTabBarHiddenNeeded: Bool
-    
+    @AppStorage(Keys.themeId.rawValue) var themeId: Int = 0
     @State var isThemeViewShowing = false
-    
+    @Binding var isTabBarHiddenNeeded: Bool
+
     private func showTabBar() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             isTabBarHiddenNeeded = false
@@ -19,33 +19,30 @@ struct SettingView: View {
     }
 
     var body: some View {
-        BaseView {
-            ZStack {
-                Theme.current.tableViewColor.background
-                    .ignoresSafeArea()
-                ScrollView {
-                    VStack {
-                        Button(action: {
-                            isTabBarHiddenNeeded = true
-                            isThemeViewShowing = true
-                        }) {
-                            HStack {
-                                Text("Theme")
-                                    .foregroundColor(Theme.current.tableViewColor.text)
-                                Spacer()
-                                Image(systemName: "greaterthan")
-                                    .foregroundColor(Theme.current.tableViewColor.text)
-                            }
-                            .padding()
-                            .background(RoundedRectangle(cornerRadius: 10)
-                                            .fill(Theme.current.tableViewColor.cellBackground))
-                            .padding()
+        ZStack {
+            Theme.get(id: themeId).tableViewColor.background
+                .ignoresSafeArea()
+            ScrollView {
+                VStack {
+                    Button(action: {
+                        isTabBarHiddenNeeded = true
+                        isThemeViewShowing = true
+                    }) {
+                        HStack {
+                            Text("Theme")
+                                .foregroundColor(Theme.get(id: themeId).tableViewColor.text)
+                            Spacer()
+                            Image(systemName: "greaterthan")
+                                .foregroundColor(Theme.get(id: themeId).tableViewColor.text)
                         }
+                        .padding()
+                        .background(RoundedRectangle(cornerRadius: 10)
+                                        .fill(Theme.get(id: themeId).tableViewColor.cellBackground))
+                        .padding()
                     }
                 }
             }
-        }
-        .overlay {
+        }.overlay {
             if isThemeViewShowing {
                 ThemeSettingView(onClose: {
                     isThemeViewShowing = false

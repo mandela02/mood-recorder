@@ -7,25 +7,22 @@
 
 import SwiftUI
 
-public class ForceUpdateViewModel: ObservableObject {
-    func updateView(){
-        self.objectWillChange.send()
-    }
-}
-
 struct BaseView<Content: View>: View {
+    @Environment(\.colorScheme) var colorScheme
     @AppStorage(Keys.themeId.rawValue) var themeId: Int = 0
-    
-    @ObservedObject var viewModel = ForceUpdateViewModel()
-        
+            
     @ViewBuilder var content: Content
     
     var body: some View {
         ZStack {
             content
         }
-        .onChange(of: themeId, perform: { newValue in
-            viewModel.updateView()
+        .preferredColorScheme(nil)
+        .onAppear(perform: {
+            Theme.post(themeId: colorScheme == .dark ? 1 : 0)
+        })
+        .onChange(of: colorScheme, perform: { newValue in
+            Theme.post(themeId: newValue == .dark ? 1 : 0)
         })
     }
 }

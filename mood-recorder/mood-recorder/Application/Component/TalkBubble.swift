@@ -59,12 +59,3 @@ private struct Triangle: Shape {
         return path
     }
 }
-
-struct TalkBubble_Previews: PreviewProvider {
-    static var previews: some View {
-        TalkBubble(backgroundColor: .green,
-                   buttonBackgroundColor: .white,
-                   textColor: .white,
-                   onButtonTap: { _ in })
-    }
-}

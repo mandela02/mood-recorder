@@ -61,6 +61,8 @@ struct MonthPicker: View {
     var onApply: IntTupleCallbackFunction
     var onCancel: VoidFunction
 
+    @AppStorage(Keys.themeId.rawValue) var themeId: Int = 0
+
     init(month: Int,
          year: Int,
          onApply: @escaping IntTupleCallbackFunction,
@@ -107,7 +109,7 @@ struct MonthPicker: View {
                 }
             }) {
                 Text("Cancel")
-                    .foregroundColor(Color.blue)
+                    .foregroundColor(Theme.get(id: themeId).buttonColor.backgroundColor)
             }
             
             Spacer()
@@ -116,7 +118,7 @@ struct MonthPicker: View {
                 onApply(selectedMonth.rawValue, selectedYear)
             }) {
                 Text("Apply")
-                    .foregroundColor(Color.blue)
+                    .foregroundColor(Theme.get(id: themeId).buttonColor.backgroundColor)
             }
         }
     }
@@ -129,7 +131,7 @@ struct MonthPicker: View {
                 Spacer()
                 if isAppear {
                     ZStack {
-                        Color.white
+                        Theme.get(id: themeId).commonColor.dialogBackground
                             .cornerRadius(20)
                             .ignoresSafeArea()
                         VStack {

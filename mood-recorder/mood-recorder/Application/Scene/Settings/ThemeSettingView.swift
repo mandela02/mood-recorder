@@ -22,7 +22,7 @@ struct ThemeSettingView: View {
         HStack {
             Button(action: onClose) {
                 Image(systemName: "xmark")
-                    .foregroundColor(Theme.current.commonColor.textColor)
+                    .foregroundColor(Theme.get(id: themeId).commonColor.textColor)
             }
             .padding()
             Spacer()
@@ -44,16 +44,18 @@ struct ThemeSettingView: View {
             }
             AnimatedSwitch(isOn: $isOn)
                 .onTapGesture(count: 1, perform: {
-                    withAnimation(Animation.easeInOut(duration: 0.5)) {
-                        isOn.toggle()
-                    }
+                    isOn.toggle()
                 })
                 .onChange(of: isOn) { newValue in
                     Theme.post(themeId: newValue ? 1 : 0)
+                }
+                .onChange(of: themeId) { newValue in
+                    isOn = newValue == 1
                 }
         }
         .onAppear(perform: {
             self.isOn = themeId == 1
         })
+        .animation(Animation.easeInOut(duration: 0.5), value: isOn)
     }
 }

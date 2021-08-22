@@ -11,13 +11,18 @@ struct ResetDialog: View {
     var reset: VoidFunction
     var cancel: VoidFunction
 
+    @AppStorage(Keys.themeId.rawValue) var themeId: Int = 0
+
     func createButton(title: String,
-                      background: Color = Theme.current.buttonColor.backgroundColor,
+                      background: Color? = nil,
                       callback: @escaping VoidFunction) -> some View {
-        Button(action: callback) {
+        
+        let background = background ?? Theme.get(id: themeId).buttonColor.backgroundColor
+        
+        return Button(action: callback) {
             Text(title)
                 .font(.system(size: 12))
-                .foregroundColor(Theme.current.buttonColor.textColor)
+                .foregroundColor(Theme.get(id: themeId).buttonColor.textColor)
                 .frame(maxWidth: .infinity)
                 .padding()
         }
@@ -30,12 +35,12 @@ struct ResetDialog: View {
             Text("You are about to reset this diary")
                 .fontWeight(.bold)
                 .font(.system(size: 20))
-                .foregroundColor(Theme.current.commonColor.textColor)
+                .foregroundColor(Theme.get(id: themeId).commonColor.textColor)
 
             Text("All data will be lost. Do you want to reset?")
                 .font(.system(size: 15))
                 .multilineTextAlignment(.center)
-                .foregroundColor(Theme.current.commonColor.textColor)
+                .foregroundColor(Theme.get(id: themeId).commonColor.textColor)
 
 
             Image(avatar == .dino ? AppImage.surprise.value : AppImage.surprised.value)
