@@ -11,13 +11,18 @@ struct CusomOptionView: View {
     typealias CustomOptionState = CustomOptionViewModel.CustomOptionState
     typealias CustomOptionTrigger = CustomOptionViewModel.CustomOptionTrigger
     
-    @AppStorage(Keys.themeId.rawValue) var themeId: Int = 0
+    @AppStorage(Keys.themeId.rawValue)
+    var themeId: Int = 0
 
-    @ObservedObject var viewModel: BaseViewModel<CustomOptionState,
-                                                 CustomOptionTrigger>
+    @ObservedObject
+    var viewModel: BaseViewModel<CustomOptionState,
+                                 CustomOptionTrigger>
     
-    @State private var currentIndex: Int = 0
-    @State private var title: String = ""
+    @State
+    private var currentIndex: Int = 0
+    
+    @State
+    private var title: String = ""
 
     let namespace: Namespace.ID
     

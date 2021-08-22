@@ -8,9 +8,15 @@
 import SwiftUI
 
 struct SettingView: View {
-    @AppStorage(Keys.themeId.rawValue) var themeId: Int = 0
-    @State var isThemeViewShowing = false
-    @Binding var isTabBarHiddenNeeded: Bool
+    
+    @AppStorage(Keys.themeId.rawValue)
+    var themeId: Int = 0
+    
+    @State
+    var isThemeViewShowing = false
+    
+    @Binding
+    var isTabBarHiddenNeeded: Bool
 
     private func showTabBar() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {

@@ -8,7 +8,9 @@
 import Foundation
 
 class OptionAdditionViewModel: ViewModel {
-    @Published var state: OptionAdditionState
+    
+    @Published
+    var state: OptionAdditionState
     
     init(state: OptionAdditionState) {
         self.state = state

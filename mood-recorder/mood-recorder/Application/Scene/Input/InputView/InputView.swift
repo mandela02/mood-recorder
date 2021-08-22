@@ -16,19 +16,29 @@ struct InputView: View {
     typealias InputState = InputViewModel.InputState
     typealias InputTrigger = InputViewModel.InputTrigger
     
-    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.presentationMode)
+    var presentationMode
     
-    @ObservedObject var viewModel: BaseViewModel<InputState,
+    @ObservedObject
+    var viewModel: BaseViewModel<InputState,
                                                  InputTrigger>
     
-    @State private var text = ""
-    @State private var isImagePickerShowing = false
-    @State private var destination: ScrollDestination?
-    @State private var imagePickerController: UIImagePickerController?
+    @State
+    private var text = ""
+    
+    @State
+    private var isImagePickerShowing = false
+    
+    @State
+    private var destination: ScrollDestination?
+    
+    @State
+    private var imagePickerController: UIImagePickerController?
     
     @FocusState private var isFocus: Bool
     
-    @AppStorage(Keys.themeId.rawValue) var themeId: Int = 0
+    @AppStorage(Keys.themeId.rawValue)
+    var themeId: Int = 0
     
     init(emotion: CoreEmotion? = nil, data: InputDataModel? = nil) {
         let inputState = InputState(emotion: emotion, data: data)

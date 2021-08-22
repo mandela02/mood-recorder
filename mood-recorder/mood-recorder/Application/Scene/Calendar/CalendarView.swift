@@ -11,12 +11,18 @@ struct CalendarView: View {
     typealias CalendarState = CalendarViewModel.CalendarState
     typealias CalendarTrigger = CalendarViewModel.CalendarTrigger
     
-    @ObservedObject var viewModel: BaseViewModel<CalendarState,
-                                                 CalendarTrigger>
-    @Binding var isTabBarHiddenNeeded: Bool
+    @ObservedObject
+    var viewModel: BaseViewModel<CalendarState,
+                                 CalendarTrigger>
     
-    @State var isInputViewShowing = false
-    @AppStorage(Keys.themeId.rawValue) var themeId: Int = 0
+    @Binding
+    var isTabBarHiddenNeeded: Bool
+    
+    @State
+    var isInputViewShowing = false
+    
+    @AppStorage(Keys.themeId.rawValue)
+    var themeId: Int = 0
 
     init(viewModel: BaseViewModel<CalendarState, CalendarTrigger>,
          isTabBarHiddenNeeded: Binding<Bool>) {

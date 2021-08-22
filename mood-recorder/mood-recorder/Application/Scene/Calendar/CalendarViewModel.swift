@@ -10,7 +10,8 @@ import Combine
 
 class CalendarViewModel: ViewModel {
     
-    @Published var state: CalendarState
+    @Published
+    var state: CalendarState
     
     private var cancellables = Set<AnyCancellable>()
     private let useCase = UseCaseProvider.defaultProvider.getCalendarUseCases()

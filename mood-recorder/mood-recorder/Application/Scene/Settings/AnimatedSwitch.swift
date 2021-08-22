@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct AnimatedSwitch: View {
-    @Binding var isOn: Bool
+    
+    @Binding
+    var isOn: Bool
 
     var body: some View {
         GeometryReader(content: { geometry in
@@ -24,7 +26,10 @@ struct AnimatedSwitch: View {
 }
 
 struct MountainView: View {
-    @Binding var isOn: Bool
+    
+    @Binding
+    var isOn: Bool
+    
     var size: CGSize
         
     var body: some View {
@@ -73,11 +78,15 @@ struct MountainView: View {
 }
 
 struct SunView: View {
-    @Binding var isOn: Bool
+    @Binding
+    var isOn: Bool
+    
     var size: CGSize
     var dayConic: RadialGradient
     var nightConic: RadialGradient
-    @State var conic: RadialGradient?
+    
+    @State
+    var conic: RadialGradient?
 
     let dayColors = [Color.yellow.opacity(0.5),
                      Color.white]

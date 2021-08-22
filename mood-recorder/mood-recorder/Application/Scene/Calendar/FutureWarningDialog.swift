@@ -11,7 +11,8 @@ struct FutureWarningDialog: View {
     var date: Date
     var onCancel: VoidFunction
     
-    @AppStorage(Keys.themeId.rawValue) var themeId: Int = 0
+    @AppStorage(Keys.themeId.rawValue)
+    var themeId: Int = 0
 
     func createButton(title: String,
                       background: Color,

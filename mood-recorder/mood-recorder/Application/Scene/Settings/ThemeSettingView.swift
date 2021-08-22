@@ -8,8 +8,12 @@
 import SwiftUI
 
 struct ThemeSettingView: View {
-    @AppStorage(Keys.themeId.rawValue) var themeId: Int = 0
-    @AppStorage(Keys.isUsingSystemTheme.rawValue) var isUsingSystemTheme: Bool = false
+    
+    @AppStorage(Keys.themeId.rawValue)
+    var themeId: Int = 0
+    
+    @AppStorage(Keys.isUsingSystemTheme.rawValue)
+    var isUsingSystemTheme: Bool = false
 
     @State var isOn: Bool = false
     

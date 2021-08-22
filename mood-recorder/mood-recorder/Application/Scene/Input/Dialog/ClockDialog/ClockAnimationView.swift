@@ -8,15 +8,27 @@
 import SwiftUI
 
 struct ClockAnimationView: View {
-    @State private var bedTimeProgress: CGFloat
-    @State private var wakeTimeProgress: CGFloat
+    
+    @State
+    private var bedTimeProgress: CGFloat
+    
+    @State
+    private var wakeTimeProgress: CGFloat
         
-    @State private var isRinging = false
-    @State private var showZleft = false
-    @State private var showZmiddle = false
-    @State private var showZright = false
+    @State
+    private var isRinging = false
+    
+    @State
+    private var showZleft = false
+    
+    @State
+    private var showZmiddle = false
+    
+    @State
+    private var showZright = false
 
-    @AppStorage(Keys.themeId.rawValue) var themeId: Int = 0
+    @AppStorage(Keys.themeId.rawValue)
+    var themeId: Int = 0
 
     private var defaultWidth: CGFloat = 50
     private let sectment: Double

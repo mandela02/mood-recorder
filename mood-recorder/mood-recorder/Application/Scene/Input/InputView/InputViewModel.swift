@@ -9,7 +9,9 @@ import SwiftUI
 import Combine
 
 class InputViewModel: ViewModel {
-    @Published var state: InputState
+    
+    @Published
+    var state: InputState
     
     private let useCase = UseCaseProvider.defaultProvider.getInputUseCases()
     

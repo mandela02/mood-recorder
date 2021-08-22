@@ -52,16 +52,22 @@ enum Month: Int, CaseIterable, StringValueProtocol {
 }
 
 struct MonthPicker: View {
-    @State private var selectedMonth: Month
-    @State private var selectedYear: Int
-    @State private var isAppear = false
+    @State
+    private var selectedMonth: Month
+    
+    @State
+    private var selectedYear: Int
+    
+    @State
+    private var isAppear = false
     
     private let years = 1980...2099
     
     var onApply: IntTupleCallbackFunction
     var onCancel: VoidFunction
 
-    @AppStorage(Keys.themeId.rawValue) var themeId: Int = 0
+    @AppStorage(Keys.themeId.rawValue)
+    var themeId: Int = 0
 
     init(month: Int,
          year: Int,

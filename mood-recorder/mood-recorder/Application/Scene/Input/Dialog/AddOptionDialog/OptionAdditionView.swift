@@ -11,18 +11,24 @@ struct OptionAdditionView: View {
     typealias OptionAdditionState = OptionAdditionViewModel.OptionAdditionState
     typealias OptionAdditionTrigger = OptionAdditionViewModel.OptionAdditionTrigger
     
-    @ObservedObject var viewModel: BaseViewModel<OptionAdditionState,
-                                                 OptionAdditionTrigger>
+    @ObservedObject
+    var viewModel: BaseViewModel<OptionAdditionState,
+                                 OptionAdditionTrigger>
     
     let onConfirm: OptionModelArrayCallbackFunction
     let onCancel: VoidFunction
     
-    @State var currentIndex: Int = 0
-    @State var isAboutToAddMore: Bool = false
-
-    @AppStorage(Keys.themeId.rawValue) var themeId: Int = 0
-
-    @Namespace var namespace
+    @State
+    var currentIndex: Int = 0
+    
+    @State
+    var isAboutToAddMore: Bool = false
+    
+    @AppStorage(Keys.themeId.rawValue)
+    var themeId: Int = 0
+    
+    @Namespace
+    var namespace
     
     init(sectionModel: SectionModel,
          onConfirm: @escaping OptionModelArrayCallbackFunction,
@@ -185,7 +191,7 @@ struct OptionAdditionView: View {
             
             makePagingController()
                 .padding(.bottom, 10)
-                                    
+            
             VStack {
                 createButton(title: "Confirm",
                              background: Theme.get(id: themeId).buttonColor.backgroundColor,

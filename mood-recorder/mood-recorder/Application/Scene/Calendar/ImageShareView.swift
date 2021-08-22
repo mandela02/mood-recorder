@@ -10,7 +10,8 @@ import SwiftUI
 struct ImageShareView: View {
     let image: UIImage
     
-    @AppStorage(Keys.themeId.rawValue) var themeId: Int = 0
+    @AppStorage(Keys.themeId.rawValue)
+    var themeId: Int = 0
 
     var body: some View {
         ZStack {
