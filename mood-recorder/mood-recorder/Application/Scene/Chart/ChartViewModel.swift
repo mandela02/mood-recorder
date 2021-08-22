@@ -25,6 +25,7 @@ class ChartViewModel: ViewModel {
         Task {
             await fetch()
         }
+        setupSubcription()
     }
     
     func trigger(_ input: ChartTrigger) {
@@ -32,6 +33,17 @@ class ChartViewModel: ViewModel {
         case .goTo(let month, let year):
             print("goto \(month), \(year)")
         }
+    }
+    
+    private func setupSubcription() {
+        self.useCase.publisher()
+            .sink { [weak self] in
+                guard let self = self else { return }
+                Task {
+                    await self.fetch()
+                }
+            }
+            .store(in: &cancellables)
     }
 }
 

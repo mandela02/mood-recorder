@@ -26,11 +26,9 @@ struct LineChartView: View {
         
         self.numberOfSecment = date.getDateMonth().count
         self.datasource = datasource
-        
-        let emotions = datasource.map { $0.emotion.doubleValue }
-        
-        self.maxY = emotions.max() ?? 0
-        self.minY = emotions.min() ?? 0
+                
+        self.maxY = CoreEmotion.allCases.map { $0.doubleValue }.max() ?? 0
+        self.minY = CoreEmotion.allCases.map { $0.doubleValue }.min() ?? 0
         
         maxXAxisValue = date.endOfMonth
         minXAxisValue = date.startOfMonth

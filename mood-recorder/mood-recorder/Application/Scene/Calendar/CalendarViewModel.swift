@@ -138,8 +138,7 @@ extension CalendarViewModel {
     private func handleData(models: [InputDataModel], dates: [Date]) async {
         let result = Task(priority: .background) { () -> [InputDataModel] in
             
-            var diaries = dates.map { InputDataModel(date: $0,
-                                                                sections: []) }
+            var diaries = dates.map { InputDataModel(date: $0, sections: []) }
             
             for index in diaries.indices {
                 guard let model = models
