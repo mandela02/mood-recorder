@@ -52,6 +52,10 @@ struct LineChartView: View {
                         chartPoint
                             .animation(.easeInOut, value: precent == 1)
                     }
+                    if datasource.isEmpty {
+                        Text("No diaries recorded")
+                            .font(.system(size: 20))
+                    }
                 }
             }
             .frame(height: 200, alignment: .center)

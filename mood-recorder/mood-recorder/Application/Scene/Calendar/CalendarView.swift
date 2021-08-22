@@ -75,6 +75,7 @@ struct CalendarView: View {
                         viewModel.trigger(.deselectDate)
                         viewModel.trigger(.closeDatePicker)
                         viewModel.trigger(.goTo(month: month, year: year))
+                        viewModel.trigger(.reload)
                         showTabBar()
                     },
                     onCancel: {
@@ -216,10 +217,12 @@ extension CalendarView {
                                goToNextMonth: {
                 viewModel.trigger(.deselectDate)
                 viewModel.trigger(.goToNextMonth)
+                viewModel.trigger(.reload)
             },
                                goToLastMonth: {
                 viewModel.trigger(.deselectDate)
                 viewModel.trigger(.backToLaseMonth)
+                viewModel.trigger(.reload)
             }, onDateTap: {
                 isTabBarHiddenNeeded = true
                 viewModel.trigger(.showDatePicker)

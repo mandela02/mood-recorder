@@ -52,8 +52,21 @@ class ChartViewModel: ViewModel {
             case .close:
                 state.chartShowPercent = 0
             case .open:
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
-                    withAnimation(Animation.linear(duration: 2.0)) {
+                var duration: Double = 0
+                let number = state.chartDatas.count
+                
+                if number < 5 {
+                    duration = 0.5
+                } else if duration < 15 {
+                    duration = 1
+                } else if duration < 25 {
+                    duration = 1.5
+                } else {
+                    duration = 2
+                }
+
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+                    withAnimation(Animation.linear(duration: duration)) {
                         self?.state.chartShowPercent = 1
                     }
                 }

@@ -29,6 +29,8 @@ class CalendarViewModel: ViewModel {
     
     func trigger(_ input: CalendarTrigger) {
         switch input {
+        case .reload:
+            syncFetch()
         case .dateSelection(let model):
             state.selectedInputDataModel = model
             if model.date.isInTheFuture {
@@ -51,20 +53,17 @@ class CalendarViewModel: ViewModel {
             if state.currentMonth.month == 13 {
                 state.currentMonth = (1, state.currentMonth.year + 1)
             }
-            syncFetch()
         case .backToLaseMonth:
             state.currentMonth.month -= 1
             if state.currentMonth.month == 0 {
                 state.currentMonth = (12, state.currentMonth.year - 1)
             }
-            syncFetch()
         case .showDatePicker:
             state.isDatePickerShow = true
         case .closeDatePicker:
             state.isDatePickerShow = false
         case .goTo(month: let month, year: let year):
             state.currentMonth = (month, year)
-            syncFetch()
         case .goToToDay:
             loadToday()
         case .share:
@@ -219,5 +218,6 @@ extension CalendarViewModel {
         case closeInputView
         case edit
         case delete
+        case reload
     }
 }
