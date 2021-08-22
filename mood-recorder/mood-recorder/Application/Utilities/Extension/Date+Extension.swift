@@ -252,6 +252,10 @@ extension Date {
         return self.startOfDay.timeIntervalSince1970
     }
     
+    var endOfDayInterval: Double {
+        return self.endOfDay.timeIntervalSince1970
+    }
+    
     var isInTheFuture: Bool {
         self.startOfDay > Date().startOfDay
     }
@@ -275,6 +279,13 @@ extension Date {
             date = newDate
         }
         return dates
+    }
+    
+    func getDateMonth() -> [Date] {
+        let startDate = self.startOfMonth
+        let endDate = self.endOfMonth
+        
+        return Date.dates(from: startDate, to: endDate)
     }
     
     func getAllDateInMonthFaster() -> [Date] {

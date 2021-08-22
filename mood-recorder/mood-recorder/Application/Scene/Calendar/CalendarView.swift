@@ -8,9 +8,6 @@
 import SwiftUI
 
 struct CalendarView: View {
-    typealias CalendarState = CalendarViewModel.CalendarState
-    typealias CalendarTrigger = CalendarViewModel.CalendarTrigger
-    
     @ObservedObject
     var viewModel: BaseViewModel<CalendarState,
                                  CalendarTrigger>

@@ -58,17 +58,7 @@ struct InputUseCases: InputUseCaseType {
     }
 
     func fetch(at date: Double) -> DatabaseResponse {
-        let result = fetchUseCase.fetch(at: date)
-        switch result {
-        case .success(data: let model as CDInputModel):
-            return .success(data: fetchUseCase.convert(model: model))
-        case .error(let error):
-            return.error(error: error)
-        default:
-            return .error(error: NSError(domain: "Can not find this record",
-                                         code: 1,
-                                         userInfo: nil))
-        }
+        return fetchUseCase.fetchAndConvert(at: date)
     }
 
     func isRecordExist(date: Double) -> Bool {

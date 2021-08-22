@@ -8,9 +8,6 @@
 import SwiftUI
 
 struct HomeView: View {
-    typealias CalendarState = CalendarViewModel.CalendarState
-    typealias CalendarTrigger = CalendarViewModel.CalendarTrigger
-    
     @AppStorage(Keys.themeId.rawValue)
     var themeId: Int = 0
     
@@ -22,12 +19,6 @@ struct HomeView: View {
     
     @ObservedObject
     var viewModel = HomeViewModel()
-    
-    var calendarViewModel: BaseViewModel<CalendarState,
-                                         CalendarTrigger>
-    init() {
-        calendarViewModel = BaseViewModel(CalendarViewModel(state: CalendarState()))
-    }
     
     @ViewBuilder
     var tintForeGroundColor: some View {
@@ -43,13 +34,15 @@ struct HomeView: View {
     var tabView: some View {
         TabView(selection: $viewModel.seletedTabBarIndex,
                 content: {
-            CalendarView(viewModel: calendarViewModel,
-                         isTabBarHiddenNeeded: $viewModel.isTabBarHiddenNeeded).tag(0)
+            CalendarView(viewModel: viewModel.calendarViewModel,
+                         isTabBarHiddenNeeded: $viewModel.isTabBarHiddenNeeded)
+                .tag(0)
             Color.green.tag(1)
                 .ignoresSafeArea()
-            Color.blue.tag(2)
-                .ignoresSafeArea()
-            SettingView(isTabBarHiddenNeeded: $viewModel.isTabBarHiddenNeeded).tag(3)
+            ChartView(viewModel: viewModel.chartViewModel)
+                .tag(2)
+            SettingView(isTabBarHiddenNeeded: $viewModel.isTabBarHiddenNeeded)
+                .tag(3)
         })
             .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
     }

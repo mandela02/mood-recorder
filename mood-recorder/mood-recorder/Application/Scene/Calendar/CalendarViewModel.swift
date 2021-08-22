@@ -116,7 +116,7 @@ class CalendarViewModel: ViewModel {
 extension CalendarViewModel {
     private func fetch(dates: [Date]) async {
         guard let start = dates.first?.startOfDayInterval,
-              let end = dates.last?.startOfDayInterval else { return }
+              let end = dates.last?.endOfDayInterval else { return }
         
         let response = useCase.fetch(from: start, to: end)
         

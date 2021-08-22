@@ -9,8 +9,9 @@ import Foundation
 
 protocol FetchUseCaseType {
     func fetch(at date: Double) -> DatabaseResponse
+    func fetchAndConvert(at date: Double) -> DatabaseResponse
     func fetch(from start: Double, to end: Double) -> DatabaseResponse
-    func convert(model: CDInputModel) -> InputDataModel
+    func fetchAndConvert(from start: Double, to end: Double) -> DatabaseResponse
 }
 
 class FetchUseCase: FetchUseCaseType {
@@ -27,8 +28,37 @@ class FetchUseCase: FetchUseCaseType {
     func fetch(at date: Double) -> DatabaseResponse {
         return repository.fetchRequestGetFirst(predicate: NSPredicate(format: "date == %lf", date))
     }
+    
+    func fetchAndConvert(at date: Double) -> DatabaseResponse {
+        let result = fetch(at: date)
+        switch result {
+        case .success(data: let model as CDInputModel):
+            return .success(data: convert(model: model))
+        case .error(let error):
+            return.error(error: error)
+        default:
+            return .error(error: NSError(domain: "Can not find this record",
+                                         code: 1,
+                                         userInfo: nil))
+        }
+    }
+    
+    func fetchAndConvert(from start: Double, to end: Double) -> DatabaseResponse {
+        let result = fetch(from: start, to: end)
+        switch result {
+        case .success(data: let models as [CDInputModel]):
+            let inputDataModels = models.map { convert(model: $0) }
+            return .success(data: inputDataModels)
+        case .error(let error):
+            return.error(error: error)
+        default:
+            return .error(error: NSError(domain: "Can not find data this month",
+                                         code: 1,
+                                         userInfo: nil))
+        }
+    }
 
-    func convert(model: CDInputModel) -> InputDataModel {
+    private func convert(model: CDInputModel) -> InputDataModel {
         var sectionModels = [SectionModel]()
         
         for cdSection in model.sectionArray {

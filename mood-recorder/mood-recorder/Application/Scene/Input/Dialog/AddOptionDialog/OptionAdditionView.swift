@@ -8,9 +8,6 @@
 import SwiftUI
 
 struct OptionAdditionView: View {
-    typealias OptionAdditionState = OptionAdditionViewModel.OptionAdditionState
-    typealias OptionAdditionTrigger = OptionAdditionViewModel.OptionAdditionTrigger
-    
     @ObservedObject
     var viewModel: BaseViewModel<OptionAdditionState,
                                  OptionAdditionTrigger>

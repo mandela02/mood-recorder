@@ -20,7 +20,18 @@ class HomeViewModel: ObservableObject {
     @Published
     var isTabBarHiddenNeeded = false
 
+    var calendarViewModel: BaseViewModel<CalendarState,
+                                         CalendarTrigger>
+    
+    var chartViewModel: BaseViewModel<ChartState,
+                                      ChartTrigger>
+    
     var selectedCoreEmotion: CoreEmotion?
+    
+    init() {
+        calendarViewModel = BaseViewModel(CalendarViewModel(state: CalendarState()))
+        chartViewModel = BaseViewModel(ChartViewModel(state: ChartState()))
+    }
     
     func onBigButtonTapped() {
         isEmotionDialogShowing.toggle()

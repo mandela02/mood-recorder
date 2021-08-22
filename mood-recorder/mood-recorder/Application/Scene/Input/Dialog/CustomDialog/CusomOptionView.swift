@@ -8,9 +8,6 @@
 import SwiftUI
 
 struct CusomOptionView: View {
-    typealias CustomOptionState = CustomOptionViewModel.CustomOptionState
-    typealias CustomOptionTrigger = CustomOptionViewModel.CustomOptionTrigger
-    
     @AppStorage(Keys.themeId.rawValue)
     var themeId: Int = 0
 

@@ -75,12 +75,6 @@ struct ThemeColor {
 }
 
 struct ThemeValue {
-    typealias NavigationColor           = ThemeColor.NavigationColor
-    typealias TableViewColor            = ThemeColor.TableViewColor
-    typealias ButtonColor               = ThemeColor.ButtonColor
-    typealias CommonColor               = ThemeColor.CommonColor
-    typealias SleepColor                = ThemeColor.SleepColor
-    
     static let matchaGreen = ThemeColor(navigationColor: NavigationColor(button: Color(hex: "FFFFFF"),
                                                                          title: Color(hex: "FFFFFF"),
                                                                          background: Color(hex: "D1E191")),

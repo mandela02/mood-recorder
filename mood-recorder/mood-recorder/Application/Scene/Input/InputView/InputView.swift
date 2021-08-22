@@ -13,15 +13,12 @@ struct InputView: View {
         case bottom
     }
     
-    typealias InputState = InputViewModel.InputState
-    typealias InputTrigger = InputViewModel.InputTrigger
-    
     @Environment(\.presentationMode)
     var presentationMode
     
     @ObservedObject
     var viewModel: BaseViewModel<InputState,
-                                                 InputTrigger>
+                                 InputTrigger>
     
     @State
     private var text = ""
