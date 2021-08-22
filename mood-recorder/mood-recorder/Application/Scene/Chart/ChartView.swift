@@ -69,6 +69,7 @@ extension ChartView {
                 })
             buildMoodBarView()
         }
+        .padding()
     }
 }
 
@@ -87,7 +88,6 @@ extension ChartView {
             }
             .padding()
         }
-        .padding()
     }
 }
 
