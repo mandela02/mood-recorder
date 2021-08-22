@@ -20,6 +20,9 @@ struct LineChartView: View {
     
     private var precent: CGFloat
     
+    @AppStorage(Keys.themeId.rawValue)
+    var themeId: Int = 0
+    
     init(month: Int, year: Int, datasource: [ChartData],
          precent: CGFloat) {
         self.precent = precent
@@ -57,6 +60,7 @@ struct LineChartView: View {
                 chartXAxis
             }
         }
+        .foregroundColor(Theme.get(id: themeId).commonColor.textColor)
     }
 }
 
@@ -110,10 +114,11 @@ private extension LineChartView {
     
     private var chartPoint: some View {
         GeometryReader { reader in
+            let segmentSize = reader.size.width / CGFloat(numberOfSecment)
+            
             ZStack {
                 ForEach(datasource.indices, id: \.self) { index in
-                    let xPos = reader.size.width /
-                    CGFloat(numberOfSecment) *
+                    let xPos = segmentSize *
                     CGFloat(datasource[index].index + 1)
                     
                     let yAxis = maxY - minY
@@ -124,11 +129,11 @@ private extension LineChartView {
                     
                     ZStack {
                         Circle()
-                            .fill(Color.green)
-                            .frame(width: 10)
+                            .fill(Theme.get(id: themeId).buttonColor.backgroundColor)
+                            .frame(width: segmentSize / 1.5)
                         Circle()
                             .fill(Color.white)
-                            .frame(width: 5)
+                            .frame(width: segmentSize / 3)
                     }
                     .frame(width: 10)
                     .position(x: xPos, y: yPos)
@@ -160,7 +165,7 @@ private extension LineChartView {
                 }
             }
             .trim(from: 0, to: precent)
-            .stroke(Color.green,
+            .stroke(Theme.get(id: themeId).buttonColor.backgroundColor,
                     style: StrokeStyle(lineWidth: 2,
                                        lineCap: .round,
                                        lineJoin: .round))

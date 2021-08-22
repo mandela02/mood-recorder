@@ -64,6 +64,7 @@ extension ChartView {
             month: viewModel.currentMonth.month,
             year: viewModel.currentMonth.year,
             onApply: { (month, year) in
+                viewModel.trigger(.handleChartViewStatus(status: .close))
                 viewModel.trigger(.handleDatePickerViewStatus(status: .close))
                 viewModel.trigger(.goTo(month: month, year: year))
                 viewModel.trigger(.reload)
@@ -91,7 +92,6 @@ extension ChartView {
             viewModel.trigger(.reload)
             viewModel.trigger(.handleChartViewStatus(status: .open))
         }, onDateTap: {
-            viewModel.trigger(.handleChartViewStatus(status: .close))
             isTabBarHiddenNeeded = true
             viewModel.trigger(.handleDatePickerViewStatus(status: .open))
         })
