@@ -15,7 +15,11 @@ struct ThemeSettingView: View {
     @AppStorage(Keys.isUsingSystemTheme.rawValue)
     var isUsingSystemTheme: Bool = false
 
-    @State var isOn: Bool = false
+    @Environment(\.colorScheme)
+    var colorScheme
+
+    @State
+    var isOn: Bool = false
     
     let onClose: VoidFunction
    
@@ -90,6 +94,11 @@ struct ThemeSettingView: View {
                 }
                 .offset(y: 5)
         }
+        .onChange(of: isUsingSystemTheme, perform: { newValue in
+            if newValue {
+                Theme.post(themeId: colorScheme == .dark ? 1 : 0)
+            }
+        })
         .onAppear(perform: {
             self.isOn = themeId == 1
         })
