@@ -86,8 +86,13 @@
 		90256F3326D132DF0067B354 /* ImageShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90256F3226D132DF0067B354 /* ImageShareView.swift */; };
 		9041C11E26CEC45C0054617E /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9041C11D26CEC45C0054617E /* CalendarViewModel.swift */; };
 		9057DE9326D1086600FF7DA2 /* CalendarDiaryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9057DE9226D1086600FF7DA2 /* CalendarDiaryDetailView.swift */; };
+		90687C2026D33355004A7DC6 /* PieChartSliceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90687C1F26D33355004A7DC6 /* PieChartSliceView.swift */; };
+		90687C2226D333C7004A7DC6 /* PieChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90687C2126D333C7004A7DC6 /* PieChartView.swift */; };
+		90687C2426D333F5004A7DC6 /* PercentChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90687C2326D333F5004A7DC6 /* PercentChartData.swift */; };
+		90687C2626D336E5004A7DC6 /* ChartHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90687C2526D336E5004A7DC6 /* ChartHelper.swift */; };
+		90687C2926D3391C004A7DC6 /* MoodBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90687C2826D3391C004A7DC6 /* MoodBarView.swift */; };
 		907ABBF126D2C12200201BD9 /* DateNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907ABBF026D2C12200201BD9 /* DateNavigationView.swift */; };
-		907ABBF326D2CE2700201BD9 /* MoodBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907ABBF226D2CE2700201BD9 /* MoodBarView.swift */; };
+		907ABBF326D2CE2700201BD9 /* EmotionPercentChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907ABBF226D2CE2700201BD9 /* EmotionPercentChartView.swift */; };
 		907DBD3426D2A96500A2D529 /* ChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907DBD3326D2A96500A2D529 /* ChartData.swift */; };
 		907DBD3626D2A9CD00A2D529 /* LineChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907DBD3526D2A9CD00A2D529 /* LineChartView.swift */; };
 		907E278326D1ECEC00D8129A /* AnimatedSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907E278226D1ECEC00D8129A /* AnimatedSwitch.swift */; };
@@ -183,8 +188,13 @@
 		90256F3226D132DF0067B354 /* ImageShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageShareView.swift; sourceTree = "<group>"; };
 		9041C11D26CEC45C0054617E /* CalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
 		9057DE9226D1086600FF7DA2 /* CalendarDiaryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDiaryDetailView.swift; sourceTree = "<group>"; };
+		90687C1F26D33355004A7DC6 /* PieChartSliceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieChartSliceView.swift; sourceTree = "<group>"; };
+		90687C2126D333C7004A7DC6 /* PieChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieChartView.swift; sourceTree = "<group>"; };
+		90687C2326D333F5004A7DC6 /* PercentChartData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PercentChartData.swift; sourceTree = "<group>"; };
+		90687C2526D336E5004A7DC6 /* ChartHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartHelper.swift; sourceTree = "<group>"; };
+		90687C2826D3391C004A7DC6 /* MoodBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodBarView.swift; sourceTree = "<group>"; };
 		907ABBF026D2C12200201BD9 /* DateNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateNavigationView.swift; sourceTree = "<group>"; };
-		907ABBF226D2CE2700201BD9 /* MoodBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodBarView.swift; sourceTree = "<group>"; };
+		907ABBF226D2CE2700201BD9 /* EmotionPercentChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionPercentChartView.swift; sourceTree = "<group>"; };
 		907DBD3326D2A96500A2D529 /* ChartData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartData.swift; sourceTree = "<group>"; };
 		907DBD3526D2A9CD00A2D529 /* LineChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineChartView.swift; sourceTree = "<group>"; };
 		907E278226D1ECEC00D8129A /* AnimatedSwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedSwitch.swift; sourceTree = "<group>"; };
@@ -485,8 +495,10 @@
 		9007B35126D29FC600912AAC /* Chart */ = {
 			isa = PBXGroup;
 			children = (
+				90687C2726D3390C004A7DC6 /* SubView */,
 				90687C1C26D33313004A7DC6 /* ChartView */,
 				90687C1926D332E6004A7DC6 /* AllTypeOfChart */,
+				90687C2526D336E5004A7DC6 /* ChartHelper.swift */,
 			);
 			path = Chart;
 			sourceTree = "<group>";
@@ -585,6 +597,7 @@
 		90687C1926D332E6004A7DC6 /* AllTypeOfChart */ = {
 			isa = PBXGroup;
 			children = (
+				90687C1D26D33337004A7DC6 /* PieChart */,
 				90687C1B26D33302004A7DC6 /* MoodBar */,
 				90687C1A26D332F8004A7DC6 /* LineChart */,
 			);
@@ -602,7 +615,7 @@
 		90687C1B26D33302004A7DC6 /* MoodBar */ = {
 			isa = PBXGroup;
 			children = (
-				907ABBF226D2CE2700201BD9 /* MoodBarView.swift */,
+				90687C2826D3391C004A7DC6 /* MoodBarView.swift */,
 			);
 			path = MoodBar;
 			sourceTree = "<group>";
@@ -616,10 +629,28 @@
 			path = ChartView;
 			sourceTree = "<group>";
 		};
+		90687C1D26D33337004A7DC6 /* PieChart */ = {
+			isa = PBXGroup;
+			children = (
+				90687C1F26D33355004A7DC6 /* PieChartSliceView.swift */,
+				90687C2126D333C7004A7DC6 /* PieChartView.swift */,
+			);
+			path = PieChart;
+			sourceTree = "<group>";
+		};
+		90687C2726D3390C004A7DC6 /* SubView */ = {
+			isa = PBXGroup;
+			children = (
+				907ABBF226D2CE2700201BD9 /* EmotionPercentChartView.swift */,
+			);
+			path = SubView;
+			sourceTree = "<group>";
+		};
 		907DBD3226D2A95A00A2D529 /* Chart */ = {
 			isa = PBXGroup;
 			children = (
 				907DBD3326D2A96500A2D529 /* ChartData.swift */,
+				90687C2326D333F5004A7DC6 /* PercentChartData.swift */,
 			);
 			path = Chart;
 			sourceTree = "<group>";
@@ -746,6 +777,7 @@
 				9021188D26D0C37B00273FC8 /* TypeAlias.swift in Sources */,
 				84CBB35F26B703BF00A8E377 /* CustomTabBar.swift in Sources */,
 				8423C22526C03352000717D9 /* Repositoy.swift in Sources */,
+				90687C2626D336E5004A7DC6 /* ChartHelper.swift in Sources */,
 				84CBB36C26B71EE600A8E377 /* RoundImageView.swift in Sources */,
 				8424A93126B5BE0B00BE4454 /* ContentView.swift in Sources */,
 				846A7C6026CC226F004F6A63 /* ClockAnimationView.swift in Sources */,
@@ -759,12 +791,14 @@
 				84C3F72D26C03AE600C789F5 /* CDSectionModel+CoreDataProperties.swift in Sources */,
 				8404938926BA4F2F006523D9 /* SectionModel.swift in Sources */,
 				907E278526D1F0ED00D8129A /* ThemeSettingView.swift in Sources */,
-				907ABBF326D2CE2700201BD9 /* MoodBarView.swift in Sources */,
+				907ABBF326D2CE2700201BD9 /* EmotionPercentChartView.swift in Sources */,
 				907E278326D1ECEC00D8129A /* AnimatedSwitch.swift in Sources */,
 				84C3F73426C044A800C789F5 /* UseCaseProvider.swift in Sources */,
 				8423C21126BFD384000717D9 /* Hobby.swift in Sources */,
 				8476F1A926B861EC00F62854 /* Weather.swift in Sources */,
+				90687C2226D333C7004A7DC6 /* PieChartView.swift in Sources */,
 				84EE2F8526C7CFF800C0195D /* DismissDialog.swift in Sources */,
+				90687C2026D33355004A7DC6 /* PieChartSliceView.swift in Sources */,
 				84CBB36426B7154100A8E377 /* HomeView.swift in Sources */,
 				84C3F72A26C03AE600C789F5 /* CDInputModel+CoreDataClass.swift in Sources */,
 				84C3F73226C03E0E00C789F5 /* InputUseCases.swift in Sources */,
@@ -782,6 +816,7 @@
 				9041C11E26CEC45C0054617E /* CalendarViewModel.swift in Sources */,
 				9021188B26D0C34200273FC8 /* FutureWarningDialog.swift in Sources */,
 				8423C20726BE6AD5000717D9 /* Medical.swift in Sources */,
+				90687C2926D3391C004A7DC6 /* MoodBarView.swift in Sources */,
 				842F073226C81FAF0078BE9B /* OptionAdditionView.swift in Sources */,
 				8423C20D26BFBBCA000717D9 /* Food.swift in Sources */,
 				8404939A26BAA522006523D9 /* SizedBox.swift in Sources */,
@@ -815,6 +850,7 @@
 				90B4E97A26D0D5790048A2C2 /* CalendarUseCases.swift in Sources */,
 				8404938626B9BFCE006523D9 /* InputView.swift in Sources */,
 				907DBD3426D2A96500A2D529 /* ChartData.swift in Sources */,
+				90687C2426D333F5004A7DC6 /* PercentChartData.swift in Sources */,
 				8476F1AD26B8637300F62854 /* String+Extension.swift in Sources */,
 				84B395FE26C7C3D2007B8A6B /* Utilities.swift in Sources */,
 				8404938F26BA4F7D006523D9 /* ImageAndTitleModel.swift in Sources */,

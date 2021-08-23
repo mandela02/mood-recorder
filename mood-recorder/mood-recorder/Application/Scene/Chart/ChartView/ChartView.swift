@@ -82,7 +82,7 @@ extension ChartView {
                 Text("Mood Bar")
                     .font(.system(size: 15))
                     .foregroundColor(Theme.get(id: themeId).commonColor.textColor)
-                MoodBarView(datasource: viewModel.state.chartDatas)
+                EmotionPercentChartView(datasource: viewModel.state.chartDatas)
                     .padding(.all, 5)
                     .frame(maxWidth: .infinity)
             }
