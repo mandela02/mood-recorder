@@ -30,7 +30,7 @@ class PersistenceManager {
 
         container.persistentStoreDescriptions = [localStoreDescription,
                                                  cloudStoreDescription]
-
+        
         container.loadPersistentStores(completionHandler: { (_, error) in
             if let error = error as NSError? {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
@@ -48,6 +48,9 @@ class PersistenceManager {
     private init() {
         let center = NotificationCenter.default
         let notification = UIApplication.willResignActiveNotification
+        
+        persistentContainer.viewContext.automaticallyMergesChangesFromParent = true
+        
         center.addObserver(forName: notification, object: nil, queue: nil) { [weak self] _ in
             guard let self = self else { return }
             if self.persistentContainer.viewContext.hasChanges {

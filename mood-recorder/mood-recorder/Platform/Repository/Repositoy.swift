@@ -37,7 +37,6 @@ class Repository<T: NSManagedObject>: RepositoryType {
     
     func countAll() -> DatabaseResponse {
         return container.viewContext.performAndWait { () -> DatabaseResponse in
-            
             do {
                 let request = NSFetchRequest<T>(entityName: entityName)
                 let result = try container.viewContext.count(for: request)

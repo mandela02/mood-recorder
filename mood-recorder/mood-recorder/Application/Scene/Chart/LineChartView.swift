@@ -57,8 +57,9 @@ struct LineChartView: View {
                             .font(.system(size: 20))
                     }
                 }
+                .frame(height: 200, alignment: .center)
             }
-            .frame(height: 200, alignment: .center)
+            .frame(height: 220, alignment: .center)
             HStack {
                 SizedBox(width: 20)
                 chartXAxis
