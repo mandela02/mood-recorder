@@ -440,6 +440,7 @@
 		84CBB35D26B703AB00A8E377 /* Component */ = {
 			isa = PBXGroup;
 			children = (
+				90901D0726CFF18900ADE8D9 /* MonthPicker.swift */,
 				84CBB35E26B703BF00A8E377 /* CustomTabBar.swift */,
 				84CBB36026B7102700A8E377 /* AppImage.swift */,
 				84CBB36726B71A2800A8E377 /* TalkBubble.swift */,
@@ -484,10 +485,8 @@
 		9007B35126D29FC600912AAC /* Chart */ = {
 			isa = PBXGroup;
 			children = (
-				9007B35226D29FD100912AAC /* ChartView.swift */,
-				9007B35426D29FE100912AAC /* ChartViewModel.swift */,
-				907DBD3526D2A9CD00A2D529 /* LineChartView.swift */,
-				907ABBF226D2CE2700201BD9 /* MoodBarView.swift */,
+				90687C1C26D33313004A7DC6 /* ChartView */,
+				90687C1926D332E6004A7DC6 /* AllTypeOfChart */,
 			);
 			path = Chart;
 			sourceTree = "<group>";
@@ -558,14 +557,63 @@
 		9041C11C26CEC44E0054617E /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
-				9041C11D26CEC45C0054617E /* CalendarViewModel.swift */,
-				9017B96F26CEC7CE00736037 /* CalendarView.swift */,
-				90901D0726CFF18900ADE8D9 /* MonthPicker.swift */,
+				90687C1826D330D8004A7DC6 /* CalendarView */,
+				90687C1726D330B6004A7DC6 /* ChildView */,
+			);
+			path = Calendar;
+			sourceTree = "<group>";
+		};
+		90687C1726D330B6004A7DC6 /* ChildView */ = {
+			isa = PBXGroup;
+			children = (
 				9021188A26D0C34200273FC8 /* FutureWarningDialog.swift */,
 				9057DE9226D1086600FF7DA2 /* CalendarDiaryDetailView.swift */,
 				90256F3226D132DF0067B354 /* ImageShareView.swift */,
 			);
-			path = Calendar;
+			path = ChildView;
+			sourceTree = "<group>";
+		};
+		90687C1826D330D8004A7DC6 /* CalendarView */ = {
+			isa = PBXGroup;
+			children = (
+				9041C11D26CEC45C0054617E /* CalendarViewModel.swift */,
+				9017B96F26CEC7CE00736037 /* CalendarView.swift */,
+			);
+			path = CalendarView;
+			sourceTree = "<group>";
+		};
+		90687C1926D332E6004A7DC6 /* AllTypeOfChart */ = {
+			isa = PBXGroup;
+			children = (
+				90687C1B26D33302004A7DC6 /* MoodBar */,
+				90687C1A26D332F8004A7DC6 /* LineChart */,
+			);
+			path = AllTypeOfChart;
+			sourceTree = "<group>";
+		};
+		90687C1A26D332F8004A7DC6 /* LineChart */ = {
+			isa = PBXGroup;
+			children = (
+				907DBD3526D2A9CD00A2D529 /* LineChartView.swift */,
+			);
+			path = LineChart;
+			sourceTree = "<group>";
+		};
+		90687C1B26D33302004A7DC6 /* MoodBar */ = {
+			isa = PBXGroup;
+			children = (
+				907ABBF226D2CE2700201BD9 /* MoodBarView.swift */,
+			);
+			path = MoodBar;
+			sourceTree = "<group>";
+		};
+		90687C1C26D33313004A7DC6 /* ChartView */ = {
+			isa = PBXGroup;
+			children = (
+				9007B35226D29FD100912AAC /* ChartView.swift */,
+				9007B35426D29FE100912AAC /* ChartViewModel.swift */,
+			);
+			path = ChartView;
 			sourceTree = "<group>";
 		};
 		907DBD3226D2A95A00A2D529 /* Chart */ = {
