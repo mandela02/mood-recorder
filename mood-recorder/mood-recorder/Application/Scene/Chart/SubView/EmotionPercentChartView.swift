@@ -7,28 +7,31 @@
 
 import SwiftUI
 
-struct EmotionPercentChartView: View {
-    enum ChartType {
-        case bar
-        case pie
-    }
-    
+struct EmotionPercentChartView: View {    
     var datasource: [ChartData]
 
     @AppStorage(Keys.themeId.rawValue)
     var themeId: Int = 0
     
-    @State
-    var type = ChartType.pie
+    var type: ChartType
 
-    init(datasource: [ChartData]) {
+    init(datasource: [ChartData], chartType: ChartType) {
         self.datasource = datasource
+        self.type = chartType
     }
         
     var body: some View {
-        buildChart()
-            .foregroundColor(Theme.get(id: themeId).commonColor.textColor)
-            .frame(height: type == .bar ? 135 : 500)
+        ZStack {
+            if datasource.isEmpty {
+                Text("No diaries recorded")
+                    .font(.system(size: 20))
+                    .frame(height: 40)
+            } else {
+                buildChart()
+            }
+        }
+        .foregroundColor(Theme.get(id: themeId).commonColor.textColor)
+        .frame(height: datasource.isEmpty || type == .bar ? 135 : 470)
     }
 }
 
@@ -61,6 +64,6 @@ struct MoodBarView_Previews: PreviewProvider {
                                  index: 28)]
 
     static var previews: some View {
-        EmotionPercentChartView(datasource: mock)
+        EmotionPercentChartView(datasource: mock, chartType: .pie)
     }
 }

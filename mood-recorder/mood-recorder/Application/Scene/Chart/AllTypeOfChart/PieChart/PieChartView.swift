@@ -62,8 +62,11 @@ struct PieChartView: View {
             }
             .aspectRatio(contentMode: .fit)
             .frame(width: 300, height: 300, alignment: .center)
-            SizedBox(height: 50)
-            buildLabelGrid()
+            SizedBox(height: 20)
+            GeometryReader { proxy in
+                buildLabelGrid(maxSize: proxy.size.width)
+            }
+            Spacer()
         }
     }
 }
@@ -147,8 +150,8 @@ extension PieChartView {
 }
 
 extension PieChartView {
-    func buildLabelGrid() -> some View {
-        LazyVGrid(columns: Array(repeating: GridItem(.flexible(),
+    func buildLabelGrid(maxSize: CGFloat) -> some View {
+        LazyVGrid(columns: Array(repeating: GridItem(.fixed(maxSize / 3),
                                                      alignment: .top),
                                  count: 3),
                   content: {
@@ -163,6 +166,7 @@ extension PieChartView {
                         .aspectRatio(contentMode: .fit)
                 }
                 .padding(.all, 10)
+                .frame(height: 50)
             }
         })
     }

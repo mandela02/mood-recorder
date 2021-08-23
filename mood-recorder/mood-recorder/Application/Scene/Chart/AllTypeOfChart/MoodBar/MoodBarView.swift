@@ -38,21 +38,15 @@ struct MoodBarView: View {
             let width = proxy.size.width
 
             VStack(spacing: 20) {
-                if datasource.isEmpty || datasource.allSatisfy { $0.percent == 0 } {
-                    Text("No diaries recorded")
-                        .font(.system(size: 20))
-                        .frame(height: 40)
-                } else {
-                    HStack(spacing: 0) {
-                        ForEach(datasource.indices, id: \.self) { index in
-                            let data = datasource[index]
-                            data.emotion.color
-                                .frame(width: width * data.percent, height: 40, alignment: .center)
-                                .animation(.linear(duration: 1.0), value: width * data.percent)
-                        }
+                HStack(spacing: 0) {
+                    ForEach(datasource.indices, id: \.self) { index in
+                        let data = datasource[index]
+                        data.emotion.color
+                            .frame(width: width * data.percent, height: 40, alignment: .center)
+                            .animation(.linear(duration: 1.0), value: width * data.percent)
                     }
-                    .clipShape(Capsule())
                 }
+                .clipShape(Capsule())
 
                 HStack(spacing: 10) {
                     ForEach(datasource.indices, id: \.self) { index in

@@ -102,6 +102,7 @@
 		9085BD5E26D1FC9500D71F42 /* Collection+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9085BD5D26D1FC9500D71F42 /* Collection+Extension.swift */; };
 		90901D0826CFF18900ADE8D9 /* MonthPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90901D0726CFF18900ADE8D9 /* MonthPicker.swift */; };
 		909DC15E26CCA621004179F0 /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 909DC15D26CCA621004179F0 /* Int+Extension.swift */; };
+		90AFAEB226D34E67008B8CA6 /* EmotionPrecentChartCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90AFAEB126D34E67008B8CA6 /* EmotionPrecentChartCellView.swift */; };
 		90B4E97A26D0D5790048A2C2 /* CalendarUseCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B4E97926D0D5790048A2C2 /* CalendarUseCases.swift */; };
 		90B4E97C26D0D6130048A2C2 /* FetchUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B4E97B26D0D6130048A2C2 /* FetchUseCase.swift */; };
 /* End PBXBuildFile section */
@@ -204,6 +205,7 @@
 		9085BD5D26D1FC9500D71F42 /* Collection+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Extension.swift"; sourceTree = "<group>"; };
 		90901D0726CFF18900ADE8D9 /* MonthPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthPicker.swift; sourceTree = "<group>"; };
 		909DC15D26CCA621004179F0 /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
+		90AFAEB126D34E67008B8CA6 /* EmotionPrecentChartCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionPrecentChartCellView.swift; sourceTree = "<group>"; };
 		90B4E97926D0D5790048A2C2 /* CalendarUseCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarUseCases.swift; sourceTree = "<group>"; };
 		90B4E97B26D0D6130048A2C2 /* FetchUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchUseCase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -495,8 +497,8 @@
 		9007B35126D29FC600912AAC /* Chart */ = {
 			isa = PBXGroup;
 			children = (
-				90687C2726D3390C004A7DC6 /* SubView */,
 				90687C1C26D33313004A7DC6 /* ChartView */,
+				90687C2726D3390C004A7DC6 /* SubView */,
 				90687C1926D332E6004A7DC6 /* AllTypeOfChart */,
 				90687C2526D336E5004A7DC6 /* ChartHelper.swift */,
 			);
@@ -642,6 +644,7 @@
 			isa = PBXGroup;
 			children = (
 				907ABBF226D2CE2700201BD9 /* EmotionPercentChartView.swift */,
+				90AFAEB126D34E67008B8CA6 /* EmotionPrecentChartCellView.swift */,
 			);
 			path = SubView;
 			sourceTree = "<group>";
@@ -798,6 +801,7 @@
 				8476F1A926B861EC00F62854 /* Weather.swift in Sources */,
 				90687C2226D333C7004A7DC6 /* PieChartView.swift in Sources */,
 				84EE2F8526C7CFF800C0195D /* DismissDialog.swift in Sources */,
+				90AFAEB226D34E67008B8CA6 /* EmotionPrecentChartCellView.swift in Sources */,
 				90687C2026D33355004A7DC6 /* PieChartSliceView.swift in Sources */,
 				84CBB36426B7154100A8E377 /* HomeView.swift in Sources */,
 				84C3F72A26C03AE600C789F5 /* CDInputModel+CoreDataClass.swift in Sources */,

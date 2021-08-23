@@ -12,6 +12,20 @@ struct PieSlice {
      var endDegree: Double
 }
 
+enum ChartType: CaseIterable, StringValueProtocol {
+    case bar
+    case pie
+    
+    var value: String {
+        switch self {
+        case .bar:
+            return "Bar Chart"
+        case .pie:
+            return "Pie Chart"
+        }
+    }
+}
+
 struct ChartHelper {
     static func precent(precent: CGFloat) -> String {
         let formatter = NumberFormatter()
