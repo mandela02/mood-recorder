@@ -7,7 +7,16 @@
 
 import Foundation
 
-struct ImageAndTitleModel: Equatable, Identifiable {
+struct ImageAndTitleModel: Equatable, Identifiable, Hashable {
+    static func == (lhs: ImageAndTitleModel, rhs: ImageAndTitleModel) -> Bool {
+        lhs.image == rhs.image && lhs.title == rhs.title
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(image)
+        hasher.combine(title)
+    }
+
     var id = UUID()
     
     let image: AppImage

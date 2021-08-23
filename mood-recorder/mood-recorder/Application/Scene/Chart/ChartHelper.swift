@@ -7,6 +7,11 @@
 
 import SwiftUI
 
+struct CountOption {
+    var option: ImageAndTitleModel
+    var count: Int
+}
+
 struct PieSlice {
      var startDegree: Double
      var endDegree: Double

@@ -103,6 +103,7 @@
 		90901D0826CFF18900ADE8D9 /* MonthPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90901D0726CFF18900ADE8D9 /* MonthPicker.swift */; };
 		909DC15E26CCA621004179F0 /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 909DC15D26CCA621004179F0 /* Int+Extension.swift */; };
 		90AFAEB226D34E67008B8CA6 /* EmotionPrecentChartCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90AFAEB126D34E67008B8CA6 /* EmotionPrecentChartCellView.swift */; };
+		90B072FC26D35D1E009D4954 /* OptionUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B072FB26D35D1E009D4954 /* OptionUseCase.swift */; };
 		90B4E97A26D0D5790048A2C2 /* CalendarUseCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B4E97926D0D5790048A2C2 /* CalendarUseCases.swift */; };
 		90B4E97C26D0D6130048A2C2 /* FetchUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B4E97B26D0D6130048A2C2 /* FetchUseCase.swift */; };
 /* End PBXBuildFile section */
@@ -206,6 +207,7 @@
 		90901D0726CFF18900ADE8D9 /* MonthPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthPicker.swift; sourceTree = "<group>"; };
 		909DC15D26CCA621004179F0 /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
 		90AFAEB126D34E67008B8CA6 /* EmotionPrecentChartCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionPrecentChartCellView.swift; sourceTree = "<group>"; };
+		90B072FB26D35D1E009D4954 /* OptionUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionUseCase.swift; sourceTree = "<group>"; };
 		90B4E97926D0D5790048A2C2 /* CalendarUseCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarUseCases.swift; sourceTree = "<group>"; };
 		90B4E97B26D0D6130048A2C2 /* FetchUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchUseCase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -382,6 +384,7 @@
 			isa = PBXGroup;
 			children = (
 				90B4E97B26D0D6130048A2C2 /* FetchUseCase.swift */,
+				90B072FB26D35D1E009D4954 /* OptionUseCase.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -814,6 +817,7 @@
 				84C3F72C26C03AE600C789F5 /* CDSectionModel+CoreDataClass.swift in Sources */,
 				8404939826BA8471006523D9 /* ImagePicker.swift in Sources */,
 				84EF6B7226B7A4BA00C0551F /* CoreEmotion.swift in Sources */,
+				90B072FC26D35D1E009D4954 /* OptionUseCase.swift in Sources */,
 				8404939C26BAA9E7006523D9 /* Color+Extension.swift in Sources */,
 				8423C20326BE4329000717D9 /* DateFormatter+Extension.swift in Sources */,
 				9085BD5E26D1FC9500D71F42 /* Collection+Extension.swift in Sources */,
