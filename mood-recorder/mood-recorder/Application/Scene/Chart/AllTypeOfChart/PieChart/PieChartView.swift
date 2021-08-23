@@ -12,7 +12,7 @@ struct PieChartView: View {
     
     @State
     private var currentValue: PercentChartData?
-        
+    
     @State
     private var touchLocation: CGPoint = .init(x: -1, y: -1)
     
@@ -31,7 +31,7 @@ struct PieChartView: View {
     }
     
     var body: some View {
-        ZStack {
+        VStack {
             GeometryReader { proxy in
                 ZStack {
                     buildPieChart(proxy: proxy)
@@ -54,23 +54,26 @@ struct PieChartView: View {
                         .overlay(Circle()
                                     .stroke(Color.white,
                                             lineWidth: 2))
-                        .frame(width: proxy.size.width / 3)
-                
+                        .frame(width: proxy.size.width / 3, height: proxy.size.width / 3)
+                    
                     buildTextView()
-                        .frame(width: proxy.size.width / 4)
+                        .frame(width: proxy.size.width / 3, height: proxy.size.width / 3)
                 }
             }
             .aspectRatio(contentMode: .fit)
+            .frame(width: 300, height: 300, alignment: .center)
+            SizedBox(height: 50)
+            buildLabelGrid()
         }
     }
 }
 
 extension PieChartView {
     func resetValues() {
-         currentValue = nil
-         touchLocation = .init(x: -1, y: -1)
-     }
-
+        currentValue = nil
+        touchLocation = .init(x: -1, y: -1)
+    }
+    
     func updateCurrentValue(inPie pieSize: CGRect) {
         guard let angle = angleAtTouchLocation(inPie: pieSize,
                                                touchLocation: touchLocation)
@@ -81,23 +84,23 @@ extension PieChartView {
         
         currentValue = datasource[currentIndex]
     }
-
+    
     func angleAtTouchLocation(inPie pieSize: CGRect, touchLocation: CGPoint) -> Double? {
-         let dx = touchLocation.x - pieSize.midX
-         let dy = touchLocation.y - pieSize.midY
-         
-         let distanceToCenter = (dx * dx + dy * dy).squareRoot()
-         let radius = pieSize.width/2
-         guard distanceToCenter <= radius else {
-             return nil
-         }
-         let angleAtTouchLocation = Double(atan2(dy, dx) * (180 / .pi))
-         if angleAtTouchLocation < 0 {
-             return (180 + angleAtTouchLocation) + 180
-         } else {
-             return angleAtTouchLocation
-         }
-     }
+        let dx = touchLocation.x - pieSize.midX
+        let dy = touchLocation.y - pieSize.midY
+        
+        let distanceToCenter = (dx * dx + dy * dy).squareRoot()
+        let radius = pieSize.width/2
+        guard distanceToCenter <= radius else {
+            return nil
+        }
+        let angleAtTouchLocation = Double(atan2(dy, dx) * (180 / .pi))
+        if angleAtTouchLocation < 0 {
+            return (180 + angleAtTouchLocation) + 180
+        } else {
+            return angleAtTouchLocation
+        }
+    }
     
     func sliceIsTouched(index: Int, inPie pieSize: CGRect) -> Bool {
         guard let angle = angleAtTouchLocation(inPie: pieSize,
@@ -118,10 +121,10 @@ extension PieChartView {
                 slices.append(.init(startDegree: slices.last!.endDegree,
                                     endDegree: (value * 360 + slices.last!.endDegree)))
             }
-         }
+        }
         
         return slices
-     }
+    }
     
     func buildPieChart(proxy: GeometryProxy) -> some View {
         ZStack {
@@ -144,6 +147,26 @@ extension PieChartView {
 }
 
 extension PieChartView {
+    func buildLabelGrid() -> some View {
+        LazyVGrid(columns: Array(repeating: GridItem(.flexible(),
+                                                     alignment: .top),
+                                 count: 3),
+                  content: {
+            ForEach(CoreEmotion.allCases, id: \.rawValue) { emotion in
+                HStack {
+                    emotion.color
+                        .clipShape(RoundedRectangle(cornerRadius: 5))
+                        .aspectRatio(contentMode: .fit)
+                    SizedBox(width: 5)
+                    emotion.image
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                }
+                .padding(.all, 10)
+            }
+        })
+    }
+    
     func buildTextView() -> some View {
         VStack {
             if let data = currentValue {
@@ -153,6 +176,8 @@ extension PieChartView {
                         .aspectRatio(contentMode: .fit)
                     
                     Text(ChartHelper.precent(precent: data.percent))
+                        .font(.system(size: 15))
+                        .foregroundColor(Theme.get(id: themeId).commonColor.textColor)
                 }
             }
         }

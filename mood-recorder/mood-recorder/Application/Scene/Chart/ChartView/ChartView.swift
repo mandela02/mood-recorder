@@ -39,6 +39,7 @@ struct ChartView: View {
                     buildDateNavigationView()
                     SizedBox(height: 20)
                     buildLineChartView()
+                    SizedBox(height: 150)
                     Spacer()
                 }
             }
