@@ -34,12 +34,15 @@ struct ChartView: View {
         ZStack {
             Theme.get(id: themeId).commonColor.viewBackground
                 .ignoresSafeArea()
-            ScrollView {
-                VStack {
-                    buildDateNavigationView()
-                    SizedBox(height: 20)
-                    buildLineChartView()
-                    Spacer()
+            VStack {
+                buildDateNavigationView()
+                ScrollView {
+                    VStack {
+                        SizedBox(height: 20)
+                        buildLineChartView()
+                        SizedBox(height: 150)
+                        Spacer()
+                    }
                 }
             }
         }
@@ -75,19 +78,7 @@ extension ChartView {
 
 extension ChartView {
     private func buildMoodBarView() -> some View {
-        ZStack {
-            Theme.get(id: themeId).tableViewColor.cellBackground
-                .cornerRadius(20)
-            VStack {
-                Text("Mood Bar")
-                    .font(.system(size: 15))
-                    .foregroundColor(Theme.get(id: themeId).commonColor.textColor)
-                MoodBarView(datasource: viewModel.state.chartDatas)
-                    .padding(.all, 5)
-                    .frame(maxWidth: .infinity)
-            }
-            .padding()
-        }
+        EmotionPrecentChartCellView(chartDatas: viewModel.state.chartDatas)
     }
 }
 
