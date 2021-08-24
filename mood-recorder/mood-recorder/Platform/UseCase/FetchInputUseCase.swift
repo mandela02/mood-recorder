@@ -7,14 +7,14 @@
 
 import Foundation
 
-protocol FetchUseCaseType {
+protocol FetchInputUseCaseType {
     func fetch(at date: Double) -> DatabaseResponse
     func fetchAndConvert(at date: Double) -> DatabaseResponse
     func fetch(from start: Double, to end: Double) -> DatabaseResponse
     func fetchAndConvert(from start: Double, to end: Double) -> DatabaseResponse
 }
 
-class FetchUseCase: FetchUseCaseType {
+class FetchInputUseCase: FetchInputUseCaseType {
     private let repository: Repository<CDInputModel>
 
     init(repository: Repository<CDInputModel>) {

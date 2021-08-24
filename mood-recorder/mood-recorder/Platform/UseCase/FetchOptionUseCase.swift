@@ -7,7 +7,11 @@
 
 import Foundation
 
-class OptionUseCase {
+protocol FetchOptionUseCaseType {
+    func fetchAndConvert(from start: Double, to end: Double) -> DatabaseResponse
+}
+
+class FetchOptionUseCase: FetchOptionUseCaseType {
     private let repository: Repository<CDInputModel>
 
     init(repository: Repository<CDInputModel>) {
@@ -37,7 +41,7 @@ class OptionUseCase {
             let group = Dictionary(grouping: allOptions, by: { $0 })
                 
             let counts = group.map { (key, value) in
-                return CountOption(option: key, count: value.count)
+                return OptionCountModel(option: key, count: value.count)
             }
 
             return .success(data: counts)

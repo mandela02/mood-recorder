@@ -7,12 +7,12 @@
 
 import SwiftUI
 
-struct CountOption {
+struct OptionCountModel {
     var option: ImageAndTitleModel
     var count: Int
 }
 
-struct PieSlice {
+struct PieSliceModel {
      var startDegree: Double
      var endDegree: Double
 }

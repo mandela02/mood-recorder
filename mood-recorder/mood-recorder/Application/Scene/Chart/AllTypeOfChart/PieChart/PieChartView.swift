@@ -114,8 +114,8 @@ extension PieChartView {
 }
 
 extension PieChartView {
-    var pieSlices: [PieSlice] {
-        var slices = [PieSlice]()
+    var pieSlices: [PieSliceModel] {
+        var slices = [PieSliceModel]()
         datasource.enumerated().forEach {(index, data) in
             let value = ChartHelper.normalizedValue(index: index, data: self.datasource)
             if slices.isEmpty {

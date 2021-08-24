@@ -53,7 +53,7 @@ class ChartViewModel: ViewModel {
                 state.chartShowPercent = 0
             case .open:
                 var duration: Double = 0
-                let number = state.chartDatas.count
+                let number = state.coreEmotionChartDatas.count
                 
                 if number < 5 {
                     duration = 0.5
@@ -115,8 +115,8 @@ extension ChartViewModel {
                                   try thisMonthOptionResult,
                                   try lastMonthOptionResult]
             
-            var thisMonthData: [CountOption] = []
-            var lastMonthData: [CountOption] = []
+            var thisMonthData: [OptionCountModel] = []
+            var lastMonthData: [OptionCountModel] = []
             var thisMonthInputDataModel: [InputDataModel] = []
             
             for (index, result) in results.enumerated() {
@@ -125,7 +125,7 @@ extension ChartViewModel {
                     if index == 0 {
                         thisMonthInputDataModel = result
                     }
-                case let result as [CountOption]:
+                case let result as [OptionCountModel]:
                     if index == 1 {
                         thisMonthData = result
                     } else if index == 2 {
@@ -155,11 +155,11 @@ extension ChartViewModel {
         }
     }
     
-    private func generateStatisticalData(thisMonthData: [CountOption],
-                                         lastMonthData: [CountOption]) async {
+    private func generateStatisticalData(thisMonthData: [OptionCountModel],
+                                         lastMonthData: [OptionCountModel]) async {
         
-        let task = Task(priority: .userInitiated) { () -> [CountOption] in
-            var overralResult: [CountOption] = []
+        let task = Task(priority: .userInitiated) { () -> [OptionCountModel] in
+            var overralResult: [OptionCountModel] = []
             
             if thisMonthData.isEmpty {
                 return []
@@ -167,12 +167,13 @@ extension ChartViewModel {
             
             for data in thisMonthData {
                 guard let lastMonth = lastMonthData.first(where: {$0.option == data.option}) else {
-                    overralResult.append(CountOption(option: data.option,
-                                                     count: 0))
+                    overralResult.append(OptionCountModel(option: data.option,
+                                                          count: 0))
                     continue
                 }
                 
-                overralResult.append(CountOption(option: data.option, count: data.count - lastMonth.count))
+                overralResult.append(OptionCountModel(option: data.option,
+                                                      count: data.count - lastMonth.count))
             }
             
             return overralResult.sorted(by: {$0.count > $1.count})
@@ -217,7 +218,7 @@ extension ChartViewModel {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             self.state.diaries = waitResult.diaries
-            self.state.chartDatas = waitResult.chartDatas
+            self.state.coreEmotionChartDatas = waitResult.chartDatas
         }
     }
 }
@@ -226,8 +227,9 @@ extension ChartViewModel {
     struct ChartState {
         var currentMonth = (month: Date().month, year: Date().year)
         var diaries: [InputDataModel] = []
-        var chartDatas: [ChartData] = []
-        var optionStatisticalDatas: [CountOption] = []
+        
+        var coreEmotionChartDatas: [ChartData] = []
+        var optionStatisticalDatas: [OptionCountModel] = []
         
         var isDatePickerShowing = false
         

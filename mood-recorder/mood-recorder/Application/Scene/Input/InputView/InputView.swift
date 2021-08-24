@@ -509,6 +509,7 @@ struct InputView: View {
         }
         .task {
             imagePickerController = UIImagePickerController()
+            viewModel.trigger(.initialData)
         }
     }
 }
