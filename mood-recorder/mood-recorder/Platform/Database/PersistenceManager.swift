@@ -11,7 +11,7 @@ import SwiftUI
 
 struct DatabaseConstants {
     static var name = "MoodRecorderDataModel"
-    static var urlPath = "com.qtcorp.mood-recorder"
+    static var urlPath = "group.com.qtcorp.mood-recorder"
 }
 
 class PersistenceManager {
@@ -20,16 +20,22 @@ class PersistenceManager {
     lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentCloudKitContainer(name: DatabaseConstants.name)
 
-        let localStoreURL = URL.storeURL(for: DatabaseConstants.urlPath, databaseName: DatabaseConstants.name + "Local")
+//        let container = NSPersistentContainer(name: DatabaseConstants.name)
+
+        let localStoreURL = URL.storeURL(for: DatabaseConstants.urlPath,
+                                            databaseName: DatabaseConstants.name + "Local")
         let localStoreDescription = NSPersistentStoreDescription(url: localStoreURL)
         localStoreDescription.configuration = "Local"
 
-        let cloudStoreURL = URL.storeURL(for: DatabaseConstants.urlPath, databaseName: DatabaseConstants.name + "Cloud")
+        let cloudStoreURL = URL.storeURL(for: DatabaseConstants.urlPath,
+                                            databaseName: DatabaseConstants.name + "Cloud")
         let cloudStoreDescription = NSPersistentStoreDescription(url: cloudStoreURL)
         cloudStoreDescription.configuration = "Cloud"
 
         container.persistentStoreDescriptions = [localStoreDescription,
                                                  cloudStoreDescription]
+        
+//        container.persistentStoreDescriptions = [localStoreDescription]
         
         container.loadPersistentStores(completionHandler: { (_, error) in
             if let error = error as NSError? {

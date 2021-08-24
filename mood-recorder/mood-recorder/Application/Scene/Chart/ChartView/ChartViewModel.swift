@@ -15,12 +15,12 @@ class ChartViewModel: ViewModel {
     
     private var cancellables = Set<AnyCancellable>()
     private let useCase = UseCaseProvider.defaultProvider.getChartUseCases()
-
+    
     deinit {
         cancellables.forEach({$0.cancel()})
         cancellables.removeAll()
     }
-
+    
     init(state: ChartState) {
         self.state = state
         Task {
@@ -53,7 +53,7 @@ class ChartViewModel: ViewModel {
                 state.chartShowPercent = 0
             case .open:
                 var duration: Double = 0
-                let number = state.chartDatas.count
+                let number = state.coreEmotionChartDatas.count
                 
                 if number < 5 {
                     duration = 0.5
@@ -64,7 +64,7 @@ class ChartViewModel: ViewModel {
                 } else {
                     duration = 2
                 }
-
+                
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
                     withAnimation(Animation.linear(duration: duration)) {
                         self?.state.chartShowPercent = 1
@@ -94,23 +94,100 @@ class ChartViewModel: ViewModel {
 
 extension ChartViewModel {
     private func fetch() async {
-        let response = useCase.fetch(from: state.currentMonthDate.startOfMonth.startOfDayInterval,
-                                     to: state.currentMonthDate.endOfMonth.endOfDayInterval)
-        await handleResponse(response: response)
-    }
+        let start = state.currentMonthDate.startOfMonth.startOfDayInterval
+        let end = state.currentMonthDate.endOfMonth.endOfDayInterval
+        
+        let fetchResponse = useCase.fetch(from: start, to: end)
+        let fetchOptionResponse = useCase.fetchAndCountOption(from: start, to: end)
+        
+        let lastMonthStart = state.currentMonthDate.previousMonth.startOfMonth.startOfDayInterval
+        let lastMonthEnd = state.currentMonthDate.previousMonth.endOfMonth.startOfDayInterval
+        
+        let lastMonthfetchOptionResponse = useCase.fetchAndCountOption(from: lastMonthStart,
+                                                                       to: lastMonthEnd)
 
-    private func handleResponse(response: DatabaseResponse) async {
-        switch response {
-        case .success(data: let data):
-            if let models = data as? [InputDataModel] {
-                await self.handleData(models: models)
+        do {
+            async let fetchResult = handleResponse(response: fetchResponse)
+            async let thisMonthOptionResult = handleResponse(response: fetchOptionResponse)
+            async let lastMonthOptionResult = handleResponse(response: lastMonthfetchOptionResponse)
+            
+            let results =  await [try fetchResult,
+                                  try thisMonthOptionResult,
+                                  try lastMonthOptionResult]
+            
+            var thisMonthData: [OptionCountModel] = []
+            var lastMonthData: [OptionCountModel] = []
+            var thisMonthInputDataModel: [InputDataModel] = []
+            
+            for (index, result) in results.enumerated() {
+                switch result {
+                case let result as [InputDataModel]:
+                    if index == 0 {
+                        thisMonthInputDataModel = result
+                    }
+                case let result as [OptionCountModel]:
+                    if index == 1 {
+                        thisMonthData = result
+                    } else if index == 2 {
+                        lastMonthData = result
+                    }
+                default:
+                    continue
+                }
             }
-        case .error(error: let error):
+            
+            await handleChartData(models: thisMonthInputDataModel)
+            await generateStatisticalData(thisMonthData: thisMonthData, lastMonthData: lastMonthData)
+        } catch let error {
             print(error)
         }
     }
-
-    private func handleData(models: [InputDataModel]) async {
+    
+    private func handleResponse(response: DatabaseResponse) async throws -> Any? {
+        switch response {
+        case .success(data: let data):
+            if let data = data {
+                return data
+            }
+            return nil
+        case .error(error: let error):
+            throw error
+        }
+    }
+    
+    private func generateStatisticalData(thisMonthData: [OptionCountModel],
+                                         lastMonthData: [OptionCountModel]) async {
+        
+        let task = Task(priority: .userInitiated) { () -> [OptionCountModel] in
+            var overralResult: [OptionCountModel] = []
+            
+            if thisMonthData.isEmpty {
+                return []
+            }
+            
+            for data in thisMonthData {
+                guard let lastMonth = lastMonthData.first(where: {$0.option == data.option}) else {
+                    overralResult.append(OptionCountModel(option: data.option,
+                                                          count: 0))
+                    continue
+                }
+                
+                overralResult.append(OptionCountModel(option: data.option,
+                                                      count: data.count - lastMonth.count))
+            }
+            
+            return overralResult.sorted(by: {$0.count > $1.count})
+        }
+        
+        let result = await task.value
+        
+        DispatchQueue.main.async { [weak self] in
+            self?.state.optionStatisticalDatas = result
+        }
+    
+    }
+    
+    private func handleChartData(models: [InputDataModel]) async {
         let result = Task(priority: .background) { () -> (diaries: [InputDataModel],
                                                           chartDatas: [ChartData]) in
             var diaries = state.currentMonthDate
@@ -141,7 +218,7 @@ extension ChartViewModel {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             self.state.diaries = waitResult.diaries
-            self.state.chartDatas = waitResult.chartDatas
+            self.state.coreEmotionChartDatas = waitResult.chartDatas
         }
     }
 }
@@ -150,18 +227,20 @@ extension ChartViewModel {
     struct ChartState {
         var currentMonth = (month: Date().month, year: Date().year)
         var diaries: [InputDataModel] = []
-        var chartDatas: [ChartData] = []
+        
+        var coreEmotionChartDatas: [ChartData] = []
+        var optionStatisticalDatas: [OptionCountModel] = []
         
         var isDatePickerShowing = false
         
         var chartShowPercent: Double = 0
-
+        
         var currentMonthDate: Date {
             var dateComponents = DateComponents()
             dateComponents.year = currentMonth.year
             dateComponents.month = currentMonth.month
             dateComponents.day = 1
-
+            
             let calendar = Calendar.gregorian
             
             guard let thisMonthDate = calendar.date(from: dateComponents) else {

@@ -16,11 +16,11 @@ protocol CalendarUseCaseType {
 
 struct CalendarUseCases: CalendarUseCaseType {
     private let repository: Repository<CDInputModel>
-    private let fetchUseCase: FetchUseCaseType
+    private let fetchUseCase: FetchInputUseCaseType
     
     init(repository: Repository<CDInputModel>) {
         self.repository = repository
-        self.fetchUseCase = FetchUseCase(repository: repository)
+        self.fetchUseCase = FetchInputUseCase(repository: repository)
     }
     
     func fetch(from start: Double, to end: Double) -> DatabaseResponse {

@@ -103,8 +103,10 @@
 		90901D0826CFF18900ADE8D9 /* MonthPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90901D0726CFF18900ADE8D9 /* MonthPicker.swift */; };
 		909DC15E26CCA621004179F0 /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 909DC15D26CCA621004179F0 /* Int+Extension.swift */; };
 		90AFAEB226D34E67008B8CA6 /* EmotionPrecentChartCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90AFAEB126D34E67008B8CA6 /* EmotionPrecentChartCellView.swift */; };
+		90B072FC26D35D1E009D4954 /* FetchOptionUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B072FB26D35D1E009D4954 /* FetchOptionUseCase.swift */; };
 		90B4E97A26D0D5790048A2C2 /* CalendarUseCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B4E97926D0D5790048A2C2 /* CalendarUseCases.swift */; };
-		90B4E97C26D0D6130048A2C2 /* FetchUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B4E97B26D0D6130048A2C2 /* FetchUseCase.swift */; };
+		90B4E97C26D0D6130048A2C2 /* FetchInputUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B4E97B26D0D6130048A2C2 /* FetchInputUseCase.swift */; };
+		90F2105026D388030088899B /* OptionStatisticalTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F2104F26D388030088899B /* OptionStatisticalTableView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -187,6 +189,7 @@
 		9021188A26D0C34200273FC8 /* FutureWarningDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FutureWarningDialog.swift; sourceTree = "<group>"; };
 		9021188C26D0C37B00273FC8 /* TypeAlias.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeAlias.swift; sourceTree = "<group>"; };
 		90256F3226D132DF0067B354 /* ImageShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageShareView.swift; sourceTree = "<group>"; };
+		903FA55126D4A8DA00FD51D2 /* mood-recorder.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "mood-recorder.entitlements"; sourceTree = "<group>"; };
 		9041C11D26CEC45C0054617E /* CalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
 		9057DE9226D1086600FF7DA2 /* CalendarDiaryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDiaryDetailView.swift; sourceTree = "<group>"; };
 		90687C1F26D33355004A7DC6 /* PieChartSliceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieChartSliceView.swift; sourceTree = "<group>"; };
@@ -206,8 +209,10 @@
 		90901D0726CFF18900ADE8D9 /* MonthPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthPicker.swift; sourceTree = "<group>"; };
 		909DC15D26CCA621004179F0 /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
 		90AFAEB126D34E67008B8CA6 /* EmotionPrecentChartCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionPrecentChartCellView.swift; sourceTree = "<group>"; };
+		90B072FB26D35D1E009D4954 /* FetchOptionUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchOptionUseCase.swift; sourceTree = "<group>"; };
 		90B4E97926D0D5790048A2C2 /* CalendarUseCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarUseCases.swift; sourceTree = "<group>"; };
-		90B4E97B26D0D6130048A2C2 /* FetchUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchUseCase.swift; sourceTree = "<group>"; };
+		90B4E97B26D0D6130048A2C2 /* FetchInputUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchInputUseCase.swift; sourceTree = "<group>"; };
+		90F2104F26D388030088899B /* OptionStatisticalTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionStatisticalTableView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -290,6 +295,7 @@
 		8424A92D26B5BE0B00BE4454 /* mood-recorder */ = {
 			isa = PBXGroup;
 			children = (
+				903FA55126D4A8DA00FD51D2 /* mood-recorder.entitlements */,
 				84CBB35826B6FDF800A8E377 /* Application */,
 				84CBB35726B6FDF400A8E377 /* Domain */,
 				84CBB35626B6FDD000A8E377 /* Platform */,
@@ -381,7 +387,8 @@
 		84C3F73026C03DFC00C789F5 /* UseCase */ = {
 			isa = PBXGroup;
 			children = (
-				90B4E97B26D0D6130048A2C2 /* FetchUseCase.swift */,
+				90B4E97B26D0D6130048A2C2 /* FetchInputUseCase.swift */,
+				90B072FB26D35D1E009D4954 /* FetchOptionUseCase.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -599,6 +606,7 @@
 		90687C1926D332E6004A7DC6 /* AllTypeOfChart */ = {
 			isa = PBXGroup;
 			children = (
+				90F2104E26D387F10088899B /* OptionStatistical */,
 				90687C1D26D33337004A7DC6 /* PieChart */,
 				90687C1B26D33302004A7DC6 /* MoodBar */,
 				90687C1A26D332F8004A7DC6 /* LineChart */,
@@ -677,6 +685,14 @@
 				9007B35626D2A2A500912AAC /* ChartUseCases.swift */,
 			);
 			path = UseCases;
+			sourceTree = "<group>";
+		};
+		90F2104E26D387F10088899B /* OptionStatistical */ = {
+			isa = PBXGroup;
+			children = (
+				90F2104F26D388030088899B /* OptionStatisticalTableView.swift */,
+			);
+			path = OptionStatistical;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -771,6 +787,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9007B35526D29FE100912AAC /* ChartViewModel.swift in Sources */,
+				90F2105026D388030088899B /* OptionStatisticalTableView.swift in Sources */,
 				8423C20926BE85CE000717D9 /* Love.swift in Sources */,
 				84FE1B3B26C7B55600D32330 /* BaseViewModel.swift in Sources */,
 				84C3F72626C03AE600C789F5 /* CDContentModel+CoreDataClass.swift in Sources */,
@@ -788,7 +805,7 @@
 				84CBB36626B7164E00A8E377 /* HomeViewModel.swift in Sources */,
 				84CBB36A26B71E7500A8E377 /* ResizeAnimationButtonStyle.swift in Sources */,
 				8404939326BA4FC0006523D9 /* ImageModel.swift in Sources */,
-				90B4E97C26D0D6130048A2C2 /* FetchUseCase.swift in Sources */,
+				90B4E97C26D0D6130048A2C2 /* FetchInputUseCase.swift in Sources */,
 				8404939F26BAAB21006523D9 /* ThemeHelper.swift in Sources */,
 				84C3F72826C03AE600C789F5 /* CDOptionModel+CoreDataClass.swift in Sources */,
 				84C3F72D26C03AE600C789F5 /* CDSectionModel+CoreDataProperties.swift in Sources */,
@@ -814,6 +831,7 @@
 				84C3F72C26C03AE600C789F5 /* CDSectionModel+CoreDataClass.swift in Sources */,
 				8404939826BA8471006523D9 /* ImagePicker.swift in Sources */,
 				84EF6B7226B7A4BA00C0551F /* CoreEmotion.swift in Sources */,
+				90B072FC26D35D1E009D4954 /* FetchOptionUseCase.swift in Sources */,
 				8404939C26BAA9E7006523D9 /* Color+Extension.swift in Sources */,
 				8423C20326BE4329000717D9 /* DateFormatter+Extension.swift in Sources */,
 				9085BD5E26D1FC9500D71F42 /* Collection+Extension.swift in Sources */,
@@ -993,6 +1011,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "mood-recorder/mood-recorder.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"mood-recorder/Preview Content\"";
 				DEVELOPMENT_TEAM = J243X8N8UC;
@@ -1015,6 +1034,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "mood-recorder/mood-recorder.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"mood-recorder/Preview Content\"";
 				DEVELOPMENT_TEAM = J243X8N8UC;

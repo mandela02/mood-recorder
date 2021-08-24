@@ -40,6 +40,8 @@ struct ChartView: View {
                     VStack {
                         SizedBox(height: 20)
                         buildLineChartView()
+                        SizedBox(height: 20)
+                        OptionStatisticalTableView(datasource: viewModel.state.optionStatisticalDatas)
                         SizedBox(height: 150)
                         Spacer()
                     }
@@ -62,7 +64,7 @@ extension ChartView {
                 .foregroundColor(Theme.get(id: themeId).commonColor.textColor)
             LineChartView(month: viewModel.state.currentMonth.month,
                           year: viewModel.state.currentMonth.year,
-                          datasource: viewModel.state.chartDatas,
+                          datasource: viewModel.state.coreEmotionChartDatas,
                           precent: viewModel.chartShowPercent)
                 .onAppear(perform: {
                     viewModel.trigger(.handleChartViewStatus(status: .open))
@@ -78,7 +80,7 @@ extension ChartView {
 
 extension ChartView {
     private func buildMoodBarView() -> some View {
-        EmotionPrecentChartCellView(chartDatas: viewModel.state.chartDatas)
+        EmotionPrecentChartCellView(chartDatas: viewModel.state.coreEmotionChartDatas)
     }
 }
 

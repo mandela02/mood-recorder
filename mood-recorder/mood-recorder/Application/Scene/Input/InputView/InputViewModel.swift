@@ -25,11 +25,13 @@ class InputViewModel: ViewModel {
     init(state: InputState) {
         self.state = state
         setupSubcription()
-        initData(with: state.initialEmotion, or: state.initialData)
     }
     
     func trigger(_ input: InputTrigger) {
         switch input {
+        // MARK: - init data
+        case .initialData:
+            initData(with: state.initialEmotion, or: state.initialData)
         // MARK: - edit button tapped
         case .editButtonTapped:
             self.state.isInEditMode.toggle()
@@ -211,6 +213,7 @@ extension InputViewModel {
         case handleResetDialog(status: ViewStatus)
         case handleCustomDialog(status: ViewStatus)
         case handleTimeDialog(status: ViewStatus)
+        case initialData
     }
     
     enum ViewStatus {

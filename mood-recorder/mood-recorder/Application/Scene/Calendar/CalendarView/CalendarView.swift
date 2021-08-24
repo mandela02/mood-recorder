@@ -53,7 +53,7 @@ struct CalendarView: View {
                             }, onDeleteDiary: {
                                 viewModel.trigger(.delete)
                             })
-                                .id(diary.emotion)
+                                .id(diary.date)
                         }
                         
                         SizedBox(height: 150)
