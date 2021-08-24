@@ -53,6 +53,9 @@ struct ChartView: View {
                 buildMonthPicker()
             }
         }
+        .task {
+            viewModel.trigger(.reload)
+        }
     }
 }
 

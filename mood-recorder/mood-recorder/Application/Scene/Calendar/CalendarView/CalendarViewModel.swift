@@ -19,7 +19,6 @@ class CalendarViewModel: ViewModel {
     init(state: CalendarState) {
         self.state = state
         setupSubcription()
-        loadToday()
     }
     
     deinit {
@@ -53,19 +52,23 @@ class CalendarViewModel: ViewModel {
             if state.currentMonth.month == 13 {
                 state.currentMonth = (1, state.currentMonth.year + 1)
             }
+            self.state.dates = createCalendarDates()
         case .backToLaseMonth:
             state.currentMonth.month -= 1
             if state.currentMonth.month == 0 {
                 state.currentMonth = (12, state.currentMonth.year - 1)
             }
+            self.state.dates = createCalendarDates()
         case .showDatePicker:
             state.isDatePickerShow = true
         case .closeDatePicker:
             state.isDatePickerShow = false
         case .goTo(month: let month, year: let year):
             state.currentMonth = (month, year)
+            self.state.dates = createCalendarDates()
         case .goToToDay:
-            loadToday()
+            state.currentMonth = (Date().month, Date().year)
+            self.state.dates = createCalendarDates()
         case .share:
             state.isShareImageViewShowing = true
         case .closeFutureDialog:
@@ -75,37 +78,32 @@ class CalendarViewModel: ViewModel {
         case .edit:
             state.isInputViewShowing = true
         case .delete:
-            guard let date = state.selectedInputDataModel?.date else { return }
-            Task {
-                await handleResponse(response: useCase.delete(at: date.startOfDayInterval),
-                                     datesInMonth: self.state.dates)
-            }
-            
             state.isDetailViewShowing = false
+            guard let date = state.selectedInputDataModel?.date else { return }
+            let response = useCase.delete(at: date.startOfDayInterval)
+            Task {
+                await fetch(responses: response)
+            }
         }
     }
         
     private func syncFetch() {
-        self.state.dates = createCalendarDates()
+        guard let start = state.dates.first?.startOfDayInterval,
+              let end = state.dates.last?.endOfDayInterval else { return }
+
+        let response = useCase.fetch(from: start, to: end)
+
         Task {
-            await fetch(dates: state.dates)
+            await fetch(responses: response)
         }
     }
-    
-    private func loadToday() {
-        Task {
-            await loadData(date: Date())
-        }
-    }
-        
+            
     private func setupSubcription() {
         self.useCase.publisher()
             .sink { [weak self] in
                 guard let self = self else { return }
                 self.state.isDetailViewShowing = false
-                Task {
-                    await self.loadData(date: self.state.selectedInputDataModel?.date ?? Date())
-                }
+                self.syncFetch()
             }
             .store(in: &cancellables)
     }
@@ -113,31 +111,38 @@ class CalendarViewModel: ViewModel {
 
 // MARK: - Async Function
 extension CalendarViewModel {
-    private func fetch(dates: [Date]) async {
-        guard let start = dates.first?.startOfDayInterval,
-              let end = dates.last?.endOfDayInterval else { return }
+    private func fetch(responses: DatabaseResponse...) async {
+        if responses.count != 1 { return }
+
+        do {
+            let result = try await handleResponse(response: responses[0])
+            if let result = result as? [InputDataModel] {
+                await handleData(models: result)
+            } else {
+                syncFetch()
+            }
+        } catch let error {
+            print(error)
+        }
         
-        let response = useCase.fetch(from: start, to: end)
-        
-        await handleResponse(response: response, datesInMonth: dates)
     }
 
-    private func handleResponse(response: DatabaseResponse,
-                                datesInMonth: [Date]) async {
+    private func handleResponse(response: DatabaseResponse) async throws -> Any? {
         switch response {
         case .success(data: let data):
-            if let models = data as? [InputDataModel] {
-                await self.handleData(models: models, dates: datesInMonth)
+            if let data = data {
+                return data
             }
+            return nil
         case .error(error: let error):
-            print(error)
+            throw error
         }
     }
     
-    private func handleData(models: [InputDataModel], dates: [Date]) async {
+    private func handleData(models: [InputDataModel]) async {
         let result = Task(priority: .background) { () -> [InputDataModel] in
             
-            var diaries = dates.map { InputDataModel(date: $0, sections: []) }
+            var diaries = state.dates.map { InputDataModel(date: $0, sections: []) }
             
             for index in diaries.indices {
                 guard let model = models
@@ -155,17 +160,10 @@ extension CalendarViewModel {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             self.state.diaries = diaries
-        }
-    }
-    
-    private func loadData(date: Date) async {
-        let dates = createCalendarDates(month: date.month, year: date.year)
-        await fetch(dates: dates)
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            self.state.currentMonth = (date.month, date.year)
-            self.state.dates = self.state.dates
-            self.state.selectedInputDataModel = self.state.diaries.first(where: {$0.date.isInSameDay(as: date)})
+            
+            guard let date = self.state.selectedInputDataModel?.date else { return }
+            self.state.selectedInputDataModel = self.state.diaries
+                .first(where: {$0.date.isInSameDay(as: date)})
             if !(self.state.selectedInputDataModel?.sections.isEmpty ?? true) {
                 self.state.isDetailViewShowing = true
             }

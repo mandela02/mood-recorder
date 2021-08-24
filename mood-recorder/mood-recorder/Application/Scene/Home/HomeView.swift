@@ -85,8 +85,6 @@ struct HomeView: View {
                          onDismiss: viewModel.onInputViewDismiss, content: {
             if let selectedCoreEmotion = viewModel.selectedCoreEmotion {
                 InputView(emotion: selectedCoreEmotion)
-            } else {
-                Color.clear
             }
         })
         .preferredColorScheme(isUsingSystemTheme ? nil : Theme.get(id: themeId).colorScheme)

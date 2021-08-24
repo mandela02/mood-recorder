@@ -23,9 +23,6 @@ class ChartViewModel: ViewModel {
     
     init(state: ChartState) {
         self.state = state
-        Task {
-            await fetch()
-        }
         setupSubcription()
     }
     
@@ -78,9 +75,7 @@ class ChartViewModel: ViewModel {
         self.useCase.publisher()
             .sink { [weak self] in
                 guard let self = self else { return }
-                Task {
-                    await self.fetch()
-                }
+                self.syncFetch()
             }
             .store(in: &cancellables)
     }

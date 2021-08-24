@@ -98,6 +98,7 @@ struct CalendarView: View {
         .fullScreenCover(isPresented: $isInputViewShowing,
                          onDismiss: {
             viewModel.trigger(.closeInputView)
+            viewModel.trigger(.reload)
         },
                          content: {
             if let data = viewModel.state.selectedInputDataModel {
@@ -106,6 +107,10 @@ struct CalendarView: View {
                 Color.clear
             }
         })
+        .task {
+            viewModel.trigger(.goToToDay)
+            viewModel.trigger(.reload)
+        }
         .animation(.easeInOut, value: viewModel.state.isDatePickerShow)
         .animation(.easeInOut, value: viewModel.state.isDetailViewShowing)
     }
@@ -230,6 +235,7 @@ extension CalendarView {
                         
             Button(action: {
                 viewModel.trigger(.goToToDay)
+                viewModel.trigger(.reload)
             }, label: {
                 Text("Today")
                     .minimumScaleFactor(0.1)
