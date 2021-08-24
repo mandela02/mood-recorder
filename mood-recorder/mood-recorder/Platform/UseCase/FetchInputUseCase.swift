@@ -33,7 +33,7 @@ class FetchInputUseCase: FetchInputUseCaseType {
         let result = fetch(at: date)
         switch result {
         case .success(data: let model as CDInputModel):
-            return .success(data: convert(model: model))
+            return .success(data: convert(prototype: model))
         case .error(let error):
             return.error(error: error)
         default:
@@ -47,7 +47,7 @@ class FetchInputUseCase: FetchInputUseCaseType {
         let result = fetch(from: start, to: end)
         switch result {
         case .success(data: let models as [CDInputModel]):
-            let inputDataModels = models.map { convert(model: $0) }
+            let inputDataModels = models.map { convert(prototype: $0) }
             return .success(data: inputDataModels)
         case .error(let error):
             return.error(error: error)
@@ -58,10 +58,12 @@ class FetchInputUseCase: FetchInputUseCaseType {
         }
     }
 
-    private func convert(model: CDInputModel) -> InputDataModel {
+    private func convert(prototype: CDInputModel) -> InputDataModel {
+        let model = prototype.clone()
+        
         var sectionModels = [SectionModel]()
         
-        for cdSection in model.sectionArray {
+        for cdSection in model.sections {
             guard let content = cdSection.content else { continue }
             let section = SectionType.section(from: Int(cdSection.sectionID))
             
@@ -88,7 +90,7 @@ class FetchInputUseCase: FetchInputUseCaseType {
                                                                             wakeUpTime: content.wakeUpTime),
                                                   isVisible: cdSection.isVisible))
             default:
-                let cdOptions = content.optionArray
+                let cdOptions = content.options
                 var optionModels = [OptionModel]()
                 
                 for cdOption in cdOptions {
