@@ -9,11 +9,6 @@
 import Foundation
 import CoreData
 
-struct SafeInputModel {
-    var date: Double
-    var sections: [SafeSectionModel]
-}
-
 extension CDInputModel {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<CDInputModel> {

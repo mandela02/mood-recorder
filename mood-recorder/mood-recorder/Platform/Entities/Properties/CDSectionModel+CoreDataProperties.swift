@@ -9,12 +9,6 @@
 import Foundation
 import CoreData
 
-struct SafeSectionModel {
-    var sectionID: Double
-    var isVisible: Bool
-    var content: SafeContentModel?
-}
-
 extension CDSectionModel {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<CDSectionModel> {
@@ -31,7 +25,9 @@ extension CDSectionModel {
 
 extension CDSectionModel: Clone {
     func clone() -> SafeSectionModel {
-        return SafeSectionModel(sectionID: sectionID, isVisible: isVisible, content: content?.clone())
+        return SafeSectionModel(sectionID: sectionID,
+                                isVisible: isVisible,
+                                content: content?.clone())
     }
 }
 

@@ -9,15 +9,6 @@
 import Foundation
 import CoreData
 
-struct SafeContentModel {
-    var emotion: Double
-    var bedTime: String?
-    var wakeUpTime: String?
-    var image: Data?
-    var text: String?
-    var options: [SafeOptionModel]
-}
-
 extension CDContentModel {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<CDContentModel> {

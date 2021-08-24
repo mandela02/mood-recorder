@@ -86,30 +86,40 @@ class ChartViewModel: ViewModel {
     }
     
     private func syncFetch() {
+        let start = state.currentMonthDate.startOfMonth.startOfDayInterval
+        let end = state.currentMonthDate.endOfMonth.endOfDayInterval
+        
+        let fetchDiaryResponse = useCase.fetch(from: start, to: end)
+        
+        let fetchThisMonthOptionResponse = useCase.fetchAndCountOption(from: start, to: end)
+        
+        let lastMonthStart = state.currentMonthDate.previousMonth.startOfMonth.startOfDayInterval
+        let lastMonthEnd = state.currentMonthDate.previousMonth.endOfMonth.startOfDayInterval
+        
+        let fetchLastMonthOptionResponse = useCase.fetchAndCountOption(from: lastMonthStart,
+                                                                       to: lastMonthEnd)
+        
         Task {
-            await fetch()
+            await fetch(responses: fetchDiaryResponse,
+                        fetchThisMonthOptionResponse,
+                        fetchLastMonthOptionResponse)
         }
     }
 }
 
 extension ChartViewModel {
-    private func fetch() async {
-        let start = state.currentMonthDate.startOfMonth.startOfDayInterval
-        let end = state.currentMonthDate.endOfMonth.endOfDayInterval
+    private func fetch(responses: DatabaseResponse...) async {
+    
+        if responses.count != 3 { return }
         
-        let fetchResponse = useCase.fetch(from: start, to: end)
-        let fetchOptionResponse = useCase.fetchAndCountOption(from: start, to: end)
-        
-        let lastMonthStart = state.currentMonthDate.previousMonth.startOfMonth.startOfDayInterval
-        let lastMonthEnd = state.currentMonthDate.previousMonth.endOfMonth.startOfDayInterval
-        
-        let lastMonthfetchOptionResponse = useCase.fetchAndCountOption(from: lastMonthStart,
-                                                                       to: lastMonthEnd)
+        let fetchDiaryResponse = responses[0]
+        let fetchThisMonthOptionResponse = responses[1]
+        let fetchLastMonthOptionResponse = responses[2]
 
         do {
-            async let fetchResult = handleResponse(response: fetchResponse)
-            async let thisMonthOptionResult = handleResponse(response: fetchOptionResponse)
-            async let lastMonthOptionResult = handleResponse(response: lastMonthfetchOptionResponse)
+            async let fetchResult = handleResponse(response: fetchDiaryResponse)
+            async let thisMonthOptionResult = handleResponse(response: fetchThisMonthOptionResponse)
+            async let lastMonthOptionResult = handleResponse(response: fetchLastMonthOptionResponse)
             
             let results =  await [try fetchResult,
                                   try thisMonthOptionResult,
