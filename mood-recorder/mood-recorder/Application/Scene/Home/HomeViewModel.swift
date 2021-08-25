@@ -50,6 +50,16 @@ class HomeViewModel: ObservableObject {
 
 extension HomeViewModel {
     struct HomeState {
+        var calendarViewModel: BaseViewModel<CalendarState,
+                                             CalendarTrigger>
         
+        var chartViewModel: BaseViewModel<ChartState,
+                                          ChartTrigger>
+
+        var diaryViewModel: BaseViewModel<DiaryState,
+                                            DiaryTrigger>
+        
+        var isDiaryShow = false
+        var isEmotionDialogShowing = false
     }
 }

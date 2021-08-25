@@ -82,7 +82,9 @@ struct HomeView: View {
         .fullScreenCover(isPresented: $viewModel.isDiaryViewShow,
                          onDismiss: viewModel.onDiaryViewDismiss, content: {
             if let selectedCoreEmotion = viewModel.selectedCoreEmotion {
-                DiaryView(emotion: selectedCoreEmotion)
+                DiaryView(emotion: selectedCoreEmotion, onClose: {
+                    viewModel.isDiaryViewShow = false
+                })
             }
         })
     }

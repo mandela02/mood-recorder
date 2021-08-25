@@ -33,13 +33,10 @@ class CalendarViewModel: ViewModel {
         case .dateSelection(let model):
             state.selectedDiaryDataModel = model
             if model.date.isInTheFuture {
-                state.isFutureWarningDialogShow = true
                 state.isDetailViewShowing = false
-                state.isDiaryViewShowing = false
             } else {
                 if model.sections.isEmpty {
                     state.isDetailViewShowing = false
-                    state.isDiaryViewShowing = true
                 } else {
                     state.isDetailViewShowing = true
                 }
@@ -59,31 +56,27 @@ class CalendarViewModel: ViewModel {
                 state.currentMonth = (12, state.currentMonth.year - 1)
             }
             self.state.dates = createCalendarDates()
-        case .showDatePicker:
-            state.isDatePickerShow = true
-        case .closeDatePicker:
-            state.isDatePickerShow = false
         case .goTo(month: let month, year: let year):
             state.currentMonth = (month, year)
             self.state.dates = createCalendarDates()
         case .goToToDay:
             state.currentMonth = (Date().month, Date().year)
             self.state.dates = createCalendarDates()
-        case .share:
-            state.isShareImageViewShowing = true
-        case .closeFutureDialog:
-            state.isFutureWarningDialogShow = false
-        case .closeDiaryView:
-            state.isDiaryViewShowing = false
-        case .edit:
-            state.isDiaryViewShowing = true
-        case .delete:
-            state.isDetailViewShowing = false
+        case .handleFutureDialog(status: let status):
+            state.isFutureWarningDialogShow = status == .open
+        case .handleDiaryView(status: let status):
+            state.isDiaryViewShowing = status == .open
+        case .handelDatePickerView(status: let status):
+            state.isDatePickerShow = status == .open
+        case .handelDeleteDialog(status: let status):
+            state.isDeleteDialogShowing = status == .open
             guard let date = state.selectedDiaryDataModel?.date else { return }
             let response = useCase.delete(at: date.startOfDayInterval)
             Task {
                 await fetch(responses: response)
             }
+        case .handelImageSharingView(status: let status):
+            state.isShareImageViewShowing = status == .open
         }
     }
         
@@ -189,17 +182,23 @@ extension CalendarViewModel {
 
 // MARK: - Custom Type
 extension CalendarViewModel {
+    enum ViewStatus {
+        case open
+        case close
+    }
+    
     struct CalendarState {
         var dates: [Date] = []
         var selectedDiaryDataModel: DiaryDataModel?
         var currentMonth = (month: Date().month, year: Date().year)
-        var isDatePickerShow = false
-        var isFutureWarningDialogShow = false
-        var isShareImageViewShowing = false
         var diaries: [DiaryDataModel] = []
         
         var isDetailViewShowing = false
         var isDiaryViewShowing = false
+        var isDeleteDialogShowing = false
+        var isFutureWarningDialogShow = false
+        var isShareImageViewShowing = false
+        var isDatePickerShow = false
     }
     
     enum CalendarTrigger {
@@ -208,14 +207,13 @@ extension CalendarViewModel {
         case goTo(month: Int, year: Int)
         case goToNextMonth
         case goToToDay
-        case share
         case backToLaseMonth
-        case showDatePicker
-        case closeDatePicker
-        case closeFutureDialog
-        case closeDiaryView
-        case edit
-        case delete
         case reload
+        
+        case handleFutureDialog(status: ViewStatus)
+        case handleDiaryView(status: ViewStatus)
+        case handelDatePickerView(status: ViewStatus)
+        case handelDeleteDialog(status: ViewStatus)
+        case handelImageSharingView(status: ViewStatus)
     }
 }

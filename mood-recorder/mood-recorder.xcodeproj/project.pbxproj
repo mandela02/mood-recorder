@@ -324,13 +324,13 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		8476F1A526B85B7900F62854 /* Input */ = {
+		8476F1A526B85B7900F62854 /* Diary */ = {
 			isa = PBXGroup;
 			children = (
 				9041C11626CEC3B10054617E /* Dialog */,
 				9041C11526CEC3A50054617E /* DiaryView */,
 			);
-			path = Input;
+			path = Diary;
 			sourceTree = "<group>";
 		};
 		8476F1AA26B8635900F62854 /* Utilities */ = {
@@ -460,7 +460,7 @@
 				9007B35126D29FC600912AAC /* Chart */,
 				907E278126D1ECDD00D8129A /* Settings */,
 				9041C11C26CEC44E0054617E /* Calendar */,
-				8476F1A526B85B7900F62854 /* Input */,
+				8476F1A526B85B7900F62854 /* Diary */,
 				84CBB36226B7152C00A8E377 /* Home */,
 			);
 			path = Scene;

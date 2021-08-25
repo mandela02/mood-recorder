@@ -12,13 +12,16 @@ struct DiaryView: View {
         case top
         case bottom
     }
-    
-    @Environment(\.presentationMode)
-    var presentationMode
-    
+        
     @ObservedObject
     var viewModel: BaseViewModel<DiaryState,
                                  DiaryTrigger>
+    
+    @AppStorage(Keys.themeId.rawValue)
+    var themeId: Int = 0
+    
+    @FocusState
+    private var isFocus: Bool
     
     @State
     private var text = ""
@@ -32,24 +35,20 @@ struct DiaryView: View {
     @State
     private var imagePickerController: UIImagePickerController?
     
-    @FocusState private var isFocus: Bool
+    let onClose: VoidFunction
     
-    @AppStorage(Keys.themeId.rawValue)
-    var themeId: Int = 0
-    
-    init(emotion: CoreEmotion? = nil, data: DiaryDataModel? = nil) {
+    init(emotion: CoreEmotion? = nil,
+         data: DiaryDataModel? = nil,
+         onClose: @escaping VoidFunction) {
         let diaryState = DiaryState(emotion: emotion, data: data)
         self.viewModel = BaseViewModel(DiaryViewModel(state: diaryState))
+        
+        self.onClose = onClose
         
         UITextView.appearance().backgroundColor =  UIColor(Color.clear)
         UITableView.appearance().backgroundColor = UIColor(Color.clear)
     }
-    
-    // MARK: - Dismiss
-    func dismiss() {
-        presentationMode.wrappedValue.dismiss()
-    }
-    
+        
     // MARK: - Icon background color
     func iconBackgroundColor(_ isSelected: Bool) -> Color {
         return isSelected ?
@@ -300,7 +299,7 @@ struct DiaryView: View {
     var doneButton: some View {
         Button(action: {
             viewModel.trigger(.doneButtonTapped)
-            dismiss()
+            onClose()
         }, label: {
             ZStack {
                 Theme.get(id: themeId).buttonColor.backgroundColor
@@ -461,12 +460,15 @@ struct DiaryView: View {
         }
         .customDialog(isShowing: viewModel.state.isAboutToDismiss) {
             DismissDialog(save: {
+                viewModel.trigger(.handleDismissDialog(status: .close))
                 viewModel.trigger(.doneButtonTapped)
-                dismiss()
+                onClose()
             }, cancel: {
                 viewModel.trigger(.handleDismissDialog(status: .close))
-            }, exit: dismiss)
-                .padding()
+            }, exit: {
+                viewModel.trigger(.handleDismissDialog(status: .close))
+                onClose()
+            }).padding()
         }
         .customDialog(isShowing: viewModel.state.isAboutToReset) {
             ResetDialog(reset: {
