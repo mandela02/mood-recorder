@@ -64,8 +64,6 @@ class CalendarViewModel: ViewModel {
             self.state.dates = createCalendarDates()
         case .handleFutureDialog(status: let status):
             state.isFutureWarningDialogShow = status == .open
-        case .handleDiaryView(status: let status):
-            state.isDiaryViewShowing = status == .open
         case .handelDatePickerView(status: let status):
             state.isDatePickerShow = status == .open
         case .handelDeleteDialog(status: let status):
@@ -194,7 +192,6 @@ extension CalendarViewModel {
         var diaries: [DiaryDataModel] = []
         
         var isDetailViewShowing = false
-        var isDiaryViewShowing = false
         var isDeleteDialogShowing = false
         var isFutureWarningDialogShow = false
         var isShareImageViewShowing = false
@@ -211,7 +208,6 @@ extension CalendarViewModel {
         case reload
         
         case handleFutureDialog(status: ViewStatus)
-        case handleDiaryView(status: ViewStatus)
         case handelDatePickerView(status: ViewStatus)
         case handelDeleteDialog(status: ViewStatus)
         case handelImageSharingView(status: ViewStatus)

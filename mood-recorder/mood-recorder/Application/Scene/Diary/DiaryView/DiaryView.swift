@@ -37,12 +37,9 @@ struct DiaryView: View {
     
     let onClose: VoidFunction
     
-    init(emotion: CoreEmotion? = nil,
-         data: DiaryDataModel? = nil,
+    init(viewModel: BaseViewModel<DiaryState, DiaryTrigger>,
          onClose: @escaping VoidFunction) {
-        let diaryState = DiaryState(emotion: emotion, data: data)
-        self.viewModel = BaseViewModel(DiaryViewModel(state: diaryState))
-        
+        self.viewModel = viewModel
         self.onClose = onClose
         
         UITextView.appearance().backgroundColor =  UIColor(Color.clear)
@@ -512,7 +509,7 @@ struct DiaryView: View {
         .onAppear(perform: {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
                 imagePickerController = UIImagePickerController()
-                viewModel.trigger(.initialData)
+                viewModel.trigger(.initialSectionModels)
             })
         })
     }

@@ -37,5 +37,14 @@ struct ContentView: View {
                     Theme.post(themeId: newValue == .dark ? 1 : 0)
                 }
             })
+            .onChange(of: themeId) { newValue in
+                UIPageControl.appearance()
+                    .currentPageIndicatorTintColor =
+                UIColor(Theme.get(id: newValue).buttonColor.backgroundColor)
+                
+                UIPageControl.appearance()
+                    .pageIndicatorTintColor =
+                UIColor(Theme.get(id: newValue).buttonColor.disableColor)
+            }
     }
 }

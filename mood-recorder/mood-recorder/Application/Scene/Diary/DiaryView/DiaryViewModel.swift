@@ -29,7 +29,7 @@ class DiaryViewModel: ViewModel {
     func trigger(_ input: DiaryTrigger) {
         switch input {
         // MARK: - init data
-        case .initialData:
+        case .initialSectionModels:
             initData(with: state.initialEmotion, or: state.initialData)
         // MARK: - edit button tapped
         case .editButtonTapped:
@@ -136,6 +136,12 @@ class DiaryViewModel: ViewModel {
             state.isAboutToCustomizeSection = status == .open
         case .handleTimeDialog(status: let status):
             state.isAboutToShowTimePicker = status == .open
+        case .inittialData(data: let data):
+            state.initialData = data
+        case .initialEmotion(emotion: let emotion):
+            state.initialEmotion = emotion
+        case .clear:
+            self.state = DiaryState()
         }
     }
         
@@ -252,7 +258,10 @@ extension DiaryViewModel {
         case handleResetDialog(status: ViewStatus)
         case handleCustomDialog(status: ViewStatus)
         case handleTimeDialog(status: ViewStatus)
-        case initialData
+        case initialSectionModels
+        case inittialData(data: DiaryDataModel?)
+        case initialEmotion(emotion: CoreEmotion?)
+        case clear
     }
     
     enum ViewStatus {
@@ -276,10 +285,7 @@ extension DiaryViewModel {
         
         var status = Status.new
         
-        init(emotion: CoreEmotion? = nil, data: DiaryDataModel? = nil) {
-            self.initialData = data
-            self.initialEmotion = emotion
-        }
+        init() {}
     }
     
     enum Status {

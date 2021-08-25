@@ -6,6 +6,7 @@
 //
 
 typealias VoidFunction = () -> Void
+typealias DiaryModelCallbackFunction = (DiaryDataModel?) -> Void
 typealias OptionModelCallbackFunction = (OptionModel) -> Void
 typealias OptionModelArrayCallbackFunction = ([OptionModel]) -> Void
 typealias IntTupleCallbackFunction = (Int, Int) -> Void

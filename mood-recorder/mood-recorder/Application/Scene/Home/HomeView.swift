@@ -39,7 +39,14 @@ struct HomeView: View {
         switch viewModel.state.seletedTabBarView {
         case .calendar:
             CalendarView(viewModel: viewModel.calendarViewModel,
-                         isTabBarHiddenNeeded: $isTabBarHiddenNeeded)
+                         isTabBarHiddenNeeded: $isTabBarHiddenNeeded,
+                         onDiarySelected: { model in
+                guard let model = model else {
+                    return
+                }
+                viewModel.trigger(.selectDiary(model: model))
+                viewModel.trigger(.handleDiaryView(status: .open))
+            })
         case .timeline:
             Color.green
                 .ignoresSafeArea()
@@ -92,14 +99,15 @@ struct HomeView: View {
         }
         .overlay {
             if viewModel.state.isDiaryShow {
-                if let selectedCoreEmotion = viewModel.state.selectedEmotion {
-                    DiaryView(emotion: selectedCoreEmotion, onClose: {
-                        viewModel.trigger(.handleDiaryView(status: .close))
-                    })
-                        .transition(.move(edge: .bottom))
-                }
+                DiaryView(viewModel: viewModel.state.diaryViewModel,
+                          onClose: {
+                    viewModel.trigger(.handleDiaryView(status: .close))
+                    viewModel.trigger(.clear)
+                })
+                    .transition(.move(edge: .bottom))
             }
         }
+        .animation(.easeInOut, value: viewModel.state.seletedTabBarView)
         .animation(.easeInOut, value: viewModel.state.isDiaryShow)
         .animation(.easeInOut, value: isTabBarHiddenNeeded)
         .animation(Animation.easeInOut.speed(1.5), value: viewModel.state.isEmotionDialogShowing)

@@ -19,10 +19,20 @@ class HomeViewModel: ViewModel {
         switch input {
         case .selectEmotion(let emotion):
             state.selectedEmotion = emotion
-        case .deselectEmotion:
+        case .selectDiary(model: let model):
+            state.selectedDiaryDataModel = model
+        case .clear:
             state.selectedEmotion = nil
+            state.selectedDiaryDataModel = nil
         case .handleDiaryView(let status):
-            state.isDiaryShow = status == .open
+            if status == .open {
+                state.diaryViewModel.trigger(.initialEmotion(emotion: state.selectedEmotion))
+                state.diaryViewModel.trigger(.inittialData(data: state.selectedDiaryDataModel))
+                state.isDiaryShow = true
+            } else {
+                state.diaryViewModel.trigger(.clear)
+                state.isDiaryShow = false
+            }
         case .handleEmotionDialog(let status):
             state.isEmotionDialogShowing = status == .open
         case .handleTab(index: let index):
@@ -55,7 +65,8 @@ extension HomeViewModel {
                                         DiaryTrigger>
         
         var selectedEmotion: CoreEmotion?
-        
+        var selectedDiaryDataModel: DiaryDataModel?
+
         var isDiaryShow = false
         var isEmotionDialogShowing = false
         var seletedTabBarView: TabBarView = .calendar
@@ -69,7 +80,8 @@ extension HomeViewModel {
     
     enum HomeTrigger {
         case selectEmotion(emotion: CoreEmotion)
-        case deselectEmotion
+        case selectDiary(model: DiaryDataModel)
+        case clear
         case handleDiaryView(status: ViewStatus)
         case handleEmotionDialog(status: ViewStatus)
         case handleTab(index: Int)

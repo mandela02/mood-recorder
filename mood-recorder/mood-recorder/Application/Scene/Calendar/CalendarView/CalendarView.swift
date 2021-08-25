@@ -11,17 +11,21 @@ struct CalendarView: View {
     @ObservedObject
     var viewModel: BaseViewModel<CalendarState,
                                  CalendarTrigger>
-    
+        
     @Binding
     var isTabBarHiddenNeeded: Bool
         
     @AppStorage(Keys.themeId.rawValue)
     var themeId: Int = 0
+    
+    let onDiarySelected: DiaryModelCallbackFunction
 
     init(viewModel: BaseViewModel<CalendarState, CalendarTrigger>,
-         isTabBarHiddenNeeded: Binding<Bool>) {
+         isTabBarHiddenNeeded: Binding<Bool>,
+         onDiarySelected: @escaping DiaryModelCallbackFunction) {
         self.viewModel = viewModel
         self._isTabBarHiddenNeeded = isTabBarHiddenNeeded
+        self.onDiarySelected = onDiarySelected
     }
     
     private func showTabBar() {
@@ -50,7 +54,7 @@ struct CalendarView: View {
                            let diary = viewModel.state.selectedDiaryDataModel {
                             CalendarDiaryDetailView(diary: diary,
                                                     onEditDiary: {
-                                viewModel.trigger(.handleDiaryView(status: .open))
+                                onDiarySelected(viewModel.state.selectedDiaryDataModel)
                             }, onDeleteDiary: {
                                 viewModel.trigger(.handelDeleteDialog(status: .open))
                                 viewModel.trigger(.handelDeleteDialog(status: .close))
@@ -92,23 +96,7 @@ struct CalendarView: View {
                 }
             }
         })
-        .overlay {
-            if viewModel.state.isDiaryViewShowing {
-                if let data = viewModel.state.selectedDiaryDataModel {
-                    DiaryView(data: data, onClose: {
-                        viewModel.trigger(.handleDiaryView(status: .close))
-                    }).transition(.move(edge: .bottom))
-                }
-            }
-        }
         .onChange(of: viewModel.state.isDatePickerShow) { newValue in
-            if newValue {
-                hideTabBar()
-            } else {
-                showTabBar()
-            }
-        }
-        .onChange(of: viewModel.state.isDiaryViewShowing) { newValue in
             if newValue {
                 hideTabBar()
             } else {
@@ -129,7 +117,6 @@ struct CalendarView: View {
                 showTabBar()
             }
         }
-        .animation(.easeInOut, value: viewModel.state.isDiaryViewShowing)
         .animation(.easeInOut, value: viewModel.state.isDatePickerShow)
         .animation(.easeInOut, value: viewModel.state.isDetailViewShowing)
         .task {
@@ -200,7 +187,7 @@ extension CalendarView {
                                 viewModel.trigger(.handleFutureDialog(status: .open))
                             } else {
                                 if model.sections.isEmpty {
-                                    viewModel.trigger(.handleDiaryView(status: .open))
+                                    onDiarySelected(viewModel.state.selectedDiaryDataModel)
                                 }
                             }
                         }, label: {
