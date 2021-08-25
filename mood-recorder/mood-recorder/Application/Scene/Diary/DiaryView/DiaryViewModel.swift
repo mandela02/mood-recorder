@@ -141,8 +141,6 @@ class DiaryViewModel: ViewModel {
             state.initialData = data
         case .initialEmotion(emotion: let emotion):
             state.initialEmotion = emotion
-        case .clear:
-            self.state = DiaryState()
         }
     }
         
@@ -262,7 +260,6 @@ extension DiaryViewModel {
         case initialSectionModels
         case inittialData(data: DiaryDataModel?)
         case initialEmotion(emotion: CoreEmotion?)
-        case clear
     }
     
     enum ViewStatus {

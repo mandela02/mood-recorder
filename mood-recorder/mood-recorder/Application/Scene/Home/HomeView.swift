@@ -98,8 +98,9 @@ struct HomeView: View {
             }
         }
         .overlay {
-            if viewModel.state.isDiaryShow {
-                DiaryView(viewModel: viewModel.state.diaryViewModel,
+            if viewModel.state.isDiaryShow,
+                let diaryViewModel = viewModel.state.diaryViewModel {
+                DiaryView(viewModel: diaryViewModel,
                           onClose: {
                     viewModel.trigger(.handleDiaryView(status: .close))
                     viewModel.trigger(.clear)

@@ -26,11 +26,12 @@ class HomeViewModel: ViewModel {
             state.selectedDiaryDataModel = nil
         case .handleDiaryView(let status):
             if status == .open {
-                state.diaryViewModel.trigger(.initialEmotion(emotion: state.selectedEmotion))
-                state.diaryViewModel.trigger(.inittialData(data: state.selectedDiaryDataModel))
+                state.diaryViewModel = BaseViewModel(DiaryViewModel(state: DiaryState()))
+                state.diaryViewModel?.trigger(.initialEmotion(emotion: state.selectedEmotion))
+                state.diaryViewModel?.trigger(.inittialData(data: state.selectedDiaryDataModel))
                 state.isDiaryShow = true
             } else {
-                state.diaryViewModel.trigger(.clear)
+                state.diaryViewModel = nil
                 state.isDiaryShow = false
             }
         case .handleEmotionDialog(let status):
@@ -62,7 +63,7 @@ extension HomeViewModel {
                                           ChartTrigger>
 
         var diaryViewModel: BaseViewModel<DiaryState,
-                                        DiaryTrigger>
+                                        DiaryTrigger>?
         
         var selectedEmotion: CoreEmotion?
         var selectedDiaryDataModel: DiaryDataModel?
@@ -74,7 +75,6 @@ extension HomeViewModel {
         init() {
             calendarViewModel = BaseViewModel(CalendarViewModel(state: CalendarState()))
             chartViewModel = BaseViewModel(ChartViewModel(state: ChartState()))
-            diaryViewModel = BaseViewModel(DiaryViewModel(state: DiaryState()))
         }
     }
     

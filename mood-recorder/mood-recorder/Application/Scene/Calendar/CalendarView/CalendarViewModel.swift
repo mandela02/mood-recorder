@@ -150,30 +150,27 @@ extension CalendarViewModel {
         
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
+            
+            self.state.isDetailViewShowing = false
             self.state.diaries = diaries
             
             guard let date = self.state.selectedDiaryDataModel?.date else { return }
-            self.state.selectedDiaryDataModel = self.state.diaries
+            
+            self.state.selectedDiaryDataModel = diaries
                 .first(where: {$0.date.isInSameDay(as: date)})
+            
             if !(self.state.selectedDiaryDataModel?.sections.isEmpty ?? true) {
-                self.state.isDetailViewShowing = true
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                    self.state.isDetailViewShowing = true
+                }
             }
         }
     }
     
     private func createCalendarDates(month: Int? = nil,
                                      year: Int? = nil) -> [Date] {
-        var dateComponents = DateComponents()
-        dateComponents.year = year ?? state.currentMonth.year
-        dateComponents.month = month ?? state.currentMonth.month
-        dateComponents.day = 1
-        
-        let calendar = Calendar.gregorian
-        
-        guard let thisMonthDate = calendar.date(from: dateComponents) else {
-            return []
-        }
-        
+        let thisMonthDate = Date(year: year ?? state.currentMonth.year,
+                                 month: month ?? state.currentMonth.month)
         return thisMonthDate.getAllDateInMonthFaster()
     }
 }
