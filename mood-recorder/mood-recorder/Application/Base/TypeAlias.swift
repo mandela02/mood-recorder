@@ -9,6 +9,7 @@ typealias VoidFunction = () -> Void
 typealias OptionModelCallbackFunction = (OptionModel) -> Void
 typealias OptionModelArrayCallbackFunction = ([OptionModel]) -> Void
 typealias IntTupleCallbackFunction = (Int, Int) -> Void
+typealias IntCallbackFunction = (Int) -> Void
 
 typealias NavigationColor           = ThemeColor.NavigationColor
 typealias TableViewColor            = ThemeColor.TableViewColor
@@ -30,3 +31,6 @@ typealias DiaryTrigger = DiaryViewModel.DiaryTrigger
 
 typealias ChartState = ChartViewModel.ChartState
 typealias ChartTrigger = ChartViewModel.ChartTrigger
+
+typealias HomeState = HomeViewModel.HomeState
+typealias HomeTrigger = HomeViewModel.HomeTrigger

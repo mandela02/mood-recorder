@@ -14,8 +14,6 @@ struct TabBarItem {
 }
 
 struct CustomTabBar: View {
-    
-    @Binding
     var selectedIndex: Int
     
     let backgroundColor: Color
@@ -23,11 +21,11 @@ struct CustomTabBar: View {
     let unselectedItemColor: Color
     let onBigButtonTapped: VoidFunction
     
+    let onTabSelect: IntCallbackFunction
+    
     func configuredTabBarItem(item: TabBarItem) -> some View {
         Button(action: {
-            withAnimation(.easeInOut) {
-                selectedIndex = item.index
-            }
+            onTabSelect(item.index)
         }, label: {
             configuredTabBarContent(item: item)
         })
@@ -148,10 +146,11 @@ private extension Image {
 
 struct CustomTabBar_Previews: PreviewProvider {
     static var previews: some View {
-        CustomTabBar(selectedIndex: .constant(0),
+        CustomTabBar(selectedIndex: 0,
                      backgroundColor: .green,
                      selectedItemColor: .white,
                      unselectedItemColor: .black,
-                     onBigButtonTapped: {})
+                     onBigButtonTapped: {},
+                     onTabSelect: { _ in })
     }
 }

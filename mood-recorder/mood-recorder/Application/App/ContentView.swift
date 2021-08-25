@@ -18,10 +18,10 @@ struct ContentView: View {
     @Environment(\.colorScheme)
     var colorScheme
     
-    var viewModel: HomeViewModel
+    var viewModel: BaseViewModel<HomeState, HomeTrigger>
     
     init() {
-        viewModel = HomeViewModel()
+        viewModel = BaseViewModel(HomeViewModel(state: HomeState()))
     }
 
     var body: some View {
