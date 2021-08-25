@@ -1,6 +1,6 @@
 //
-//  InputModelUseCase.swift
-//  InputModelUseCase
+//  FetchDiaryUseCase.swift
+//  FetchDiaryUseCase
 //
 //  Created by TriBQ on 8/21/21.
 //
@@ -14,10 +14,10 @@ protocol FetchDiaryUseCaseType {
     func fetchAndConvert(from start: Double, to end: Double) -> DatabaseResponse
 }
 
-class FetchInputUseCase: FetchDiaryUseCaseType {
-    private let repository: Repository<CDInputModel>
+class FetchDiaryUseCase: FetchDiaryUseCaseType {
+    private let repository: Repository<CDDiaryModel>
 
-    init(repository: Repository<CDInputModel>) {
+    init(repository: Repository<CDDiaryModel>) {
         self.repository = repository
     }
     
@@ -32,7 +32,7 @@ class FetchInputUseCase: FetchDiaryUseCaseType {
     func fetchAndConvert(at date: Double) -> DatabaseResponse {
         let result = fetch(at: date)
         switch result {
-        case .success(data: let model as CDInputModel):
+        case .success(data: let model as CDDiaryModel):
             return .success(data: convert(prototype: model))
         case .error(let error):
             return.error(error: error)
@@ -46,7 +46,7 @@ class FetchInputUseCase: FetchDiaryUseCaseType {
     func fetchAndConvert(from start: Double, to end: Double) -> DatabaseResponse {
         let result = fetch(from: start, to: end)
         switch result {
-        case .success(data: let models as [CDInputModel]):
+        case .success(data: let models as [CDDiaryModel]):
             let diaryDataModels = models.map { convert(prototype: $0) }
             return .success(data: diaryDataModels)
         case .error(let error):
@@ -58,7 +58,7 @@ class FetchInputUseCase: FetchDiaryUseCaseType {
         }
     }
 
-    private func convert(prototype: CDInputModel) -> DiaryDataModel {
+    private func convert(prototype: CDDiaryModel) -> DiaryDataModel {
         let model = prototype.clone()
         
         var sectionModels = [SectionModel]()

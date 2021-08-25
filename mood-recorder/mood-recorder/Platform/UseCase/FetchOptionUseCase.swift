@@ -12,9 +12,9 @@ protocol FetchOptionUseCaseType {
 }
 
 class FetchOptionUseCase: FetchOptionUseCaseType {
-    private let repository: Repository<CDInputModel>
+    private let repository: Repository<CDDiaryModel>
 
-    init(repository: Repository<CDInputModel>) {
+    init(repository: Repository<CDDiaryModel>) {
         self.repository = repository
     }
     
@@ -24,7 +24,7 @@ class FetchOptionUseCase: FetchOptionUseCaseType {
                                                  start,
                                                  end))
         switch result {
-        case .success(data: let model as [CDInputModel]):
+        case .success(data: let model as [CDDiaryModel]):
             let allSections = model
                 .compactMap({$0.clone().sections})
                 .flatMap({$0})

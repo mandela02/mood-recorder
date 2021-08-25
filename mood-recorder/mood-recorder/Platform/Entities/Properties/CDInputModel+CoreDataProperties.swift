@@ -1,5 +1,5 @@
 //
-//  CDInputModel+CoreDataProperties.swift
+//  CDDiaryModel+CoreDataProperties.swift
 //  mood-recorder
 //
 //  Created by LanNTH on 08/08/2021.
@@ -9,10 +9,10 @@
 import Foundation
 import CoreData
 
-extension CDInputModel {
+extension CDDiaryModel {
 
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<CDInputModel> {
-        return NSFetchRequest<CDInputModel>(entityName: "CDInputModel")
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<CDDiaryModel> {
+        return NSFetchRequest<CDDiaryModel>(entityName: "CDDiaryModel")
     }
 
     @NSManaged public var date: Double
@@ -24,7 +24,7 @@ extension CDInputModel {
     }
 }
 
-extension CDInputModel: Clone {
+extension CDDiaryModel: Clone {
     func clone() -> SafeDiaryModel {
         SafeDiaryModel(date: date,
                        sections: sectionArray.map { $0.clone() })
@@ -32,7 +32,7 @@ extension CDInputModel: Clone {
 }
 
 // MARK: Generated accessors for sections
-extension CDInputModel {
+extension CDDiaryModel {
 
     @objc(addSectionsObject:)
     @NSManaged public func addToSections(_ value: CDSectionModel)
@@ -48,6 +48,6 @@ extension CDInputModel {
 
 }
 
-extension CDInputModel: Identifiable {
+extension CDDiaryModel: Identifiable {
 
 }

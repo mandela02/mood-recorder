@@ -110,7 +110,7 @@
 		90AFAEB226D34E67008B8CA6 /* EmotionPrecentChartCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90AFAEB126D34E67008B8CA6 /* EmotionPrecentChartCellView.swift */; };
 		90B072FC26D35D1E009D4954 /* FetchOptionUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B072FB26D35D1E009D4954 /* FetchOptionUseCase.swift */; };
 		90B4E97A26D0D5790048A2C2 /* CalendarUseCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B4E97926D0D5790048A2C2 /* CalendarUseCases.swift */; };
-		90B4E97C26D0D6130048A2C2 /* FetchInputUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B4E97B26D0D6130048A2C2 /* FetchInputUseCase.swift */; };
+		90B4E97C26D0D6130048A2C2 /* FetchDiaryUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B4E97B26D0D6130048A2C2 /* FetchDiaryUseCase.swift */; };
 		90F2105026D388030088899B /* OptionStatisticalTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F2104F26D388030088899B /* OptionStatisticalTableView.swift */; };
 /* End PBXBuildFile section */
 
@@ -221,7 +221,7 @@
 		90AFAEB126D34E67008B8CA6 /* EmotionPrecentChartCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionPrecentChartCellView.swift; sourceTree = "<group>"; };
 		90B072FB26D35D1E009D4954 /* FetchOptionUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchOptionUseCase.swift; sourceTree = "<group>"; };
 		90B4E97926D0D5790048A2C2 /* CalendarUseCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarUseCases.swift; sourceTree = "<group>"; };
-		90B4E97B26D0D6130048A2C2 /* FetchInputUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchInputUseCase.swift; sourceTree = "<group>"; };
+		90B4E97B26D0D6130048A2C2 /* FetchDiaryUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchDiaryUseCase.swift; sourceTree = "<group>"; };
 		90F2104F26D388030088899B /* OptionStatisticalTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionStatisticalTableView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -397,7 +397,7 @@
 		84C3F73026C03DFC00C789F5 /* UseCase */ = {
 			isa = PBXGroup;
 			children = (
-				90B4E97B26D0D6130048A2C2 /* FetchInputUseCase.swift */,
+				90B4E97B26D0D6130048A2C2 /* FetchDiaryUseCase.swift */,
 				90B072FB26D35D1E009D4954 /* FetchOptionUseCase.swift */,
 			);
 			path = UseCase;
@@ -830,7 +830,7 @@
 				84CBB36626B7164E00A8E377 /* HomeViewModel.swift in Sources */,
 				84CBB36A26B71E7500A8E377 /* ResizeAnimationButtonStyle.swift in Sources */,
 				8404939326BA4FC0006523D9 /* ImageModel.swift in Sources */,
-				90B4E97C26D0D6130048A2C2 /* FetchInputUseCase.swift in Sources */,
+				90B4E97C26D0D6130048A2C2 /* FetchDiaryUseCase.swift in Sources */,
 				8404939F26BAAB21006523D9 /* ThemeHelper.swift in Sources */,
 				84C3F72826C03AE600C789F5 /* CDOptionModel+CoreDataClass.swift in Sources */,
 				84C3F72D26C03AE600C789F5 /* CDSectionModel+CoreDataProperties.swift in Sources */,

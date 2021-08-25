@@ -9,7 +9,7 @@
         <relationship name="options" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDOptionModel" inverseName="content" inverseEntity="CDOptionModel"/>
         <relationship name="section" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDSectionModel" inverseName="content" inverseEntity="CDSectionModel"/>
     </entity>
-    <entity name="CDInputModel" representedClassName="CDInputModel" syncable="YES">
+    <entity name="CDDiaryModel" representedClassName="CDDiaryModel" syncable="YES">
         <attribute name="date" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <relationship name="sections" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDSectionModel" inverseName="origin" inverseEntity="CDSectionModel"/>
         <uniquenessConstraints>
@@ -29,23 +29,23 @@
         <attribute name="isVisible" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="sectionID" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="content" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDContentModel" inverseName="section" inverseEntity="CDContentModel"/>
-        <relationship name="origin" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDInputModel" inverseName="sections" inverseEntity="CDInputModel"/>
+        <relationship name="origin" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDDiaryModel" inverseName="sections" inverseEntity="CDDiaryModel"/>
     </entity>
     <configuration name="Cloud" usedWithCloudKit="YES">
         <memberEntity name="CDContentModel"/>
-        <memberEntity name="CDInputModel"/>
+        <memberEntity name="CDDiaryModel"/>
         <memberEntity name="CDOptionModel"/>
         <memberEntity name="CDSectionModel"/>
     </configuration>
     <configuration name="Local">
         <memberEntity name="CDContentModel"/>
-        <memberEntity name="CDInputModel"/>
+        <memberEntity name="CDDiaryModel"/>
         <memberEntity name="CDOptionModel"/>
         <memberEntity name="CDSectionModel"/>
     </configuration>
     <elements>
         <element name="CDContentModel" positionX="-27" positionY="27" width="128" height="134"/>
-        <element name="CDInputModel" positionX="-63" positionY="-18" width="128" height="59"/>
+        <element name="CDDiaryModel" positionX="-63" positionY="-18" width="128" height="59"/>
         <element name="CDOptionModel" positionX="-9" positionY="45" width="128" height="104"/>
         <element name="CDSectionModel" positionX="-45" positionY="18" width="128" height="89"/>
     </elements>

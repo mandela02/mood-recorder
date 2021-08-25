@@ -15,12 +15,12 @@ protocol CalendarUseCaseType {
 }
 
 struct CalendarUseCases: CalendarUseCaseType {
-    private let repository: Repository<CDInputModel>
+    private let repository: Repository<CDDiaryModel>
     private let fetchUseCase: FetchDiaryUseCaseType
     
-    init(repository: Repository<CDInputModel>) {
+    init(repository: Repository<CDDiaryModel>) {
         self.repository = repository
-        self.fetchUseCase = FetchInputUseCase(repository: repository)
+        self.fetchUseCase = FetchDiaryUseCase(repository: repository)
     }
     
     func fetch(from start: Double, to end: Double) -> DatabaseResponse {
@@ -30,7 +30,7 @@ struct CalendarUseCases: CalendarUseCaseType {
     func delete(at date: Double) -> DatabaseResponse {
         let result = fetchUseCase.fetch(at: date)
         switch result {
-        case .success(data: let model as CDInputModel):
+        case .success(data: let model as CDDiaryModel):
             return repository.delete(model: model)
         case .error(let error):
             return.error(error: error)

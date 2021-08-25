@@ -18,7 +18,7 @@ extension CDSectionModel {
     @NSManaged public var sectionID: Double
     @NSManaged public var isVisible: Bool
 
-    @NSManaged public var origin: CDInputModel?
+    @NSManaged public var origin: CDDiaryModel?
     @NSManaged public var content: CDContentModel?
 
 }

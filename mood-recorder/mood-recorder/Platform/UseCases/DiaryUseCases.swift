@@ -1,5 +1,5 @@
 //
-//  InputUseCase.swift
+//  DiaryUseCases.swift
 //  mood-recorder
 //
 //  Created by LanNTH on 08/08/2021.
@@ -16,12 +16,12 @@ protocol DiaryUseCaseType {
 }
 
 struct DiaryUseCases: DiaryUseCaseType {
-    private let repository: Repository<CDInputModel>
+    private let repository: Repository<CDDiaryModel>
     private let fetchUseCase: FetchDiaryUseCaseType
 
-    init(repository: Repository<CDInputModel>) {
+    init(repository: Repository<CDDiaryModel>) {
         self.repository = repository
-        self.fetchUseCase = FetchInputUseCase(repository: repository)
+        self.fetchUseCase = FetchDiaryUseCase(repository: repository)
     }
 
     var context: NSManagedObjectContext {
@@ -31,10 +31,10 @@ struct DiaryUseCases: DiaryUseCaseType {
     func save(model: DiaryDataModel) -> DatabaseResponse {
         let cdSections: [CDSectionModel] = createContent(model: model)
 
-        let inputModel = CDInputModel(context: context)
-        inputModel.date = model.date.startOfDayInterval
+        let diaryModel = CDDiaryModel(context: context)
+        diaryModel.date = model.date.startOfDayInterval
 
-        inputModel.addToSections(NSSet(array: cdSections))
+        diaryModel.addToSections(NSSet(array: cdSections))
 
         return repository.save()
     }
@@ -42,15 +42,15 @@ struct DiaryUseCases: DiaryUseCaseType {
     func update(model: DiaryDataModel) -> DatabaseResponse {
         let result = fetchUseCase.fetch(at: model.date.startOfDayInterval)
         switch result {
-        case .success(data: let cdInputModel):
-            guard  let cdInputModel = cdInputModel as? CDInputModel else {
+        case .success(data: let cdDiaryModel):
+            guard  let cdDiaryModel = cdDiaryModel as? CDDiaryModel else {
                 return .error(error: NSError(domain: "Can not find this record",
                                              code: 1,
                                              userInfo: nil))
             }
 
             let sections = createContent(model: model)
-            cdInputModel.sections = NSSet(array: sections)
+            cdDiaryModel.sections = NSSet(array: sections)
             return repository.save()
         case .error(error: let error):
             return .error(error: error)
