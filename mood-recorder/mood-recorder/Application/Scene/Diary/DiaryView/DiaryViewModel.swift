@@ -41,21 +41,18 @@ class DiaryViewModel: ViewModel {
             case .new:
                 let model = DiaryDataModel(date: Date(),
                                            sections: self.state.sectionModels)
-                Task {
-                    await fetch(responses: self.useCase.save(model: model), emotion: nil)
-                }
+                let response = self.useCase.save(model: model)
+                syncFetchSingleResponse(response: response, emotion: nil)
             case .update(date: let date):
                 let model = DiaryDataModel(date: date,
                                            sections: self.state.sectionModels)
-                Task {
-                    await fetch(responses: self.useCase.update(model: model), emotion: nil)
-                }
+                let response = self.useCase.update(model: model)
+                syncFetchSingleResponse(response: response, emotion: nil)
             case .create(date: let date):
                 let model = DiaryDataModel(date: date,
                                            sections: self.state.sectionModels)
-                Task {
-                    await fetch(responses: self.useCase.save(model: model), emotion: nil)
-                }
+                let response = self.useCase.save(model: model)
+                syncFetchSingleResponse(response: response, emotion: nil)
             }
             
         // MARK: - cell option tapped
@@ -160,7 +157,8 @@ class DiaryViewModel: ViewModel {
         } else {
             if useCase.isRecordExist(date: Date().startOfDayInterval) {
                 state.status = .update(date: Date())
-                syncFetch(at: Date(), emotion: nil)
+                let response = useCase.fetch(at: Date().startOfDayInterval)
+                syncFetchSingleResponse(response: response, emotion: nil)
             } else {
                 state.status = .new
                 state.sectionModels = DiaryDataModel.initData().sections
@@ -178,9 +176,7 @@ extension DiaryViewModel {
         }
     }
     
-    private func syncFetch(at date: Date, emotion: CoreEmotion?) {
-        let response = useCase.fetch(at: date.startOfDayInterval)
-
+    private func syncFetchSingleResponse(response: DatabaseResponse, emotion: CoreEmotion?) {
         Task {
             await fetch(responses: response, emotion: emotion)
         }
