@@ -12,7 +12,7 @@ struct DiaryView: View {
         case top
         case bottom
     }
-        
+    
     @ObservedObject
     var viewModel: BaseViewModel<DiaryState,
                                  DiaryTrigger>
@@ -45,7 +45,7 @@ struct DiaryView: View {
         UITextView.appearance().backgroundColor =  UIColor(Color.clear)
         UITableView.appearance().backgroundColor = UIColor(Color.clear)
     }
-        
+    
     // MARK: - Icon background color
     func iconBackgroundColor(_ isSelected: Bool) -> Color {
         return isSelected ?
@@ -140,17 +140,17 @@ struct DiaryView: View {
             .aspectRatio(imageModel.aspectRatio, contentMode: .fit)
             .cornerRadius(10)
         })
-        .buttonStyle(ResizeAnimationButtonStyle())
-        .sheet(isPresented: $isImagePickerShowing) {
-            if let imagePickerController = imagePickerController {
-                ImagePicker(sourceType: .photoLibrary, controller: imagePickerController) { image in
-                    viewModel.trigger(.pictureSelected(sectionIndex: sectionIndex,
-                                                       image: image))
+            .buttonStyle(ResizeAnimationButtonStyle())
+            .sheet(isPresented: $isImagePickerShowing) {
+                if let imagePickerController = imagePickerController {
+                    ImagePicker(sourceType: .photoLibrary, controller: imagePickerController) { image in
+                        viewModel.trigger(.pictureSelected(sectionIndex: sectionIndex,
+                                                           image: image))
+                    }
+                } else {
+                    SizedBox()
                 }
-            } else {
-                SizedBox()
             }
-        }
     }
     
     // MARK: - Section Text Type
@@ -308,7 +308,7 @@ struct DiaryView: View {
                     .padding()
             }
         })
-        .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+            .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
     }
     
     // MARK: - Navigation Bar
@@ -320,14 +320,12 @@ struct DiaryView: View {
             }, label: {
                 HStack {
                     Text( viewModel.isInEditMode ? "Done" : "Edit")
-                        .foregroundColor(Theme.get(id: themeId).navigationColor.button)
                         .font(.system(size: 20))
                     Image(systemName: "square.and.pencil")
                         .resizable()
                         .renderingMode(.template)
                         .frame(width: 20, height: 20, alignment: .center)
-                        .foregroundColor(Theme.get(id: themeId).navigationColor.button)
-                }.animation(.easeInOut, value: viewModel.isInEditMode)
+                }
             })
             Spacer()
             if !viewModel.isInEditMode {
@@ -339,7 +337,6 @@ struct DiaryView: View {
                         .resizable()
                         .renderingMode(.template)
                         .frame(width: 30, height: 30, alignment: .center)
-                        .foregroundColor(Theme.get(id: themeId).navigationColor.button)
                 })
                 
                 SizedBox(width: 10)
@@ -352,10 +349,12 @@ struct DiaryView: View {
                         .resizable()
                         .renderingMode(.template)
                         .frame(width: 30, height: 30, alignment: .center)
-                        .foregroundColor(Theme.get(id: themeId).navigationColor.button)
                 })
             }
         }
+        .foregroundColor(viewModel.state.isInLoadingMode ?
+                         Color.gray :
+                            Theme.get(id: themeId).navigationColor.button)
     }
     
     // MARK: - gradient
@@ -398,54 +397,69 @@ struct DiaryView: View {
         }
     }
     
+    func buildNormalView() -> some View {
+        ScrollViewReader { proxy in
+            List {
+                ForEach(Array(viewModel.sectionModels.enumerated()),
+                        id: \.offset) { index, section in
+                    if section.isVisible || viewModel.isInEditMode {
+                        getSectionCell(sectionModel: section,
+                                       at: index)
+                            .animation(.easeInOut(duration: 0.2),
+                                       value: section.isVisible)
+                            .id(section.section)
+                    }
+                }
+                
+                if !viewModel.isInEditMode {
+                    Section(header: SizedBox(height: .leastNonzeroMagnitude),
+                            footer: SizedBox(height: 200)) {
+                        doneButton
+                            .id("DoneButton")
+                    }
+                }
+            }
+            .buttonStyle(PlainButtonStyle())
+            .animation(.easeInOut(duration: 0.2), value: viewModel.state.sectionModels)
+            .onChange(of: destination) { destination in
+                guard let destination = destination else {
+                    return
+                }
+                
+                withAnimation(.easeInOut(duration: 0.5)) {
+                    switch destination {
+                    case .top:
+                        proxy.scrollTo(SectionType.emotion, anchor: .top)
+                    case .bottom:
+                        if viewModel.isInEditMode {
+                            guard let section = viewModel.state.sectionModels.last?.section else { return }
+                            proxy.scrollTo(section, anchor: .bottom)
+                        } else {
+                            proxy.scrollTo("DoneButton", anchor: .bottom)
+                        }
+                    }
+                }
+                self.destination = nil
+            }
+        }
+    }
+    
+    func buildLoadingView() -> some View {
+        ZStack {
+            ProgressView()
+                .progressViewStyle(CircularProgressViewStyle(tint: Theme.get(id: themeId).buttonColor.backgroundColor))
+        }
+    }
+    
     // MARK: - BODY
     var body: some View {
         ZStack {
             Theme.get(id: themeId).tableViewColor.background
-            ScrollViewReader { proxy in
-                List {
-                    ForEach(Array(viewModel.sectionModels.enumerated()),
-                            id: \.offset) { index, section in
-                        if section.isVisible || viewModel.isInEditMode {
-                            getSectionCell(sectionModel: section,
-                                           at: index)
-                                .animation(.easeInOut(duration: 0.2),
-                                           value: section.isVisible)
-                                .id(section.section)
-                        }
-                    }
-                    
-                    if !viewModel.isInEditMode {
-                        Section(header: SizedBox(height: .leastNonzeroMagnitude),
-                                footer: SizedBox(height: 200)) {
-                            doneButton
-                                .id("DoneButton")
-                        }
-                    }
-                }
-                .buttonStyle(PlainButtonStyle())
-                .animation(.easeInOut(duration: 0.2), value: viewModel.state.isInEditMode)
-                .animation(.easeInOut(duration: 0.2), value: viewModel.state.sectionModels)
-                .onChange(of: destination) { destination in
-                    guard let destination = destination else {
-                        return
-                    }
-                    
-                    withAnimation(.easeInOut(duration: 0.5)) {
-                        switch destination {
-                        case .top:
-                            proxy.scrollTo(SectionType.emotion, anchor: .top)
-                        case .bottom:
-                            if viewModel.isInEditMode {
-                                guard let section = viewModel.state.sectionModels.last?.section else { return }
-                                proxy.scrollTo(section, anchor: .bottom)
-                            } else {
-                                proxy.scrollTo("DoneButton", anchor: .bottom)
-                            }
-                        }
-                    }
-                    self.destination = nil
-                }
+            
+            if viewModel.state.isInLoadingMode {
+                buildLoadingView()
+            } else {
+                buildNormalView()
             }
             
             buildGradient()
@@ -455,7 +469,8 @@ struct DiaryView: View {
         .onTapGesture {
             isFocus = false
         }
-        .customDialog(isShowing: viewModel.state.isAboutToDismiss) {
+        .customDialog(isShowing: viewModel.state.isAboutToDismiss,
+                      dialogContent: {
             DismissDialog(save: {
                 viewModel.trigger(.handleDismissDialog(status: .close))
                 viewModel.trigger(.finishThisDiary)
@@ -466,8 +481,9 @@ struct DiaryView: View {
                 viewModel.trigger(.handleDismissDialog(status: .close))
                 onClose()
             }).padding()
-        }
-        .customDialog(isShowing: viewModel.state.isAboutToReset) {
+        })
+        .customDialog(isShowing: viewModel.state.isAboutToReset,
+                      dialogContent: {
             ResetDialog(reset: {
                 viewModel.trigger(.resetAllData)
                 text = ""
@@ -476,9 +492,10 @@ struct DiaryView: View {
                 viewModel.trigger(.handleResetDialog(status: .close))
             })
                 .padding()
-        }
+        })
         .customDialog(isShowing: viewModel.state.isAboutToCustomizeSection,
-                      padding: 20) {
+                      padding: 20,
+                      dialogContent: {
             if let sectionModel = viewModel.state.selectedSectionModel {
                 OptionAdditionView(sectionModel: sectionModel,
                                    onConfirm: { models in
@@ -491,9 +508,10 @@ struct DiaryView: View {
                     viewModel.trigger(.onOpenCustomizeSectionDialog(model: nil))
                 })
             }
-        }
+        })
         .customDialog(isShowing: viewModel.state.isAboutToShowTimePicker,
-                      padding: 20) {
+                      padding: 20,
+                      dialogContent: {
             if let sleepModel = viewModel.state.selectedSectionModel?.cell as? SleepSchelduleModel {
                 ClockAnimationView(sleepSchelduleModel: sleepModel,
                                    onCancel: {
@@ -505,12 +523,13 @@ struct DiaryView: View {
                     viewModel.trigger(.onOpenCustomizeSectionDialog(model: nil))
                 })
             }
-        }
-        .onAppear(perform: {
+        })
+        .animation(.easeInOut(duration: 0.2), value: viewModel.diaryViewState)
+        .task {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
                 imagePickerController = UIImagePickerController()
                 viewModel.trigger(.initialSectionModels)
             })
-        })
+        }
     }
 }

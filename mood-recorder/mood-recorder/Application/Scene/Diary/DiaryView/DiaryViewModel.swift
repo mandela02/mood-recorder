@@ -33,7 +33,11 @@ class DiaryViewModel: ViewModel {
             initData(with: state.initialEmotion, or: state.initialData)
         // MARK: - edit button tapped
         case .editButtonTapped:
-            self.state.isInEditMode.toggle()
+            if state.diaryViewState == .normal {
+                state.diaryViewState = .edit
+            } else {
+                state.diaryViewState = .normal
+            }
 
         // MARK: - done button tapped
         case .finishThisDiary:
@@ -232,6 +236,7 @@ extension DiaryViewModel {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             self.state.sectionModels = result
+            self.state.diaryViewState = .normal
         }
     }
 }
@@ -265,11 +270,18 @@ extension DiaryViewModel {
         case close
     }
     
+    enum DiaryViewState {
+        case loading
+        case normal
+        case edit
+    }
+    
     struct DiaryState {
         var initialEmotion: CoreEmotion?
         var initialData: DiaryDataModel?
 
-        var isInEditMode = false
+        var diaryViewState = DiaryViewState.loading
+        
         var isAboutToDismiss = false
         var isAboutToCustomizeSection = false
         var isAboutToReset = false
@@ -281,7 +293,13 @@ extension DiaryViewModel {
         
         var status = Status.new
         
-        init() {}
+        var isInEditMode: Bool {
+            return diaryViewState == .edit
+        }
+        
+        var isInLoadingMode: Bool {
+            return diaryViewState == .loading
+        }
     }
     
     enum Status {
