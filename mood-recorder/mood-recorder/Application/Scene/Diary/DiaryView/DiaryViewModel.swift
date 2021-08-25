@@ -1,5 +1,5 @@
 //
-//  InputViewModel.swift
+//  DiaryViewModel.swift
 //  mood-recorder
 //
 //  Created by LanNTH on 03/08/2021.
@@ -8,12 +8,12 @@
 import SwiftUI
 import Combine
 
-class InputViewModel: ViewModel {
+class DiaryViewModel: ViewModel {
     
     @Published
-    var state: InputState
+    var state: DiaryState
     
-    private let useCase = UseCaseProvider.defaultProvider.getInputUseCases()
+    private let useCase = UseCaseProvider.defaultProvider.getDiaryUseCases()
     
     private var cancellables = Set<AnyCancellable>()
     
@@ -22,35 +22,41 @@ class InputViewModel: ViewModel {
         cancellables.removeAll()
     }
     
-    init(state: InputState) {
+    init(state: DiaryState) {
         self.state = state
-        setupSubcription()
     }
     
-    func trigger(_ input: InputTrigger) {
+    func trigger(_ input: DiaryTrigger) {
         switch input {
         // MARK: - init data
-        case .initialData:
+        case .initialSectionModels:
             initData(with: state.initialEmotion, or: state.initialData)
         // MARK: - edit button tapped
         case .editButtonTapped:
-            self.state.isInEditMode.toggle()
+            if state.diaryViewState == .normal {
+                state.diaryViewState = .edit
+            } else {
+                state.diaryViewState = .normal
+            }
 
         // MARK: - done button tapped
-        case .doneButtonTapped:
+        case .finishThisDiary:
             switch self.state.status {
             case .new:
-                let model = InputDataModel(date: Date(),
+                let model = DiaryDataModel(date: Date(),
                                            sections: self.state.sectionModels)
-                self.state.response.send(self.useCase.save(model: model))
+                let response = self.useCase.save(model: model)
+                syncFetchSingleResponse(response: response, emotion: nil)
             case .update(date: let date):
-                let model = InputDataModel(date: date,
+                let model = DiaryDataModel(date: date,
                                            sections: self.state.sectionModels)
-                self.state.response.send(self.useCase.update(model: model))
+                let response = self.useCase.update(model: model)
+                syncFetchSingleResponse(response: response, emotion: nil)
             case .create(date: let date):
-                let model = InputDataModel(date: date,
+                let model = DiaryDataModel(date: date,
                                            sections: self.state.sectionModels)
-                self.state.response.send(self.useCase.save(model: model))
+                let response = self.useCase.save(model: model)
+                syncFetchSingleResponse(response: response, emotion: nil)
             }
             
         // MARK: - cell option tapped
@@ -86,14 +92,14 @@ class InputViewModel: ViewModel {
                 self.state.sectionModels[index].resetCell()
             }
             
-            self.sort()
+            self.syncSort(emotion: nil)
         
         // MARK: - Text change
         case .onTextChange(sectionIndex: let sectionIndex, text: let text):
             self.state.sectionModels[sectionIndex].addText(text: text)
         
         // MARK: - Reset button tap
-        case .resetButtonTapped:
+        case .resetAllData:
             for index in state.sectionModels.indices {
                 self.state.sectionModels[index].resetCell()
             }
@@ -131,73 +137,111 @@ class InputViewModel: ViewModel {
             state.isAboutToCustomizeSection = status == .open
         case .handleTimeDialog(status: let status):
             state.isAboutToShowTimePicker = status == .open
+        case .inittialData(data: let data):
+            state.initialData = data
+        case .initialEmotion(emotion: let emotion):
+            state.initialEmotion = emotion
         }
     }
         
     private func initData(with emotion: CoreEmotion?,
-                          or data: InputDataModel?) {
+                          or data: DiaryDataModel?) {
         if let data = data {
             if data.sections.isEmpty {
                 state.status = .create(date: data.date)
-                state.sectionModels = InputDataModel.initData().sections
+                state.sectionModels = DiaryDataModel.initData().sections
+                self.syncSort(emotion: emotion)
             } else {
                 state.status = .update(date: data.date)
                 state.sectionModels = data.sections
+                self.syncSort(emotion: emotion)
             }
         } else {
             if useCase.isRecordExist(date: Date().startOfDayInterval) {
                 state.status = .update(date: Date())
-                state.response.send(useCase.fetch(at: Date().startOfDayInterval))
+                let response = useCase.fetch(at: Date().startOfDayInterval)
+                syncFetchSingleResponse(response: response, emotion: nil)
             } else {
                 state.status = .new
-                state.sectionModels = InputDataModel.initData().sections
+                state.sectionModels = DiaryDataModel.initData().sections
+                self.syncSort(emotion: emotion)
             }
         }
-        
-        if let emotion = emotion {
-            for index in state.sectionModels.indices {
-                state.sectionModels[index].onEmotionSelected(emotion: emotion)
-            }
-        }
-        
-        self.sort()
     }
 }
 
 // MARK: - Subcription Handler
-extension InputViewModel {
-    private func setupSubcription() {
-        self.state.response
-            .sink { [weak self] response in
-                guard let self = self else { return }
-                switch response {
-                case .success(data: let data):
-                    if let model = data as? InputDataModel {
-                        self.state.sectionModels = model.sections
-                        self.sort()
-                    }
-                case .error(error: let error):
-                    print(error)
-                }
-                
-            }
-            .store(in: &cancellables)
+extension DiaryViewModel {
+    private func syncSort(emotion: CoreEmotion?) {
+        Task {
+            await sort(models: state.sectionModels, emotion: emotion)
+        }
     }
     
-    private func sort() {
-        var visibles = self.state.sectionModels.filter { $0.isVisible }
-        visibles.sort(by: { $0.section.rawValue < $1.section.rawValue })
+    private func syncFetchSingleResponse(response: DatabaseResponse, emotion: CoreEmotion?) {
+        Task {
+            await fetch(responses: response, emotion: emotion)
+        }
+    }
+    
+    private func fetch(responses: DatabaseResponse..., emotion: CoreEmotion?) async {
+        if responses.count != 1 { return }
+
+        do {
+            let result = try await handleResponse(response: responses[0])
+            if let result = result as? DiaryDataModel {
+                await sort(models: result.sections, emotion: emotion)
+            }
+        } catch let error {
+            print(error)
+        }
         
-        var hiddens = self.state.sectionModels.filter { !$0.isVisible }
-        hiddens.sort(by: { $0.section.rawValue < $1.section.rawValue })
+    }
+
+    private func handleResponse(response: DatabaseResponse) async throws -> Any? {
+        switch response {
+        case .success(data: let data):
+            if let data = data {
+                return data
+            }
+            return nil
+        case .error(error: let error):
+            throw error
+        }
+    }
+    
+    private func sort(models: [SectionModel], emotion: CoreEmotion?) async {
+        let task = Task(priority: .userInitiated) { () -> [SectionModel] in
+            var mutatedModels = models
+            
+            var visibles = mutatedModels.filter { $0.isVisible }
+            
+            if let emotion = emotion {
+                for index in models.indices {
+                    mutatedModels[index].onEmotionSelected(emotion: emotion)
+                }
+            }
+            
+            visibles.sort(by: { $0.section.rawValue < $1.section.rawValue })
+            
+            var hiddens = mutatedModels.filter { !$0.isVisible }
+            hiddens.sort(by: { $0.section.rawValue < $1.section.rawValue })
+            
+            return visibles + hiddens
+        }
         
-        self.state.sectionModels = visibles + hiddens
+        let result = await task.value
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.state.sectionModels = result
+            self.state.diaryViewState = .normal
+        }
     }
 }
 
 // MARK: - Private enum
-extension InputViewModel {
-    enum InputTrigger {
+extension DiaryViewModel {
+    enum DiaryTrigger {
         case optionTap(sectionIndex: Int, optionIndex: Int)
         case pictureSelected(sectionIndex: Int, image: UIImage)
         case emotionSelected(sectionIndex: Int, emotion: CoreEmotion)
@@ -207,13 +251,15 @@ extension InputViewModel {
         case onOpenCustomizeSectionDialog(model: SectionModel?)
         case onCustomSection(models: [OptionModel])
         case editButtonTapped
-        case doneButtonTapped
-        case resetButtonTapped
+        case finishThisDiary
+        case resetAllData
         case handleDismissDialog(status: ViewStatus)
         case handleResetDialog(status: ViewStatus)
         case handleCustomDialog(status: ViewStatus)
         case handleTimeDialog(status: ViewStatus)
-        case initialData
+        case initialSectionModels
+        case inittialData(data: DiaryDataModel?)
+        case initialEmotion(emotion: CoreEmotion?)
     }
     
     enum ViewStatus {
@@ -221,11 +267,18 @@ extension InputViewModel {
         case close
     }
     
-    struct InputState {
+    enum DiaryViewState {
+        case loading
+        case normal
+        case edit
+    }
+    
+    struct DiaryState {
         var initialEmotion: CoreEmotion?
-        var initialData: InputDataModel?
+        var initialData: DiaryDataModel?
 
-        var isInEditMode = false
+        var diaryViewState = DiaryViewState.loading
+        
         var isAboutToDismiss = false
         var isAboutToCustomizeSection = false
         var isAboutToReset = false
@@ -234,14 +287,15 @@ extension InputViewModel {
         var sectionModels: [SectionModel] = []
         
         var selectedSectionModel: SectionModel?
-
-        let response = PassthroughSubject<DatabaseResponse, Never>()
         
         var status = Status.new
         
-        init(emotion: CoreEmotion? = nil, data: InputDataModel? = nil) {
-            self.initialData = data
-            self.initialEmotion = emotion
+        var isInEditMode: Bool {
+            return diaryViewState == .edit
+        }
+        
+        var isInLoadingMode: Bool {
+            return diaryViewState == .loading
         }
     }
     

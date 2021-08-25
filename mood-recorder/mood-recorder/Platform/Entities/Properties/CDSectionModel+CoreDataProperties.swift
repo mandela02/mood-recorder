@@ -18,9 +18,17 @@ extension CDSectionModel {
     @NSManaged public var sectionID: Double
     @NSManaged public var isVisible: Bool
 
-    @NSManaged public var origin: CDInputModel?
+    @NSManaged public var origin: CDDiaryModel?
     @NSManaged public var content: CDContentModel?
 
+}
+
+extension CDSectionModel: Clone {
+    func clone() -> SafeSectionModel {
+        return SafeSectionModel(sectionID: sectionID,
+                                isVisible: isVisible,
+                                content: content?.clone())
+    }
 }
 
 extension CDSectionModel: Identifiable {

@@ -15,13 +15,13 @@ protocol ChartUseCaseType {
 }
 
 struct ChartUseCases: ChartUseCaseType {
-    private let repository: Repository<CDInputModel>
-    private let fetchUseCase: FetchInputUseCaseType
+    private let repository: Repository<CDDiaryModel>
+    private let fetchUseCase: FetchDiaryUseCaseType
     private let optionUseCase: FetchOptionUseCaseType
 
-    init(repository: Repository<CDInputModel>) {
+    init(repository: Repository<CDDiaryModel>) {
         self.repository = repository
-        self.fetchUseCase = FetchInputUseCase(repository: repository)
+        self.fetchUseCase = FetchDiaryUseCase(repository: repository)
         self.optionUseCase = FetchOptionUseCase(repository: repository)
     }
     

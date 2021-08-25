@@ -6,9 +6,11 @@
 //
 
 typealias VoidFunction = () -> Void
+typealias DiaryModelCallbackFunction = (DiaryDataModel?) -> Void
 typealias OptionModelCallbackFunction = (OptionModel) -> Void
 typealias OptionModelArrayCallbackFunction = ([OptionModel]) -> Void
 typealias IntTupleCallbackFunction = (Int, Int) -> Void
+typealias IntCallbackFunction = (Int) -> Void
 
 typealias NavigationColor           = ThemeColor.NavigationColor
 typealias TableViewColor            = ThemeColor.TableViewColor
@@ -25,8 +27,11 @@ typealias CustomOptionTrigger = CustomOptionViewModel.CustomOptionTrigger
 typealias OptionAdditionState = OptionAdditionViewModel.OptionAdditionState
 typealias OptionAdditionTrigger = OptionAdditionViewModel.OptionAdditionTrigger
 
-typealias InputState = InputViewModel.InputState
-typealias InputTrigger = InputViewModel.InputTrigger
+typealias DiaryState = DiaryViewModel.DiaryState
+typealias DiaryTrigger = DiaryViewModel.DiaryTrigger
 
 typealias ChartState = ChartViewModel.ChartState
 typealias ChartTrigger = ChartViewModel.ChartTrigger
+
+typealias HomeState = HomeViewModel.HomeState
+typealias HomeTrigger = HomeViewModel.HomeTrigger

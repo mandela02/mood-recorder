@@ -7,43 +7,83 @@
 
 import SwiftUI
 
-class HomeViewModel: ObservableObject {
+class HomeViewModel: ViewModel {
     @Published
-    var seletedTabBarIndex = 0
+    var state: HomeState
+            
+    init(state: HomeState) {
+        self.state = state
+    }
     
-    @Published
-    var isEmotionDialogShowing = false
-    
-    @Published
-    var isInputViewShow = false
-    
-    @Published
-    var isTabBarHiddenNeeded = false
+    func trigger(_ input: HomeTrigger) {
+        switch input {
+        case .selectEmotion(let emotion):
+            state.selectedEmotion = emotion
+        case .selectDiary(model: let model):
+            state.selectedDiaryDataModel = model
+        case .clear:
+            state.selectedEmotion = nil
+            state.selectedDiaryDataModel = nil
+        case .handleDiaryView(let status):
+            if status == .open {
+                state.diaryViewModel = BaseViewModel(DiaryViewModel(state: DiaryState()))
+                state.diaryViewModel?.trigger(.initialEmotion(emotion: state.selectedEmotion))
+                state.diaryViewModel?.trigger(.inittialData(data: state.selectedDiaryDataModel))
+                state.isDiaryShow = true
+            } else {
+                state.diaryViewModel = nil
+                state.isDiaryShow = false
+            }
+        case .handleEmotionDialog(let status):
+            state.isEmotionDialogShowing = status == .open
+        case .handleTab(index: let index):
+            state.seletedTabBarView = TabBarView(rawValue: index) ?? .calendar
+        }
+    }
+}
 
-    var calendarViewModel: BaseViewModel<CalendarState,
-                                         CalendarTrigger>
-    
-    var chartViewModel: BaseViewModel<ChartState,
-                                      ChartTrigger>
-    
-    var selectedCoreEmotion: CoreEmotion?
-    
-    init() {
-        calendarViewModel = BaseViewModel(CalendarViewModel(state: CalendarState()))
-        chartViewModel = BaseViewModel(ChartViewModel(state: ChartState()))
+extension HomeViewModel {
+    enum ViewStatus {
+        case open
+        case close
     }
     
-    func onBigButtonTapped() {
-        isEmotionDialogShowing.toggle()
+    enum TabBarView: Int {
+        case calendar
+        case timeline
+        case chart
+        case setting
     }
     
-    func onInputViewDismiss() {
-        selectedCoreEmotion = nil
+    struct HomeState {
+        var calendarViewModel: BaseViewModel<CalendarState,
+                                             CalendarTrigger>
+        
+        var chartViewModel: BaseViewModel<ChartState,
+                                          ChartTrigger>
+
+        var diaryViewModel: BaseViewModel<DiaryState,
+                                        DiaryTrigger>?
+        
+        var selectedEmotion: CoreEmotion?
+        var selectedDiaryDataModel: DiaryDataModel?
+
+        var isDiaryShow = false
+        var isEmotionDialogShowing = false
+        var seletedTabBarView: TabBarView = .calendar
+        
+        init() {
+            calendarViewModel = BaseViewModel(CalendarViewModel(state: CalendarState()))
+            chartViewModel = BaseViewModel(ChartViewModel(state: ChartState()))
+        }
     }
     
-    func onEmotionSelected(emotion: CoreEmotion) {
-        onBigButtonTapped()
-        selectedCoreEmotion = emotion
-        isInputViewShow.toggle()
+    enum HomeTrigger {
+        case selectEmotion(emotion: CoreEmotion)
+        case selectDiary(model: DiaryDataModel)
+        case clear
+        case handleDiaryView(status: ViewStatus)
+        case handleEmotionDialog(status: ViewStatus)
+        case handleTab(index: Int)
     }
 }

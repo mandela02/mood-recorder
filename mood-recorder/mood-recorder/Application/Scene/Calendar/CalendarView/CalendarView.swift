@@ -11,26 +11,31 @@ struct CalendarView: View {
     @ObservedObject
     var viewModel: BaseViewModel<CalendarState,
                                  CalendarTrigger>
-    
+        
     @Binding
     var isTabBarHiddenNeeded: Bool
-    
-    @State
-    var isInputViewShowing = false
-    
+        
     @AppStorage(Keys.themeId.rawValue)
     var themeId: Int = 0
+    
+    let onDiarySelected: DiaryModelCallbackFunction
 
     init(viewModel: BaseViewModel<CalendarState, CalendarTrigger>,
-         isTabBarHiddenNeeded: Binding<Bool>) {
+         isTabBarHiddenNeeded: Binding<Bool>,
+         onDiarySelected: @escaping DiaryModelCallbackFunction) {
         self.viewModel = viewModel
         self._isTabBarHiddenNeeded = isTabBarHiddenNeeded
+        self.onDiarySelected = onDiarySelected
     }
     
     private func showTabBar() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             isTabBarHiddenNeeded = false
         }
+    }
+    
+    private func hideTabBar() {
+        isTabBarHiddenNeeded = true
     }
     
     // MARK: - BODY
@@ -46,12 +51,13 @@ struct CalendarView: View {
                             .padding()
                         
                         if viewModel.state.isDetailViewShowing,
-                           let diary = viewModel.state.selectedInputDataModel {
+                           let diary = viewModel.state.selectedDiaryDataModel {
                             CalendarDiaryDetailView(diary: diary,
                                                     onEditDiary: {
-                                viewModel.trigger(.edit)
+                                onDiarySelected(viewModel.state.selectedDiaryDataModel)
                             }, onDeleteDiary: {
-                                viewModel.trigger(.delete)
+                                viewModel.trigger(.handelDeleteDialog(status: .open))
+                                viewModel.trigger(.handelDeleteDialog(status: .close))
                             })
                                 .id(diary.date)
                         }
@@ -73,41 +79,50 @@ struct CalendarView: View {
                     year: viewModel.currentMonth.year,
                     onApply: { (month, year) in
                         viewModel.trigger(.deselectDate)
-                        viewModel.trigger(.closeDatePicker)
+                        viewModel.trigger(.handelDatePickerView(status: .close))
                         viewModel.trigger(.goTo(month: month, year: year))
                         viewModel.trigger(.reload)
-                        showTabBar()
                     },
                     onCancel: {
-                        viewModel.trigger(.closeDatePicker)
-                        showTabBar()
+                        viewModel.trigger(.handelDatePickerView(status: .close))
                     })
             }
         }
         .customDialog(isShowing: viewModel.state.isFutureWarningDialogShow,
                       dialogContent: {
-            if let model = viewModel.state.selectedInputDataModel {
+            if let model = viewModel.state.selectedDiaryDataModel {
                 FutureWarningDialog(date: model.date) {
-                    viewModel.trigger(.closeFutureDialog)
+                    viewModel.trigger(.handleFutureDialog(status: .close))
                 }
             }
         })
-        .onChange(of: viewModel.state.isInputViewShowing, perform: { newValue in
-            self.isInputViewShowing = viewModel.state.isInputViewShowing
-        })
-        .fullScreenCover(isPresented: $isInputViewShowing,
-                         onDismiss: {
-            viewModel.trigger(.closeInputView)
-        },
-                         content: {
-            if let data = viewModel.state.selectedInputDataModel {
-                InputView(data: data)
+        .onChange(of: viewModel.state.isDatePickerShow) { newValue in
+            if newValue {
+                hideTabBar()
             } else {
-                Color.clear
+                showTabBar()
             }
-        })
+        }
+        .onChange(of: viewModel.state.isFutureWarningDialogShow) { newValue in
+            if newValue {
+                hideTabBar()
+            } else {
+                showTabBar()
+            }
+        }
+        .onChange(of: viewModel.state.isDeleteDialogShowing) { newValue in
+            if newValue {
+                hideTabBar()
+            } else {
+                showTabBar()
+            }
+        }
         .animation(.easeInOut, value: viewModel.state.isDatePickerShow)
         .animation(.easeInOut, value: viewModel.state.isDetailViewShowing)
+        .task {
+            viewModel.trigger(.goToToDay)
+            viewModel.trigger(.reload)
+        }
     }
 }
 
@@ -135,7 +150,7 @@ extension CalendarView {
         })
     }
     
-    private func buildCalendarDays(models: [InputDataModel]) -> some View {
+    private func buildCalendarDays(models: [DiaryDataModel]) -> some View {
         LazyVGrid(columns: Array(repeating: GridItem(.flexible(),
                                                      alignment: .top),
                                  count: 7),
@@ -148,7 +163,7 @@ extension CalendarView {
                 if date.month == viewModel.state.currentMonth.month &&
                     date.year == viewModel.state.currentMonth.year {
                     LazyVStack(spacing: 5) {
-                        if date.isInSameDay(as: viewModel.state.selectedInputDataModel?.date ?? Date()) {
+                        if date.isInSameDay(as: viewModel.state.selectedDiaryDataModel?.date ?? Date()) {
                             ZStack {
                                 Theme.get(id: themeId).buttonColor.backgroundColor
                                     .clipShape(Capsule())
@@ -167,6 +182,14 @@ extension CalendarView {
                         
                         Button(action: {
                             viewModel.trigger(.dateSelection(model: model))
+
+                            if model.date.isInTheFuture {
+                                viewModel.trigger(.handleFutureDialog(status: .open))
+                            } else {
+                                if model.sections.isEmpty {
+                                    onDiarySelected(viewModel.state.selectedDiaryDataModel)
+                                }
+                            }
                         }, label: {
                             if date.isInTheFuture {
                                 Theme.get(id: themeId).buttonColor.disableColor
@@ -194,7 +217,7 @@ extension CalendarView {
                 }
             }
         })
-        .animation(.easeInOut, value: viewModel.state.selectedInputDataModel?.date)
+        .animation(.easeInOut, value: viewModel.state.selectedDiaryDataModel?.date)
     }
 }
 
@@ -202,7 +225,7 @@ extension CalendarView {
     func buildDateView() -> some View {
         HStack {
             Button(action: {
-                viewModel.trigger(.share)
+                viewModel.trigger(.handelImageSharingView(status: .open))
             }, label: {
                 Image(systemName: "square.and.arrow.up")
                     .resizable()
@@ -224,12 +247,12 @@ extension CalendarView {
                 viewModel.trigger(.backToLaseMonth)
                 viewModel.trigger(.reload)
             }, onDateTap: {
-                isTabBarHiddenNeeded = true
-                viewModel.trigger(.showDatePicker)
+                viewModel.trigger(.handelDatePickerView(status: .open))
             })
                         
             Button(action: {
                 viewModel.trigger(.goToToDay)
+                viewModel.trigger(.reload)
             }, label: {
                 Text("Today")
                     .minimumScaleFactor(0.1)

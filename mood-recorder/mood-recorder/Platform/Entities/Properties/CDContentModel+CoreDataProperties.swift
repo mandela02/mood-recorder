@@ -30,6 +30,17 @@ extension CDContentModel {
     }
 }
 
+extension CDContentModel: Clone {
+    func clone() -> SafeContentModel {
+        SafeContentModel(emotion: emotion,
+                         bedTime: bedTime,
+                         wakeUpTime: wakeUpTime,
+                         image: image,
+                         text: text,
+                         options: optionArray.map { $0.clone() })
+    }
+}
+
 // MARK: Generated accessors for options
 extension CDContentModel {
 

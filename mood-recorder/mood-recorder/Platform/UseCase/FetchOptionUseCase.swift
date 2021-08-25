@@ -12,9 +12,9 @@ protocol FetchOptionUseCaseType {
 }
 
 class FetchOptionUseCase: FetchOptionUseCaseType {
-    private let repository: Repository<CDInputModel>
+    private let repository: Repository<CDDiaryModel>
 
-    init(repository: Repository<CDInputModel>) {
+    init(repository: Repository<CDDiaryModel>) {
         self.repository = repository
     }
     
@@ -24,21 +24,25 @@ class FetchOptionUseCase: FetchOptionUseCaseType {
                                                  start,
                                                  end))
         switch result {
-        case .success(data: let model as [CDInputModel]):
-            let allOptions = model
-                .compactMap({$0.sectionArray})
+        case .success(data: let model as [CDDiaryModel]):
+            let allSections = model
+                .compactMap({$0.clone().sections})
                 .flatMap({$0})
+            
+            let allOptions = allSections
                 .filter({$0.isVisible})
                 .compactMap({$0.content})
-                .compactMap({$0.optionArray})
+                .compactMap({$0.options})
                 .flatMap({$0})
+            
+            let filtedOptions = allOptions
                 .filter({$0.isSelected &&
                     !$0.wrappedName.isEmpty &&
                     !$0.wrappedImage.isEmpty})
                 .map({ImageAndTitleModel(image: AppImage.appImage(value: $0.wrappedImage),
                                          title: $0.wrappedName)})
             
-            let group = Dictionary(grouping: allOptions, by: { $0 })
+            let group = Dictionary(grouping: filtedOptions, by: { $0 })
                 
             let counts = group.map { (key, value) in
                 return OptionCountModel(option: key, count: value.count)

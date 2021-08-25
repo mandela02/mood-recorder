@@ -21,13 +21,11 @@ extension CDOptionModel {
     @NSManaged public var image: String?
 
     @NSManaged public var content: CDContentModel?
-    
-    var wrappedName: String {
-        return name ?? ""
-    }
+}
 
-    var wrappedImage: String {
-        return image ?? ""
+extension CDOptionModel: Clone {
+    func clone() -> SafeOptionModel {
+        return SafeOptionModel(isSelected: isSelected, isVisible: isVisible, name: name, image: image)
     }
 }
 

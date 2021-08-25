@@ -1,23 +1,23 @@
 //
-//  InputModelUseCase.swift
-//  InputModelUseCase
+//  FetchDiaryUseCase.swift
+//  FetchDiaryUseCase
 //
 //  Created by TriBQ on 8/21/21.
 //
 
 import Foundation
 
-protocol FetchInputUseCaseType {
+protocol FetchDiaryUseCaseType {
     func fetch(at date: Double) -> DatabaseResponse
     func fetchAndConvert(at date: Double) -> DatabaseResponse
     func fetch(from start: Double, to end: Double) -> DatabaseResponse
     func fetchAndConvert(from start: Double, to end: Double) -> DatabaseResponse
 }
 
-class FetchInputUseCase: FetchInputUseCaseType {
-    private let repository: Repository<CDInputModel>
+class FetchDiaryUseCase: FetchDiaryUseCaseType {
+    private let repository: Repository<CDDiaryModel>
 
-    init(repository: Repository<CDInputModel>) {
+    init(repository: Repository<CDDiaryModel>) {
         self.repository = repository
     }
     
@@ -32,8 +32,8 @@ class FetchInputUseCase: FetchInputUseCaseType {
     func fetchAndConvert(at date: Double) -> DatabaseResponse {
         let result = fetch(at: date)
         switch result {
-        case .success(data: let model as CDInputModel):
-            return .success(data: convert(model: model))
+        case .success(data: let model as CDDiaryModel):
+            return .success(data: convert(prototype: model))
         case .error(let error):
             return.error(error: error)
         default:
@@ -46,9 +46,9 @@ class FetchInputUseCase: FetchInputUseCaseType {
     func fetchAndConvert(from start: Double, to end: Double) -> DatabaseResponse {
         let result = fetch(from: start, to: end)
         switch result {
-        case .success(data: let models as [CDInputModel]):
-            let inputDataModels = models.map { convert(model: $0) }
-            return .success(data: inputDataModels)
+        case .success(data: let models as [CDDiaryModel]):
+            let diaryDataModels = models.map { convert(prototype: $0) }
+            return .success(data: diaryDataModels)
         case .error(let error):
             return.error(error: error)
         default:
@@ -58,10 +58,12 @@ class FetchInputUseCase: FetchInputUseCaseType {
         }
     }
 
-    private func convert(model: CDInputModel) -> InputDataModel {
+    private func convert(prototype: CDDiaryModel) -> DiaryDataModel {
+        let model = prototype.clone()
+        
         var sectionModels = [SectionModel]()
         
-        for cdSection in model.sectionArray {
+        for cdSection in model.sections {
             guard let content = cdSection.content else { continue }
             let section = SectionType.section(from: Int(cdSection.sectionID))
             
@@ -88,7 +90,7 @@ class FetchInputUseCase: FetchInputUseCaseType {
                                                                             wakeUpTime: content.wakeUpTime),
                                                   isVisible: cdSection.isVisible))
             default:
-                let cdOptions = content.optionArray
+                let cdOptions = content.options
                 var optionModels = [OptionModel]()
                 
                 for cdOption in cdOptions {
@@ -129,7 +131,7 @@ class FetchInputUseCase: FetchInputUseCaseType {
             }
         }
                     
-        return InputDataModel(date: Date(timeIntervalSince1970: model.date),
+        return DiaryDataModel(date: Date(timeIntervalSince1970: model.date),
                               sections: sectionModels)
     }
 }

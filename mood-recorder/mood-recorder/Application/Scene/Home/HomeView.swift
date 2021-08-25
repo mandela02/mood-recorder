@@ -11,14 +11,15 @@ struct HomeView: View {
     @AppStorage(Keys.themeId.rawValue)
     var themeId: Int = 0
     
-    @AppStorage(Keys.isUsingSystemTheme.rawValue)
-    var isUsingSystemTheme: Bool = false
-
-    @Environment(\.colorScheme)
-    var colorScheme
+    @State
+    var isTabBarHiddenNeeded = false
     
     @ObservedObject
-    var viewModel = HomeViewModel()
+    var viewModel: BaseViewModel<HomeState, HomeTrigger>
+    
+    init(viewModel: BaseViewModel<HomeState, HomeTrigger>) {
+        self.viewModel = viewModel
+    }
     
     @ViewBuilder
     var tintForeGroundColor: some View {
@@ -28,24 +29,33 @@ struct HomeView: View {
             } else {
                 Color.clear
             }
-        }.onTapGesture(perform: viewModel.onBigButtonTapped)
+        }.onTapGesture(perform: {
+            viewModel.trigger(.handleEmotionDialog(status: .close))
+        })
     }
     
+    @ViewBuilder
     var tabView: some View {
-        TabView(selection: $viewModel.seletedTabBarIndex,
-                content: {
+        switch viewModel.state.seletedTabBarView {
+        case .calendar:
             CalendarView(viewModel: viewModel.calendarViewModel,
-                         isTabBarHiddenNeeded: $viewModel.isTabBarHiddenNeeded)
-                .tag(0)
-            Color.green.tag(1)
+                         isTabBarHiddenNeeded: $isTabBarHiddenNeeded,
+                         onDiarySelected: { model in
+                guard let model = model else {
+                    return
+                }
+                viewModel.trigger(.selectDiary(model: model))
+                viewModel.trigger(.handleDiaryView(status: .open))
+            })
+        case .timeline:
+            Color.green
                 .ignoresSafeArea()
+        case .chart:
             ChartView(viewModel: viewModel.chartViewModel,
-                      isTabBarHiddenNeeded: $viewModel.isTabBarHiddenNeeded)
-                .tag(2)
-            SettingView(isTabBarHiddenNeeded: $viewModel.isTabBarHiddenNeeded)
-                .tag(3)
-        })
-            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+                      isTabBarHiddenNeeded: $isTabBarHiddenNeeded)
+        case .setting:
+            SettingView(isTabBarHiddenNeeded: $isTabBarHiddenNeeded)
+        }
     }
     
     @ViewBuilder
@@ -54,7 +64,11 @@ struct HomeView: View {
             TalkBubble(backgroundColor: Theme.get(id: themeId).commonColor.dialogBackground,
                        buttonBackgroundColor: Theme.get(id: themeId).buttonColor.disableColor,
                        textColor: Theme.get(id: themeId).commonColor.textColor,
-                       onButtonTap: viewModel.onEmotionSelected)
+                       onButtonTap: {
+                viewModel.trigger(.handleEmotionDialog(status: .close))
+                viewModel.trigger(.selectEmotion(emotion: $0))
+                viewModel.trigger(.handleDiaryView(status: .open))
+            })
         } else {
             EmptyView()
         }
@@ -63,42 +77,40 @@ struct HomeView: View {
     var body: some View {
         ZStack(alignment: .bottom) {
             tabView
-                .ignoresSafeArea()
             tintForeGroundColor
                 .ignoresSafeArea()
-            if !viewModel.isTabBarHiddenNeeded {
+            if !isTabBarHiddenNeeded {
                 VStack(spacing: 20) {
                     emotionListDialog
                     CustomTabBar(
-                        selectedIndex: $viewModel.seletedTabBarIndex,
+                        selectedIndex: viewModel.state.seletedTabBarView.rawValue,
                         backgroundColor: .white,
                         selectedItemColor: Theme.get(id: themeId).buttonColor.backgroundColor,
                         unselectedItemColor: .gray,
-                        onBigButtonTapped: viewModel.onBigButtonTapped)
+                        onBigButtonTapped: {
+                            viewModel.trigger(.handleEmotionDialog(status: .open))
+                        }, onTabSelect: {
+                            viewModel.trigger(.handleTab(index: $0))
+                        })
+                        .animation(.linear, value: viewModel.state.seletedTabBarView)
                 }
                 .transition(.move(edge: .bottom))
             }
         }
-        .animation(.easeInOut, value: viewModel.isTabBarHiddenNeeded)
-        .animation(Animation.easeInOut.speed(1.5), value: viewModel.isEmotionDialogShowing)
-        .fullScreenCover(isPresented: $viewModel.isInputViewShow,
-                         onDismiss: viewModel.onInputViewDismiss, content: {
-            if let selectedCoreEmotion = viewModel.selectedCoreEmotion {
-                InputView(emotion: selectedCoreEmotion)
-            } else {
-                Color.clear
+        .overlay {
+            if viewModel.state.isDiaryShow,
+                let diaryViewModel = viewModel.state.diaryViewModel {
+                DiaryView(viewModel: diaryViewModel,
+                          onClose: {
+                    viewModel.trigger(.handleDiaryView(status: .close))
+                    viewModel.trigger(.clear)
+                })
+                    .transition(.move(edge: .bottom))
             }
-        })
-        .preferredColorScheme(isUsingSystemTheme ? nil : Theme.get(id: themeId).colorScheme)
-        .onAppear(perform: {
-            if isUsingSystemTheme {
-                Theme.post(themeId: colorScheme == .dark ? 1 : 0)
-            }
-        })
-        .onChange(of: colorScheme, perform: { newValue in
-            if isUsingSystemTheme {
-                Theme.post(themeId: newValue == .dark ? 1 : 0)
-            }
-        })
+        }
+        .animation(.easeInOut, value: viewModel.state.seletedTabBarView)
+        .animation(.easeInOut, value: viewModel.state.isDiaryShow)
+        .animation(.easeInOut, value: isTabBarHiddenNeeded)
+        .animation(Animation.easeInOut.speed(1.5), value: viewModel.state.isEmotionDialogShowing)
     }
 }

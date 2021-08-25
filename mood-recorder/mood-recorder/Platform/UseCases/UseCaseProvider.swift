@@ -10,16 +10,16 @@ import Foundation
 class UseCaseProvider {
     static let defaultProvider = UseCaseProvider()
 
-    private lazy var inputRepository = Repository<CDInputModel>()
+    private lazy var diaryRepository = Repository<CDDiaryModel>()
 
-    private lazy var inputUseCases = InputUseCases(repository: inputRepository)
-    private lazy var calendarUseCases = CalendarUseCases(repository: inputRepository)
-    private lazy var chartUseCases = ChartUseCases(repository: inputRepository)
+    private lazy var diaryUseCases = DiaryUseCases(repository: diaryRepository)
+    private lazy var calendarUseCases = CalendarUseCases(repository: diaryRepository)
+    private lazy var chartUseCases = ChartUseCases(repository: diaryRepository)
     
     private init() {}
 
-    func getInputUseCases() -> InputUseCaseType {
-        return inputUseCases
+    func getDiaryUseCases() -> DiaryUseCaseType {
+        return diaryUseCases
     }
 
     func getCalendarUseCases() -> CalendarUseCaseType {
