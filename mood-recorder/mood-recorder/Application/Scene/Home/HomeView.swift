@@ -11,14 +11,12 @@ struct HomeView: View {
     @AppStorage(Keys.themeId.rawValue)
     var themeId: Int = 0
     
-    @AppStorage(Keys.isUsingSystemTheme.rawValue)
-    var isUsingSystemTheme: Bool = false
-
-    @Environment(\.colorScheme)
-    var colorScheme
-    
     @ObservedObject
-    var viewModel = HomeViewModel()
+    var viewModel: HomeViewModel
+    
+    init(viewModel: HomeViewModel) {
+        self.viewModel = viewModel
+    }
     
     @ViewBuilder
     var tintForeGroundColor: some View {
@@ -81,21 +79,10 @@ struct HomeView: View {
         }
         .animation(.easeInOut, value: viewModel.isTabBarHiddenNeeded)
         .animation(Animation.easeInOut.speed(1.5), value: viewModel.isEmotionDialogShowing)
-        .fullScreenCover(isPresented: $viewModel.isInputViewShow,
-                         onDismiss: viewModel.onInputViewDismiss, content: {
+        .fullScreenCover(isPresented: $viewModel.isDiaryViewShow,
+                         onDismiss: viewModel.onDiaryViewDismiss, content: {
             if let selectedCoreEmotion = viewModel.selectedCoreEmotion {
-                InputView(emotion: selectedCoreEmotion)
-            }
-        })
-        .preferredColorScheme(isUsingSystemTheme ? nil : Theme.get(id: themeId).colorScheme)
-        .onAppear(perform: {
-            if isUsingSystemTheme {
-                Theme.post(themeId: colorScheme == .dark ? 1 : 0)
-            }
-        })
-        .onChange(of: colorScheme, perform: { newValue in
-            if isUsingSystemTheme {
-                Theme.post(themeId: newValue == .dark ? 1 : 0)
+                DiaryView(emotion: selectedCoreEmotion)
             }
         })
     }

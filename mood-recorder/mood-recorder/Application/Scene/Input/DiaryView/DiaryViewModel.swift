@@ -1,5 +1,5 @@
 //
-//  InputViewModel.swift
+//  DiaryViewModel.swift
 //  mood-recorder
 //
 //  Created by LanNTH on 03/08/2021.
@@ -8,12 +8,12 @@
 import SwiftUI
 import Combine
 
-class InputViewModel: ViewModel {
+class DiaryViewModel: ViewModel {
     
     @Published
-    var state: InputState
+    var state: DiaryState
     
-    private let useCase = UseCaseProvider.defaultProvider.getInputUseCases()
+    private let useCase = UseCaseProvider.defaultProvider.getDiaryUseCases()
     
     private var cancellables = Set<AnyCancellable>()
     
@@ -22,12 +22,12 @@ class InputViewModel: ViewModel {
         cancellables.removeAll()
     }
     
-    init(state: InputState) {
+    init(state: DiaryState) {
         self.state = state
         setupSubcription()
     }
     
-    func trigger(_ input: InputTrigger) {
+    func trigger(_ input: DiaryTrigger) {
         switch input {
         // MARK: - init data
         case .initialData:
@@ -40,15 +40,15 @@ class InputViewModel: ViewModel {
         case .doneButtonTapped:
             switch self.state.status {
             case .new:
-                let model = InputDataModel(date: Date(),
+                let model = DiaryDataModel(date: Date(),
                                            sections: self.state.sectionModels)
                 self.state.response.send(self.useCase.save(model: model))
             case .update(date: let date):
-                let model = InputDataModel(date: date,
+                let model = DiaryDataModel(date: date,
                                            sections: self.state.sectionModels)
                 self.state.response.send(self.useCase.update(model: model))
             case .create(date: let date):
-                let model = InputDataModel(date: date,
+                let model = DiaryDataModel(date: date,
                                            sections: self.state.sectionModels)
                 self.state.response.send(self.useCase.save(model: model))
             }
@@ -135,11 +135,11 @@ class InputViewModel: ViewModel {
     }
         
     private func initData(with emotion: CoreEmotion?,
-                          or data: InputDataModel?) {
+                          or data: DiaryDataModel?) {
         if let data = data {
             if data.sections.isEmpty {
                 state.status = .create(date: data.date)
-                state.sectionModels = InputDataModel.initData().sections
+                state.sectionModels = DiaryDataModel.initData().sections
             } else {
                 state.status = .update(date: data.date)
                 state.sectionModels = data.sections
@@ -150,7 +150,7 @@ class InputViewModel: ViewModel {
                 state.response.send(useCase.fetch(at: Date().startOfDayInterval))
             } else {
                 state.status = .new
-                state.sectionModels = InputDataModel.initData().sections
+                state.sectionModels = DiaryDataModel.initData().sections
             }
         }
         
@@ -165,14 +165,14 @@ class InputViewModel: ViewModel {
 }
 
 // MARK: - Subcription Handler
-extension InputViewModel {
+extension DiaryViewModel {
     private func setupSubcription() {
         self.state.response
             .sink { [weak self] response in
                 guard let self = self else { return }
                 switch response {
                 case .success(data: let data):
-                    if let model = data as? InputDataModel {
+                    if let model = data as? DiaryDataModel {
                         self.state.sectionModels = model.sections
                         self.sort()
                     }
@@ -196,8 +196,8 @@ extension InputViewModel {
 }
 
 // MARK: - Private enum
-extension InputViewModel {
-    enum InputTrigger {
+extension DiaryViewModel {
+    enum DiaryTrigger {
         case optionTap(sectionIndex: Int, optionIndex: Int)
         case pictureSelected(sectionIndex: Int, image: UIImage)
         case emotionSelected(sectionIndex: Int, emotion: CoreEmotion)
@@ -221,9 +221,9 @@ extension InputViewModel {
         case close
     }
     
-    struct InputState {
+    struct DiaryState {
         var initialEmotion: CoreEmotion?
-        var initialData: InputDataModel?
+        var initialData: DiaryDataModel?
 
         var isInEditMode = false
         var isAboutToDismiss = false
@@ -239,7 +239,7 @@ extension InputViewModel {
         
         var status = Status.new
         
-        init(emotion: CoreEmotion? = nil, data: InputDataModel? = nil) {
+        init(emotion: CoreEmotion? = nil, data: DiaryDataModel? = nil) {
             self.initialData = data
             self.initialEmotion = emotion
         }

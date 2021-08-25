@@ -25,8 +25,8 @@ typealias CustomOptionTrigger = CustomOptionViewModel.CustomOptionTrigger
 typealias OptionAdditionState = OptionAdditionViewModel.OptionAdditionState
 typealias OptionAdditionTrigger = OptionAdditionViewModel.OptionAdditionTrigger
 
-typealias InputState = InputViewModel.InputState
-typealias InputTrigger = InputViewModel.InputTrigger
+typealias DiaryState = DiaryViewModel.DiaryState
+typealias DiaryTrigger = DiaryViewModel.DiaryTrigger
 
 typealias ChartState = ChartViewModel.ChartState
 typealias ChartTrigger = ChartViewModel.ChartTrigger

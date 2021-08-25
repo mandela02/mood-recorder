@@ -8,16 +8,16 @@
 import Foundation
 import CoreData
 
-protocol InputUseCaseType {
-    func save(model: InputDataModel) -> DatabaseResponse
-    func update(model: InputDataModel) -> DatabaseResponse
+protocol DiaryUseCaseType {
+    func save(model: DiaryDataModel) -> DatabaseResponse
+    func update(model: DiaryDataModel) -> DatabaseResponse
     func fetch(at date: Double) -> DatabaseResponse
     func isRecordExist(date: Double) -> Bool
 }
 
-struct InputUseCases: InputUseCaseType {
+struct DiaryUseCases: DiaryUseCaseType {
     private let repository: Repository<CDInputModel>
-    private let fetchUseCase: FetchInputUseCaseType
+    private let fetchUseCase: FetchDiaryUseCaseType
 
     init(repository: Repository<CDInputModel>) {
         self.repository = repository
@@ -28,7 +28,7 @@ struct InputUseCases: InputUseCaseType {
         return PersistenceManager.shared.persistentContainer.viewContext
     }
 
-    func save(model: InputDataModel) -> DatabaseResponse {
+    func save(model: DiaryDataModel) -> DatabaseResponse {
         let cdSections: [CDSectionModel] = createContent(model: model)
 
         let inputModel = CDInputModel(context: context)
@@ -39,7 +39,7 @@ struct InputUseCases: InputUseCaseType {
         return repository.save()
     }
 
-    func update(model: InputDataModel) -> DatabaseResponse {
+    func update(model: DiaryDataModel) -> DatabaseResponse {
         let result = fetchUseCase.fetch(at: model.date.startOfDayInterval)
         switch result {
         case .success(data: let cdInputModel):
@@ -71,7 +71,7 @@ struct InputUseCases: InputUseCaseType {
         }
     }
 
-    private func createContent(model: InputDataModel) -> [CDSectionModel] {
+    private func createContent(model: DiaryDataModel) -> [CDSectionModel] {
         var cdSections: [CDSectionModel] = []
         
         for section in model.sections {

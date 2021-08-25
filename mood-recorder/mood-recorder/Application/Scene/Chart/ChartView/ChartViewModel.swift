@@ -122,13 +122,13 @@ extension ChartViewModel {
             
             var thisMonthData: [OptionCountModel] = []
             var lastMonthData: [OptionCountModel] = []
-            var thisMonthInputDataModel: [InputDataModel] = []
+            var thisMonthDiaryDataModel: [DiaryDataModel] = []
             
             for (index, result) in results.enumerated() {
                 switch result {
-                case let result as [InputDataModel]:
+                case let result as [DiaryDataModel]:
                     if index == 0 {
-                        thisMonthInputDataModel = result
+                        thisMonthDiaryDataModel = result
                     }
                 case let result as [OptionCountModel]:
                     if index == 1 {
@@ -141,7 +141,7 @@ extension ChartViewModel {
                 }
             }
             
-            await handleChartData(models: thisMonthInputDataModel)
+            await handleChartData(models: thisMonthDiaryDataModel)
             await generateStatisticalData(thisMonthData: thisMonthData, lastMonthData: lastMonthData)
         } catch let error {
             print(error)
@@ -192,12 +192,12 @@ extension ChartViewModel {
     
     }
     
-    private func handleChartData(models: [InputDataModel]) async {
-        let result = Task(priority: .background) { () -> (diaries: [InputDataModel],
+    private func handleChartData(models: [DiaryDataModel]) async {
+        let result = Task(priority: .background) { () -> (diaries: [DiaryDataModel],
                                                           chartDatas: [ChartData]) in
             var diaries = state.currentMonthDate
                 .getDateMonth()
-                .map { InputDataModel(date: $0,
+                .map { DiaryDataModel(date: $0,
                                       sections: []) }
             
             var chartDatas: [ChartData]  = []
@@ -231,7 +231,7 @@ extension ChartViewModel {
 extension ChartViewModel {
     struct ChartState {
         var currentMonth = (month: Date().month, year: Date().year)
-        var diaries: [InputDataModel] = []
+        var diaries: [DiaryDataModel] = []
         
         var coreEmotionChartDatas: [ChartData] = []
         var optionStatisticalDatas: [OptionCountModel] = []

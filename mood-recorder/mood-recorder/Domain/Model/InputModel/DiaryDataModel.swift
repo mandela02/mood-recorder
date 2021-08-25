@@ -1,5 +1,5 @@
 //
-//  InputDataModel.swift
+//  DiaryDataModel.swift
 //  mood-recorder
 //
 //  Created by LanNTH on 02/08/2021.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct InputDataModel {
+struct DiaryDataModel {
     init(date: Date, sections: [SectionModel]) {
         self.sections = sections
         self.date = date
@@ -29,7 +29,7 @@ struct InputDataModel {
         !sections.isEmpty
     }
     
-    static func initData() -> InputDataModel {
+    static func initData() -> DiaryDataModel {
         let sections = SectionType.allCases.map { section -> SectionModel in
             switch section {
             case .emotion:
@@ -146,6 +146,6 @@ struct InputDataModel {
             }
         }
 
-        return InputDataModel(date: Date(), sections: sections)
+        return DiaryDataModel(date: Date(), sections: sections)
     }
 }

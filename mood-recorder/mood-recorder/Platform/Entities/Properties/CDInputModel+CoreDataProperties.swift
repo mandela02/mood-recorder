@@ -25,8 +25,8 @@ extension CDInputModel {
 }
 
 extension CDInputModel: Clone {
-    func clone() -> SafeInputModel {
-        SafeInputModel(date: date,
+    func clone() -> SafeDiaryModel {
+        SafeDiaryModel(date: date,
                        sections: sectionArray.map { $0.clone() })
     }
 }

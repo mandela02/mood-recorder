@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CalendarDiaryDetailView: View {
-    var diary: InputDataModel
+    var diary: DiaryDataModel
     
     @State
     private var imageModels: [ImageAndTitleModel] = []
@@ -28,7 +28,7 @@ struct CalendarDiaryDetailView: View {
     let onEditDiary: VoidFunction
     let onDeleteDiary: VoidFunction
 
-    init(diary: InputDataModel,
+    init(diary: DiaryDataModel,
          onEditDiary: @escaping VoidFunction,
          onDeleteDiary: @escaping VoidFunction) {
         self.diary = diary
@@ -36,7 +36,7 @@ struct CalendarDiaryDetailView: View {
         self.onDeleteDiary = onDeleteDiary
     }
     
-    func generateData(diary: InputDataModel) {
+    func generateData(diary: DiaryDataModel) {
         var contents: [ImageAndTitleModel] = []
         
         let array = diary.sections.map { $0.cell }

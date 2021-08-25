@@ -1,5 +1,5 @@
 //
-//  InputView.swift
+//  DiaryView.swift
 //  mood-recorder
 //
 //  Created by LanNTH on 04/08/2021.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct InputView: View {
+struct DiaryView: View {
     private enum ScrollDestination {
         case top
         case bottom
@@ -17,8 +17,8 @@ struct InputView: View {
     var presentationMode
     
     @ObservedObject
-    var viewModel: BaseViewModel<InputState,
-                                 InputTrigger>
+    var viewModel: BaseViewModel<DiaryState,
+                                 DiaryTrigger>
     
     @State
     private var text = ""
@@ -37,9 +37,9 @@ struct InputView: View {
     @AppStorage(Keys.themeId.rawValue)
     var themeId: Int = 0
     
-    init(emotion: CoreEmotion? = nil, data: InputDataModel? = nil) {
-        let inputState = InputState(emotion: emotion, data: data)
-        self.viewModel = BaseViewModel(InputViewModel(state: inputState))
+    init(emotion: CoreEmotion? = nil, data: DiaryDataModel? = nil) {
+        let diaryState = DiaryState(emotion: emotion, data: data)
+        self.viewModel = BaseViewModel(DiaryViewModel(state: diaryState))
         
         UITextView.appearance().backgroundColor =  UIColor(Color.clear)
         UITableView.appearance().backgroundColor = UIColor(Color.clear)

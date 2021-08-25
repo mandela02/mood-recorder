@@ -31,21 +31,21 @@ class CalendarViewModel: ViewModel {
         case .reload:
             syncFetch()
         case .dateSelection(let model):
-            state.selectedInputDataModel = model
+            state.selectedDiaryDataModel = model
             if model.date.isInTheFuture {
                 state.isFutureWarningDialogShow = true
                 state.isDetailViewShowing = false
-                state.isInputViewShowing = false
+                state.isDiaryViewShowing = false
             } else {
                 if model.sections.isEmpty {
                     state.isDetailViewShowing = false
-                    state.isInputViewShowing = true
+                    state.isDiaryViewShowing = true
                 } else {
                     state.isDetailViewShowing = true
                 }
             }
         case .deselectDate:
-            state.selectedInputDataModel = nil
+            state.selectedDiaryDataModel = nil
             state.isDetailViewShowing = false
         case .goToNextMonth:
             state.currentMonth.month += 1
@@ -73,13 +73,13 @@ class CalendarViewModel: ViewModel {
             state.isShareImageViewShowing = true
         case .closeFutureDialog:
             state.isFutureWarningDialogShow = false
-        case .closeInputView:
-            state.isInputViewShowing = false
+        case .closeDiaryView:
+            state.isDiaryViewShowing = false
         case .edit:
-            state.isInputViewShowing = true
+            state.isDiaryViewShowing = true
         case .delete:
             state.isDetailViewShowing = false
-            guard let date = state.selectedInputDataModel?.date else { return }
+            guard let date = state.selectedDiaryDataModel?.date else { return }
             let response = useCase.delete(at: date.startOfDayInterval)
             Task {
                 await fetch(responses: response)
@@ -116,7 +116,7 @@ extension CalendarViewModel {
 
         do {
             let result = try await handleResponse(response: responses[0])
-            if let result = result as? [InputDataModel] {
+            if let result = result as? [DiaryDataModel] {
                 await handleData(models: result)
             } else {
                 syncFetch()
@@ -139,10 +139,10 @@ extension CalendarViewModel {
         }
     }
     
-    private func handleData(models: [InputDataModel]) async {
-        let result = Task(priority: .background) { () -> [InputDataModel] in
+    private func handleData(models: [DiaryDataModel]) async {
+        let result = Task(priority: .background) { () -> [DiaryDataModel] in
             
-            var diaries = state.dates.map { InputDataModel(date: $0, sections: []) }
+            var diaries = state.dates.map { DiaryDataModel(date: $0, sections: []) }
             
             for index in diaries.indices {
                 guard let model = models
@@ -161,10 +161,10 @@ extension CalendarViewModel {
             guard let self = self else { return }
             self.state.diaries = diaries
             
-            guard let date = self.state.selectedInputDataModel?.date else { return }
-            self.state.selectedInputDataModel = self.state.diaries
+            guard let date = self.state.selectedDiaryDataModel?.date else { return }
+            self.state.selectedDiaryDataModel = self.state.diaries
                 .first(where: {$0.date.isInSameDay(as: date)})
-            if !(self.state.selectedInputDataModel?.sections.isEmpty ?? true) {
+            if !(self.state.selectedDiaryDataModel?.sections.isEmpty ?? true) {
                 self.state.isDetailViewShowing = true
             }
         }
@@ -191,19 +191,19 @@ extension CalendarViewModel {
 extension CalendarViewModel {
     struct CalendarState {
         var dates: [Date] = []
-        var selectedInputDataModel: InputDataModel?
+        var selectedDiaryDataModel: DiaryDataModel?
         var currentMonth = (month: Date().month, year: Date().year)
         var isDatePickerShow = false
         var isFutureWarningDialogShow = false
         var isShareImageViewShowing = false
-        var diaries: [InputDataModel] = []
+        var diaries: [DiaryDataModel] = []
         
         var isDetailViewShowing = false
-        var isInputViewShowing = false
+        var isDiaryViewShowing = false
     }
     
     enum CalendarTrigger {
-        case dateSelection(model: InputDataModel)
+        case dateSelection(model: DiaryDataModel)
         case deselectDate
         case goTo(month: Int, year: Int)
         case goToNextMonth
@@ -213,7 +213,7 @@ extension CalendarViewModel {
         case showDatePicker
         case closeDatePicker
         case closeFutureDialog
-        case closeInputView
+        case closeDiaryView
         case edit
         case delete
         case reload

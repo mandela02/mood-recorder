@@ -12,14 +12,14 @@ class UseCaseProvider {
 
     private lazy var inputRepository = Repository<CDInputModel>()
 
-    private lazy var inputUseCases = InputUseCases(repository: inputRepository)
+    private lazy var diaryUseCases = DiaryUseCases(repository: inputRepository)
     private lazy var calendarUseCases = CalendarUseCases(repository: inputRepository)
     private lazy var chartUseCases = ChartUseCases(repository: inputRepository)
     
     private init() {}
 
-    func getInputUseCases() -> InputUseCaseType {
-        return inputUseCases
+    func getDiaryUseCases() -> DiaryUseCaseType {
+        return diaryUseCases
     }
 
     func getCalendarUseCases() -> CalendarUseCaseType {

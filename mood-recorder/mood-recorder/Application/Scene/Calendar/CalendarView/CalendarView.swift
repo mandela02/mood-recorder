@@ -16,7 +16,7 @@ struct CalendarView: View {
     var isTabBarHiddenNeeded: Bool
     
     @State
-    var isInputViewShowing = false
+    var isDiaryViewShowing = false
     
     @AppStorage(Keys.themeId.rawValue)
     var themeId: Int = 0
@@ -46,7 +46,7 @@ struct CalendarView: View {
                             .padding()
                         
                         if viewModel.state.isDetailViewShowing,
-                           let diary = viewModel.state.selectedInputDataModel {
+                           let diary = viewModel.state.selectedDiaryDataModel {
                             CalendarDiaryDetailView(diary: diary,
                                                     onEditDiary: {
                                 viewModel.trigger(.edit)
@@ -86,23 +86,23 @@ struct CalendarView: View {
         }
         .customDialog(isShowing: viewModel.state.isFutureWarningDialogShow,
                       dialogContent: {
-            if let model = viewModel.state.selectedInputDataModel {
+            if let model = viewModel.state.selectedDiaryDataModel {
                 FutureWarningDialog(date: model.date) {
                     viewModel.trigger(.closeFutureDialog)
                 }
             }
         })
-        .onChange(of: viewModel.state.isInputViewShowing, perform: { newValue in
-            self.isInputViewShowing = viewModel.state.isInputViewShowing
+        .onChange(of: viewModel.state.isDiaryViewShowing, perform: { newValue in
+            self.isDiaryViewShowing = viewModel.state.isDiaryViewShowing
         })
-        .fullScreenCover(isPresented: $isInputViewShowing,
+        .fullScreenCover(isPresented: $isDiaryViewShowing,
                          onDismiss: {
-            viewModel.trigger(.closeInputView)
+            viewModel.trigger(.closeDiaryView)
             viewModel.trigger(.reload)
         },
                          content: {
-            if let data = viewModel.state.selectedInputDataModel {
-                InputView(data: data)
+            if let data = viewModel.state.selectedDiaryDataModel {
+                DiaryView(data: data)
             } else {
                 Color.clear
             }
@@ -140,7 +140,7 @@ extension CalendarView {
         })
     }
     
-    private func buildCalendarDays(models: [InputDataModel]) -> some View {
+    private func buildCalendarDays(models: [DiaryDataModel]) -> some View {
         LazyVGrid(columns: Array(repeating: GridItem(.flexible(),
                                                      alignment: .top),
                                  count: 7),
@@ -153,7 +153,7 @@ extension CalendarView {
                 if date.month == viewModel.state.currentMonth.month &&
                     date.year == viewModel.state.currentMonth.year {
                     LazyVStack(spacing: 5) {
-                        if date.isInSameDay(as: viewModel.state.selectedInputDataModel?.date ?? Date()) {
+                        if date.isInSameDay(as: viewModel.state.selectedDiaryDataModel?.date ?? Date()) {
                             ZStack {
                                 Theme.get(id: themeId).buttonColor.backgroundColor
                                     .clipShape(Capsule())
@@ -199,7 +199,7 @@ extension CalendarView {
                 }
             }
         })
-        .animation(.easeInOut, value: viewModel.state.selectedInputDataModel?.date)
+        .animation(.easeInOut, value: viewModel.state.selectedDiaryDataModel?.date)
     }
 }
 

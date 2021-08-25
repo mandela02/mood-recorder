@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		8404938026B977A5006523D9 /* Activities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8404937F26B977A5006523D9 /* Activities.swift */; };
-		8404938226B9A928006523D9 /* InputViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8404938126B9A928006523D9 /* InputViewModel.swift */; };
-		8404938626B9BFCE006523D9 /* InputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8404938526B9BFCE006523D9 /* InputView.swift */; };
+		8404938226B9A928006523D9 /* DiaryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8404938126B9A928006523D9 /* DiaryViewModel.swift */; };
+		8404938626B9BFCE006523D9 /* DiaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8404938526B9BFCE006523D9 /* DiaryView.swift */; };
 		8404938926BA4F2F006523D9 /* SectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8404938826BA4F2F006523D9 /* SectionModel.swift */; };
 		8404938B26BA4F51006523D9 /* OptionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8404938A26BA4F51006523D9 /* OptionModel.swift */; };
 		8404938D26BA4F6B006523D9 /* SleepScheduleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8404938C26BA4F6B006523D9 /* SleepScheduleModel.swift */; };
@@ -47,7 +47,7 @@
 		842F073226C81FAF0078BE9B /* OptionAdditionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842F073126C81FAF0078BE9B /* OptionAdditionView.swift */; };
 		846A7C6026CC226F004F6A63 /* ClockAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846A7C5F26CC226F004F6A63 /* ClockAnimationView.swift */; };
 		846DA17726C8DAA700D0C7F9 /* AppImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846DA17626C8DAA700D0C7F9 /* AppImage+Extension.swift */; };
-		8476F1A726B85B9000F62854 /* InputDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476F1A626B85B9000F62854 /* InputDataModel.swift */; };
+		8476F1A726B85B9000F62854 /* DiaryDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476F1A626B85B9000F62854 /* DiaryDataModel.swift */; };
 		8476F1A926B861EC00F62854 /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476F1A826B861EC00F62854 /* Weather.swift */; };
 		8476F1AD26B8637300F62854 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476F1AC26B8637300F62854 /* String+Extension.swift */; };
 		8482D7FB26C8C0950030054B /* CusomOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8482D7FA26C8C0950030054B /* CusomOptionView.swift */; };
@@ -64,7 +64,7 @@
 		84C3F72B26C03AE600C789F5 /* CDInputModel+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C3F72326C03AE600C789F5 /* CDInputModel+CoreDataProperties.swift */; };
 		84C3F72C26C03AE600C789F5 /* CDSectionModel+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C3F72426C03AE600C789F5 /* CDSectionModel+CoreDataClass.swift */; };
 		84C3F72D26C03AE600C789F5 /* CDSectionModel+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C3F72526C03AE600C789F5 /* CDSectionModel+CoreDataProperties.swift */; };
-		84C3F73226C03E0E00C789F5 /* InputUseCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C3F73126C03E0E00C789F5 /* InputUseCases.swift */; };
+		84C3F73226C03E0E00C789F5 /* DiaryUseCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C3F73126C03E0E00C789F5 /* DiaryUseCases.swift */; };
 		84C3F73426C044A800C789F5 /* UseCaseProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C3F73326C044A800C789F5 /* UseCaseProvider.swift */; };
 		84CBB35F26B703BF00A8E377 /* CustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CBB35E26B703BF00A8E377 /* CustomTabBar.swift */; };
 		84CBB36126B7102700A8E377 /* AppImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CBB36026B7102700A8E377 /* AppImage.swift */; };
@@ -86,7 +86,7 @@
 		90256F3326D132DF0067B354 /* ImageShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90256F3226D132DF0067B354 /* ImageShareView.swift */; };
 		903FA55526D4BB7F00FD51D2 /* SafeContentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 903FA55426D4BB7F00FD51D2 /* SafeContentModel.swift */; };
 		903FA55726D4BB9D00FD51D2 /* SafeOptionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 903FA55626D4BB9D00FD51D2 /* SafeOptionModel.swift */; };
-		903FA55926D4BBB000FD51D2 /* SafeInputModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 903FA55826D4BBB000FD51D2 /* SafeInputModel.swift */; };
+		903FA55926D4BBB000FD51D2 /* SafeDiaryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 903FA55826D4BBB000FD51D2 /* SafeDiaryModel.swift */; };
 		903FA55B26D4BBC000FD51D2 /* SafeSectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 903FA55A26D4BBC000FD51D2 /* SafeSectionModel.swift */; };
 		903FA55D26D4BBF000FD51D2 /* Clone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 903FA55C26D4BBF000FD51D2 /* Clone.swift */; };
 		9041C11E26CEC45C0054617E /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9041C11D26CEC45C0054617E /* CalendarViewModel.swift */; };
@@ -116,8 +116,8 @@
 
 /* Begin PBXFileReference section */
 		8404937F26B977A5006523D9 /* Activities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activities.swift; sourceTree = "<group>"; };
-		8404938126B9A928006523D9 /* InputViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputViewModel.swift; sourceTree = "<group>"; };
-		8404938526B9BFCE006523D9 /* InputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputView.swift; sourceTree = "<group>"; };
+		8404938126B9A928006523D9 /* DiaryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryViewModel.swift; sourceTree = "<group>"; };
+		8404938526B9BFCE006523D9 /* DiaryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiaryView.swift; sourceTree = "<group>"; };
 		8404938826BA4F2F006523D9 /* SectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionModel.swift; sourceTree = "<group>"; };
 		8404938A26BA4F51006523D9 /* OptionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionModel.swift; sourceTree = "<group>"; };
 		8404938C26BA4F6B006523D9 /* SleepScheduleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepScheduleModel.swift; sourceTree = "<group>"; };
@@ -157,7 +157,7 @@
 		842F073126C81FAF0078BE9B /* OptionAdditionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionAdditionView.swift; sourceTree = "<group>"; };
 		846A7C5F26CC226F004F6A63 /* ClockAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockAnimationView.swift; sourceTree = "<group>"; };
 		846DA17626C8DAA700D0C7F9 /* AppImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppImage+Extension.swift"; sourceTree = "<group>"; };
-		8476F1A626B85B9000F62854 /* InputDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputDataModel.swift; sourceTree = "<group>"; };
+		8476F1A626B85B9000F62854 /* DiaryDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDataModel.swift; sourceTree = "<group>"; };
 		8476F1A826B861EC00F62854 /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
 		8476F1AC26B8637300F62854 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		8482D7FA26C8C0950030054B /* CusomOptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CusomOptionView.swift; sourceTree = "<group>"; };
@@ -174,7 +174,7 @@
 		84C3F72326C03AE600C789F5 /* CDInputModel+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDInputModel+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		84C3F72426C03AE600C789F5 /* CDSectionModel+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDSectionModel+CoreDataClass.swift"; sourceTree = "<group>"; };
 		84C3F72526C03AE600C789F5 /* CDSectionModel+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDSectionModel+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		84C3F73126C03E0E00C789F5 /* InputUseCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputUseCases.swift; sourceTree = "<group>"; };
+		84C3F73126C03E0E00C789F5 /* DiaryUseCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryUseCases.swift; sourceTree = "<group>"; };
 		84C3F73326C044A800C789F5 /* UseCaseProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseCaseProvider.swift; sourceTree = "<group>"; };
 		84CBB35E26B703BF00A8E377 /* CustomTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBar.swift; sourceTree = "<group>"; };
 		84CBB36026B7102700A8E377 /* AppImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppImage.swift; sourceTree = "<group>"; };
@@ -197,7 +197,7 @@
 		903FA55126D4A8DA00FD51D2 /* mood-recorder.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "mood-recorder.entitlements"; sourceTree = "<group>"; };
 		903FA55426D4BB7F00FD51D2 /* SafeContentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeContentModel.swift; sourceTree = "<group>"; };
 		903FA55626D4BB9D00FD51D2 /* SafeOptionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeOptionModel.swift; sourceTree = "<group>"; };
-		903FA55826D4BBB000FD51D2 /* SafeInputModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeInputModel.swift; sourceTree = "<group>"; };
+		903FA55826D4BBB000FD51D2 /* SafeDiaryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeDiaryModel.swift; sourceTree = "<group>"; };
 		903FA55A26D4BBC000FD51D2 /* SafeSectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeSectionModel.swift; sourceTree = "<group>"; };
 		903FA55C26D4BBF000FD51D2 /* Clone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clone.swift; sourceTree = "<group>"; };
 		9041C11D26CEC45C0054617E /* CalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
@@ -259,7 +259,7 @@
 		8404939626BA5118006523D9 /* InputModel */ = {
 			isa = PBXGroup;
 			children = (
-				8476F1A626B85B9000F62854 /* InputDataModel.swift */,
+				8476F1A626B85B9000F62854 /* DiaryDataModel.swift */,
 				8404938826BA4F2F006523D9 /* SectionModel.swift */,
 				8404938A26BA4F51006523D9 /* OptionModel.swift */,
 				8404938C26BA4F6B006523D9 /* SleepScheduleModel.swift */,
@@ -328,7 +328,7 @@
 			isa = PBXGroup;
 			children = (
 				9041C11626CEC3B10054617E /* Dialog */,
-				9041C11526CEC3A50054617E /* InputView */,
+				9041C11526CEC3A50054617E /* DiaryView */,
 			);
 			path = Input;
 			sourceTree = "<group>";
@@ -528,20 +528,20 @@
 			children = (
 				903FA55426D4BB7F00FD51D2 /* SafeContentModel.swift */,
 				903FA55626D4BB9D00FD51D2 /* SafeOptionModel.swift */,
-				903FA55826D4BBB000FD51D2 /* SafeInputModel.swift */,
+				903FA55826D4BBB000FD51D2 /* SafeDiaryModel.swift */,
 				903FA55A26D4BBC000FD51D2 /* SafeSectionModel.swift */,
 				903FA55C26D4BBF000FD51D2 /* Clone.swift */,
 			);
 			path = Safe;
 			sourceTree = "<group>";
 		};
-		9041C11526CEC3A50054617E /* InputView */ = {
+		9041C11526CEC3A50054617E /* DiaryView */ = {
 			isa = PBXGroup;
 			children = (
-				8404938526B9BFCE006523D9 /* InputView.swift */,
-				8404938126B9A928006523D9 /* InputViewModel.swift */,
+				8404938526B9BFCE006523D9 /* DiaryView.swift */,
+				8404938126B9A928006523D9 /* DiaryViewModel.swift */,
 			);
-			path = InputView;
+			path = DiaryView;
 			sourceTree = "<group>";
 		};
 		9041C11626CEC3B10054617E /* Dialog */ = {
@@ -704,7 +704,7 @@
 			children = (
 				84C3F73326C044A800C789F5 /* UseCaseProvider.swift */,
 				90B4E97926D0D5790048A2C2 /* CalendarUseCases.swift */,
-				84C3F73126C03E0E00C789F5 /* InputUseCases.swift */,
+				84C3F73126C03E0E00C789F5 /* DiaryUseCases.swift */,
 				9007B35626D2A2A500912AAC /* ChartUseCases.swift */,
 			);
 			path = UseCases;
@@ -813,7 +813,7 @@
 				90F2105026D388030088899B /* OptionStatisticalTableView.swift in Sources */,
 				8423C20926BE85CE000717D9 /* Love.swift in Sources */,
 				84FE1B3B26C7B55600D32330 /* BaseViewModel.swift in Sources */,
-				903FA55926D4BBB000FD51D2 /* SafeInputModel.swift in Sources */,
+				903FA55926D4BBB000FD51D2 /* SafeDiaryModel.swift in Sources */,
 				84C3F72626C03AE600C789F5 /* CDContentModel+CoreDataClass.swift in Sources */,
 				8423C21A26C0098D000717D9 /* Event.swift in Sources */,
 				8404938026B977A5006523D9 /* Activities.swift in Sources */,
@@ -848,7 +848,7 @@
 				90687C2026D33355004A7DC6 /* PieChartSliceView.swift in Sources */,
 				84CBB36426B7154100A8E377 /* HomeView.swift in Sources */,
 				84C3F72A26C03AE600C789F5 /* CDInputModel+CoreDataClass.swift in Sources */,
-				84C3F73226C03E0E00C789F5 /* InputUseCases.swift in Sources */,
+				84C3F73226C03E0E00C789F5 /* DiaryUseCases.swift in Sources */,
 				84AC834626CA57550052B295 /* CustomOptionViewModel.swift in Sources */,
 				9007B35726D2A2A500912AAC /* ChartUseCases.swift in Sources */,
 				8404938D26BA4F6B006523D9 /* SleepScheduleModel.swift in Sources */,
@@ -871,7 +871,7 @@
 				8423C20B26BFB5E7000717D9 /* UIApplication+Extension.swift in Sources */,
 				90901D0826CFF18900ADE8D9 /* MonthPicker.swift in Sources */,
 				8424A92F26B5BE0B00BE4454 /* MoodRecorderApp.swift in Sources */,
-				8404938226B9A928006523D9 /* InputViewModel.swift in Sources */,
+				8404938226B9A928006523D9 /* DiaryViewModel.swift in Sources */,
 				84C32A8B26C826BE004F6A85 /* Array+Extension.swift in Sources */,
 				84C3F72B26C03AE600C789F5 /* CDInputModel+CoreDataProperties.swift in Sources */,
 				903FA55D26D4BBF000FD51D2 /* Clone.swift in Sources */,
@@ -895,9 +895,9 @@
 				84EE2F8726C7D08500C0195D /* CustomDialog.swift in Sources */,
 				8423C20526BE43BB000717D9 /* Double+Extension.swift in Sources */,
 				90256F3326D132DF0067B354 /* ImageShareView.swift in Sources */,
-				8476F1A726B85B9000F62854 /* InputDataModel.swift in Sources */,
+				8476F1A726B85B9000F62854 /* DiaryDataModel.swift in Sources */,
 				90B4E97A26D0D5790048A2C2 /* CalendarUseCases.swift in Sources */,
-				8404938626B9BFCE006523D9 /* InputView.swift in Sources */,
+				8404938626B9BFCE006523D9 /* DiaryView.swift in Sources */,
 				903FA55B26D4BBC000FD51D2 /* SafeSectionModel.swift in Sources */,
 				907DBD3426D2A96500A2D529 /* ChartData.swift in Sources */,
 				90687C2426D333F5004A7DC6 /* PercentChartData.swift in Sources */,

@@ -7,14 +7,14 @@
 
 import Foundation
 
-protocol FetchInputUseCaseType {
+protocol FetchDiaryUseCaseType {
     func fetch(at date: Double) -> DatabaseResponse
     func fetchAndConvert(at date: Double) -> DatabaseResponse
     func fetch(from start: Double, to end: Double) -> DatabaseResponse
     func fetchAndConvert(from start: Double, to end: Double) -> DatabaseResponse
 }
 
-class FetchInputUseCase: FetchInputUseCaseType {
+class FetchInputUseCase: FetchDiaryUseCaseType {
     private let repository: Repository<CDInputModel>
 
     init(repository: Repository<CDInputModel>) {
@@ -47,8 +47,8 @@ class FetchInputUseCase: FetchInputUseCaseType {
         let result = fetch(from: start, to: end)
         switch result {
         case .success(data: let models as [CDInputModel]):
-            let inputDataModels = models.map { convert(prototype: $0) }
-            return .success(data: inputDataModels)
+            let diaryDataModels = models.map { convert(prototype: $0) }
+            return .success(data: diaryDataModels)
         case .error(let error):
             return.error(error: error)
         default:
@@ -58,7 +58,7 @@ class FetchInputUseCase: FetchInputUseCaseType {
         }
     }
 
-    private func convert(prototype: CDInputModel) -> InputDataModel {
+    private func convert(prototype: CDInputModel) -> DiaryDataModel {
         let model = prototype.clone()
         
         var sectionModels = [SectionModel]()
@@ -131,7 +131,7 @@ class FetchInputUseCase: FetchInputUseCaseType {
             }
         }
                     
-        return InputDataModel(date: Date(timeIntervalSince1970: model.date),
+        return DiaryDataModel(date: Date(timeIntervalSince1970: model.date),
                               sections: sectionModels)
     }
 }

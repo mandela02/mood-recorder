@@ -16,7 +16,7 @@ protocol CalendarUseCaseType {
 
 struct CalendarUseCases: CalendarUseCaseType {
     private let repository: Repository<CDInputModel>
-    private let fetchUseCase: FetchInputUseCaseType
+    private let fetchUseCase: FetchDiaryUseCaseType
     
     init(repository: Repository<CDInputModel>) {
         self.repository = repository

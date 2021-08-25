@@ -15,7 +15,7 @@ class HomeViewModel: ObservableObject {
     var isEmotionDialogShowing = false
     
     @Published
-    var isInputViewShow = false
+    var isDiaryViewShow = false
     
     @Published
     var isTabBarHiddenNeeded = false
@@ -37,13 +37,19 @@ class HomeViewModel: ObservableObject {
         isEmotionDialogShowing.toggle()
     }
     
-    func onInputViewDismiss() {
+    func onDiaryViewDismiss() {
         selectedCoreEmotion = nil
     }
     
     func onEmotionSelected(emotion: CoreEmotion) {
         onBigButtonTapped()
         selectedCoreEmotion = emotion
-        isInputViewShow.toggle()
+        isDiaryViewShow.toggle()
+    }
+}
+
+extension HomeViewModel {
+    struct HomeState {
+        
     }
 }

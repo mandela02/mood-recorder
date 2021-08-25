@@ -16,7 +16,7 @@ protocol ChartUseCaseType {
 
 struct ChartUseCases: ChartUseCaseType {
     private let repository: Repository<CDInputModel>
-    private let fetchUseCase: FetchInputUseCaseType
+    private let fetchUseCase: FetchDiaryUseCaseType
     private let optionUseCase: FetchOptionUseCaseType
 
     init(repository: Repository<CDInputModel>) {
