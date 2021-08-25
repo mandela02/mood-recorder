@@ -298,7 +298,7 @@ struct DiaryView: View {
     // MARK: - Done Button
     var doneButton: some View {
         Button(action: {
-            viewModel.trigger(.doneButtonTapped)
+            viewModel.trigger(.finishThisDiary)
             onClose()
         }, label: {
             ZStack {
@@ -461,7 +461,7 @@ struct DiaryView: View {
         .customDialog(isShowing: viewModel.state.isAboutToDismiss) {
             DismissDialog(save: {
                 viewModel.trigger(.handleDismissDialog(status: .close))
-                viewModel.trigger(.doneButtonTapped)
+                viewModel.trigger(.finishThisDiary)
                 onClose()
             }, cancel: {
                 viewModel.trigger(.handleDismissDialog(status: .close))
@@ -472,7 +472,7 @@ struct DiaryView: View {
         }
         .customDialog(isShowing: viewModel.state.isAboutToReset) {
             ResetDialog(reset: {
-                viewModel.trigger(.resetButtonTapped)
+                viewModel.trigger(.resetAllData)
                 text = ""
                 viewModel.trigger(.handleResetDialog(status: .close))
             }, cancel: {
@@ -509,9 +509,11 @@ struct DiaryView: View {
                 })
             }
         }
-        .task {
-            imagePickerController = UIImagePickerController()
-            viewModel.trigger(.initialData)
-        }
+        .onAppear(perform: {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+                imagePickerController = UIImagePickerController()
+                viewModel.trigger(.initialData)
+            })
+        })
     }
 }
