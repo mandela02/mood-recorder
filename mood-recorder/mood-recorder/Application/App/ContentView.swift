@@ -22,6 +22,10 @@ struct ContentView: View {
     
     init() {
         viewModel = BaseViewModel(HomeViewModel(state: HomeState()))
+        
+        UITextView.appearance().backgroundColor =  UIColor(Color.clear)
+        UITableView.appearance().backgroundColor = UIColor(Color.clear)
+        UITableViewCell.appearance().backgroundColor = UIColor(Color.clear)
     }
 
     var body: some View {

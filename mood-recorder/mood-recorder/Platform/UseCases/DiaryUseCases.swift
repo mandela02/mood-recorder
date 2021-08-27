@@ -19,9 +19,10 @@ struct DiaryUseCases: DiaryUseCaseType {
     private let repository: Repository<CDDiaryModel>
     private let fetchUseCase: FetchDiaryUseCaseType
 
-    init(repository: Repository<CDDiaryModel>) {
+    init(repository: Repository<CDDiaryModel>,
+         fetchUseCase: FetchDiaryUseCaseType) {
         self.repository = repository
-        self.fetchUseCase = FetchDiaryUseCase(repository: repository)
+        self.fetchUseCase = fetchUseCase
     }
 
     var context: NSManagedObjectContext {

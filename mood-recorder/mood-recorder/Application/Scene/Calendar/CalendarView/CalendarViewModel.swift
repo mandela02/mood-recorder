@@ -66,8 +66,8 @@ class CalendarViewModel: ViewModel {
             state.isFutureWarningDialogShow = status == .open
         case .handelDatePickerView(status: let status):
             state.isDatePickerShow = status == .open
-        case .handelDeleteDialog(status: let status):
-            state.isDeleteDialogShowing = status == .open
+        case .handelDeleteDialog(status: _):
+            // state.isDeleteDialogShowing = status == .open
             guard let date = state.selectedDiaryDataModel?.date else { return }
             let response = useCase.delete(at: date.startOfDayInterval)
             Task {

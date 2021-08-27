@@ -48,8 +48,14 @@ struct HomeView: View {
                 viewModel.trigger(.handleDiaryView(status: .open))
             })
         case .timeline:
-            Color.green
-                .ignoresSafeArea()
+            TimelineView(viewModel: viewModel.timelineViewModel,
+                         isTabBarHiddenNeeded: $isTabBarHiddenNeeded, onDiarySelected: { model in
+                guard let model = model else {
+                    return
+                }
+                viewModel.trigger(.selectDiary(model: model))
+                viewModel.trigger(.handleDiaryView(status: .open))
+            })
         case .chart:
             ChartView(viewModel: viewModel.chartViewModel,
                       isTabBarHiddenNeeded: $isTabBarHiddenNeeded)

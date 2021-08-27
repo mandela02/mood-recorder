@@ -91,6 +91,8 @@
 		903FA55D26D4BBF000FD51D2 /* Clone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 903FA55C26D4BBF000FD51D2 /* Clone.swift */; };
 		9041C11E26CEC45C0054617E /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9041C11D26CEC45C0054617E /* CalendarViewModel.swift */; };
 		9057DE9326D1086600FF7DA2 /* CalendarDiaryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9057DE9226D1086600FF7DA2 /* CalendarDiaryDetailView.swift */; };
+		905E202126D74F3E009355C3 /* TimelineUseCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 905E202026D74F3E009355C3 /* TimelineUseCases.swift */; };
+		9060A58226D752F500A36582 /* TimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9060A58126D752F500A36582 /* TimelineView.swift */; };
 		90687C2026D33355004A7DC6 /* PieChartSliceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90687C1F26D33355004A7DC6 /* PieChartSliceView.swift */; };
 		90687C2226D333C7004A7DC6 /* PieChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90687C2126D333C7004A7DC6 /* PieChartView.swift */; };
 		90687C2426D333F5004A7DC6 /* PercentChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90687C2326D333F5004A7DC6 /* PercentChartData.swift */; };
@@ -111,6 +113,7 @@
 		90B072FC26D35D1E009D4954 /* FetchOptionUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B072FB26D35D1E009D4954 /* FetchOptionUseCase.swift */; };
 		90B4E97A26D0D5790048A2C2 /* CalendarUseCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B4E97926D0D5790048A2C2 /* CalendarUseCases.swift */; };
 		90B4E97C26D0D6130048A2C2 /* FetchDiaryUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B4E97B26D0D6130048A2C2 /* FetchDiaryUseCase.swift */; };
+		90B7CAF526D61B2600790A64 /* TimelineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B7CAF426D61B2600790A64 /* TimelineViewModel.swift */; };
 		90F2105026D388030088899B /* OptionStatisticalTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F2104F26D388030088899B /* OptionStatisticalTableView.swift */; };
 /* End PBXBuildFile section */
 
@@ -202,6 +205,8 @@
 		903FA55C26D4BBF000FD51D2 /* Clone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clone.swift; sourceTree = "<group>"; };
 		9041C11D26CEC45C0054617E /* CalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
 		9057DE9226D1086600FF7DA2 /* CalendarDiaryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDiaryDetailView.swift; sourceTree = "<group>"; };
+		905E202026D74F3E009355C3 /* TimelineUseCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineUseCases.swift; sourceTree = "<group>"; };
+		9060A58126D752F500A36582 /* TimelineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineView.swift; sourceTree = "<group>"; };
 		90687C1F26D33355004A7DC6 /* PieChartSliceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieChartSliceView.swift; sourceTree = "<group>"; };
 		90687C2126D333C7004A7DC6 /* PieChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieChartView.swift; sourceTree = "<group>"; };
 		90687C2326D333F5004A7DC6 /* PercentChartData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PercentChartData.swift; sourceTree = "<group>"; };
@@ -222,6 +227,7 @@
 		90B072FB26D35D1E009D4954 /* FetchOptionUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchOptionUseCase.swift; sourceTree = "<group>"; };
 		90B4E97926D0D5790048A2C2 /* CalendarUseCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarUseCases.swift; sourceTree = "<group>"; };
 		90B4E97B26D0D6130048A2C2 /* FetchDiaryUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchDiaryUseCase.swift; sourceTree = "<group>"; };
+		90B7CAF426D61B2600790A64 /* TimelineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineViewModel.swift; sourceTree = "<group>"; };
 		90F2104F26D388030088899B /* OptionStatisticalTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionStatisticalTableView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -457,6 +463,7 @@
 		84CBB35B26B6FE3300A8E377 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				90B7CAF326D61AB900790A64 /* Timeline */,
 				9007B35126D29FC600912AAC /* Chart */,
 				907E278126D1ECDD00D8129A /* Settings */,
 				9041C11C26CEC44E0054617E /* Calendar */,
@@ -706,8 +713,18 @@
 				90B4E97926D0D5790048A2C2 /* CalendarUseCases.swift */,
 				84C3F73126C03E0E00C789F5 /* DiaryUseCases.swift */,
 				9007B35626D2A2A500912AAC /* ChartUseCases.swift */,
+				905E202026D74F3E009355C3 /* TimelineUseCases.swift */,
 			);
 			path = UseCases;
+			sourceTree = "<group>";
+		};
+		90B7CAF326D61AB900790A64 /* Timeline */ = {
+			isa = PBXGroup;
+			children = (
+				90B7CAF426D61B2600790A64 /* TimelineViewModel.swift */,
+				9060A58126D752F500A36582 /* TimelineView.swift */,
+			);
+			path = Timeline;
 			sourceTree = "<group>";
 		};
 		90F2104E26D387F10088899B /* OptionStatistical */ = {
@@ -830,6 +847,7 @@
 				84CBB36626B7164E00A8E377 /* HomeViewModel.swift in Sources */,
 				84CBB36A26B71E7500A8E377 /* ResizeAnimationButtonStyle.swift in Sources */,
 				8404939326BA4FC0006523D9 /* ImageModel.swift in Sources */,
+				90B7CAF526D61B2600790A64 /* TimelineViewModel.swift in Sources */,
 				90B4E97C26D0D6130048A2C2 /* FetchDiaryUseCase.swift in Sources */,
 				8404939F26BAAB21006523D9 /* ThemeHelper.swift in Sources */,
 				84C3F72826C03AE600C789F5 /* CDOptionModel+CoreDataClass.swift in Sources */,
@@ -847,8 +865,10 @@
 				903FA55526D4BB7F00FD51D2 /* SafeContentModel.swift in Sources */,
 				90687C2026D33355004A7DC6 /* PieChartSliceView.swift in Sources */,
 				84CBB36426B7154100A8E377 /* HomeView.swift in Sources */,
+				9060A58226D752F500A36582 /* TimelineView.swift in Sources */,
 				84C3F72A26C03AE600C789F5 /* CDInputModel+CoreDataClass.swift in Sources */,
 				84C3F73226C03E0E00C789F5 /* DiaryUseCases.swift in Sources */,
+				905E202126D74F3E009355C3 /* TimelineUseCases.swift in Sources */,
 				84AC834626CA57550052B295 /* CustomOptionViewModel.swift in Sources */,
 				9007B35726D2A2A500912AAC /* ChartUseCases.swift in Sources */,
 				8404938D26BA4F6B006523D9 /* SleepScheduleModel.swift in Sources */,

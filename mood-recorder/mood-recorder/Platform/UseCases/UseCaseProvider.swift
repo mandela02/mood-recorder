@@ -11,11 +11,19 @@ class UseCaseProvider {
     static let defaultProvider = UseCaseProvider()
 
     private lazy var diaryRepository = Repository<CDDiaryModel>()
+    private lazy var fetchUseCase = FetchDiaryUseCase(repository: diaryRepository)
+    private lazy var optionUseCase = FetchOptionUseCase(repository: diaryRepository)
 
-    private lazy var diaryUseCases = DiaryUseCases(repository: diaryRepository)
-    private lazy var calendarUseCases = CalendarUseCases(repository: diaryRepository)
-    private lazy var chartUseCases = ChartUseCases(repository: diaryRepository)
-    
+    private lazy var diaryUseCases = DiaryUseCases(repository: diaryRepository,
+                                                   fetchUseCase: fetchUseCase)
+    private lazy var calendarUseCases = CalendarUseCases(repository: diaryRepository,
+                                                         fetchUseCase: fetchUseCase)
+    private lazy var chartUseCases = ChartUseCases(repository: diaryRepository,
+                                                   fetchUseCase: fetchUseCase,
+                                                   optionUseCase: optionUseCase)
+    private lazy var timelineUseCases = TimelineUseCases(repository: diaryRepository,
+                                                         fetchUseCase: fetchUseCase)
+
     private init() {}
 
     func getDiaryUseCases() -> DiaryUseCaseType {
@@ -28,5 +36,9 @@ class UseCaseProvider {
     
     func getChartUseCases() -> ChartUseCaseType {
         return chartUseCases
+    }
+    
+    func getTimelineUseCase() -> TimelineUseCaseType {
+        return timelineUseCases
     }
 }
