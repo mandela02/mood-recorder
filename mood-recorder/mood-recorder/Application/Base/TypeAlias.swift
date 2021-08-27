@@ -35,3 +35,6 @@ typealias ChartTrigger = ChartViewModel.ChartTrigger
 
 typealias HomeState = HomeViewModel.HomeState
 typealias HomeTrigger = HomeViewModel.HomeTrigger
+
+typealias TimelineState = TimelineViewModel.TimelineState
+typealias TimelineStrigger = TimelineViewModel.TimelineTrigger

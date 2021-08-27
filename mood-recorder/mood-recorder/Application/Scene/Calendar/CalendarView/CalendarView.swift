@@ -57,8 +57,8 @@ struct CalendarView: View {
                                 onDiarySelected(viewModel.state.selectedDiaryDataModel)
                             }, onDeleteDiary: {
                                 viewModel.trigger(.handelDeleteDialog(status: .open))
-                                viewModel.trigger(.handelDeleteDialog(status: .close))
                             })
+                                .padding()
                                 .id(diary.date)
                         }
                         

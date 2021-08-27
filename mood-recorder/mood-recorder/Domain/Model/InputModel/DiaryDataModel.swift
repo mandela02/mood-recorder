@@ -7,11 +7,13 @@
 
 import Foundation
 
-struct DiaryDataModel {
+struct DiaryDataModel: Identifiable {
     init(date: Date, sections: [SectionModel]) {
         self.sections = sections
         self.date = date
     }
+    
+    var id = UUID()
     
     var sections: [SectionModel]
     var date: Date

@@ -41,9 +41,6 @@ struct DiaryView: View {
          onClose: @escaping VoidFunction) {
         self.viewModel = viewModel
         self.onClose = onClose
-        
-        UITextView.appearance().backgroundColor =  UIColor(Color.clear)
-        UITableView.appearance().backgroundColor = UIColor(Color.clear)
     }
     
     // MARK: - Icon background color

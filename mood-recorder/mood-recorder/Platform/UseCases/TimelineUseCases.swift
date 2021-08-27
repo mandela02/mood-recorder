@@ -1,20 +1,20 @@
 //
-//  CalendarUseCases.swift
-//  CalendarUseCases
+//  TimelineUseCases.swift
+//  TimelineUseCases
 //
-//  Created by TriBQ on 8/21/21.
+//  Created by TriBQ on 8/26/21.
 //
 
 import Foundation
 import Combine
 
-protocol CalendarUseCaseType {
+protocol TimelineUseCaseType {
     func fetch(from start: Double, to end: Double) -> DatabaseResponse
     func delete(at date: Double) -> DatabaseResponse
     func publisher() -> AnyPublisher<Void, Never>
 }
 
-struct CalendarUseCases: CalendarUseCaseType {
+struct TimelineUseCases: TimelineUseCaseType {
     private let repository: Repository<CDDiaryModel>
     private let fetchUseCase: FetchDiaryUseCaseType
     

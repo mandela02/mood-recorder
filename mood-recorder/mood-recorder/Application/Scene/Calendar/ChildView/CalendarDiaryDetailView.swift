@@ -8,8 +8,6 @@
 import SwiftUI
 
 struct CalendarDiaryDetailView: View {
-    var diary: DiaryDataModel
-    
     @State
     private var imageModels: [ImageAndTitleModel] = []
     
@@ -25,12 +23,16 @@ struct CalendarDiaryDetailView: View {
     @AppStorage(Keys.themeId.rawValue)
     var themeId: Int = 0
 
-    let onEditDiary: VoidFunction
-    let onDeleteDiary: VoidFunction
+    var diary: DiaryDataModel
+    let isButtonNeeded: Bool
+    let onEditDiary: VoidFunction?
+    let onDeleteDiary: VoidFunction?
 
     init(diary: DiaryDataModel,
-         onEditDiary: @escaping VoidFunction,
-         onDeleteDiary: @escaping VoidFunction) {
+         isButtonNeeded: Bool = true,
+         onEditDiary: VoidFunction? = nil,
+         onDeleteDiary: VoidFunction? = nil) {
+        self.isButtonNeeded = isButtonNeeded
         self.diary = diary
         self.onEditDiary = onEditDiary
         self.onDeleteDiary = onDeleteDiary
@@ -71,7 +73,7 @@ struct CalendarDiaryDetailView: View {
                             .clipShape(RoundedRectangle(cornerRadius: 10))
                     )
                     .onTapGesture {
-                        onEditDiary()
+                        onEditDiary?()
                     }
             }
             
@@ -118,7 +120,7 @@ struct CalendarDiaryDetailView: View {
         HStack(spacing: 20) {
             Spacer()
             Button(action: {
-                onEditDiary()
+                onEditDiary?()
             }, label: {
                 Image(systemName: "pencil.circle")
                     .resizable()
@@ -127,7 +129,7 @@ struct CalendarDiaryDetailView: View {
                     .foregroundColor(Theme.get(id: themeId).commonColor.textColor)
             })
             Button(action: {
-                onDeleteDiary()
+                onDeleteDiary?()
             }, label: {
                 Image(systemName: "trash.circle")
                     .resizable()
@@ -141,7 +143,9 @@ struct CalendarDiaryDetailView: View {
     
     var body: some View {
         VStack {
-            buildButton()
+            if isButtonNeeded {
+                buildButton()
+            }
             ZStack {
                 Theme.get(id: themeId).commonColor.dialogBackground
                     .clipShape(RoundedRectangle(cornerRadius: 20))
@@ -153,7 +157,6 @@ struct CalendarDiaryDetailView: View {
                 }.padding()
             }
         }
-        .padding()
         .onAppear {
             generateData(diary: self.diary)
         }

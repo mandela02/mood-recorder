@@ -61,13 +61,16 @@ extension HomeViewModel {
         
         var chartViewModel: BaseViewModel<ChartState,
                                           ChartTrigger>
-
+        
         var diaryViewModel: BaseViewModel<DiaryState,
-                                        DiaryTrigger>?
+                                          DiaryTrigger>?
+        
+        var timelineViewModel: BaseViewModel<TimelineState,
+                                             TimelineStrigger>
         
         var selectedEmotion: CoreEmotion?
         var selectedDiaryDataModel: DiaryDataModel?
-
+        
         var isDiaryShow = false
         var isEmotionDialogShowing = false
         var seletedTabBarView: TabBarView = .calendar
@@ -75,6 +78,10 @@ extension HomeViewModel {
         init() {
             calendarViewModel = BaseViewModel(CalendarViewModel(state: CalendarState()))
             chartViewModel = BaseViewModel(ChartViewModel(state: ChartState()))
+            timelineViewModel = BaseViewModel(TimelineViewModel(state: TimelineState(),
+                                                                useCase: UseCaseProvider
+                                                                    .defaultProvider
+                                                                    .getTimelineUseCase()))
         }
     }
     

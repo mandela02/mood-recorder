@@ -19,10 +19,12 @@ struct ChartUseCases: ChartUseCaseType {
     private let fetchUseCase: FetchDiaryUseCaseType
     private let optionUseCase: FetchOptionUseCaseType
 
-    init(repository: Repository<CDDiaryModel>) {
+    init(repository: Repository<CDDiaryModel>,
+         fetchUseCase: FetchDiaryUseCaseType,
+         optionUseCase: FetchOptionUseCaseType) {
         self.repository = repository
-        self.fetchUseCase = FetchDiaryUseCase(repository: repository)
-        self.optionUseCase = FetchOptionUseCase(repository: repository)
+        self.fetchUseCase = fetchUseCase
+        self.optionUseCase = optionUseCase
     }
     
     func fetch(from start: Double, to end: Double) -> DatabaseResponse {
