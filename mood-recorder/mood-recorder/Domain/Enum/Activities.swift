@@ -7,15 +7,6 @@
 
 import Foundation
 
-enum Avatar: Int {
-    case pineapple
-    case dino
-    
-    static func get() -> Avatar {
-        return Avatar(rawValue: Settings.avatar.value) ?? .dino
-    }
-}
-
 enum Activities: Int, CaseIterable {
     case angel
     case devil

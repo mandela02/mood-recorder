@@ -10,11 +10,18 @@ import SwiftUI
 struct RoundImageView: View {
     let image: Image
     let backgroundColor: Color
+    let padding: CGFloat
+    
+    init(image: Image, backgroundColor: Color, padding: CGFloat = 10) {
+        self.image = image
+        self.backgroundColor = backgroundColor
+        self.padding = padding
+    }
     
     var body: some View {
             image
                 .resizable()
-                .padding(10)
+                .padding(padding)
                 .frame(maxWidth: .infinity)
                 .aspectRatio(1, contentMode: .fit)
                 .background(backgroundColor, in: Circle())

@@ -10,7 +10,7 @@ import SwiftUI
 struct WalkthroughView: View {
     @AppStorage(Keys.themeId.rawValue)
     var themeId: Int = 0
-
+    
     @State
     var index: Int = 0
     
@@ -21,9 +21,9 @@ struct WalkthroughView: View {
         return PagerView(index: $index,
                          offset: $offset,
                          pageCount: 3) {
-            WalkthroughTab.theme.view
             WalkthroughTab.avatar.view
             WalkthroughTab.notification.view
+            WalkthroughTab.theme.view
         }
     }
     
@@ -79,7 +79,11 @@ struct WalkthroughView: View {
                         Spacer()
                         buildNextButton()
                     }.frame(height: 50)
-                        .padding()
+                        .padding(EdgeInsets(top: 20,
+                                            leading: 20,
+                                            bottom: 10,
+                                            trailing: 20))
+                    SizedBox(height: 50)
                 }
             }
         }
@@ -95,7 +99,7 @@ enum WalkthroughTab: Int, CaseIterable {
     var view: some View {
         switch self {
         case .avatar:
-            Color.red
+            AvatarSetting()
         case .notification:
             Color.blue
         case .theme:
@@ -118,10 +122,60 @@ enum WalkthroughTab: Int, CaseIterable {
 struct WalkthroughContentView: View, Identifiable {
     @Binding var selectedIndex: Int
     var tab: WalkthroughTab
-
+    
     var id = UUID()
     
     var body: some View {
         tab.view
+    }
+}
+
+struct AvatarSetting: View {
+    @AppStorage(Keys.themeId.rawValue)
+    var themeId: Int = 0
+    
+    @AppStorage(Keys.avatar.rawValue)
+    var avatarId: Int = 0
+    
+    var body: some View {
+        ZStack {
+            Theme.get(id: themeId)
+                .commonColor.viewBackground
+                .ignoresSafeArea()
+            
+            VStack(alignment: .center, spacing: 10) {
+                Spacer()
+                HStack(alignment: .center, spacing: 50) {
+                    ForEach(Avatar.allCases, id: \.rawValue) { avatar in
+                        Button(action: {
+                            Settings.avatar.value = avatar.rawValue
+                        }, label: {
+                            RoundImageView(image: avatar.image,
+                                           backgroundColor: avatar.rawValue == avatarId ?
+                                           Theme.get(id: themeId).buttonColor.backgroundColor :
+                                            Theme.get(id: themeId).buttonColor.disableColor,
+                                           padding: 20)
+                                .frame(width: 100, height: 100, alignment: .center)
+                        })
+                    }
+                }
+                
+                SizedBox(height: 10)
+                
+                VStack(alignment: .leading, spacing: 10) {
+                    Text("AVATAR")
+                        .foregroundColor(Theme.get(id: themeId).commonColor.textColor)
+                        .font(.largeTitle.bold())
+                    Text("Are you a pineapple or a dino?")
+                        .foregroundColor(Theme.get(id: themeId).commonColor.textColor)
+                        .font(.subheadline)
+                        .fontWeight(.semibold)
+                }
+                .padding(.all, 20)
+                .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+
+                SizedBox(height: 10)
+            }
+        }
     }
 }

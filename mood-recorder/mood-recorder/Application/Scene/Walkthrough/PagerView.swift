@@ -38,6 +38,9 @@ struct PagerView<Content: View>: View {
             .onChange(of: translation, perform: { newValue in
                 self.offset = newValue + -geometry.size.width * CGFloat(self.index)
             })
+            .onChange(of: index, perform: { newValue in
+                self.offset = translation + -geometry.size.width * CGFloat(newValue)
+            })
             .gesture(
                 DragGesture().updating(self.$translation) { value, state, _ in
                     state = value.translation.width
