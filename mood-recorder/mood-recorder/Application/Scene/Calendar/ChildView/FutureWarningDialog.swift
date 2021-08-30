@@ -51,7 +51,7 @@ struct FutureWarningDialog: View {
                 .minimumScaleFactor(0.1)
                 .lineLimit(1)
 
-            Image(avatar == .dino ? AppImage.space.value : AppImage.astronaut.value)
+            Image(Avatar.get() == .dino ? AppImage.space.value : AppImage.astronaut.value)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 100, height: 100)

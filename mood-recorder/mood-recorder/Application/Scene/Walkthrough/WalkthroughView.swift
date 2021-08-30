@@ -18,13 +18,13 @@ struct WalkthroughView: View {
     var offset: CGFloat = 0
     
     func buildPagerView() -> some View {
-        let views = WalkthroughTab
-            .allCases
-            .map { WalkthroughContentView(selectedIndex: $index,
-                                          tab: $0) }
         return PagerView(index: $index,
                          offset: $offset,
-                         pages: views)
+                         pageCount: 3) {
+            WalkthroughTab.theme.view
+            WalkthroughTab.avatar.view
+            WalkthroughTab.notification.view
+        }
     }
     
     func buildPageControll(maxWidth: CGFloat) -> some View {
@@ -44,6 +44,7 @@ struct WalkthroughView: View {
     }
     
     func getIndicatorOffset(maxWidth: CGFloat) -> CGFloat {
+        print(offset)
         let progress = offset / maxWidth
         return progress * (12 + 7)
     }
@@ -58,7 +59,9 @@ struct WalkthroughView: View {
                 .font(.title2.bold())
                 .foregroundColor(Theme.get(id: themeId).buttonColor.textColor)
                 .padding(10)
-                .background(Theme.get(id: themeId).buttonColor.backgroundColor, in: Circle())
+                .background(WalkthroughTab(rawValue: index)?.color ?? .clear,
+                            in: Circle())
+                .animation(.easeInOut, value: index)
         })
     }
     
@@ -83,7 +86,7 @@ struct WalkthroughView: View {
     }
 }
 
-enum WalkthroughTab: CaseIterable {
+enum WalkthroughTab: Int, CaseIterable {
     case avatar
     case notification
     case theme
@@ -97,6 +100,17 @@ enum WalkthroughTab: CaseIterable {
             Color.blue
         case .theme:
             Color.yellow
+        }
+    }
+    
+    var color: Color {
+        switch self {
+        case .avatar:
+            return Color.red
+        case .notification:
+            return Color.blue
+        case .theme:
+            return Color.yellow
         }
     }
 }

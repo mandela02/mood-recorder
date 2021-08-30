@@ -37,6 +37,7 @@ enum Keys: String {
     case isUsingPasscode
     case themeId
     case isUsingSystemTheme
+    case avatar
 }
 
 struct Settings {
@@ -46,4 +47,6 @@ struct Settings {
                                                    defaultValue: false)
     static var themeId = UserDefault<Int>(key: .themeId,
                                           defaultValue: 0)
+    static var avatar = UserDefault<Int>(key: .avatar,
+                                            defaultValue: Avatar.dino.rawValue)
 }

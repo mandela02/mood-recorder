@@ -40,7 +40,7 @@ struct DismissDialog: View {
                 .multilineTextAlignment(.center)
                 .foregroundColor(Theme.get(id: themeId).commonColor.textColor)
 
-            Image(avatar == .dino ? AppImage.dinoCrying.value : AppImage.crying.value)
+            Image(Avatar.get() == .dino ? AppImage.dinoCrying.value : AppImage.crying.value)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 100, height: 100)

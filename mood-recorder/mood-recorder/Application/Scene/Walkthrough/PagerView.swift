@@ -7,51 +7,47 @@
 
 import SwiftUI
 
-struct PagerView<Content: View & Identifiable>: View {
+struct PagerView<Content: View>: View {
     @Binding var index: Int
     @Binding var offset: CGFloat
-    var pages: [Content]
+    var pageCount: Int
+    var content: Content
     
-    private func drag(in size: CGSize) -> some Gesture {
-        return DragGesture().onChanged({ value in
-            self.offset = value.translation.width + -size.width * CGFloat(self.index)
-        }).onEnded({ value in
-            withAnimation(.linear(duration: 0.5)) {
-                if -value.predictedEndTranslation.width > size.width / 2,
-                    self.index < self.pages.endIndex - 1 {
-                    self.index += 1
-                }
-                if value.predictedEndTranslation.width > size.width / 2,
-                   self.index > 0 {
-                    self.index -= 1
-                }
-                self.offset = -size.width * CGFloat(self.index)
-            }
-        })
+    @GestureState private var translation: CGFloat = 0
+
+    init(index: Binding<Int>,
+         offset: Binding<CGFloat>,
+         pageCount: Int,
+         @ViewBuilder content: () -> Content) {
+        self.pageCount = pageCount
+        self._index = index
+        self._offset = offset
+        self.content = content()
     }
-    
+
     var body: some View {
         GeometryReader { geometry in
-            Group {
-                HStack(alignment: .center, spacing: 0) {
-                    ForEach(self.pages) { page in
-                        page
-                            .frame(width: geometry.size.width,
-                                   height: geometry.size.height)
-                    }
-                }
-                .clipped()
-                .offset(x: self.offset)
+            HStack(spacing: 0) {
+                self.content.frame(width: geometry.size.width)
             }
-            .gesture(drag(in: geometry.size))
-            .frame(width: geometry.size.width,
-                   height: geometry.size.height,
-                   alignment: .leading)
-            .onChange(of: index, perform: { _ in
-                withAnimation(.linear(duration: 0.5)) {
-                    self.offset = -geometry.size.width * CGFloat(self.index)
-                }
+            .frame(width: geometry.size.width, alignment: .leading)
+            .offset(x: -CGFloat(self.index) * geometry.size.width)
+            .offset(x: self.translation)
+            .animation(.interactiveSpring(), value: index)
+            .animation(.interactiveSpring(), value: translation)
+            .onChange(of: translation, perform: { newValue in
+                self.offset = newValue + -geometry.size.width * CGFloat(self.index)
             })
+            .gesture(
+                DragGesture().updating(self.$translation) { value, state, _ in
+                    state = value.translation.width
+                }.onEnded { value in
+                    let offset = value.translation.width / geometry.size.width
+                    let newIndex = (CGFloat(self.index) - offset).rounded()
+                    self.index = min(max(Int(newIndex), 0),
+                                     self.pageCount - 1)
+                }
+            )
         }
     }
 }

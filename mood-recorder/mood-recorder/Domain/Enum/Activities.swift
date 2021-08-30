@@ -7,12 +7,14 @@
 
 import Foundation
 
-enum Avatar {
+enum Avatar: Int {
     case pineapple
     case dino
+    
+    static func get() -> Avatar {
+        return Avatar(rawValue: Settings.avatar.value) ?? .dino
+    }
 }
-
-var avatar: Avatar = .dino
 
 enum Activities: Int, CaseIterable {
     case angel
@@ -40,6 +42,8 @@ enum Activities: Int, CaseIterable {
     case science
     
     var option: ImageAndTitleModel {
+        let avatar = Avatar.get()
+        
         switch self {
         case .angel:
             return ImageAndTitleModel(image: avatar == .pineapple ? AppImage.angel : AppImage.angelDino,
