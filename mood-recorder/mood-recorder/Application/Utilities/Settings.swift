@@ -39,6 +39,7 @@ enum Keys: String {
     case isUsingSystemTheme
     case avatar
     case notificationTime
+    case isNotificationEnable
 }
 
 struct Settings {
@@ -52,4 +53,6 @@ struct Settings {
                                             defaultValue: Avatar.dino.rawValue)
     static var notificationTime = UserDefault<Int>(key: .notificationTime,
                                                    defaultValue: 0)
+    static var isNotificationEnable = UserDefault<Bool>(key: .isNotificationEnable,
+                                                        defaultValue: false)
 }

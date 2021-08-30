@@ -80,6 +80,23 @@
 		9007B35326D29FD100912AAC /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9007B35226D29FD100912AAC /* ChartView.swift */; };
 		9007B35526D29FE100912AAC /* ChartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9007B35426D29FE100912AAC /* ChartViewModel.swift */; };
 		9007B35726D2A2A500912AAC /* ChartUseCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9007B35626D2A2A500912AAC /* ChartUseCases.swift */; };
+		9013335E26DCEEA5009D0396 /* Biotif-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9013334E26DCEEA2009D0396 /* Biotif-SemiBoldItalic.ttf */; };
+		9013335F26DCEEA5009D0396 /* Biotif-Book.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9013334F26DCEEA2009D0396 /* Biotif-Book.ttf */; };
+		9013336026DCEEA5009D0396 /* Biotif-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9013335026DCEEA2009D0396 /* Biotif-ExtraBoldItalic.ttf */; };
+		9013336126DCEEA5009D0396 /* Biotif-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9013335126DCEEA3009D0396 /* Biotif-MediumItalic.ttf */; };
+		9013336226DCEEA5009D0396 /* Biotif-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9013335226DCEEA3009D0396 /* Biotif-LightItalic.ttf */; };
+		9013336326DCEEA5009D0396 /* Biotif-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9013335326DCEEA3009D0396 /* Biotif-BoldItalic.ttf */; };
+		9013336426DCEEA5009D0396 /* Biotif-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9013335426DCEEA3009D0396 /* Biotif-Medium.ttf */; };
+		9013336526DCEEA5009D0396 /* Biotif-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9013335526DCEEA3009D0396 /* Biotif-ExtraBold.ttf */; };
+		9013336626DCEEA5009D0396 /* Biotif-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9013335626DCEEA3009D0396 /* Biotif-BlackItalic.ttf */; };
+		9013336726DCEEA5009D0396 /* Biotif-RegularItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9013335726DCEEA4009D0396 /* Biotif-RegularItalic.ttf */; };
+		9013336826DCEEA5009D0396 /* Biotif-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9013335826DCEEA4009D0396 /* Biotif-SemiBold.ttf */; };
+		9013336926DCEEA5009D0396 /* Biotif-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9013335926DCEEA4009D0396 /* Biotif-Bold.ttf */; };
+		9013336A26DCEEA5009D0396 /* Biotif-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9013335A26DCEEA4009D0396 /* Biotif-Light.ttf */; };
+		9013336B26DCEEA5009D0396 /* Biotif-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9013335B26DCEEA4009D0396 /* Biotif-Regular.ttf */; };
+		9013336C26DCEEA5009D0396 /* Biotif-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9013335C26DCEEA4009D0396 /* Biotif-Black.ttf */; };
+		9013336D26DCEEA5009D0396 /* Biotif-BookItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9013335D26DCEEA5009D0396 /* Biotif-BookItalic.ttf */; };
+		9013337226DD08E6009D0396 /* AvatarSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9013337126DD08E6009D0396 /* AvatarSetting.swift */; };
 		9017B97026CEC7CE00736037 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9017B96F26CEC7CE00736037 /* CalendarView.swift */; };
 		9021188B26D0C34200273FC8 /* FutureWarningDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9021188A26D0C34200273FC8 /* FutureWarningDialog.swift */; };
 		9021188D26D0C37B00273FC8 /* TypeAlias.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9021188C26D0C37B00273FC8 /* TypeAlias.swift */; };
@@ -110,7 +127,7 @@
 		9085BD5E26D1FC9500D71F42 /* Collection+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9085BD5D26D1FC9500D71F42 /* Collection+Extension.swift */; };
 		9089486526DCC7D400A97E59 /* Avatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9089486426DCC7D400A97E59 /* Avatar.swift */; };
 		9089486726DCE3CB00A97E59 /* NotificationSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9089486626DCE3CB00A97E59 /* NotificationSetting.swift */; };
-		9089486A26DCE78000A97E59 /* Font in Resources */ = {isa = PBXBuildFile; fileRef = 9089486926DCE78000A97E59 /* Font */; };
+		9089486D26DCE7F200A97E59 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9089486C26DCE7F200A97E59 /* Font.swift */; };
 		90901D0826CFF18900ADE8D9 /* MonthPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90901D0726CFF18900ADE8D9 /* MonthPicker.swift */; };
 		909597AE26DB259100F741E8 /* PagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 909597AD26DB259100F741E8 /* PagerView.swift */; };
 		909597B026DB2BA200F741E8 /* Direction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 909597AF26DB2BA200F741E8 /* Direction.swift */; };
@@ -200,6 +217,23 @@
 		9007B35226D29FD100912AAC /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 		9007B35426D29FE100912AAC /* ChartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartViewModel.swift; sourceTree = "<group>"; };
 		9007B35626D2A2A500912AAC /* ChartUseCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartUseCases.swift; sourceTree = "<group>"; };
+		9013334E26DCEEA2009D0396 /* Biotif-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Biotif-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
+		9013334F26DCEEA2009D0396 /* Biotif-Book.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Biotif-Book.ttf"; sourceTree = "<group>"; };
+		9013335026DCEEA2009D0396 /* Biotif-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Biotif-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
+		9013335126DCEEA3009D0396 /* Biotif-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Biotif-MediumItalic.ttf"; sourceTree = "<group>"; };
+		9013335226DCEEA3009D0396 /* Biotif-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Biotif-LightItalic.ttf"; sourceTree = "<group>"; };
+		9013335326DCEEA3009D0396 /* Biotif-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Biotif-BoldItalic.ttf"; sourceTree = "<group>"; };
+		9013335426DCEEA3009D0396 /* Biotif-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Biotif-Medium.ttf"; sourceTree = "<group>"; };
+		9013335526DCEEA3009D0396 /* Biotif-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Biotif-ExtraBold.ttf"; sourceTree = "<group>"; };
+		9013335626DCEEA3009D0396 /* Biotif-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Biotif-BlackItalic.ttf"; sourceTree = "<group>"; };
+		9013335726DCEEA4009D0396 /* Biotif-RegularItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Biotif-RegularItalic.ttf"; sourceTree = "<group>"; };
+		9013335826DCEEA4009D0396 /* Biotif-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Biotif-SemiBold.ttf"; sourceTree = "<group>"; };
+		9013335926DCEEA4009D0396 /* Biotif-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Biotif-Bold.ttf"; sourceTree = "<group>"; };
+		9013335A26DCEEA4009D0396 /* Biotif-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Biotif-Light.ttf"; sourceTree = "<group>"; };
+		9013335B26DCEEA4009D0396 /* Biotif-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Biotif-Regular.ttf"; sourceTree = "<group>"; };
+		9013335C26DCEEA4009D0396 /* Biotif-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Biotif-Black.ttf"; sourceTree = "<group>"; };
+		9013335D26DCEEA5009D0396 /* Biotif-BookItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Biotif-BookItalic.ttf"; sourceTree = "<group>"; };
+		9013337126DD08E6009D0396 /* AvatarSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarSetting.swift; sourceTree = "<group>"; };
 		9017B96F26CEC7CE00736037 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		9021188A26D0C34200273FC8 /* FutureWarningDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FutureWarningDialog.swift; sourceTree = "<group>"; };
 		9021188C26D0C37B00273FC8 /* TypeAlias.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeAlias.swift; sourceTree = "<group>"; };
@@ -231,7 +265,7 @@
 		9085BD5D26D1FC9500D71F42 /* Collection+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Extension.swift"; sourceTree = "<group>"; };
 		9089486426DCC7D400A97E59 /* Avatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Avatar.swift; sourceTree = "<group>"; };
 		9089486626DCE3CB00A97E59 /* NotificationSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSetting.swift; sourceTree = "<group>"; };
-		9089486926DCE78000A97E59 /* Font */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Font; sourceTree = "<group>"; };
+		9089486C26DCE7F200A97E59 /* Font.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		90901D0726CFF18900ADE8D9 /* MonthPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthPicker.swift; sourceTree = "<group>"; };
 		909597AD26DB259100F741E8 /* PagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerView.swift; sourceTree = "<group>"; };
 		909597AF26DB2BA200F741E8 /* Direction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Direction.swift; sourceTree = "<group>"; };
@@ -549,6 +583,29 @@
 			path = Chart;
 			sourceTree = "<group>";
 		};
+		9013334D26DCEE9A009D0396 /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				9013335C26DCEEA4009D0396 /* Biotif-Black.ttf */,
+				9013335626DCEEA3009D0396 /* Biotif-BlackItalic.ttf */,
+				9013335926DCEEA4009D0396 /* Biotif-Bold.ttf */,
+				9013335326DCEEA3009D0396 /* Biotif-BoldItalic.ttf */,
+				9013334F26DCEEA2009D0396 /* Biotif-Book.ttf */,
+				9013335D26DCEEA5009D0396 /* Biotif-BookItalic.ttf */,
+				9013335526DCEEA3009D0396 /* Biotif-ExtraBold.ttf */,
+				9013335026DCEEA2009D0396 /* Biotif-ExtraBoldItalic.ttf */,
+				9013335A26DCEEA4009D0396 /* Biotif-Light.ttf */,
+				9013335226DCEEA3009D0396 /* Biotif-LightItalic.ttf */,
+				9013335426DCEEA3009D0396 /* Biotif-Medium.ttf */,
+				9013335126DCEEA3009D0396 /* Biotif-MediumItalic.ttf */,
+				9013335B26DCEEA4009D0396 /* Biotif-Regular.ttf */,
+				9013335726DCEEA4009D0396 /* Biotif-RegularItalic.ttf */,
+				9013335826DCEEA4009D0396 /* Biotif-SemiBold.ttf */,
+				9013334E26DCEEA2009D0396 /* Biotif-SemiBoldItalic.ttf */,
+			);
+			path = Font;
+			sourceTree = "<group>";
+		};
 		903FA55326D4BB4E00FD51D2 /* Safe */ = {
 			isa = PBXGroup;
 			children = (
@@ -639,6 +696,7 @@
 				909597AD26DB259100F741E8 /* PagerView.swift */,
 				909597B126DB2BDA00F741E8 /* WalkthroughView.swift */,
 				9089486626DCE3CB00A97E59 /* NotificationSetting.swift */,
+				9013337126DD08E6009D0396 /* AvatarSetting.swift */,
 			);
 			path = Walkthrough;
 			sourceTree = "<group>";
@@ -738,7 +796,8 @@
 		9089486826DCE74B00A97E59 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
-				9089486926DCE78000A97E59 /* Font */,
+				9089486C26DCE7F200A97E59 /* Font.swift */,
+				9013334D26DCEE9A009D0396 /* Font */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -830,9 +889,24 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9013336D26DCEEA5009D0396 /* Biotif-BookItalic.ttf in Resources */,
+				9013336926DCEEA5009D0396 /* Biotif-Bold.ttf in Resources */,
+				9013336126DCEEA5009D0396 /* Biotif-MediumItalic.ttf in Resources */,
+				9013336A26DCEEA5009D0396 /* Biotif-Light.ttf in Resources */,
+				9013336526DCEEA5009D0396 /* Biotif-ExtraBold.ttf in Resources */,
+				9013336026DCEEA5009D0396 /* Biotif-ExtraBoldItalic.ttf in Resources */,
+				9013336326DCEEA5009D0396 /* Biotif-BoldItalic.ttf in Resources */,
+				9013335F26DCEEA5009D0396 /* Biotif-Book.ttf in Resources */,
 				8424A93626B5BE0F00BE4454 /* Preview Assets.xcassets in Resources */,
-				9089486A26DCE78000A97E59 /* Font in Resources */,
+				9013336226DCEEA5009D0396 /* Biotif-LightItalic.ttf in Resources */,
+				9013335E26DCEEA5009D0396 /* Biotif-SemiBoldItalic.ttf in Resources */,
+				9013336B26DCEEA5009D0396 /* Biotif-Regular.ttf in Resources */,
 				8424A93326B5BE0F00BE4454 /* Assets.xcassets in Resources */,
+				9013336426DCEEA5009D0396 /* Biotif-Medium.ttf in Resources */,
+				9013336C26DCEEA5009D0396 /* Biotif-Black.ttf in Resources */,
+				9013336726DCEEA5009D0396 /* Biotif-RegularItalic.ttf in Resources */,
+				9013336626DCEEA5009D0396 /* Biotif-BlackItalic.ttf in Resources */,
+				9013336826DCEEA5009D0396 /* Biotif-SemiBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -878,6 +952,7 @@
 				84CBB35F26B703BF00A8E377 /* CustomTabBar.swift in Sources */,
 				8423C22526C03352000717D9 /* Repositoy.swift in Sources */,
 				90687C2626D336E5004A7DC6 /* ChartHelper.swift in Sources */,
+				9089486D26DCE7F200A97E59 /* Font.swift in Sources */,
 				84CBB36C26B71EE600A8E377 /* RoundImageView.swift in Sources */,
 				903FA55726D4BB9D00FD51D2 /* SafeOptionModel.swift in Sources */,
 				8424A93126B5BE0B00BE4454 /* ContentView.swift in Sources */,
@@ -900,6 +975,7 @@
 				8476F1A926B861EC00F62854 /* Weather.swift in Sources */,
 				90687C2226D333C7004A7DC6 /* PieChartView.swift in Sources */,
 				84EE2F8526C7CFF800C0195D /* DismissDialog.swift in Sources */,
+				9013337226DD08E6009D0396 /* AvatarSetting.swift in Sources */,
 				90AFAEB226D34E67008B8CA6 /* EmotionPrecentChartCellView.swift in Sources */,
 				903FA55526D4BB7F00FD51D2 /* SafeContentModel.swift in Sources */,
 				90687C2026D33355004A7DC6 /* PieChartSliceView.swift in Sources */,

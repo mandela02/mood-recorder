@@ -9,10 +9,13 @@ import SwiftUI
 
 struct NotificationSetting: View {
     @AppStorage(Keys.themeId.rawValue)
-    var themeId: Int = 0
+    var themeId: Int = Settings.themeId.value
     
     @AppStorage(Keys.notificationTime.rawValue)
-    var notificationTime: Int = 0
+    var notificationTime: Int = Settings.notificationTime.value
+
+    @AppStorage(Keys.isNotificationEnable.rawValue)
+    var isNotificationEnable: Bool = Settings.isNotificationEnable.value
 
     @State
     private var progress: CGFloat
@@ -105,20 +108,60 @@ struct NotificationSetting: View {
         }
     }
     
+    func buildTime() -> some View {
+        Text(Int(progress * 24 * 60).generateHourMinuteString())
+            .font(.system(size: 25))
+            .foregroundColor(Theme.get(id: themeId).commonColor.textColor)
+            .minimumScaleFactor(0.1)
+            .padding(.all, 5)
+            .background(Theme.get(id: themeId).sleepColor.smallCircleColor,
+                        in: RoundedRectangle(cornerRadius: 5))
+            .overlay(RoundedRectangle(cornerRadius: 5)
+                        .stroke(Theme.get(id: themeId).commonColor.textColor,
+                                lineWidth: 2))
+    }
+        
     var body: some View {
         ZStack {
             Theme.get(id: themeId)
                 .commonColor.viewBackground
                 .ignoresSafeArea()
-            GeometryReader { proxy in
-                let offset = 0 - (proxy.size.width - defaultWidth * 2) / 2
+            VStack(alignment: .center, spacing: 10) {
+                GeometryReader { proxy in
+                    let offset = 0 - (proxy.size.width - defaultWidth * 2) / 2
 
-                ZStack {
-                    buildProgressView(width: proxy.size.width)
-                    buildClock(offset: offset)
+                    ZStack {
+                        buildProgressView(width: proxy.size.width)
+                        buildClock(offset: offset)
+                        buildTime()
+                    }
                 }
+                .padding(20)
+
+                SizedBox(height: 20)
+                
+                HStack {
+                    Text("Enable Notification")
+                        .foregroundColor(Theme.get(id: themeId).tableViewColor.text)
+                    Spacer()
+                    Toggle("", isOn: $isNotificationEnable)
+                        .toggleStyle(SwitchToggleStyle(tint: Theme.get(id: themeId).buttonColor.disableColor))
+                }
+                .padding()
+
+                VStack(alignment: .leading, spacing: 10) {
+                    Text("NOTIFICATION")
+                        .foregroundColor(Theme.get(id: themeId).commonColor.textColor)
+                        .font(.largeTitle.bold())
+                    Text("Send you a notification every, in case you forget some thing")
+                        .foregroundColor(Theme.get(id: themeId).commonColor.textColor)
+                        .font(.subheadline)
+                        .fontWeight(.semibold)
+                }
+                .padding()
+                .frame(maxWidth: .infinity,
+                       alignment: .topLeading)
             }
-            .padding(.all, 50)
         }
     }
 }
