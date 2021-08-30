@@ -44,7 +44,6 @@ struct WalkthroughView: View {
     }
     
     func getIndicatorOffset(maxWidth: CGFloat) -> CGFloat {
-        print(offset)
         let progress = offset / maxWidth
         return progress * (12 + 7)
     }
@@ -101,7 +100,7 @@ enum WalkthroughTab: Int, CaseIterable {
         case .avatar:
             AvatarSetting()
         case .notification:
-            Color.blue
+            NotificationSetting()
         case .theme:
             Color.yellow
         }

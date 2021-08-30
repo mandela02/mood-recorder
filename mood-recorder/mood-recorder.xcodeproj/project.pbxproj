@@ -109,6 +109,8 @@
 		9085BD5C26D1FAD200D71F42 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9085BD5B26D1FAD200D71F42 /* Settings.swift */; };
 		9085BD5E26D1FC9500D71F42 /* Collection+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9085BD5D26D1FC9500D71F42 /* Collection+Extension.swift */; };
 		9089486526DCC7D400A97E59 /* Avatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9089486426DCC7D400A97E59 /* Avatar.swift */; };
+		9089486726DCE3CB00A97E59 /* NotificationSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9089486626DCE3CB00A97E59 /* NotificationSetting.swift */; };
+		9089486A26DCE78000A97E59 /* Font in Resources */ = {isa = PBXBuildFile; fileRef = 9089486926DCE78000A97E59 /* Font */; };
 		90901D0826CFF18900ADE8D9 /* MonthPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90901D0726CFF18900ADE8D9 /* MonthPicker.swift */; };
 		909597AE26DB259100F741E8 /* PagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 909597AD26DB259100F741E8 /* PagerView.swift */; };
 		909597B026DB2BA200F741E8 /* Direction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 909597AF26DB2BA200F741E8 /* Direction.swift */; };
@@ -228,6 +230,8 @@
 		9085BD5B26D1FAD200D71F42 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		9085BD5D26D1FC9500D71F42 /* Collection+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Extension.swift"; sourceTree = "<group>"; };
 		9089486426DCC7D400A97E59 /* Avatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Avatar.swift; sourceTree = "<group>"; };
+		9089486626DCE3CB00A97E59 /* NotificationSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSetting.swift; sourceTree = "<group>"; };
+		9089486926DCE78000A97E59 /* Font */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Font; sourceTree = "<group>"; };
 		90901D0726CFF18900ADE8D9 /* MonthPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthPicker.swift; sourceTree = "<group>"; };
 		909597AD26DB259100F741E8 /* PagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerView.swift; sourceTree = "<group>"; };
 		909597AF26DB2BA200F741E8 /* Direction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Direction.swift; sourceTree = "<group>"; };
@@ -355,6 +359,7 @@
 		8476F1AA26B8635900F62854 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				9089486826DCE74B00A97E59 /* Resource */,
 				8404939D26BAAB14006523D9 /* Helper */,
 				8476F1AB26B8635F00F62854 /* Extension */,
 				84B395FD26C7C3D2007B8A6B /* Utilities.swift */,
@@ -633,6 +638,7 @@
 			children = (
 				909597AD26DB259100F741E8 /* PagerView.swift */,
 				909597B126DB2BDA00F741E8 /* WalkthroughView.swift */,
+				9089486626DCE3CB00A97E59 /* NotificationSetting.swift */,
 			);
 			path = Walkthrough;
 			sourceTree = "<group>";
@@ -729,6 +735,14 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
+		9089486826DCE74B00A97E59 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				9089486926DCE78000A97E59 /* Font */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
 		90B4E97D26D0D7EF0048A2C2 /* UseCases */ = {
 			isa = PBXGroup;
 			children = (
@@ -817,6 +831,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8424A93626B5BE0F00BE4454 /* Preview Assets.xcassets in Resources */,
+				9089486A26DCE78000A97E59 /* Font in Resources */,
 				8424A93326B5BE0F00BE4454 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -954,6 +969,7 @@
 				8404938F26BA4F7D006523D9 /* ImageAndTitleModel.swift in Sources */,
 				909DC15E26CCA621004179F0 /* Int+Extension.swift in Sources */,
 				907ABBF126D2C12200201BD9 /* DateNavigationView.swift in Sources */,
+				9089486726DCE3CB00A97E59 /* NotificationSetting.swift in Sources */,
 				9085BD5A26D1F49400D71F42 /* SettingView.swift in Sources */,
 				8423C21826C0037C000717D9 /* Chore.swift in Sources */,
 				84C3F72926C03AE600C789F5 /* CDOptionModel+CoreDataProperties.swift in Sources */,

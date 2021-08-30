@@ -38,6 +38,7 @@ enum Keys: String {
     case themeId
     case isUsingSystemTheme
     case avatar
+    case notificationTime
 }
 
 struct Settings {
@@ -49,4 +50,6 @@ struct Settings {
                                           defaultValue: 0)
     static var avatar = UserDefault<Int>(key: .avatar,
                                             defaultValue: Avatar.dino.rawValue)
+    static var notificationTime = UserDefault<Int>(key: .notificationTime,
+                                                   defaultValue: 0)
 }
