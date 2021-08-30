@@ -97,6 +97,7 @@
 		9013336C26DCEEA5009D0396 /* Biotif-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9013335C26DCEEA4009D0396 /* Biotif-Black.ttf */; };
 		9013336D26DCEEA5009D0396 /* Biotif-BookItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9013335D26DCEEA5009D0396 /* Biotif-BookItalic.ttf */; };
 		9013337226DD08E6009D0396 /* AvatarSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9013337126DD08E6009D0396 /* AvatarSetting.swift */; };
+		9013337526DD16CF009D0396 /* HourPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9013337426DD16CF009D0396 /* HourPicker.swift */; };
 		9017B97026CEC7CE00736037 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9017B96F26CEC7CE00736037 /* CalendarView.swift */; };
 		9021188B26D0C34200273FC8 /* FutureWarningDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9021188A26D0C34200273FC8 /* FutureWarningDialog.swift */; };
 		9021188D26D0C37B00273FC8 /* TypeAlias.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9021188C26D0C37B00273FC8 /* TypeAlias.swift */; };
@@ -234,6 +235,7 @@
 		9013335C26DCEEA4009D0396 /* Biotif-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Biotif-Black.ttf"; sourceTree = "<group>"; };
 		9013335D26DCEEA5009D0396 /* Biotif-BookItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Biotif-BookItalic.ttf"; sourceTree = "<group>"; };
 		9013337126DD08E6009D0396 /* AvatarSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarSetting.swift; sourceTree = "<group>"; };
+		9013337426DD16CF009D0396 /* HourPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourPicker.swift; sourceTree = "<group>"; };
 		9017B96F26CEC7CE00736037 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		9021188A26D0C34200273FC8 /* FutureWarningDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FutureWarningDialog.swift; sourceTree = "<group>"; };
 		9021188C26D0C37B00273FC8 /* TypeAlias.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeAlias.swift; sourceTree = "<group>"; };
@@ -540,6 +542,7 @@
 				84EE2F8626C7D08500C0195D /* CustomDialog.swift */,
 				84B2554826C7F490000B96DB /* ArrowAnimation.swift */,
 				907ABBF026D2C12200201BD9 /* DateNavigationView.swift */,
+				9013337426DD16CF009D0396 /* HourPicker.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -961,6 +964,7 @@
 				84CBB36626B7164E00A8E377 /* HomeViewModel.swift in Sources */,
 				84CBB36A26B71E7500A8E377 /* ResizeAnimationButtonStyle.swift in Sources */,
 				8404939326BA4FC0006523D9 /* ImageModel.swift in Sources */,
+				9013337526DD16CF009D0396 /* HourPicker.swift in Sources */,
 				90B7CAF526D61B2600790A64 /* TimelineViewModel.swift in Sources */,
 				90B4E97C26D0D6130048A2C2 /* FetchDiaryUseCase.swift in Sources */,
 				8404939F26BAAB21006523D9 /* ThemeHelper.swift in Sources */,

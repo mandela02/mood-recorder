@@ -8,8 +8,8 @@
 import Foundation
 
 extension Int {
-    private func minutesToHoursAndMinutes() -> (hours: Int,
-                                                leftMinutes: Int) {
+    func minutesToHoursAndMinutes() -> (hours: Int,
+                                        leftMinutes: Int) {
         return (self / 60, (self % 60))
     }
     

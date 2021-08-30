@@ -1,107 +1,77 @@
 //
-//  MonthPicker.swift
-//  MonthPicker
+//  HourPicker.swift
+//  HourPicker
 //
-//  Created by TriBQ on 8/20/21.
+//  Created by TriBQ on 8/30/21.
 //
 
 import SwiftUI
 
-enum Month: Int, CaseIterable, StringValueProtocol {
-    case january = 1
-    case february
-    case march
-    case april
-    case may
-    case june
-    case july
-    case august
-    case september
-    case october
-    case november
-    case december
-    
-    var value: String {
-        switch self {
-        case .january:
-            return "January"
-        case .february:
-            return "February"
-        case .march:
-            return "March"
-        case .april:
-            return "April"
-        case .may:
-            return "May"
-        case .june:
-            return "June"
-        case .july:
-            return "July"
-        case .august:
-            return "August"
-        case .september:
-            return "September"
-        case .october:
-            return "October"
-        case .november:
-            return "November"
-        case .december:
-            return "December"
-        }
-    }
-}
-
-struct MonthPicker: View {
+struct HourPicker: View {
     @State
-    private var selectedMonth: Month
+    private var selectedHour: Int
     
     @State
-    private var selectedYear: Int
+    private var selectedMinute: Int
     
     @State
     private var isAppear = false
     
-    private let years = 1980...2099
+    private let minutes = 0...59
     
+    private let hours = 0...23
+
     var onApply: IntTupleCallbackFunction
+    
     var onCancel: VoidFunction
 
     @AppStorage(Keys.themeId.rawValue)
     var themeId: Int = 0
 
-    init(month: Int,
-         year: Int,
+    init(hour: Int,
+         minute: Int,
          onApply: @escaping IntTupleCallbackFunction,
          onCancel: @escaping VoidFunction) {
-        self.selectedMonth = Month(rawValue: month) ?? .january
-        self.selectedYear = year
+        self.selectedHour = hour
+        self.selectedMinute = minute
         self.onApply = onApply
         self.onCancel = onCancel
     }
     
     func buildPicker() -> some View {
         GeometryReader { proxy in
+            let width = proxy.size.width / 4
+            
             HStack {
-                Picker("SelectMonth",
-                       selection: $selectedMonth) {
-                    ForEach(Month.allCases, id: \.self) {
-                        Text($0.value)
-                    }
-                }
-                       .pickerStyle(WheelPickerStyle())
-                       .frame(maxWidth: proxy.size.width / 2)
-                       .clipped()
-                
-                Spacer()
-                Picker("SelectMonth",
-                       selection: $selectedYear) {
-                    ForEach(years, id: \.self) {
+                Picker("Select Hour",
+                       selection: $selectedHour) {
+                    ForEach(hours, id: \.self) {
                         Text("\(String($0))")
                     }
                 }
                        .pickerStyle(WheelPickerStyle())
-                       .frame(maxWidth: proxy.size.width / 2)
+                       .frame(maxWidth: width)
                        .clipped()
+                
+                Text("Hour")
+                    .font(.system(size: 15))
+                    .foregroundColor(Theme.get(id: themeId).buttonColor.backgroundColor)
+                    .frame(maxWidth: width)
+
+                Picker("Select Minute",
+                       selection: $selectedMinute) {
+                    ForEach(minutes, id: \.self) {
+                        Text("\(String($0))")
+                    }
+                }
+                       .pickerStyle(WheelPickerStyle())
+                       .frame(maxWidth: width)
+                       .clipped()
+                
+                Text("Minutes")
+                    .font(.system(size: 15))
+                    .foregroundColor(Theme.get(id: themeId).buttonColor.backgroundColor)
+                    .frame(maxWidth: width)
             }
         }
     }
@@ -123,7 +93,7 @@ struct MonthPicker: View {
             Button(action: {
                 isAppear = false
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                    onApply(selectedMonth.rawValue, selectedYear)
+                    onApply(selectedHour, selectedMinute)
                 }
             }, label: {
                 Text("Apply")

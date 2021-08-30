@@ -14,9 +14,15 @@ struct NotificationSetting: View {
     @AppStorage(Keys.notificationTime.rawValue)
     var notificationTime: Int = Settings.notificationTime.value
 
+    @AppStorage(Keys.avatar.rawValue)
+    var avatar: Int = Settings.avatar.value
+
     @AppStorage(Keys.isNotificationEnable.rawValue)
     var isNotificationEnable: Bool = Settings.isNotificationEnable.value
 
+    @State
+    var isHourPickerShowing: Bool = false
+    
     @State
     private var progress: CGFloat
     
@@ -99,7 +105,11 @@ struct NotificationSetting: View {
                 .frame(width: defaultWidth, height: defaultWidth, alignment: .center)
                 .offset(x: width / 2)
                 .rotationEffect(.init(degrees: angle))
-                .gesture(DragGesture().onChanged(onDrag(value:)))
+                .gesture(DragGesture()
+                            .onChanged(onDrag(value:))
+                            .onEnded({ _ in
+                    Settings.notificationTime.value = Int(progress * 24 * 60)
+                }))
                 .rotationEffect(.init(degrees: -90))
             
             Circle()
@@ -119,6 +129,15 @@ struct NotificationSetting: View {
             .overlay(RoundedRectangle(cornerRadius: 5)
                         .stroke(Theme.get(id: themeId).commonColor.textColor,
                                 lineWidth: 2))
+            .onTapGesture {
+                isHourPickerShowing = true
+            }
+    }
+    
+    func buildImage() -> some View {
+        (Avatar.get(id: avatar) == .dino ? AppImage.drawingDino.value.image : AppImage.drawing.value.image)
+            .resizable()
+            .padding(100)
     }
         
     var body: some View {
@@ -127,16 +146,20 @@ struct NotificationSetting: View {
                 .commonColor.viewBackground
                 .ignoresSafeArea()
             VStack(alignment: .center, spacing: 10) {
-                GeometryReader { proxy in
-                    let offset = 0 - (proxy.size.width - defaultWidth * 2) / 2
+                if isNotificationEnable {
+                    GeometryReader { proxy in
+                        let offset = 0 - (proxy.size.width - defaultWidth * 2) / 2
 
-                    ZStack {
-                        buildProgressView(width: proxy.size.width)
-                        buildClock(offset: offset)
-                        buildTime()
+                        ZStack {
+                            buildProgressView(width: proxy.size.width)
+                            buildClock(offset: offset)
+                            buildTime()
+                        }
                     }
+                    .padding(20)
+                } else {
+                    buildImage()
                 }
-                .padding(20)
 
                 SizedBox(height: 20)
                 
@@ -163,5 +186,25 @@ struct NotificationSetting: View {
                        alignment: .topLeading)
             }
         }
+        
+        .animation(.easeInOut, value: isNotificationEnable)
+        .onChange(of: notificationTime) { newValue in
+            // TODO: - add local push notification here
+        }
+        .overlay {
+            if isHourPickerShowing {
+                HourPicker(hour: notificationTime.minutesToHoursAndMinutes().hours,
+                           minute: notificationTime.minutesToHoursAndMinutes().leftMinutes,
+                           onApply: { (hour, minute) in
+                    Settings.notificationTime.value = hour * 60 + minute
+                    isHourPickerShowing = false
+                    progress = CGFloat(Settings.notificationTime.value) / (24 * 60)
+                    
+                }, onCancel: {
+                    isHourPickerShowing = false
+                })
+            }
+        }
+        .animation(.easeInOut, value: isHourPickerShowing)
     }
 }
