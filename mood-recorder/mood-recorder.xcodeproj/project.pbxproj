@@ -91,6 +91,7 @@
 		903FA55D26D4BBF000FD51D2 /* Clone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 903FA55C26D4BBF000FD51D2 /* Clone.swift */; };
 		9041C11E26CEC45C0054617E /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9041C11D26CEC45C0054617E /* CalendarViewModel.swift */; };
 		9057DE9326D1086600FF7DA2 /* CalendarDiaryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9057DE9226D1086600FF7DA2 /* CalendarDiaryDetailView.swift */; };
+		905BD89226D8B58D00BBA5CD /* NotificationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 905BD89126D8B58D00BBA5CD /* NotificationHelper.swift */; };
 		905E202126D74F3E009355C3 /* TimelineUseCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 905E202026D74F3E009355C3 /* TimelineUseCases.swift */; };
 		9060A58226D752F500A36582 /* TimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9060A58126D752F500A36582 /* TimelineView.swift */; };
 		90687C2026D33355004A7DC6 /* PieChartSliceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90687C1F26D33355004A7DC6 /* PieChartSliceView.swift */; };
@@ -108,6 +109,9 @@
 		9085BD5C26D1FAD200D71F42 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9085BD5B26D1FAD200D71F42 /* Settings.swift */; };
 		9085BD5E26D1FC9500D71F42 /* Collection+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9085BD5D26D1FC9500D71F42 /* Collection+Extension.swift */; };
 		90901D0826CFF18900ADE8D9 /* MonthPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90901D0726CFF18900ADE8D9 /* MonthPicker.swift */; };
+		909597AE26DB259100F741E8 /* PagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 909597AD26DB259100F741E8 /* PagerView.swift */; };
+		909597B026DB2BA200F741E8 /* Direction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 909597AF26DB2BA200F741E8 /* Direction.swift */; };
+		909597B226DB2BDA00F741E8 /* WalkthroughView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 909597B126DB2BDA00F741E8 /* WalkthroughView.swift */; };
 		909DC15E26CCA621004179F0 /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 909DC15D26CCA621004179F0 /* Int+Extension.swift */; };
 		90AFAEB226D34E67008B8CA6 /* EmotionPrecentChartCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90AFAEB126D34E67008B8CA6 /* EmotionPrecentChartCellView.swift */; };
 		90B072FC26D35D1E009D4954 /* FetchOptionUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B072FB26D35D1E009D4954 /* FetchOptionUseCase.swift */; };
@@ -205,6 +209,7 @@
 		903FA55C26D4BBF000FD51D2 /* Clone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clone.swift; sourceTree = "<group>"; };
 		9041C11D26CEC45C0054617E /* CalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
 		9057DE9226D1086600FF7DA2 /* CalendarDiaryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDiaryDetailView.swift; sourceTree = "<group>"; };
+		905BD89126D8B58D00BBA5CD /* NotificationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationHelper.swift; sourceTree = "<group>"; };
 		905E202026D74F3E009355C3 /* TimelineUseCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineUseCases.swift; sourceTree = "<group>"; };
 		9060A58126D752F500A36582 /* TimelineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineView.swift; sourceTree = "<group>"; };
 		90687C1F26D33355004A7DC6 /* PieChartSliceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieChartSliceView.swift; sourceTree = "<group>"; };
@@ -222,6 +227,9 @@
 		9085BD5B26D1FAD200D71F42 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		9085BD5D26D1FC9500D71F42 /* Collection+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Extension.swift"; sourceTree = "<group>"; };
 		90901D0726CFF18900ADE8D9 /* MonthPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthPicker.swift; sourceTree = "<group>"; };
+		909597AD26DB259100F741E8 /* PagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerView.swift; sourceTree = "<group>"; };
+		909597AF26DB2BA200F741E8 /* Direction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Direction.swift; sourceTree = "<group>"; };
+		909597B126DB2BDA00F741E8 /* WalkthroughView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkthroughView.swift; sourceTree = "<group>"; };
 		909DC15D26CCA621004179F0 /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
 		90AFAEB126D34E67008B8CA6 /* EmotionPrecentChartCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionPrecentChartCellView.swift; sourceTree = "<group>"; };
 		90B072FB26D35D1E009D4954 /* FetchOptionUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchOptionUseCase.swift; sourceTree = "<group>"; };
@@ -258,6 +266,7 @@
 				8423C21426BFE978000717D9 /* School.swift */,
 				8423C21726C0037C000717D9 /* Chore.swift */,
 				8423C21926C0098D000717D9 /* Event.swift */,
+				909597AF26DB2BA200F741E8 /* Direction.swift */,
 			);
 			path = Enum;
 			sourceTree = "<group>";
@@ -280,6 +289,7 @@
 			isa = PBXGroup;
 			children = (
 				8404939E26BAAB21006523D9 /* ThemeHelper.swift */,
+				905BD89126D8B58D00BBA5CD /* NotificationHelper.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -463,6 +473,7 @@
 		84CBB35B26B6FE3300A8E377 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				905BD89326DB1AAF00BBA5CD /* Walkthrough */,
 				90B7CAF326D61AB900790A64 /* Timeline */,
 				9007B35126D29FC600912AAC /* Chart */,
 				907E278126D1ECDD00D8129A /* Settings */,
@@ -612,6 +623,15 @@
 				90687C1726D330B6004A7DC6 /* ChildView */,
 			);
 			path = Calendar;
+			sourceTree = "<group>";
+		};
+		905BD89326DB1AAF00BBA5CD /* Walkthrough */ = {
+			isa = PBXGroup;
+			children = (
+				909597AD26DB259100F741E8 /* PagerView.swift */,
+				909597B126DB2BDA00F741E8 /* WalkthroughView.swift */,
+			);
+			path = Walkthrough;
 			sourceTree = "<group>";
 		};
 		90687C1726D330B6004A7DC6 /* ChildView */ = {
@@ -829,6 +849,7 @@
 				9007B35526D29FE100912AAC /* ChartViewModel.swift in Sources */,
 				90F2105026D388030088899B /* OptionStatisticalTableView.swift in Sources */,
 				8423C20926BE85CE000717D9 /* Love.swift in Sources */,
+				909597B226DB2BDA00F741E8 /* WalkthroughView.swift in Sources */,
 				84FE1B3B26C7B55600D32330 /* BaseViewModel.swift in Sources */,
 				903FA55926D4BBB000FD51D2 /* SafeDiaryModel.swift in Sources */,
 				84C3F72626C03AE600C789F5 /* CDContentModel+CoreDataClass.swift in Sources */,
@@ -878,6 +899,7 @@
 				8404939826BA8471006523D9 /* ImagePicker.swift in Sources */,
 				84EF6B7226B7A4BA00C0551F /* CoreEmotion.swift in Sources */,
 				90B072FC26D35D1E009D4954 /* FetchOptionUseCase.swift in Sources */,
+				909597AE26DB259100F741E8 /* PagerView.swift in Sources */,
 				8404939C26BAA9E7006523D9 /* Color+Extension.swift in Sources */,
 				8423C20326BE4329000717D9 /* DateFormatter+Extension.swift in Sources */,
 				9085BD5E26D1FC9500D71F42 /* Collection+Extension.swift in Sources */,
@@ -893,6 +915,7 @@
 				8424A92F26B5BE0B00BE4454 /* MoodRecorderApp.swift in Sources */,
 				8404938226B9A928006523D9 /* DiaryViewModel.swift in Sources */,
 				84C32A8B26C826BE004F6A85 /* Array+Extension.swift in Sources */,
+				909597B026DB2BA200F741E8 /* Direction.swift in Sources */,
 				84C3F72B26C03AE600C789F5 /* CDInputModel+CoreDataProperties.swift in Sources */,
 				903FA55D26D4BBF000FD51D2 /* Clone.swift in Sources */,
 				841E1F9C26C83FAF00EC1082 /* OptionAdditionViewModel.swift in Sources */,
@@ -902,6 +925,7 @@
 				8404939126BA4F97006523D9 /* SectionType.swift in Sources */,
 				84C3F72726C03AE600C789F5 /* CDContentModel+CoreDataProperties.swift in Sources */,
 				846DA17726C8DAA700D0C7F9 /* AppImage+Extension.swift in Sources */,
+				905BD89226D8B58D00BBA5CD /* NotificationHelper.swift in Sources */,
 				8423C22726C03379000717D9 /* PersistenceManager.swift in Sources */,
 				9007B35326D29FD100912AAC /* ChartView.swift in Sources */,
 				8423C22026C03175000717D9 /* MoodRecorderDataModel.xcdatamodeld in Sources */,

@@ -1,0 +1,113 @@
+//
+//  WalkthroughView.swift
+//  WalkthroughView
+//
+//  Created by TriBQ on 8/29/21.
+//
+
+import SwiftUI
+
+struct WalkthroughView: View {
+    @AppStorage(Keys.themeId.rawValue)
+    var themeId: Int = 0
+
+    @State
+    var index: Int = 0
+    
+    @State
+    var offset: CGFloat = 0
+    
+    func buildPagerView() -> some View {
+        let views = WalkthroughTab
+            .allCases
+            .map { WalkthroughContentView(selectedIndex: $index,
+                                          tab: $0) }
+        return PagerView(index: $index,
+                         offset: $offset,
+                         pages: views)
+    }
+    
+    func buildPageControll(maxWidth: CGFloat) -> some View {
+        let width = getIndicatorOffset(maxWidth: maxWidth)
+        return HStack(spacing: 12) {
+            ForEach(WalkthroughTab.allCases.indices, id: \.self) { index in
+                Capsule()
+                    .fill(Theme.get(id: themeId).buttonColor.backgroundColor)
+                    .frame(width: index == self.index ? 20 : 7, height: 7)
+            }
+        }
+        .overlay(Capsule()
+                    .fill(Theme.get(id: themeId).buttonColor.backgroundColor)
+                    .frame(width: 20, height: 7)
+                    .offset(x: -width), alignment: .leading)
+        .animation(.linear, value: width)
+    }
+    
+    func getIndicatorOffset(maxWidth: CGFloat) -> CGFloat {
+        let progress = offset / maxWidth
+        return progress * (12 + 7)
+    }
+    
+    func buildNextButton() -> some View {
+        return Button(action: {
+            if index < WalkthroughTab.allCases.count - 1 {
+                index += 1
+            }
+        }, label: {
+            Image(systemName: "chevron.right")
+                .font(.title2.bold())
+                .foregroundColor(Theme.get(id: themeId).buttonColor.textColor)
+                .padding(10)
+                .background(Theme.get(id: themeId).buttonColor.backgroundColor, in: Circle())
+        })
+    }
+    
+    var body: some View {
+        ZStack {
+            Theme.get(id: themeId).commonColor.viewBackground
+                .ignoresSafeArea()
+            GeometryReader { proxy in
+                VStack {
+                    SizedBox(height: 50)
+                    buildPagerView()
+                        .frame(width: proxy.size.width)
+                    HStack {
+                        buildPageControll(maxWidth: proxy.size.width)
+                        Spacer()
+                        buildNextButton()
+                    }.frame(height: 50)
+                        .padding()
+                }
+            }
+        }
+    }
+}
+
+enum WalkthroughTab: CaseIterable {
+    case avatar
+    case notification
+    case theme
+    
+    @ViewBuilder
+    var view: some View {
+        switch self {
+        case .avatar:
+            Color.red
+        case .notification:
+            Color.blue
+        case .theme:
+            Color.yellow
+        }
+    }
+}
+
+struct WalkthroughContentView: View, Identifiable {
+    @Binding var selectedIndex: Int
+    var tab: WalkthroughTab
+
+    var id = UUID()
+    
+    var body: some View {
+        tab.view
+    }
+}
