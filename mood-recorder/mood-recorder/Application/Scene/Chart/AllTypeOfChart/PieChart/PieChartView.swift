@@ -17,7 +17,7 @@ struct PieChartView: View {
     private var touchLocation: CGPoint = .init(x: -1, y: -1)
     
     @AppStorage(Keys.themeId.rawValue)
-    var themeId: Int = 0
+    var themeId: Int = Settings.themeId.value
     
     init(datasource: [ChartData]) {
         let dict = Dictionary(grouping: datasource, by: { $0.emotion })

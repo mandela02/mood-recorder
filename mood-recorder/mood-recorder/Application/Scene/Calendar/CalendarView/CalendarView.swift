@@ -16,7 +16,7 @@ struct CalendarView: View {
     var isTabBarHiddenNeeded: Bool
         
     @AppStorage(Keys.themeId.rawValue)
-    var themeId: Int = 0
+    var themeId: Int = Settings.themeId.value
     
     let onDiarySelected: DiaryModelCallbackFunction
 

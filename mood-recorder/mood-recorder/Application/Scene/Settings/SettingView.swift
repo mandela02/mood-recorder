@@ -10,7 +10,7 @@ import SwiftUI
 struct SettingView: View {
     
     @AppStorage(Keys.themeId.rawValue)
-    var themeId: Int = 0
+    var themeId: Int = Settings.themeId.value
     
     @State
     var isThemeViewShowing = false

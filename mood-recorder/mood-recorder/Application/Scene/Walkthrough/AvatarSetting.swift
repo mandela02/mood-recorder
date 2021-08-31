@@ -9,10 +9,10 @@ import SwiftUI
 
 struct AvatarSetting: View {
     @AppStorage(Keys.themeId.rawValue)
-    var themeId: Int = 0
-    
+    var themeId: Int = Settings.themeId.value
+
     @AppStorage(Keys.avatar.rawValue)
-    var avatarId: Int = 0
+    var avatarId: Int = Settings.avatar.value
     
     func buildText() -> some View {
         VStack(alignment: .leading, spacing: 10) {

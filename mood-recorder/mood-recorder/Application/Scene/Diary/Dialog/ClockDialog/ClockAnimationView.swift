@@ -28,7 +28,7 @@ struct ClockAnimationView: View {
     private var showZright = false
 
     @AppStorage(Keys.themeId.rawValue)
-    var themeId: Int = 0
+    var themeId: Int = Settings.themeId.value
 
     private var defaultWidth: CGFloat = 50
     private let sectment: Double

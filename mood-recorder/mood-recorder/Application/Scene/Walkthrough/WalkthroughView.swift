@@ -9,8 +9,8 @@ import SwiftUI
 
 struct WalkthroughView: View {
     @AppStorage(Keys.themeId.rawValue)
-    var themeId: Int = 0
-    
+    var themeId: Int = Settings.themeId.value
+
     @State
     var index: Int = 0
     
@@ -72,15 +72,21 @@ struct WalkthroughView: View {
                 VStack {
                     buildPagerView()
                         .frame(width: proxy.size.width)
+                    
                     HStack {
                         buildPageControll(maxWidth: proxy.size.width)
                         Spacer()
                         buildNextButton()
                     }.frame(height: 50)
-                        .padding(EdgeInsets(top: 20,
+                        .padding(EdgeInsets(top: 0,
                                             leading: 20,
-                                            bottom: 10,
+                                            bottom: 0,
                                             trailing: 20))
+                    Text("* You can change this later in app")
+                        .foregroundColor(Theme.get(id: themeId).commonColor.textColor)
+                        .font(.footnote.monospacedDigit())
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding()
                     SizedBox(height: 50)
                 }
             }
@@ -101,7 +107,7 @@ enum WalkthroughTab: Int, CaseIterable {
         case .notification:
             NotificationSetting()
         case .theme:
-            Color.yellow
+            ThemeSetting()
         }
     }
     

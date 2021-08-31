@@ -11,7 +11,7 @@ struct EmotionPercentChartView: View {
     var datasource: [ChartData]
 
     @AppStorage(Keys.themeId.rawValue)
-    var themeId: Int = 0
+    var themeId: Int = Settings.themeId.value
     
     var type: ChartType
 

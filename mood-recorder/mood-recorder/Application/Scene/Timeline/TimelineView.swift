@@ -18,7 +18,7 @@ struct TimelineView: View {
     let onDiarySelected: DiaryModelCallbackFunction
 
     @AppStorage(Keys.themeId.rawValue)
-    var themeId: Int = 0
+    var themeId: Int = Settings.themeId.value
 
     private func showTabBar() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {

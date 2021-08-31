@@ -11,7 +11,7 @@ struct MoodBarView: View {
     var datasource: [PercentChartData]
 
     @AppStorage(Keys.themeId.rawValue)
-    var themeId: Int = 0
+    var themeId: Int = Settings.themeId.value
 
     init(datasource: [ChartData]) {
         let dict = Dictionary(grouping: datasource, by: { $0.emotion })

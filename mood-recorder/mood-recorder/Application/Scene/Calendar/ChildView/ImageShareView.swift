@@ -11,7 +11,7 @@ struct ImageShareView: View {
     let image: UIImage
     
     @AppStorage(Keys.themeId.rawValue)
-    var themeId: Int = 0
+    var themeId: Int = Settings.themeId.value
 
     var body: some View {
         ZStack {

@@ -22,7 +22,7 @@ struct OptionAdditionView: View {
     var isAboutToAddMore: Bool = false
     
     @AppStorage(Keys.themeId.rawValue)
-    var themeId: Int = 0
+    var themeId: Int = Settings.themeId.value
     
     @Namespace
     var namespace

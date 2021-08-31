@@ -13,7 +13,7 @@ struct DismissDialog: View {
     var exit: VoidFunction
 
     @AppStorage(Keys.themeId.rawValue)
-    var themeId: Int = 0
+    var themeId: Int = Settings.themeId.value
 
     func createButton(title: String,
                       background: Color,

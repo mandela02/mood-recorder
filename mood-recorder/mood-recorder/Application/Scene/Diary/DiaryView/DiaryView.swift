@@ -18,7 +18,7 @@ struct DiaryView: View {
                                  DiaryTrigger>
     
     @AppStorage(Keys.themeId.rawValue)
-    var themeId: Int = 0
+    var themeId: Int = Settings.themeId.value
     
     @FocusState
     private var isFocus: Bool

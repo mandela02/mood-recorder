@@ -140,6 +140,7 @@
 		90B4E97C26D0D6130048A2C2 /* FetchDiaryUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B4E97B26D0D6130048A2C2 /* FetchDiaryUseCase.swift */; };
 		90B7CAF526D61B2600790A64 /* TimelineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B7CAF426D61B2600790A64 /* TimelineViewModel.swift */; };
 		90F2105026D388030088899B /* OptionStatisticalTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F2104F26D388030088899B /* OptionStatisticalTableView.swift */; };
+		90FA980626DDBEB10067B9A5 /* ThemeSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FA980526DDBEB10067B9A5 /* ThemeSetting.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -279,6 +280,7 @@
 		90B4E97B26D0D6130048A2C2 /* FetchDiaryUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchDiaryUseCase.swift; sourceTree = "<group>"; };
 		90B7CAF426D61B2600790A64 /* TimelineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineViewModel.swift; sourceTree = "<group>"; };
 		90F2104F26D388030088899B /* OptionStatisticalTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionStatisticalTableView.swift; sourceTree = "<group>"; };
+		90FA980526DDBEB10067B9A5 /* ThemeSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeSetting.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -700,6 +702,7 @@
 				909597B126DB2BDA00F741E8 /* WalkthroughView.swift */,
 				9089486626DCE3CB00A97E59 /* NotificationSetting.swift */,
 				9013337126DD08E6009D0396 /* AvatarSetting.swift */,
+				90FA980526DDBEB10067B9A5 /* ThemeSetting.swift */,
 			);
 			path = Walkthrough;
 			sourceTree = "<group>";
@@ -983,6 +986,7 @@
 				90AFAEB226D34E67008B8CA6 /* EmotionPrecentChartCellView.swift in Sources */,
 				903FA55526D4BB7F00FD51D2 /* SafeContentModel.swift in Sources */,
 				90687C2026D33355004A7DC6 /* PieChartSliceView.swift in Sources */,
+				90FA980626DDBEB10067B9A5 /* ThemeSetting.swift in Sources */,
 				84CBB36426B7154100A8E377 /* HomeView.swift in Sources */,
 				9060A58226D752F500A36582 /* TimelineView.swift in Sources */,
 				84C3F72A26C03AE600C789F5 /* CDInputModel+CoreDataClass.swift in Sources */,

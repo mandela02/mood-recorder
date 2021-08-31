@@ -9,7 +9,7 @@ import SwiftUI
 
 struct OptionStatisticalTableView: View {
     @AppStorage(Keys.themeId.rawValue)
-    var themeId: Int = 0
+    var themeId: Int = Settings.themeId.value
     
     let datasource: [[OptionCountModel]]
     

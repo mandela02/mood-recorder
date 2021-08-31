@@ -67,7 +67,7 @@ struct MonthPicker: View {
     var onCancel: VoidFunction
 
     @AppStorage(Keys.themeId.rawValue)
-    var themeId: Int = 0
+    var themeId: Int = Settings.themeId.value
 
     init(month: Int,
          year: Int,
