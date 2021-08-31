@@ -13,7 +13,7 @@ struct ChartView: View {
                                  ChartTrigger>
     
     @AppStorage(Keys.themeId.rawValue)
-    var themeId: Int = 0
+    var themeId: Int = Settings.themeId.value
 
     @Binding
     var isTabBarHiddenNeeded: Bool

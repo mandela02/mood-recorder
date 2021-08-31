@@ -15,6 +15,7 @@ enum CoreEmotion: Int, CaseIterable {
     case terrible
     
     var imageName: AppImage {
+        let avatar = Avatar.get()
         switch self {
         case .blissful:
             return avatar == .pineapple ? AppImage.laughing : AppImage.laughingDino

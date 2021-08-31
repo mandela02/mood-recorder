@@ -37,6 +37,10 @@ enum Keys: String {
     case isUsingPasscode
     case themeId
     case isUsingSystemTheme
+    case avatar
+    case notificationTime
+    case isNotificationEnable
+    case isFinishWalkthrough
 }
 
 struct Settings {
@@ -46,4 +50,12 @@ struct Settings {
                                                    defaultValue: false)
     static var themeId = UserDefault<Int>(key: .themeId,
                                           defaultValue: 0)
+    static var avatar = UserDefault<Int>(key: .avatar,
+                                            defaultValue: Avatar.dino.rawValue)
+    static var notificationTime = UserDefault<Int>(key: .notificationTime,
+                                                   defaultValue: 0)
+    static var isNotificationEnable = UserDefault<Bool>(key: .isNotificationEnable,
+                                                        defaultValue: false)
+    static var isFinishWalkthrough = UserDefault<Bool>(key: .isFinishWalkthrough,
+                                                        defaultValue: false)
 }

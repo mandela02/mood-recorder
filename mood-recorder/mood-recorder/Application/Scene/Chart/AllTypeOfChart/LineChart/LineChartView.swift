@@ -21,7 +21,7 @@ struct LineChartView: View {
     private var precent: CGFloat
     
     @AppStorage(Keys.themeId.rawValue)
-    var themeId: Int = 0
+    var themeId: Int = Settings.themeId.value
     
     init(month: Int, year: Int, datasource: [ChartData],
          precent: CGFloat) {

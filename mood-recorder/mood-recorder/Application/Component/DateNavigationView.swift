@@ -16,7 +16,7 @@ struct DateNavigationView: View {
     let onDateTap: VoidFunction
 
     @AppStorage(Keys.themeId.rawValue)
-    var themeId: Int = 0
+    var themeId: Int = Settings.themeId.value
 
     var body: some View {
         HStack {

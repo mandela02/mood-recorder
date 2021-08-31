@@ -12,7 +12,7 @@ struct ResetDialog: View {
     var cancel: VoidFunction
 
     @AppStorage(Keys.themeId.rawValue)
-    var themeId: Int = 0
+    var themeId: Int = Settings.themeId.value
 
     func createButton(title: String,
                       background: Color? = nil,
@@ -43,7 +43,7 @@ struct ResetDialog: View {
                 .multilineTextAlignment(.center)
                 .foregroundColor(Theme.get(id: themeId).commonColor.textColor)
 
-            Image(avatar == .dino ? AppImage.surprise.value : AppImage.surprised.value)
+            Image(Avatar.get() == .dino ? AppImage.surprise.value : AppImage.surprised.value)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 100, height: 100)

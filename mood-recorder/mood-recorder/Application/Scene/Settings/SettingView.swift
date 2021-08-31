@@ -10,7 +10,7 @@ import SwiftUI
 struct SettingView: View {
     
     @AppStorage(Keys.themeId.rawValue)
-    var themeId: Int = 0
+    var themeId: Int = Settings.themeId.value
     
     @State
     var isThemeViewShowing = false
@@ -38,7 +38,7 @@ struct SettingView: View {
                             Text("Theme")
                                 .foregroundColor(Theme.get(id: themeId).tableViewColor.text)
                             Spacer()
-                            Image(systemName: "greaterthan")
+                            Image(systemName: "chevron.right")
                                 .foregroundColor(Theme.get(id: themeId).tableViewColor.text)
                         }
                         .padding()

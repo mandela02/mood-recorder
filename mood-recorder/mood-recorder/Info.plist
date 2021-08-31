@@ -48,5 +48,23 @@
 	</array>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>$(PRODUCT_NAME) need to use photo</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Biotif-Black.ttf</string>
+		<string>Biotif-BlackItalic.ttf</string>
+		<string>Biotif-Bold.ttf</string>
+		<string>Biotif-BoltItalic.ttf</string>
+		<string>Biotif-Book.ttf</string>
+		<string>Biotif-BookItalic.ttf</string>
+		<string>Biotif-ExtraBold.ttf</string>
+		<string>Biotif-ExtraBoldItalic.ttf</string>
+		<string>Biotif-Light.ttf</string>
+		<string>Biotif-LightItalic.ttf</string>
+		<string>Biotif-Medium.ttf</string>
+		<string>Biotif-MediumItalic.ttf</string>
+		<string>Biotif-Regular.ttf</string>
+		<string>Biotif-RegularItalic.ttf</string>
+		<string>Biotif-SemiBold.ttf</string>
+	</array>
 </dict>
 </plist>
