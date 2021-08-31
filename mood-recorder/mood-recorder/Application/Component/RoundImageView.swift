@@ -21,16 +21,10 @@ struct RoundImageView: View {
     var body: some View {
             image
                 .resizable()
-                .padding(padding)
-                .frame(maxWidth: .infinity)
+                .aspectRatio(contentMode: .fit)
                 .aspectRatio(1, contentMode: .fit)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .padding(padding)
                 .background(backgroundColor, in: Circle())
-    }
-}
-
-struct RoundImageView_Previews: PreviewProvider {
-    static var previews: some View {
-        RoundImageView(image: CoreEmotion.blissful.image,
-                       backgroundColor: .pink)
     }
 }

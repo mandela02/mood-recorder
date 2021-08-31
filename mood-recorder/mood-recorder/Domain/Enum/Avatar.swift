@@ -36,4 +36,22 @@ enum Avatar: Int, CaseIterable, StringValueProtocol {
             return AppImage.beauty1.value.image
         }
     }
+    
+    var darkSideImage: Image {
+        switch self {
+        case .pineapple:
+            return AppImage.devil.value.image
+        case .dino:
+            return AppImage.devilDino.value.image
+        }
+    }
+    
+    var lightSizeImage: Image {
+        switch self {
+        case .pineapple:
+            return AppImage.angel.value.image
+        case .dino:
+            return AppImage.angelDino.value.image
+        }
+    }
 }

@@ -14,7 +14,10 @@ struct ContentView: View {
     
     @AppStorage(Keys.isUsingSystemTheme.rawValue)
     var isUsingSystemTheme: Bool = false
-
+    
+    @AppStorage(Keys.isFinishWalkthrough.rawValue)
+    var isFinishWalkthrough: Bool = Settings.isFinishWalkthrough.value
+    
     @Environment(\.colorScheme)
     var colorScheme
     
@@ -27,28 +30,34 @@ struct ContentView: View {
         UITableView.appearance().backgroundColor = UIColor(Color.clear)
         UITableViewCell.appearance().backgroundColor = UIColor(Color.clear)
     }
-
+    
     var body: some View {
-        HomeView(viewModel: viewModel)
-            .preferredColorScheme(isUsingSystemTheme ? nil : Theme.get(id: themeId).colorScheme)
-            .onAppear(perform: {
-                if isUsingSystemTheme {
-                    Theme.post(themeId: colorScheme == .dark ? 1 : 0)
-                }
-            })
-            .onChange(of: colorScheme, perform: { newValue in
-                if isUsingSystemTheme {
-                    Theme.post(themeId: newValue == .dark ? 1 : 0)
-                }
-            })
-            .onChange(of: themeId) { newValue in
-                UIPageControl.appearance()
-                    .currentPageIndicatorTintColor =
-                UIColor(Theme.get(id: newValue).buttonColor.backgroundColor)
-                
-                UIPageControl.appearance()
-                    .pageIndicatorTintColor =
-                UIColor(Theme.get(id: newValue).buttonColor.disableColor)
+        Group {
+            if isFinishWalkthrough {
+                HomeView(viewModel: viewModel)
+            } else {
+                WalkthroughView()
             }
+        }
+        .preferredColorScheme(isUsingSystemTheme ? nil : Theme.get(id: themeId).colorScheme)
+        .onAppear(perform: {
+            if isUsingSystemTheme {
+                Theme.post(themeId: colorScheme == .dark ? 1 : 0)
+            }
+        })
+        .onChange(of: colorScheme, perform: { newValue in
+            if isUsingSystemTheme {
+                Theme.post(themeId: newValue == .dark ? 1 : 0)
+            }
+        })
+        .onChange(of: themeId) { newValue in
+            UIPageControl.appearance()
+                .currentPageIndicatorTintColor =
+            UIColor(Theme.get(id: newValue).buttonColor.backgroundColor)
+            
+            UIPageControl.appearance()
+                .pageIndicatorTintColor =
+            UIColor(Theme.get(id: newValue).buttonColor.disableColor)
+        }
     }
 }

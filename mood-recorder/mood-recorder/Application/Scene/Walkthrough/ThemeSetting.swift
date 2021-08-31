@@ -11,6 +11,9 @@ struct ThemeSetting: View {
     @AppStorage(Keys.themeId.rawValue)
     var themeId: Int = Settings.themeId.value
         
+    @AppStorage(Keys.avatar.rawValue)
+    var avatar: Int = Settings.avatar.value
+
     @State
     var isOn: Bool = false
 
@@ -28,6 +31,23 @@ struct ThemeSetting: View {
                 .shadow(color: Theme.get(id: themeId).commonColor.viewBackground,
                         radius: 1)
         }
+    }
+    
+    func buildImage() -> some View {
+        let avatar = Avatar.get(id: avatar)
+        
+        let image: Image = isOn ? avatar.darkSideImage : avatar.lightSizeImage
+        
+        return image
+            .resizable()
+            .aspectRatio(contentMode: .fit)
+            .padding(50)
+            .overlay(
+                Circle()
+                    .stroke(Theme.get(id: themeId).buttonColor.backgroundColor,
+                            lineWidth: 5)
+            )
+            .padding()
     }
     
     func buildSwitch() -> some View {
@@ -48,6 +68,8 @@ struct ThemeSetting: View {
 
             VStack(alignment: .center, spacing: 10) {
                 Spacer()
+                
+                buildImage()
                 
                 buildSwitch()
 

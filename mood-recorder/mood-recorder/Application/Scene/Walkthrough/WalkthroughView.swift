@@ -17,6 +17,9 @@ struct WalkthroughView: View {
     @State
     var offset: CGFloat = 0
     
+    @State
+    private var isConfirmationShowing = false
+    
     func buildPagerView() -> some View {
         return PagerView(index: $index,
                          offset: $offset,
@@ -52,6 +55,8 @@ struct WalkthroughView: View {
         return Button(action: {
             if index < WalkthroughTab.allCases.count - 1 {
                 index += 1
+            } else {
+                isConfirmationShowing = true
             }
         }, label: {
             Image(systemName: "chevron.right")
@@ -90,6 +95,18 @@ struct WalkthroughView: View {
                     SizedBox(height: 50)
                 }
             }
+        }
+        .animation(.linear, value: themeId)
+        .confirmationDialog( "Are you sure?",
+                             isPresented: $isConfirmationShowing,
+                             titleVisibility: .visible) {
+            Button("Yes") {
+                withAnimation {
+                    Settings.isFinishWalkthrough.value = true
+                }
+            }
+            
+            Button("No", role: .cancel) {}
         }
     }
 }

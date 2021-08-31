@@ -40,6 +40,7 @@ enum Keys: String {
     case avatar
     case notificationTime
     case isNotificationEnable
+    case isFinishWalkthrough
 }
 
 struct Settings {
@@ -54,5 +55,7 @@ struct Settings {
     static var notificationTime = UserDefault<Int>(key: .notificationTime,
                                                    defaultValue: 0)
     static var isNotificationEnable = UserDefault<Bool>(key: .isNotificationEnable,
+                                                        defaultValue: false)
+    static var isFinishWalkthrough = UserDefault<Bool>(key: .isFinishWalkthrough,
                                                         defaultValue: false)
 }
