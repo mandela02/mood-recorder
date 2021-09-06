@@ -157,6 +157,7 @@ struct CalendarDiaryDetailView: View {
                 }.padding()
             }
         }
+        .frame(minWidth: 70)
         .onAppear {
             generateData(diary: self.diary)
         }

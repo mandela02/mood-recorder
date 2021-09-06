@@ -41,7 +41,6 @@ struct TimelineView: View {
             }
         }
         .task {
-            viewModel.trigger(.goToToDay)
             viewModel.trigger(.reload)
         }
         .overlay {
@@ -71,7 +70,8 @@ struct TimelineView: View {
 
 extension TimelineView {
     private func buildCell(diary: DiaryDataModel) -> some View {
-        Section(footer: SizedBox(height: diary.id == viewModel.state.lastDiary.id ? 100 : .leastNonzeroMagnitude)) {
+        Section(footer: SizedBox(height: diary.id == viewModel.state.lastDiary.id ?
+                                 100 : .leastNonzeroMagnitude)) {
             CalendarDiaryDetailView(diary: diary,
                                     isButtonNeeded: false)
                 .buttonStyle(PlainButtonStyle())
@@ -120,7 +120,8 @@ extension TimelineView {
                                goToLastMonth: {
                 viewModel.trigger(.backToLaseMonth)
                 viewModel.trigger(.reload)
-            }, onDateTap: {
+            },
+                               onDateTap: {
                 viewModel.trigger(.handelDatePickerView(status: .open))
             })
                         

@@ -24,10 +24,7 @@ class TimelineViewModel: ViewModel {
     func trigger(_ input: TimelineTrigger) {
         switch input {
         case .onDeleteDiary(let diary):
-            let response = useCase.delete(at: diary.date.startOfDayInterval)
-            Task {
-                await fetch(responses: response)
-            }
+             _ = useCase.delete(at: diary.date.startOfDayInterval)
         case .onEditDiary(let diary):
             print(diary)
         case .reload:
@@ -108,7 +105,6 @@ extension TimelineViewModel {
         
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
-            
             self.state.diaries = diaries
         }
     }
@@ -123,16 +119,21 @@ extension TimelineViewModel {
     struct TimelineState {
         var diaries: [DiaryDataModel] = []
         
-        var currentMonth = (month: Date().month, year: Date().year)
+        var currentMonth = (month: Date().month,
+                            year: Date().year)
+        
         var isDatePickerShow = false
 
         var dates: (start: Date, end: Date) {
-            let ref = Date(year: currentMonth.year, month: currentMonth.month)
-            return (ref.startOfMonth, ref.endOfMonth)
+            let ref = Date(year: currentMonth.year,
+                           month: currentMonth.month)
+            return (ref.startOfMonth,
+                    ref.endOfMonth)
         }
         
         var lastDiary: DiaryDataModel {
-            return diaries.last ?? DiaryDataModel(date: Date(), sections: [])
+            return diaries.last ?? DiaryDataModel(date: Date(),
+                                                  sections: [])
         }
     }
     
