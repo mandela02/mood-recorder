@@ -16,6 +16,7 @@ extension CDDiaryModel {
     }
 
     @NSManaged public var date: Double
+    @NSManaged public var editDate: Double
     @NSManaged public var sections: NSSet?
 
     var sectionArray: [CDSectionModel] {
@@ -27,6 +28,7 @@ extension CDDiaryModel {
 extension CDDiaryModel: Clone {
     func clone() -> SafeDiaryModel {
         SafeDiaryModel(date: date,
+                       editDate: editDate,
                        sections: sectionArray.map { $0.clone() })
     }
 }

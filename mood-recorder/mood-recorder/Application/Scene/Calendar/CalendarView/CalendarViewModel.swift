@@ -93,7 +93,6 @@ class CalendarViewModel: ViewModel {
         self.useCase.publisher()
             .sink { [weak self] in
                 guard let self = self else { return }
-                self.state.isDetailViewShowing = false
                 self.syncFetch()
             }
             .store(in: &cancellables)
@@ -160,7 +159,7 @@ extension CalendarViewModel {
                 .first(where: {$0.date.isInSameDay(as: date)})
             
             if !(self.state.selectedDiaryDataModel?.sections.isEmpty ?? true) {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     self.state.isDetailViewShowing = true
                 }
             }

@@ -8,15 +8,21 @@
 import Foundation
 
 struct DiaryDataModel: Identifiable {
-    init(date: Date, sections: [SectionModel]) {
+    init(date: Date,
+         editDate: Date? = nil,
+         sections: [SectionModel]) {
         self.sections = sections
+        self.editDate = editDate ?? date
         self.date = date
     }
     
-    var id = UUID()
+    var id: String {
+        return String(editDate.timeIntervalSince1970)
+    }
     
     var sections: [SectionModel]
     var date: Date
+    var editDate: Date
     
     var emotion: CoreEmotion? {
         guard let section = sections.first(where: { $0.section == .emotion }),
