@@ -34,7 +34,7 @@ struct DiaryUseCases: DiaryUseCaseType {
 
         let diaryModel = CDDiaryModel(context: context)
         diaryModel.date = model.date.startOfDayInterval
-
+        diaryModel.editDate = model.editDate.timeIntervalSince1970
         diaryModel.addToSections(NSSet(array: cdSections))
 
         return repository.save()
@@ -52,6 +52,7 @@ struct DiaryUseCases: DiaryUseCaseType {
 
             let sections = createContent(model: model)
             cdDiaryModel.sections = NSSet(array: sections)
+            cdDiaryModel.editDate = Date().timeIntervalSince1970
             return repository.save()
         case .error(error: let error):
             return .error(error: error)

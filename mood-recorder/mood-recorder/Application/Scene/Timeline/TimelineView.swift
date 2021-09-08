@@ -70,8 +70,7 @@ struct TimelineView: View {
 
 extension TimelineView {
     private func buildCell(diary: DiaryDataModel) -> some View {
-        Section(footer: SizedBox(height: diary.id == viewModel.state.lastDiary.id ?
-                                 100 : .leastNonzeroMagnitude)) {
+        Section {
             CalendarDiaryDetailView(diary: diary,
                                     isButtonNeeded: false)
                 .buttonStyle(PlainButtonStyle())
@@ -94,6 +93,16 @@ extension TimelineView {
                     .tint(Theme.get(id: themeId).buttonColor.redColor)
                 })
         }
+        .frame(minHeight: 70)
+    }
+    
+    private func buildPsuedoLastCell() -> some View {
+        Section {
+            Theme.get(id: themeId).commonColor.viewBackground
+                .buttonStyle(PlainButtonStyle())
+                .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+                .frame(height: 100)
+        }
     }
     
     private func buildList() -> some View {
@@ -102,6 +111,7 @@ extension TimelineView {
                     id: \.id) { diary in
                 buildCell(diary: diary)
             }
+            buildPsuedoLastCell()
         }
         .listStyle(.insetGrouped)
     }

@@ -52,7 +52,7 @@ class TimelineViewModel: ViewModel {
         self.useCase.publisher()
             .sink { [weak self] in
                 guard let self = self else { return }
-                self.syncFetch()
+                self.trigger(.reload)
             }
             .store(in: &cancellables)
     }

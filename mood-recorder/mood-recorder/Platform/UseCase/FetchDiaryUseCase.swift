@@ -132,6 +132,7 @@ class FetchDiaryUseCase: FetchDiaryUseCaseType {
         }
                     
         return DiaryDataModel(date: Date(timeIntervalSince1970: model.date),
+                              editDate: Date(timeIntervalSince1970: model.editDate),
                               sections: sectionModels)
     }
 }

@@ -11,6 +11,7 @@
     </entity>
     <entity name="CDDiaryModel" representedClassName="CDDiaryModel" syncable="YES">
         <attribute name="date" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="editDate" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <relationship name="sections" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDSectionModel" inverseName="origin" inverseEntity="CDSectionModel"/>
         <uniquenessConstraints>
             <uniquenessConstraint>
@@ -45,7 +46,7 @@
     </configuration>
     <elements>
         <element name="CDContentModel" positionX="-27" positionY="27" width="128" height="134"/>
-        <element name="CDDiaryModel" positionX="-63" positionY="-18" width="128" height="59"/>
+        <element name="CDDiaryModel" positionX="-63" positionY="-18" width="128" height="74"/>
         <element name="CDOptionModel" positionX="-9" positionY="45" width="128" height="104"/>
         <element name="CDSectionModel" positionX="-45" positionY="18" width="128" height="89"/>
     </elements>

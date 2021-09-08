@@ -9,5 +9,6 @@ import Foundation
 
 struct SafeDiaryModel {
     var date: Double
+    var editDate: Double
     var sections: [SafeSectionModel]
 }
