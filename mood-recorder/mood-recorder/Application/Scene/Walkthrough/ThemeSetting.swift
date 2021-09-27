@@ -24,7 +24,7 @@ struct ThemeSetting: View {
                 .font(.largeTitle.bold())
                 .shadow(color: Theme.get(id: themeId).commonColor.viewBackground,
                         radius: 1)
-            Text("Choose, you must. Light side or Dark Side?")
+            Text("CHooooooo")
                 .foregroundColor(Theme.get(id: themeId).commonColor.textColor)
                 .font(.subheadline)
                 .fontWeight(.semibold)
